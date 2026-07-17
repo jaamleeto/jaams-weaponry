@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pronged_kunai",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    "ab ",
+    "ca "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:flint"
+    },
+    "b": {
+      "item": "jaams_weaponry:kunai"
+    },
+    "c": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:pronged_kunai",
+    "count": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 2,
+  "cookingtime": 80,
+  "ingredient": {
+    "item": "jaams_weaponry:copper_quick_draw_magazine"
+  },
+  "result": "minecraft:copper_ingot"
+}

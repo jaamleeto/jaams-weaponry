@@ -1,0 +1,61 @@
+{
+    "attributes": {
+        "attack_range": 2.75,
+        "two_handed": false,
+        "category": "katana",
+        "attacks": [
+            {
+                "conditions": ["NOT_DUAL_WIELDING"],
+                "hitbox": "HORIZONTAL_PLANE",
+                "damage_multiplier": 0.8,
+                "angle": 120,
+                "upswing": 0.5,
+                "animation": "bettercombat:two_handed_slash_horizontal_right",
+                "swing_sound": {
+                    "id": "bettercombat:sword_slash"
+                }
+            },
+            {
+                "conditions": ["NOT_DUAL_WIELDING"],
+                "hitbox": "HORIZONTAL_PLANE",
+                "damage_multiplier": 0.8,
+                "angle": 120,
+                "upswing": 0.5,
+                "animation": "bettercombat:two_handed_slash_horizontal_left",
+                "swing_sound": {
+                    "id": "bettercombat:sword_slash"
+                }
+            },
+            {
+                "conditions": ["NOT_DUAL_WIELDING"],
+                "hitbox": "FORWARD_BOX",
+                "damage_multiplier": 0.8,
+                "upswing": 0.5,
+                "animation": "bettercombat:two_handed_stab_right",
+                "swing_sound": {
+                    "id": "bettercombat:sword_slash"
+                }
+            },
+            {
+                "conditions": ["DUAL_WIELDING_ANY"],
+                "hitbox": "HORIZONTAL_PLANE",
+                "angle": 90,
+                "upswing": 0.5,
+                "animation": "bettercombat:one_handed_slash_horizontal_right",
+                "swing_sound": {
+                    "id": "bettercombat:sword_slash"
+                }
+            },
+            {
+                "conditions": ["DUAL_WIELDING_ANY"],
+                "hitbox": "HORIZONTAL_PLANE",
+                "angle": 90,
+                "upswing": 0.5,
+                "animation": "bettercombat:one_handed_slash_horizontal_left",
+                "swing_sound": {
+                    "id": "bettercombat:sword_slash"
+                }
+            }
+        ]
+    }
+}

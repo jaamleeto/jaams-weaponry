@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "hook_sword",
+    "category": "equipment",
+    "pattern": [
+        "  a",
+        "ba ",
+        "c  "
+    ],
+    "key": {
+        "a": {
+            "item": "jaams_weaponry:double_copper_ingot"
+        },
+        "b": {
+            "item": "minecraft:copper_ingot"
+        },
+        "c": {
+            "item": "jaams_weaponry:long_stick"
+        }
+    },
+    "result": {
+        "item": "jaams_weaponry:copper_hook_sword",
+        "count": 1
+    }
+}

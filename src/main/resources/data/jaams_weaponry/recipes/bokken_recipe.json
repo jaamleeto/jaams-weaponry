@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bokken",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    "ba ",
+    "c  "
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:planks"
+    },
+    "b": {
+      "item": "minecraft:string"
+    },
+    "c": {
+      "item": "jaams_weaponry:long_stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:bokken",
+    "count": 1
+  }
+}

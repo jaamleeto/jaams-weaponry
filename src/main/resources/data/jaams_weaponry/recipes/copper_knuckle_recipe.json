@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "knuckle",
+    "category": "equipment",
+    "pattern": [
+        " a",
+        "ab"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:copper_ingot"
+        },
+        "b": {
+            "item": "jaams_weaponry:short_stick"
+        }
+    },
+    "result": {
+        "item": "jaams_weaponry:copper_knuckle",
+        "count": 1
+    }
+}

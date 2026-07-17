@@ -1,0 +1,31 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "spear",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " b ",
+    "c  "
+  ],
+  "key": {
+    "a": {
+      "tag": "jaams_weaponry:ingredient/double_shinerite_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:long_stick"
+    },
+    "c": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:shinerite_spear",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

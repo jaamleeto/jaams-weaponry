@@ -1,0 +1,472 @@
+{
+    "entity": [
+        "minecraft:skeleton"
+    ],
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [],
+    "items": [
+        {
+            "item": "jaams_weaponry:short_bow",
+            "slot": "mainhand",
+            "chance": 0.5,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:flat_bow",
+            "slot": "mainhand",
+            "chance": 0.5,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.5,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:compound_bow",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:wooden_slingshot",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_slingshot",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:sharp_stone",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:shuriken",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:kunai",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:sharp_stone",
+            "slot": "mainhand",
+            "chance": 0.07,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:sharp_stone",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:stone_kama",
+            "slot": "mainhand",
+            "chance": 0.07,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:sharp_stone",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:short_bow",
+            "slot": "mainhand",
+            "chance": 0.3,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:flat_bow",
+            "slot": "mainhand",
+            "chance": 0.3,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.3,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_slingshot",
+            "slot": "mainhand",
+            "chance": 0.4,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:wooden_slingshot",
+            "slot": "mainhand",
+            "chance": 0.4,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:sharp_stone",
+            "slot": "mainhand",
+            "chance": 0.07,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:dynamite",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:pronged_kunai",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:giant_shuriken",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_boomerang",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_scythe",
+            "slot": "mainhand",
+            "chance": 0.02,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:short_bow",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:tipped_arrow",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {
+                        "Potion": "minecraft:poison"
+                    },
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:flat_bow",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:tipped_arrow",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {
+                        "Potion": "minecraft:weakness"
+                    },
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:tipped_arrow",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {
+                        "Potion": "minecraft:slowness"
+                    },
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:gauntlet",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:compound_bow",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:slingshot",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:pronged_kunai",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:giant_shuriken",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_boomerang",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:dynamite",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_scythe",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_spear",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:bow",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:tipped_arrow",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {
+                        "Potion": "minecraft:poison"
+                    },
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:tipped_arrow",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {
+                        "Potion": "minecraft:weakness"
+                    },
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:compound_bow",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "minecraft:tipped_arrow",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {
+                        "Potion": "minecraft:slowness"
+                    },
+                    "conditions": []
+                }
+            ]
+        }
+    ]
+}

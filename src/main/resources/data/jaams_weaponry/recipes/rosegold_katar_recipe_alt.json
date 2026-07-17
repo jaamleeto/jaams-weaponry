@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "cavesanddepths:rosegoldupgradesmithingtemplate"
+  },
+  "base": {
+    "item": "jaams_weaponry:golden_katar"
+  },
+  "addition": {
+    "tag": "jaams_weaponry:ingredient/rosegold_ingot"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "cavesanddepths"
+    }
+  ]
+}

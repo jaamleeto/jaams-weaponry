@@ -1,0 +1,47 @@
+{
+    "target": [
+        "jaams_weaponry:example_throwable"
+    ],
+    "enabled": true,
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "throwable": {
+        "throw_enabled": true,
+        "base_damage": 8.0,
+        "base_knockback": 1.5,
+        "pierce_level": 2,
+        "projectile": "minecraft:trident",
+        "throw_mode": "THROW",
+        "throw_sound": "minecraft:entity.arrow.shoot",
+        "use_duration_ticks": 20,
+        "min_charge_ticks": 5,
+        "max_charge_ticks": 15,
+        "min_speed": 1.5,
+        "max_speed": 4.0,
+        "inaccuracy": 0.02,
+        "recoil": 1.2,
+        "recoil_crouch_reduction": 0.3,
+        "recoil_vertical_multiplier": 0.6,
+        "recoil_only_fully_charged": false,
+        "allow_multishot": false
+    },
+    "render": {
+        "scale": 1.0,
+        "yaw_offset": 0.0,
+        "spin_speed": 2.0,
+        "spin_axis": "Y",
+        "display_context": "NONE"
+    },
+    "trail": {
+        "trail_enabled": false
+    },
+    "projectile": {
+        "despawn_ticks": 120,
+        "break_on_entity_hit": true,
+        "break_on_block_hit": true,
+        "disable_shield": true,
+        "disable_cooldown_ticks": 40,
+        "max_bounces": 0
+    }
+}

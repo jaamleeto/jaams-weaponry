@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "double_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "tag": "jaams_weaponry:ingredient/rosegold_ingot"
+    },
+    {
+      "tag": "jaams_weaponry:ingredient/rosegold_ingot"
+    }
+  ],
+  "result": {
+    "item": "jaams_weaponry:double_rosegold_ingot",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "cavesanddepths"
+        }
+      ]
+    }
+  ]
+}

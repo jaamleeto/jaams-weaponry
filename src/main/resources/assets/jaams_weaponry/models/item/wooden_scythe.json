@@ -1,0 +1,33 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "layer0": "jaams_weaponry:item/wooden_scythe"
+  },
+  "base": {
+    "parent": "jaams_weaponry:item/wooden_scythe_gui"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "jaams_weaponry:item/wooden_scythe_gui"
+    },
+    "ground": {
+      "parent": "jaams_weaponry:item/wooden_scythe_gui"
+    },
+    "fixed": {
+      "parent": "jaams_weaponry:item/wooden_scythe_gui"
+    },
+    "firstperson_righthand": {
+      "parent": "jaams_weaponry:item/wooden_scythe_handheld"
+    },
+    "firstperson_lefthand": {
+      "parent": "jaams_weaponry:item/wooden_scythe_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "jaams_weaponry:item/wooden_scythe_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "jaams_weaponry:item/wooden_scythe_handheld"
+    }
+  }
+}

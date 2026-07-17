@@ -1,0 +1,28 @@
+{
+    "target": [
+        "jaams_weaponry:electrum_dagger",
+        "jaams_weaponry:electrum_dagger_reverse",
+        "jaams_weaponry:electrum_knuckle",
+        "jaams_weaponry:electrum_ring",
+        "jaams_weaponry:electrum_claw",
+        "jaams_weaponry:electrum_kama",
+        "jaams_weaponry:electrum_spear"
+    ],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "modifiers": {
+        "slots": [
+            "mainhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "oreganized:kinetic_damage",
+                "name": "Kinetic damage modifier",
+                "amount": 1.5,
+                "operation": "addition",
+                "uuid": "cb3f55d3-645c-4f38-a497-9c13a33db5cf"
+            }
+        ]
+    }
+}

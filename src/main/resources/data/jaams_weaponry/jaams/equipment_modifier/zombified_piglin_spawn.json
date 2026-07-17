@@ -1,0 +1,210 @@
+{
+    "entity": [
+        "minecraft:zombified_piglin"
+    ],
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [
+        { "type": "is_baby", "negate": true }
+    ],
+    "items": [
+        {
+            "item": "minecraft:golden_sword",
+            "slot": "mainhand",
+            "chance": 0.2,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_axe",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_dagger",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_cleaver",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_claw",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_kama",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_machete",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_ring",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_sickle",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_sword",
+            "slot": "mainhand",
+            "chance": 0.2,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_axe",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_hammer",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_butterfly_sword",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_broadsword",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_battle_axe",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_ring",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_spear",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_greatsword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_hook_sword",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_buster_sword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_greathammer",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_twinblade",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        }
+    ]
+}

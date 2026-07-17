@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/machetes",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/sickles",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/katanas",
+            "required": false
+        }
+    ]
+}

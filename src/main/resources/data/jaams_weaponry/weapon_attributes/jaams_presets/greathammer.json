@@ -1,0 +1,35 @@
+{
+  "attributes": {
+    "attack_range": 2.75,
+    "two_handed": false,
+    "category": "claymore",
+    "attacks": [
+      {
+        "conditions": [
+          "NOT_DUAL_WIELDING"
+        ],
+        "hitbox": "FORWARD_BOX",
+        "damage_multiplier": 1,
+        "angle": 0,
+        "upswing": 0.5,
+        "animation": "bettercombat:two_handed_slam",
+        "swing_sound": {
+          "id": "bettercombat:hammer_slam"
+        }
+      },
+      {
+        "conditions": [
+          "DUAL_WIELDING_ANY"
+        ],
+        "hitbox": "VERTICAL_PLANE",
+        "damage_multiplier": 1.4,
+        "angle": 90,
+        "upswing": 0.5,
+        "animation": "bettercombat:one_handed_slam",
+        "swing_sound": {
+          "id": "bettercombat:mace_slam"
+        }
+      }
+    ]
+  }
+}

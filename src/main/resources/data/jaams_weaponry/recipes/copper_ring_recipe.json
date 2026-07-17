@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "ring",
+    "category": "equipment",
+    "pattern": [
+        "aa",
+        "ab"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:copper_ingot"
+        },
+        "b": {
+            "item": "jaams_weaponry:short_stick"
+        }
+    },
+    "result": {
+        "item": "jaams_weaponry:copper_ring",
+        "count": 1
+    }
+}

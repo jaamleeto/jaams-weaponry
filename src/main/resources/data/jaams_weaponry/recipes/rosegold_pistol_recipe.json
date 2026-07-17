@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pistol",
+  "category": "equipment",
+  "pattern": [
+    "abc",
+    "  d"
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_rosegold_ingot"
+    },
+    "b": {
+      "item": "minecraft:fire_charge"
+    },
+    "c": {
+      "tag": "jaams_weaponry:ingredient/rosegold_ingot"
+    },
+    "d": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "e": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:rosegold_pistol",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "oooh_pinky"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "justrosegold"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+    "target": [
+        "jaams_weaponry:electrum_broadsword",
+        "jaams_weaponry:electrum_scythe",
+        "jaams_weaponry:electrum_longsword",
+        "jaams_weaponry:electrum_zweihander",
+        "jaams_weaponry:electrum_battle_axe",
+        "jaams_weaponry:electrum_saw_cleaver",
+        "jaams_weaponry:electrum_saw_cleaver_unfolded"
+    ],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "modifiers": {
+        "slots": [
+            "mainhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "oreganized:kinetic_damage",
+                "name": "Kinetic damage modifier",
+                "amount": 2.5,
+                "operation": "addition",
+                "uuid": "cb3f55d3-645c-4f38-a497-9c13a33db5cf"
+            }
+        ]
+    }
+}

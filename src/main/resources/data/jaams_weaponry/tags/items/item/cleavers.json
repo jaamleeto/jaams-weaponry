@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_cleaver",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_cleaver",
+            "required": false
+        }
+    ]
+}

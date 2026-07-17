@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "kama",
+  "category": "equipment",
+  "pattern": [
+    "aa",
+    " b"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:diamond"
+    },
+    "b": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:diamond_kama",
+    "count": 1
+  }
+}

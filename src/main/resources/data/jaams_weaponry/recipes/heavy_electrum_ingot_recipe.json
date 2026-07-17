@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "heavy_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "item": "jaams_weaponry:double_electrum_ingot"
+    },
+    {
+      "item": "jaams_weaponry:double_electrum_ingot"
+    }
+  ],
+  "result": {
+    "item": "jaams_weaponry:heavy_electrum_ingot",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "oreganized"
+    }
+  ]
+}

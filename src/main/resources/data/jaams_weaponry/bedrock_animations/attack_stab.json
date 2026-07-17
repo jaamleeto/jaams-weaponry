@@ -1,0 +1,73 @@
+{
+    "animations": {
+        "attack_stab": {
+            "loop": false,
+            "animation_length": 0.45,
+            "blend_in": 2,
+            "blend_out": 3,
+            "sound_effects": {
+                "0.05": {
+                    "effect": "minecraft:entity.player.attack.knockback"
+                }
+            },
+            "events": {
+                "0.15": [
+                    {
+                        "type": "particle",
+                        "particle": "minecraft:sweep_attack",
+                        "count": 5,
+                        "speed": 0.1
+                    }
+                ]
+            },
+            "bones": {
+                "right_arm": {
+                    "rotation": {
+                        "0.0": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "0.1": [
+                            -90,
+                            0,
+                            0
+                        ],
+                        "0.25": [
+                            -100,
+                            0,
+                            5
+                        ],
+                        "0.45": [
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "position": {
+                        "0.0": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "0.1": [
+                            0,
+                            0,
+                            -3
+                        ],
+                        "0.25": [
+                            0,
+                            0,
+                            -5
+                        ],
+                        "0.45": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

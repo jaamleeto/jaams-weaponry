@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "smoke_bomb",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:flint"
+    },
+    "b": {
+      "item": "minecraft:paper"
+    },
+    "c": {
+      "item": "minecraft:black_dye"
+    },
+    "d": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:smoke_bomb",
+    "count": 1
+  }
+}

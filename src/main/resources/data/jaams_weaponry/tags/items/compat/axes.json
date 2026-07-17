@@ -1,0 +1,45 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:wooden_axe",
+            "required": false
+        },
+        {
+            "id": "minecraft:stone_axe",
+            "required": false
+        },
+        {
+            "id": "minecraft:iron_axe",
+            "required": false
+        },
+        {
+            "id": "minecraft:golden_axe",
+            "required": false
+        },
+        {
+            "id": "minecraft:diamond_axe",
+            "required": false
+        },
+        {
+            "id": "minecraft:netherite_axe",
+            "required": false
+        },
+        {
+            "id": "cavesanddepths:rosegoldaxe",
+            "required": false
+        },
+        {
+            "id": "jaams_shinerite:shinerite_axe",
+            "required": false
+        },
+        {
+            "id": "majruszsdifficulty:enderium_axe",
+            "required": false
+        },
+        {
+            "id": "oreganized:electrum_axe",
+            "required": false
+        }
+    ]
+}

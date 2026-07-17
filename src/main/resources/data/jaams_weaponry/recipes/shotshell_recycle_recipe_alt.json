@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 1,
+  "cookingtime": 40,
+  "ingredient": {
+    "tag": "jaams_weaponry:shotshells"
+  },
+  "result": "minecraft:gold_nugget"
+}

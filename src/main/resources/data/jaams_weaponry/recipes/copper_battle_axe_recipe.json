@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "battle_axe",
+    "category": "equipment",
+    "pattern": [
+        "aba",
+        "aca",
+        " d "
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:copper_ingot"
+        },
+        "b": {
+            "item": "jaams_weaponry:double_copper_ingot"
+        },
+        "c": {
+            "item": "jaams_weaponry:short_stick"
+        },
+        "d": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "jaams_weaponry:copper_battle_axe",
+        "count": 1
+    }
+}

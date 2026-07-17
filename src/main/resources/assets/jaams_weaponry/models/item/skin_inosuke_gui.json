@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "jaams_weaponry:item/skin_inosuke"
+    }
+}

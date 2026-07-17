@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "double_ingot",
+    "category": "misc",
+    "ingredients": [
+        {
+            "tag": "jaams_weaponry:misc/forging_tool"
+        },
+        {
+            "item": "minecraft:copper_ingot"
+        },
+        {
+            "item": "minecraft:copper_ingot"
+        }
+    ],
+    "result": {
+        "item": "jaams_weaponry:double_copper_ingot",
+        "count": 1
+    }
+}

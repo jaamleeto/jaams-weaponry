@@ -1,0 +1,34 @@
+{
+  "parent": "item/bow",
+  "textures": {
+    "layer0": "jaams_weaponry:item/flat_bow"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "pulling": 0
+      },
+      "model": "jaams_weaponry:item/flat_bow_idle"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1
+      },
+      "model": "jaams_weaponry:item/flat_bow_pulling_0"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.65
+      },
+      "model": "jaams_weaponry:item/flat_bow_pulling_1"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.9
+      },
+      "model": "jaams_weaponry:item/flat_bow_pulling_2"
+    }
+  ]
+}

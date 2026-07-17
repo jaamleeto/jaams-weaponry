@@ -1,0 +1,34 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "saw_cleaver",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " bc",
+    "dc "
+  ],
+  "key": {
+    "a": {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:long_stick"
+    },
+    "c": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "d": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:shinerite_saw_cleaver",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

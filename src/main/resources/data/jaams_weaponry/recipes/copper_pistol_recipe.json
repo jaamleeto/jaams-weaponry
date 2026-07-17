@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "pistol",
+    "category": "equipment",
+    "pattern": [
+        "abc",
+        " de"
+    ],
+    "key": {
+        "a": {
+            "item": "jaams_weaponry:double_copper_ingot"
+        },
+        "b": {
+            "item": "minecraft:fire_charge"
+        },
+        "c": {
+            "item": "minecraft:copper_ingot"
+        },
+        "d": {
+            "item": "jaams_weaponry:short_stick"
+        },
+        "e": {
+            "item": "minecraft:leather"
+        }
+    },
+    "result": {
+        "item": "jaams_weaponry:copper_pistol",
+        "count": 1
+    }
+}

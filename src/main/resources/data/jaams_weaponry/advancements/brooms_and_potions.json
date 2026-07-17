@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "jaams_weaponry:broom"
+    },
+    "title": {
+      "translate": "advancements.brooms_and_potions.title"
+    },
+    "description": {
+      "translate": "advancements.brooms_and_potions.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "brooms_and_potions_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 20
+  },
+  "parent": "jaams_weaponry:the_hunter"
+}

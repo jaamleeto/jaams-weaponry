@@ -1,0 +1,29 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/tessens",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/daggers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/reverse_daggers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/saw_cleavers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/saw_cleavers_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:tessen_folded",
+            "required": false
+        }
+    ]
+}

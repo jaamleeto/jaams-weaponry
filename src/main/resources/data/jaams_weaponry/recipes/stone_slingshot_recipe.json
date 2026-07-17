@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "slingshot",
+  "category": "equipment",
+  "pattern": [
+    "aba",
+    " c ",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "b": {
+      "item": "minecraft:string"
+    },
+    "c": {
+      "tag": "minecraft:stone_tool_materials"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:stone_slingshot",
+    "count": 1
+  }
+}

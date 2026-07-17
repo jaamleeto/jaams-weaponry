@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "butterfly_sword",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    "ab ",
+    "c  "
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "b": {
+      "item": "jaams_weaponry:double_compressed_stone"
+    },
+    "c": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:stone_butterfly_sword",
+    "count": 1
+  }
+}

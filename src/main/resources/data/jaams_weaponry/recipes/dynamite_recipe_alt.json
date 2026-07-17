@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dynamite",
+  "category": "misc",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:dynamite",
+    "count": 9
+  }
+}

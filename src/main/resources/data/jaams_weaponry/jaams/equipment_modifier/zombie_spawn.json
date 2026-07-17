@@ -1,0 +1,725 @@
+{
+    "entity": [
+        "minecraft:zombie"
+    ],
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [
+        { "type": "is_baby", "negate": true }
+    ],
+    "items": [
+        {
+            "item": "minecraft:wooden_sword",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:wooden_axe",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:stone_sword",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:stone_axe",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:gauntlet",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:wooden_dagger",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_dagger",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:wooden_knuckle",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_knuckle",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_machete",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_claw",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:wooden_ring",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_cleaver",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:sharp_stone",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "count": 6,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:rustic_whip",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "#jaams_weaponry:brooms",
+            "slot": "mainhand",
+            "chance": 0.22,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:iron_sword",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:iron_axe",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_sword",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_dagger",
+            "slot": "mainhand",
+            "chance": 0.12,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_dagger",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_knuckle",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_claw",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_ring",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_machete",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_spear",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_katana",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_butterfly_sword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_longsword",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:sharp_stone",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:smoke_bomb",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "#jaams_weaponry:brooms",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_broadsword",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_hook_sword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_zweihander",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_greatsword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_twinblade",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_greathammer",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_buster_sword",
+            "slot": "mainhand",
+            "chance": 0.02,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_greathammer",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_greatsword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_longsword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:golden_butterfly_sword",
+            "slot": "mainhand",
+            "chance": 0.02,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:diamond_sword",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:diamond_axe",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:diamond_dagger",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:diamond_claw",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:diamond_ring",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:diamond_hammer",
+            "slot": "mainhand",
+            "chance": 0.01,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:diamond_buster_sword",
+            "slot": "mainhand",
+            "chance": 0.01,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:gauntlet",
+            "slot": "mainhand",
+            "chance": 0.01,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:gauntlet",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:stone_claw",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:stone_claw",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:wooden_knuckle",
+            "slot": "mainhand",
+            "chance": 0.01,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:wooden_knuckle",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:wooden_dagger",
+            "slot": "mainhand",
+            "chance": 0.01,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:stone_dagger",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:gauntlet",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:broom",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_dagger",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:iron_dagger_reverse",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_knuckle",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:iron_knuckle",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:golden_knuckle",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:golden_knuckle",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_spear",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:gauntlet",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_claw",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:iron_ring",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:diamond_knuckle",
+            "slot": "mainhand",
+            "chance": 0.02,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:diamond_knuckle",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:golden_butterfly_sword",
+            "slot": "mainhand",
+            "chance": 0.02,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:golden_butterfly_sword",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_katana",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:smoke_bomb",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        }
+    ]
+}

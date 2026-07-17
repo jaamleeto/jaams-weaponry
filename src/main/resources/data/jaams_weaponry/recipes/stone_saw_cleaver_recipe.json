@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "saw_cleaver",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " bc",
+    "dc "
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "b": {
+      "item": "jaams_weaponry:long_stick"
+    },
+    "c": {
+      "item": "jaams_weaponry:double_compressed_stone"
+    },
+    "d": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:stone_saw_cleaver",
+    "count": 1
+  }
+}

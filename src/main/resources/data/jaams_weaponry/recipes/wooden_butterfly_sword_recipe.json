@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "butterfly_sword",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    "ab ",
+    "c  "
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:planks"
+    },
+    "b": {
+      "item": "jaams_weaponry:double_compressed_wood"
+    },
+    "c": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:wooden_butterfly_sword",
+    "count": 1
+  }
+}

@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_broadsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_broadsword",
+            "required": false
+        }
+    ]
+}

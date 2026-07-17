@@ -1,0 +1,45 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:wooden_shovel",
+            "required": false
+        },
+        {
+            "id": "minecraft:stone_shovel",
+            "required": false
+        },
+        {
+            "id": "minecraft:iron_shovel",
+            "required": false
+        },
+        {
+            "id": "minecraft:golden_shovel",
+            "required": false
+        },
+        {
+            "id": "minecraft:diamond_shovel",
+            "required": false
+        },
+        {
+            "id": "minecraft:netherite_shovel",
+            "required": false
+        },
+        {
+            "id": "cavesanddepths:rosegoldshovel",
+            "required": false
+        },
+        {
+            "id": "jaams_shinerite:shinerite_shovel",
+            "required": false
+        },
+        {
+            "id": "majruszsdifficulty:enderium_shovel",
+            "required": false
+        },
+        {
+            "id": "oreganized:electrum_shovel",
+            "required": false
+        }
+    ]
+}

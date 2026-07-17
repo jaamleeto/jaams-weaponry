@@ -1,0 +1,21 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:flint_hammer",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/hammers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/greathammers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:compat/shovels",
+            "required": false
+        }
+    ]
+}

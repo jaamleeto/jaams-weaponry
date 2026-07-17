@@ -1,0 +1,25 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/zweihanders",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/broadswords",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:bokken",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:royal_sword",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:compat/swords",
+            "required": false
+        }
+    ]
+}

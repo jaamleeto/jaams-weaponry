@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "jaams_weaponry:iron_scattergun"
+    },
+    "title": {
+      "translate": "advancements.faster_than_speeding_bullet.title"
+    },
+    "description": {
+      "translate": "advancements.faster_than_speeding_bullet.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "faster_than_speeding_bullet_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 60
+  },
+  "parent": "jaams_weaponry:weaponry_ad"
+}

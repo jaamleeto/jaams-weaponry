@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "pig",
+    "piglin",
+    "piglin_brute",
+    "zombified_piglin",
+    "hoglin",
+    "zoglin"
+  ]
+}

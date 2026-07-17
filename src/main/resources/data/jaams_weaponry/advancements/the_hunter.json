@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "jaams_weaponry:hunters_crossbow"
+    },
+    "title": {
+      "translate": "advancements.the_hunter.title"
+    },
+    "description": {
+      "translate": "advancements.the_hunter.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "the_hunter_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 30
+  },
+  "parent": "jaams_weaponry:weaponry_ad"
+}

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "jaams_weaponry:golden_buster_sword"
+    },
+    "title": {
+      "translate": "advancements.ruder_buster.title"
+    },
+    "description": {
+      "translate": "advancements.ruder_buster.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ruder_buster_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 60
+  },
+  "parent": "jaams_weaponry:clavar_la_espada"
+}

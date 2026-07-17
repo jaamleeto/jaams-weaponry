@@ -1,0 +1,45 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:wooden_pickaxe",
+            "required": false
+        },
+        {
+            "id": "minecraft:stone_pickaxe",
+            "required": false
+        },
+        {
+            "id": "minecraft:iron_pickaxe",
+            "required": false
+        },
+        {
+            "id": "minecraft:golden_pickaxe",
+            "required": false
+        },
+        {
+            "id": "minecraft:diamond_pickaxe",
+            "required": false
+        },
+        {
+            "id": "minecraft:netherite_pickaxe",
+            "required": false
+        },
+        {
+            "id": "cavesanddepths:rosegoldpickaxe",
+            "required": false
+        },
+        {
+            "id": "jaams_shinerite:shinerite_pickaxe",
+            "required": false
+        },
+        {
+            "id": "majruszsdifficulty:enderium_pickaxe",
+            "required": false
+        },
+        {
+            "id": "oreganized:electrum_pickaxe",
+            "required": false
+        }
+    ]
+}

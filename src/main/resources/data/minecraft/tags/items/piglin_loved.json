@@ -1,0 +1,21 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:heavy_golden_ingot",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:double_golden_ingot",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:heavy_rosegold_ingot",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:double_rosegold_ingot",
+            "required": false
+        }
+    ]
+}

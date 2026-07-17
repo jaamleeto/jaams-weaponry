@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "oreganized:electrum_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "jaams_weaponry:diamond_katar"
+  },
+  "addition": {
+    "tag": "jaams_weaponry:ingredient/electrum_ingot"
+  },
+  "result": {
+    "item": "jaams_weaponry:electrum_katar"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "oreganized"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+    "entity": [
+        "minecraft:pillager"
+    ],
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [],
+    "items": [
+        {
+            "item": "jaams_weaponry:stake_crossbow",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_crossbow",
+            "slot": "mainhand",
+            "chance": 0.4,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stake_crossbow",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:great_crossbow",
+            "slot": "mainhand",
+            "chance": 0.2,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        }
+    ]
+}

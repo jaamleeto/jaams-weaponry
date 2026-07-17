@@ -1,0 +1,28 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "sickle",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " aa",
+    "b  "
+  ],
+  "key": {
+    "a": {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    "b": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:shinerite_sickle",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

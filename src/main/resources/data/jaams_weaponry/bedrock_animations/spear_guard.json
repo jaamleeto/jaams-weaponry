@@ -1,0 +1,32 @@
+{
+    "animations": {
+        "spear_guard": {
+            "loop": true,
+            "animation_length": 1.0,
+            "cancel_on_player_animator": true,
+            "is_pose": true,
+            "blend_in": 3,
+            "blend_speed": 2.0,
+            "bones": {
+                "right_arm": {
+                    "rotation": {
+                        "0.0": [
+                            -80,
+                            -10,
+                            8
+                        ]
+                    }
+                },
+                "left_arm": {
+                    "rotation": {
+                        "0.0": [
+                            -50,
+                            30,
+                            -18
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "majruszsdifficulty:enderium_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "jaams_weaponry:netherite_katana"
+  },
+  "addition": {
+    "item": "jaams_weaponry:double_enderium_ingot"
+  },
+  "result": {
+    "item": "jaams_weaponry:enderium_katana"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "majruszsdifficulty"
+    }
+  ]
+}

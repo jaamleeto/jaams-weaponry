@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 4,
+  "cookingtime": 100,
+  "ingredient": {
+    "item": "jaams_weaponry:copper_choke"
+  },
+  "result": "minecraft:copper_ingot"
+}

@@ -1,0 +1,118 @@
+package net.jaams.weaponry.mixins.animation;
+
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.Mixin;
+
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.Minecraft;
+
+import net.jaams.weaponry.animation.AnimationAPI;
+import net.jaams.weaponry.util.ModAnimations;
+import net.jaams.weaponry.util.ModRenderState;
+
+import com.mojang.math.Axis;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+@Mixin(PlayerRenderer.class)
+public abstract class AnimationPlayerRendererMixin
+        extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+    private String master = null;
+    private Minecraft mc = Minecraft.getInstance();
+
+    public AnimationPlayerRendererMixin(EntityRendererProvider.Context context,
+            PlayerModel<AbstractClientPlayer> entityModel, float f) {
+        super(context, entityModel, f);
+    }
+
+    @Inject(method = "render(Lnet/minecraft/client/player/AbstractClientPlayer;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/LivingEntityRenderer;render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V"))
+    private void hideBonesInFirstPerson(AbstractClientPlayer entity, float f, float g, PoseStack poseStack,
+            MultiBufferSource bufferSource, int light, CallbackInfo ci) {
+        if (master == null) {
+            if (!AnimationAPI.animations.isEmpty())
+                master = "jaams_weaponry";
+            else
+                return;
+        }
+        if (!master.equals("jaams_weaponry")) {
+            return;
+        }
+        
+        
+        if (ModAnimations.shouldRenderInFirstPerson(entity) && ModRenderState.worldRenderPass) {
+            this.model.head.visible = false;
+            this.model.body.visible = false;
+            this.model.leftLeg.visible = false;
+            this.model.rightLeg.visible = false;
+            this.model.hat.visible = false;
+            this.model.leftPants.visible = false;
+            this.model.rightPants.visible = false;
+            this.model.jacket.visible = false;
+            if (ModAnimations.hasHideArms(entity)) {
+                this.model.leftArm.visible = false;
+                this.model.rightArm.visible = false;
+                this.model.leftSleeve.visible = false;
+                this.model.rightSleeve.visible = false;
+            }
+        }
+    }
+
+    @Inject(method = "setupRotations(Lnet/minecraft/client/player/AbstractClientPlayer;Lcom/mojang/blaze3d/vertex/PoseStack;FFF)V", at = @At("RETURN"))
+    private void setupRotations(AbstractClientPlayer player, PoseStack poseStack, float f, float bodyYaw,
+            float partialTick, CallbackInfo ci) {
+        if (master == null) {
+            if (!AnimationAPI.animations.isEmpty())
+                master = "jaams_weaponry";
+            else
+                return;
+        }
+        if (!master.equals("jaams_weaponry")) {
+            return;
+        }
+        AnimationAPI.PlayerAnimation animation = AnimationAPI.active_animations.get(player);
+        if (animation == null)
+            return;
+        AnimationAPI.PlayerBone bone = animation.bones.get("body");
+        boolean firstPerson = ModAnimations.shouldRenderInFirstPerson(player) && ModRenderState.worldRenderPass;
+        if (bone == null && !firstPerson)
+            return;
+        if (bone != null) {
+            float animationProgress = ModAnimations.getAnimationProgress(player);
+            Vec3 scale = AnimationAPI.PlayerBone.interpolate(bone.scales, animationProgress, player);
+            if (scale != null) {
+                poseStack.scale((float) scale.x, (float) scale.y, (float) scale.z);
+            }
+            Vec3 position = AnimationAPI.PlayerBone.interpolate(bone.positions, animationProgress, player);
+            if (position != null) {
+                if (!firstPerson)
+                    poseStack.translate((float) -position.x * 0.0625f, (float) (position.y * 0.0625f) + 0.75f,
+                            (float) position.z * 0.0625f);
+            }
+            Vec3 rotation = AnimationAPI.PlayerBone.interpolate(bone.rotations, animationProgress, player);
+            if (rotation != null) {
+                if (!firstPerson)
+                    poseStack.mulPose(Axis.ZP.rotationDegrees((float) rotation.z));
+                poseStack.mulPose(Axis.YP.rotationDegrees((float) -rotation.y));
+                if (!firstPerson)
+                    poseStack.mulPose(Axis.XP.rotationDegrees((float) -rotation.x));
+            }
+            if (position != null) {
+                if (!firstPerson)
+                    poseStack.translate(0, -0.75f, 0);
+            }
+        }
+        if (firstPerson && partialTick != 0 && ModRenderState.worldRenderPass) {
+            poseStack.mulPose(Axis.YP.rotationDegrees(bodyYaw - player.getYRot()));
+            poseStack.translate(0, 1.5f, 0);
+            poseStack.mulPose(Axis.XP.rotationDegrees(-player.getXRot()));
+            poseStack.translate(0, -1.5f, 0);
+        }
+    }
+}
