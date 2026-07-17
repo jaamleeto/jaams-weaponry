@@ -1,0 +1,6 @@
+{
+  "target": [
+    "#jaams_weaponry:item/butterfly_swords"
+  ],
+  "enabled": false
+}

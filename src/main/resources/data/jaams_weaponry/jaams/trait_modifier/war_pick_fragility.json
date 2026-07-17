@@ -1,0 +1,21 @@
+{
+    "target": [
+        "jaams_weaponry:war_pick"
+    ],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "active_traits": [
+        "fragility"
+    ],
+    "traits": {
+        "fragility": {
+            "min_durability_threshold": 0.5,
+            "remaining_item": {
+                "item": "jaams_weaponry:sharp_stone",
+                "count": 2,
+                "chance": 0.5
+            }
+        }
+    }
+}

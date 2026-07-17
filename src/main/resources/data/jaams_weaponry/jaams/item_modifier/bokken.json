@@ -1,0 +1,26 @@
+{
+    "target": [
+        "#jaams_weaponry:item/bokkens"
+    ],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [
+        {
+            "type": "mod_not_loaded",
+            "mod_id": "bettercombat"
+        }
+    ],
+    "modifiers": {
+        "slots": [
+            "mainhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "forge:entity_reach",
+                "name": "Reach Modifier",
+                "amount": 1.0,
+                "operation": "addition"
+            }
+        ]
+    }
+}

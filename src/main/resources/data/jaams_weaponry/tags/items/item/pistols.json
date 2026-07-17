@@ -1,0 +1,21 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:copper_pistol",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_pistol",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_pistol",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_pistol",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_buster_sword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_buster_sword",
+            "required": false
+        }
+    ]
+}

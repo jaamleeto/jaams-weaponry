@@ -1,0 +1,18 @@
+{
+    "target": [
+        "jaams_weaponry:enderium_shotgun"
+    ],
+    "enabled": true,
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [],
+    "gun": {
+        "gun_enabled": true,
+        "gun_type": "SHOTGUN"
+    },
+    "shoot": {
+        "cooldown": 70
+    },
+    "sound": {},
+    "particle": {}
+}

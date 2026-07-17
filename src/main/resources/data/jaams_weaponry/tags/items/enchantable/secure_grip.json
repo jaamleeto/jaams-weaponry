@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:tools",
+    "#minecraft:swords",
+    "#minecraft:axes",
+    "#minecraft:pickaxes",
+    "#minecraft:shovels",
+    "#minecraft:hoes",
+    "#jaams_weaponry:enchantable/overdrive",
+    "#jaams_weaponry:item/battle_axes",
+    "#jaams_weaponry:item/royal_axes",
+    "#jaams_weaponry:item/war_picks",
+    "#jaams_weaponry:item/mallets",
+    "#jaams_weaponry:item/hammers",
+    "#jaams_weaponry:item/greathammers",
+    "#jaams_weaponry:item/sickles",
+    "#jaams_weaponry:item/kamas",
+    "#jaams_weaponry:compat/shovels",
+    "#jaams_weaponry:compat/pickaxes",
+    "#jaams_weaponry:compat/axes",
+    "#jaams_weaponry:compat/hoes",
+    "minecraft:flint_and_steel",
+    "minecraft:shears",
+    "minecraft:carrot_on_a_stick",
+    "minecraft:warped_fungus_on_a_stick",
+    "minecraft:fishing_rod"
+  ]
+}

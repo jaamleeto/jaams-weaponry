@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_hammer",
+            "required": false
+        }
+    ]
+}

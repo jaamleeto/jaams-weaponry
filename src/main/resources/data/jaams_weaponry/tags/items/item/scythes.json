@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_scythe",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_scythe",
+            "required": false
+        }
+    ]
+}

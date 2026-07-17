@@ -1,0 +1,23 @@
+{
+    "enabled": true,
+    "chance": 1.0,
+    "replace_all": false,
+    "condition_mode": "and",
+    "conditions": [
+        {
+            "type": "mod_not_loaded",
+            "mod_id": "farmersdelight"
+        }
+    ],
+    "loot_tables": [
+        "minecraft:chests/village/village_weaponsmith"
+    ],
+    "entries": [
+        {
+            "item": "jaams_weaponry:flint_hammer",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.15
+        }
+    ]
+}

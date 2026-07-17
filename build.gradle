@@ -1,0 +1,90 @@
+plugins {
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+
+version = '1.1.3'
+group = 'com.yourname.modid'
+archivesBaseName = 'jaams_weaponry'
+
+project.ext.mcVersion = '1.20.1'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+
+    accessTransformer = file('src/main/resources/accesstransformer.cfg')
+
+    copyIdeResources = true
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                jaams_weaponry {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                jaams_weaponry {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { name = "MinecraftForge"; url = "https://maven.minecraftforge.net/" }
+    maven { url 'https://cursemaven.com/' }
+    maven { name = "Jared's maven"; url = "https://maven.blamejared.com/" }
+    maven { name = "ModMaven"; url = "https://modmaven.dev" }
+    maven { name = "Progwml6's maven"; url = "https://dvs1.progwml6.com/files/maven/" }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    implementation fg.deobf("curse.maven:configured-457570:5180900")
+    implementation fg.deobf("curse.maven:damage-indicator-reborn-1059519:5512460")
+    implementation fg.deobf("curse.maven:catalogue-459701:4766090")
+
+    implementation fg.deobf("curse.maven:epic-fight-mod-405076:7476040")
+}
+
+mixin {
+    add sourceSets.main, 'mixins.jaams_weaponry.refmap.json'
+
+    config 'mixins.jaams_weaponry.json'
+    config 'mixins.jaams_weaponry.epicfight.json'
+
+    debug.verbose = true
+    debug.export = true
+    dumpTargetOnFailure = true
+
+    quiet
+}
+
+jar {
+    archiveFileName = "${archivesBaseName}-${project.version}-forge-${mcVersion}.jar"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

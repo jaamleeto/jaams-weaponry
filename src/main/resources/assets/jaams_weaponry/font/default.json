@@ -1,0 +1,25 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "jaams_weaponry:unicode/mod_tab.png",
+      "ascent": 9,
+      "height": 11,
+      "chars": ["\uFFF0"]
+    },
+    {
+      "type": "bitmap",
+      "file": "jaams_weaponry:unicode/ammo.png",
+      "ascent": 6,
+      "height": 6,
+      "chars": ["\uFFF1"]
+    },
+    {
+      "type": "bitmap",
+      "file": "jaams_weaponry:unicode/attachtment.png",
+      "ascent": 6,
+      "height": 6,
+      "chars": ["\uFFF2"]
+    }
+  ]
+}

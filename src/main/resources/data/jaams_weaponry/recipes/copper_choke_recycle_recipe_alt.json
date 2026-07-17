@@ -1,0 +1,18 @@
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
+  "type": "minecraft:blasting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 4,
+  "cookingtime": 80,
+  "ingredient": {
+    "item": "jaams_weaponry:copper_choke"
+  },
+  "result": "minecraft:copper_ingot"
+
+}

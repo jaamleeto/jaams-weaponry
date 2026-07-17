@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:misc/muzzles",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:misc/magazines",
+            "required": false
+        }
+    ]
+}

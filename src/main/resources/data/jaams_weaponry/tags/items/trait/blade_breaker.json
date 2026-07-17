@@ -1,0 +1,21 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/machetes",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/greatswords",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:war_pick",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:compat/axes",
+            "required": false
+        }
+    ]
+}

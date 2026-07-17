@@ -1,0 +1,31 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "greathammer",
+  "category": "equipment",
+  "pattern": [
+    "aba",
+    "aba",
+    " c "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:heavy_shinerite_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "c": {
+      "item": "jaams_weaponry:long_stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:shinerite_greathammer",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

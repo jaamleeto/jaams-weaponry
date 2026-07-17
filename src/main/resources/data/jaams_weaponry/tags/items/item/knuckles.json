@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_knuckle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_knuckle",
+            "required": false
+        }
+    ]
+}

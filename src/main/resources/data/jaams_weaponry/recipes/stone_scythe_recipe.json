@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "scythe",
+  "category": "equipment",
+  "pattern": [
+    "aab",
+    " c ",
+    "d  "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_compressed_stone"
+    },
+    "b": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "c": {
+      "item": "jaams_weaponry:long_stick"
+    },
+    "d": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:stone_scythe",
+    "count": 1
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "target": [
+    "#jaams_weaponry:item/broadswords"
+  ],
+  "enabled": false
+}

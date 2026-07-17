@@ -1,0 +1,25 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:short_bow",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:flat_bow",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:hunters_bow",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:compound_bow",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:royal_bow",
+            "required": false
+        }
+    ]
+}

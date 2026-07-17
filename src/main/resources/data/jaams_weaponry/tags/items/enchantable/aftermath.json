@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bow",
+    "minecraft:crossbow",
+    "#jaams_weaponry:misc/guns",
+    "#jaams_weaponry:item/hunters_boomerangs",
+    "#jaams_weaponry:item/pronged_kunais",
+    "#jaams_weaponry:item/giant_shurikens",
+    "#jaams_weaponry:item/royal_axes",
+    "#jaams_weaponry:item/royal_spears",
+    "#jaams_weaponry:item/spears",
+    "#jaams_weaponry:item/cleavers",
+    "#jaams_weaponry:item/rings",
+    "#jaams_weaponry:item/brooms",
+    "#jaams_weaponry:compat/axes"
+  ]
+}

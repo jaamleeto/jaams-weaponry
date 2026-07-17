@@ -1,0 +1,21 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:netherite_shotgun",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_shotgun",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry_cc:necromium_shotgun",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry_ma:dark_metal_shotgun",
+            "required": false
+        }
+    ]
+}

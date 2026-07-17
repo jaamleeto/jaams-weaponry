@@ -1,0 +1,96 @@
+{
+  "attributes": {
+    "attack_range": 3.25,
+    "two_handed": false,
+    "category": "claymore",
+    "attacks": [
+      {
+        "conditions": [
+          "NOT_DUAL_WIELDING"
+        ],
+        "hitbox": "HORIZONTAL_PLANE",
+        "damage_multiplier": 0.75,
+        "angle": 150,
+        "upswing": 0.5,
+        "animation": "bettercombat:two_handed_slash_horizontal_right",
+        "swing_sound": {
+          "id": "bettercombat:staff_slash"
+        }
+      },
+      {
+        "conditions": [
+          "NOT_DUAL_WIELDING"
+        ],
+        "hitbox": "FORWARD_BOX",
+        "damage_multiplier": 1,
+        "angle": 0,
+        "upswing": 0.5,
+        "animation": "bettercombat:two_handed_stab_left",
+        "swing_sound": {
+          "id": "bettercombat:staff_slash"
+        }
+      },
+      {
+        "conditions": [
+          "NOT_DUAL_WIELDING"
+        ],
+        "hitbox": "FORWARD_BOX",
+        "damage_multiplier": 1,
+        "angle": 0,
+        "upswing": 0.5,
+        "animation": "bettercombat:two_handed_slash_horizontal_left",
+        "swing_sound": {
+          "id": "bettercombat:staff_slash"
+        }
+      },
+      {
+        "conditions": [
+          "DUAL_WIELDING_ANY"
+        ],
+        "hitbox": "HORIZONTAL_PLANE",
+        "angle": 90,
+        "upswing": 0.5,
+        "animation": "bettercombat:one_handed_slash_horizontal_right",
+        "swing_sound": {
+          "id": "bettercombat:staff_slash"
+        }
+      },
+      {
+        "conditions": [
+          "DUAL_WIELDING_ANY"
+        ],
+        "hitbox": "HORIZONTAL_PLANE",
+        "angle": 90,
+        "upswing": 0.5,
+        "animation": "bettercombat:one_handed_slash_horizontal_left",
+        "swing_sound": {
+          "id": "bettercombat:staff_slash"
+        }
+      },
+      {
+        "conditions": [
+          "NOT_MOUNTED",
+          "DUAL_WIELDING_ANY"
+        ],
+        "hitbox": "FORWARD_BOX",
+        "upswing": 0.5,
+        "animation": "bettercombat:one_handed_stab",
+        "swing_sound": {
+          "id": "bettercombat:staff_slash"
+        }
+      },
+      {
+        "conditions": [
+          "MOUNTED",
+          "DUAL_WIELDING_ANY"
+        ],
+        "hitbox": "FORWARD_BOX",
+        "upswing": 0.5,
+        "animation": "bettercombat:one_handed_stab_mounted",
+        "swing_sound": {
+          "id": "bettercombat:staff_slash"
+        }
+      }
+    ]
+  }
+}

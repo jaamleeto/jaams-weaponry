@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_dagger_reverse",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_dagger_reverse",
+            "required": false
+        }
+    ]
+}

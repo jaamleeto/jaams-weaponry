@@ -1,0 +1,22 @@
+{
+    "enabled": true,
+    "chance": 1.0,
+    "replace_all": true,
+    "loot_tables": [
+        "minecraft:gameplay/piglin_bartering"
+    ],
+    "entries": [
+        {
+            "item": "jaams_weaponry:stake",
+            "count_min": 3,
+            "count_max": 5,
+            "chance": 0.35
+        },
+        {
+            "item": "jaams_weaponry:ragers_bottle",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.15
+        }
+    ]
+}

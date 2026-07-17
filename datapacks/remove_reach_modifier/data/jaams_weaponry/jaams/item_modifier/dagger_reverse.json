@@ -1,0 +1,6 @@
+{
+  "target": [
+    "#jaams_weaponry:item/reverse_daggers"
+  ],
+  "enabled": false
+}

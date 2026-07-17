@@ -1,0 +1,23 @@
+{
+  "display": {
+    "background": "minecraft:textures/block/spruce_planks.png",
+    "icon": {
+      "item": "jaams_weaponry:iron_buster_sword"
+    },
+    "title": {
+      "translate": "advancements.weaponry_ad.title"
+    },
+    "description": {
+      "translate": "advancements.weaponry_ad.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "weaponry_ad_0": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

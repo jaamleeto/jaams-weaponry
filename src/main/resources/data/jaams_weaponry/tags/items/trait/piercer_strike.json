@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/katars",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:royal_rapier",
+            "required": false
+        }
+    ]
+}

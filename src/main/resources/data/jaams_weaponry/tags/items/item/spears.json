@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_spear",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_spear",
+            "required": false
+        }
+    ]
+}

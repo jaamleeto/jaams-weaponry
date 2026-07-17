@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/claws",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/greatswords",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:tessen_folded",
+            "required": false
+        }
+    ]
+}

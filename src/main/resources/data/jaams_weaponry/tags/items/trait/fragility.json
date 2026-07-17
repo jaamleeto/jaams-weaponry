@@ -1,0 +1,37 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/sharp_stone_blades",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shuriken",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:kunai",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stake",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:sharp_stone",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:war_pick",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:flint_mallet",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:smoke_bomb",
+            "required": false
+        }
+    ]
+}

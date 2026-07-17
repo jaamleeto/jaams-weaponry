@@ -1,0 +1,28 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "katana",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " a ",
+    "b  "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "b": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:shinerite_katana",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "flat_bow",
+  "category": "equipment",
+  "pattern": [
+    " a",
+    "bc",
+    " a"
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "b": {
+      "item": "minecraft:bow"
+    },
+    "c": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:flat_bow",
+    "count": 1
+  }
+}

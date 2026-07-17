@@ -1,0 +1,23 @@
+{
+    "target": [
+        "jaams_weaponry:electrum_buster_sword",
+        "jaams_weaponry:electrum_hammer"
+    ],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "modifiers": {
+        "slots": [
+            "mainhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "oreganized:kinetic_damage",
+                "name": "Kinetic damage modifier",
+                "amount": 3.0,
+                "operation": "addition",
+                "uuid": "b8c9d0e1-f2a3-4567-8901-cdef01234567"
+            }
+        ]
+    }
+}

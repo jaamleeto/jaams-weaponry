@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "oreganized:electrum_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "jaams_weaponry:diamond_hook_sword"
+  },
+  "addition": {
+    "item": "jaams_weaponry:double_electrum_ingot"
+  },
+  "result": {
+    "item": "jaams_weaponry:electrum_hook_sword"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "oreganized"
+    }
+  ]
+}

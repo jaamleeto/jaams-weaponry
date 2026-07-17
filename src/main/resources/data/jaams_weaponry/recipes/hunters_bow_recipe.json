@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hunters_bow",
+  "category": "equipment",
+  "pattern": [
+    " a",
+    "bc",
+    " a"
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "b": {
+      "item": "jaams_weaponry:sharp_stone"
+    },
+    "c": {
+      "item": "minecraft:bow"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:hunters_bow",
+    "count": 1
+  }
+}

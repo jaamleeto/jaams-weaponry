@@ -1,0 +1,21 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:broom",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:straw_broom",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rice_bale_broom",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:flax_bale_broom",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "target": [
+        "#jaams_weaponry:item/buster_swords",
+        "#jaams_weaponry:item/butterfly_swords",
+        "#jaams_weaponry:item/greatswords",
+        "#jaams_weaponry:item/machetes"
+    ],
+    "enabled": true,
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "active_traits": [
+        "guard_stance"
+    ],
+    "disabled_traits": [],
+    "traits": {
+        "guard_stance": {
+            "global_cooldown": true,
+            "cooldown_ticks": 20,
+            "area_damage_multiplier": 0.35,
+            "knockback_force": 0.4,
+            "area_range": 1.5,
+            "block_damage_reduction": 1.0,
+            "damage_per_block": 1,
+            "damage_on_stop": 1,
+            "particle_size": 1.0,
+            "particle_distance": 1.5,
+            "block_sound": "minecraft:item.shield.block",
+            "no_durability_break_chance": 0.0,
+            "apply_first_person_transform": true
+        }
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_saw_cleaver_unfolded",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_saw_cleaver_unfolded",
+            "required": false
+        }
+    ]
+}

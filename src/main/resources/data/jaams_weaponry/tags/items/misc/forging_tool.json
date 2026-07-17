@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:flint_hammer",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:flint_mallet",
+            "required": false
+        }
+    ]
+}

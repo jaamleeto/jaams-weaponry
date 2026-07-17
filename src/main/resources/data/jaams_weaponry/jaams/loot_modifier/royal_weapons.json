@@ -1,0 +1,51 @@
+{
+    "enabled": true,
+    "chance": 1.0,
+    "replace_all": false,
+    "loot_tables": [
+        "minecraft:chests/simple_dungeon",
+        "minecraft:chests/stronghold_corridor",
+        "minecraft:chests/stronghold_crossing",
+        "minecraft:chests/stronghold_library",
+        "minecraft:chests/nether_bridge",
+        "minecraft:chests/ancient_city"
+    ],
+    "entries": [
+        {
+            "item": "jaams_weaponry:royal_sword",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.006
+        },
+        {
+            "item": "jaams_weaponry:royal_spear",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.006
+        },
+        {
+            "item": "jaams_weaponry:royal_bow",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.006
+        },
+        {
+            "item": "jaams_weaponry:royal_axe",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.006
+        },
+        {
+            "item": "jaams_weaponry:royal_rapier",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.006
+        },
+        {
+            "item": "jaams_weaponry:royal_crossbow",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.006
+        }
+    ]
+}

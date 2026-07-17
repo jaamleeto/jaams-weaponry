@@ -1,0 +1,28 @@
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "group": "dagger",
+    "category": "equipment",
+    "pattern": [
+        " a",
+        "b "
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:copper_ingot"
+        },
+        "b": {
+            "item": "jaams_weaponry:short_stick"
+        }
+    },
+    "result": {
+        "item": "jaams_weaponry:copper_dagger",
+        "count": 1
+    }
+
+}

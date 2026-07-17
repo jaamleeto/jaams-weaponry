@@ -1,0 +1,34 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "battle_axe",
+  "category": "equipment",
+  "pattern": [
+    "aba",
+    "aca",
+    " d "
+  ],
+  "key": {
+    "a": {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "c": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "d": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:shinerite_battle_axe",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/katanas",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/pronged_kunais",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/spears",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "heavy_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "item": "jaams_weaponry:double_gold_ingot"
+    },
+    {
+      "item": "jaams_weaponry:double_gold_ingot"
+    }
+  ],
+  "result": {
+    "item": "jaams_weaponry:heavy_gold_ingot",
+    "count": 1
+  }
+}

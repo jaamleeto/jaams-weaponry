@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sickle",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " aa",
+    "b  "
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:planks"
+    },
+    "b": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:wooden_sickle",
+    "count": 1
+  }
+}

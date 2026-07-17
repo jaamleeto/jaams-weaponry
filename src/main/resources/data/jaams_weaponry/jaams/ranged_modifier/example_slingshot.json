@@ -1,0 +1,49 @@
+{
+    "enabled": true,
+    "priority": 0,
+    "target": [
+        "jaams_weaponry:example_slingshot"
+    ],
+    "ranged": {
+        "ranged_type": "SLINGSHOT",
+        "ranged_enabled": true,
+        "base_damage": 3.0,
+        "power_damage_bonus": 1.5,
+        "base_knockback": 0.3,
+        "min_speed": 1.5,
+        "max_speed": 3.0,
+        "max_draw_duration": 20,
+        "min_draw_ticks": 4,
+        "multishot_spread": 0.0,
+        "forward_offset": 0.5,
+        "use_animation": "BOW",
+        "load_sound": "item.arrow.pull",
+        "shoot_sound": "item.arrow.shoot",
+        "shoot_sound_volume": 1.0,
+        "shoot_sound_pitch": 1.0
+    },
+    "ammo": {
+        "ammo_items": [
+            "jaams_weaponry:sharp_stone"
+        ],
+        "ammo_from_inventory": true,
+        "default_creative_ammo": "jaams_weaponry:sharp_stone",
+        "can_place_block": false
+    },
+    "enchant": {
+        "power_enchant_damage_per_level": 0.5,
+        "punch_enchant_knockback_per_level": 0.3,
+        "flame_fire_seconds": 0
+    },
+    "projectile": {
+        "despawn_ticks": 120,
+        "water_inertia": 0.6,
+        "allow_criticals": true,
+        "break_on_entity_hit": true,
+        "break_on_block_hit": true,
+        "hitbox_width": 0.25,
+        "hitbox_height": 0.25,
+        "multishot_can_place_block": false,
+        "placeable_blocks": []
+    }
+}

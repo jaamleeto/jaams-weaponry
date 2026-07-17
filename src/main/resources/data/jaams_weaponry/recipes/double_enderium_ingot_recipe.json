@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "double_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "tag": "jaams_weaponry:ingredient/enderium_ingot"
+    },
+    {
+      "tag": "jaams_weaponry:ingredient/enderium_ingot"
+    }
+  ],
+  "result": {
+    "item": "jaams_weaponry:double_enderium_ingot",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "majruszsdifficulty"
+    }
+  ]
+}

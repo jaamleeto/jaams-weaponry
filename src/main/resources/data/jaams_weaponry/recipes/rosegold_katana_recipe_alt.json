@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "cavesanddepths:rosegoldupgradesmithingtemplate"
+  },
+  "base": {
+    "item": "jaams_weaponry:golden_katana"
+  },
+  "addition": {
+    "item": "jaams_weaponry:double_rosegold_ingot"
+  },
+  "result": {
+    "item": "jaams_weaponry:rosegold_katana"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "cavesanddepths"
+    }
+  ]
+}

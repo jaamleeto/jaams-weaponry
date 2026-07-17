@@ -1,0 +1,33 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "layer0": "jaams_weaponry:item/rosegold_zweihander"
+  },
+  "base": {
+    "parent": "jaams_weaponry:item/rosegold_zweihander_gui"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "jaams_weaponry:item/rosegold_zweihander_gui"
+    },
+    "ground": {
+      "parent": "jaams_weaponry:item/rosegold_zweihander_gui"
+    },
+    "fixed": {
+      "parent": "jaams_weaponry:item/rosegold_zweihander_gui"
+    },
+    "firstperson_righthand": {
+      "parent": "jaams_weaponry:item/rosegold_zweihander_handheld"
+    },
+    "firstperson_lefthand": {
+      "parent": "jaams_weaponry:item/rosegold_zweihander_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "jaams_weaponry:item/rosegold_zweihander_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "jaams_weaponry:item/rosegold_zweihander_handheld"
+    }
+  }
+}

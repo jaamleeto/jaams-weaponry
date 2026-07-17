@@ -1,0 +1,41 @@
+package net.jaams.weaponry.client.renderer;
+
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.MultiBufferSource;
+
+import net.jaams.weaponry.gun.helper.BulletRenderHelper;
+import net.jaams.weaponry.entity.SharpBulletProjectileEntity;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+@OnlyIn(Dist.CLIENT)
+public class SharpBulletProjectileRenderer extends EntityRenderer<SharpBulletProjectileEntity> {
+    public SharpBulletProjectileRenderer(EntityRendererProvider.Context context) {
+        super(context);
+    }
+
+    @Override
+    public void render(SharpBulletProjectileEntity entity, float entityYaw, float partialTicks, PoseStack matrixStack,
+            MultiBufferSource buffer, int packedLight) {
+        BulletRenderHelper.render(entity, matrixStack, buffer, packedLight, partialTicks);
+        super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(SharpBulletProjectileEntity entity) {
+        return InventoryMenu.BLOCK_ATLAS;
+    }
+
+    @Override
+    public boolean shouldRender(SharpBulletProjectileEntity entity, Frustum frustum, double camX, double camY,
+            double camZ) {
+        return super.shouldRender(entity, frustum, camX, camY, camZ);
+    }
+}

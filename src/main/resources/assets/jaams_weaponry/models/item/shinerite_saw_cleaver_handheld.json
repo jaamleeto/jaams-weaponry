@@ -1,0 +1,41 @@
+{
+  "parent": "item/handheld",
+  "forge_data": {
+    "layers": {
+      "0": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  },
+  "loader": "forge:item_layers",
+  "render_types": {
+
+  },
+  "textures": {
+    "layer0": "jaams_weaponry:item/shinerite_saw_cleaver_handheld_0",
+    "layer1": "jaams_weaponry:item/shinerite_saw_cleaver_handheld_1"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [0, 90, 45],
+      "translation": [0, 6.5, -1.75],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, -90, -45],
+      "translation": [0, 6.5, -1.75],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "firstperson_righthand": {
+      "rotation": [45, 90, 20],
+      "translation": [1.13, 6.65, -2.4],
+      "scale": [1.48, 1.48, 0.68]
+    },
+    "firstperson_lefthand": {
+      "rotation": [45, -90, -20],
+      "translation": [1.13, 6.65, -2.4],
+      "scale": [1.48, 1.48, 0.68]
+    }
+  }
+}

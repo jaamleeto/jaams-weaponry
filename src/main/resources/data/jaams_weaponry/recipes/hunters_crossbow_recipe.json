@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hunters_crossbow",
+  "category": "equipment",
+  "pattern": [
+    "aba",
+    "cdc",
+    " e "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "b": {
+      "item": "jaams_weaponry:sharp_stone"
+    },
+    "c": {
+      "item": "minecraft:string"
+    },
+    "d": {
+      "item": "minecraft:tripwire_hook"
+    },
+    "e": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "jaams_weaponry:hunters_crossbow",
+    "count": 1
+  }
+}

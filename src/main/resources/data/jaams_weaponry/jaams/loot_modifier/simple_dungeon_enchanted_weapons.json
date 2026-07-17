@@ -1,0 +1,166 @@
+{
+    "enabled": true,
+    "chance": 1.0,
+    "replace_all": false,
+    "loot_tables": [
+        "minecraft:chests/simple_dungeon"
+    ],
+    "entries": [
+        {
+            "item": "jaams_weaponry:stone_katana",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.05,
+            "enchantments": [
+                {
+                    "id": "minecraft:sharpness",
+                    "level": 3,
+                    "chance": 0.5
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:stone_buster_sword",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.04,
+            "enchantments": [
+                {
+                    "id": "minecraft:sweeping_edge",
+                    "level": 3,
+                    "chance": 0.4
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:stone_greathammer",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.04,
+            "enchantments": [
+                {
+                    "id": "minecraft:knockback",
+                    "level": 2,
+                    "chance": 0.6
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:stone_battle_axe",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.04,
+            "enchantments": [
+                {
+                    "id": "minecraft:fire_aspect",
+                    "level": 2,
+                    "chance": 0.45
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_katana",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.04,
+            "enchantments": [
+                {
+                    "id": "minecraft:sharpness",
+                    "level": 2,
+                    "chance": 0.55
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_buster_sword",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.03,
+            "enchantments": [
+                {
+                    "id": "minecraft:looting",
+                    "level": 3,
+                    "chance": 0.4
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_hammer",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.03,
+            "enchantments": [
+                {
+                    "id": "minecraft:unbreaking",
+                    "level": 3,
+                    "chance": 0.5
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:iron_battle_axe",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.03,
+            "enchantments": [
+                {
+                    "id": "minecraft:fire_aspect",
+                    "level": 2,
+                    "chance": 0.45
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:golden_katana",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.02,
+            "enchantments": [
+                {
+                    "id": "minecraft:sharpness",
+                    "level": 3,
+                    "chance": 0.35
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:golden_buster_sword",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.02,
+            "enchantments": [
+                {
+                    "id": "minecraft:sweeping_edge",
+                    "level": 3,
+                    "chance": 0.4
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:golden_battle_axe",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.02,
+            "enchantments": [
+                {
+                    "id": "minecraft:knockback",
+                    "level": 2,
+                    "chance": 0.5
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:golden_greathammer",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.015,
+            "enchantments": [
+                {
+                    "id": "minecraft:looting",
+                    "level": 3,
+                    "chance": 0.3
+                }
+            ]
+        }
+    ]
+}

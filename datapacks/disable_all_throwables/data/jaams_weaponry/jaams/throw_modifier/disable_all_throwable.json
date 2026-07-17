@@ -1,0 +1,9 @@
+{
+    "target": ["jaams_weaponry:*"],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "throwable": {
+        "throw_enabled": false
+    }
+}

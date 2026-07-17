@@ -1,0 +1,21 @@
+{
+    "parent": "item/handheld",
+    "loader": "forge:separate_transforms",
+    "textures": {
+        "layer0": "jaams_weaponry:item/skin_macuahuitl"
+    },
+    "base": {
+        "parent": "jaams_weaponry:item/skin_macuahuitl_handheld"
+    },
+    "perspectives": {
+        "gui": {
+            "parent": "jaams_weaponry:item/skin_macuahuitl_gui"
+        },
+        "ground": {
+            "parent": "jaams_weaponry:item/skin_macuahuitl_gui"
+        },
+        "fixed": {
+            "parent": "jaams_weaponry:item/skin_macuahuitl_gui"
+        }
+    }
+}

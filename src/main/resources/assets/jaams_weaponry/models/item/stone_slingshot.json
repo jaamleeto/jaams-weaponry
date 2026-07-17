@@ -1,0 +1,28 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "jaams_weaponry:item/stone_slingshot"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "pulling": 1
+            },
+            "model": "jaams_weaponry:item/stone_slingshot_0"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.38
+            },
+            "model": "jaams_weaponry:item/stone_slingshot_1"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 1.0
+            },
+            "model": "jaams_weaponry:item/stone_slingshot_1"
+        }
+    ]
+}

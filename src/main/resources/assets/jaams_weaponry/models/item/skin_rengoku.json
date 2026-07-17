@@ -1,0 +1,21 @@
+{
+    "parent": "item/handheld",
+    "loader": "forge:separate_transforms",
+    "textures": {
+        "layer0": "jaams_weaponry:item/skin_rengoku"
+    },
+    "base": {
+        "parent": "jaams_weaponry:item/skin_rengoku_handheld"
+    },
+    "perspectives": {
+        "gui": {
+            "parent": "jaams_weaponry:item/skin_rengoku_gui"
+        },
+        "ground": {
+            "parent": "jaams_weaponry:item/skin_rengoku_gui"
+        },
+        "fixed": {
+            "parent": "jaams_weaponry:item/skin_rengoku_gui"
+        }
+    }
+}
