@@ -8,10 +8,6 @@
         {
             "id": "jaams_weaponry:stone_slingshot",
             "required": false
-        },
-        {
-            "id": "minecraft:stick",
-            "required": false
         }
     ]
 }

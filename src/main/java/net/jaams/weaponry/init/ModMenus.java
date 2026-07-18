@@ -3,6 +3,7 @@ package net.jaams.weaponry.init;
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.world.inventory.GunGUIMenu;
 import net.jaams.weaponry.world.inventory.PistolGUIMenu;
+import net.jaams.weaponry.world.inventory.RevolverGUIMenu;
 import net.jaams.weaponry.world.inventory.ScattergunGUIMenu;
 import net.jaams.weaponry.world.inventory.ShotgunGUIMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -17,5 +18,6 @@ public class ModMenus {
     public static final RegistryObject<MenuType<PistolGUIMenu>> PISTOL_GUI = REGISTRY.register("pistol_gui", () -> IForgeMenuType.create(PistolGUIMenu::new));
     public static final RegistryObject<MenuType<ScattergunGUIMenu>> SCATTERGUN_GUI = REGISTRY.register("scattergun_gui", () -> IForgeMenuType.create(ScattergunGUIMenu::new));
     public static final RegistryObject<MenuType<ShotgunGUIMenu>> SHOTGUN_GUI = REGISTRY.register("shotgun_gui", () -> IForgeMenuType.create(ShotgunGUIMenu::new));
+    public static final RegistryObject<MenuType<RevolverGUIMenu>> REVOLVER_GUI = REGISTRY.register("revolver_gui", () -> IForgeMenuType.create(RevolverGUIMenu::new));
     public static final RegistryObject<MenuType<GunGUIMenu>> GUN_GUI = REGISTRY.register("gun_gui", () -> IForgeMenuType.create(GunGUIMenu::new));
 }

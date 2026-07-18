@@ -1,21 +1,20 @@
 {
     "parent": "item/handheld",
-    "loader": "forge:separate_transforms",
     "textures": {
         "layer0": "jaams_weaponry:item/nunchaku_2"
     },
-    "base": {
-        "parent": "jaams_weaponry:item/skin_rock_lee_handheld"
-    },
-    "perspectives": {
-        "gui": {
-            "parent": "jaams_weaponry:item/skin_rock_lee_gui"
+    "overrides": [
+        {
+            "predicate": {
+                "jaams_weaponry:nunchaku_pulling": 0
+            },
+            "model": "jaams_weaponry:item/skin_rock_lee_idle"
         },
-        "ground": {
-            "parent": "jaams_weaponry:item/skin_rock_lee_gui"
-        },
-        "fixed": {
-            "parent": "jaams_weaponry:item/skin_rock_lee_gui"
+        {
+            "predicate": {
+                "jaams_weaponry:nunchaku_pulling": 1
+            },
+            "model": "jaams_weaponry:item/skin_rock_lee_active"
         }
-    }
+    ]
 }

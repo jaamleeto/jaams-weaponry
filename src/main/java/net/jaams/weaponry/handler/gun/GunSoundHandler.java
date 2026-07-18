@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.data.GunItemData;
 import net.jaams.weaponry.init.ModItems;
+import net.jaams.weaponry.util.ModGuns;
 import net.minecraft.core.BlockPos;
 
 import net.minecraft.resources.ResourceLocation;
@@ -51,6 +52,10 @@ public class GunSoundHandler {
 
     public static void playShotgunEmptySound(LevelAccessor level, double x, double y, double z, Entity entity, ItemStack itemstack) {
         playEmptyWeaponSound(level, x, y, z, entity, itemstack, "jaams_weaponry:shotgun_empty");
+    }
+
+    public static void playRevolverEmptySound(LevelAccessor level, double x, double y, double z, Entity entity, ItemStack itemstack) {
+        playEmptyWeaponSound(level, x, y, z, entity, itemstack, "jaams_weaponry:revolver_empty");
     }
 
     public static void playScattergunOneBulletSound(LevelAccessor level, double x, double y, double z, Entity entity, ItemStack itemstack) {
@@ -113,8 +118,8 @@ public class GunSoundHandler {
         double bulletDropChance = getFinalDouble(itemstack, "GunBulletDropChance", soundData != null ? soundData.bullet_drop_chance : -1.0, 0.7);
         int afterShotDelay = getFinalInt(itemstack, "GunAfterShotDelay", soundData != null ? soundData.after_shot_delay : -1, 10);
         int emptyCooldown = getFinalInt(itemstack, "GunEmptyCooldown", soundData != null ? soundData.empty_cooldown : -1, 20);
-        String finalShootSound = getFinalSound(itemstack, "GunShootSound", soundData != null ? soundData.shoot_sound : "", getItemStackFromSlot(0, itemstack).getItem() == muzzleAttachment ? muzzleShootSound : defaultShootSound);
-        String finalAfterShootSound = getFinalSound(itemstack, "GunAfterShootSound", soundData != null ? soundData.after_shoot_sound : "", getItemStackFromSlot(2, itemstack).getItem() == magazineAttachment ? magazineAfterShootSound : defaultAfterShootSound);
+        String finalShootSound = getFinalSound(itemstack, "GunShootSound", soundData != null ? soundData.shoot_sound : "", getItemStackFromSlot(ModGuns.isRevolverGun(itemstack) ? 6 : 0, itemstack).getItem() == muzzleAttachment ? muzzleShootSound : defaultShootSound);
+        String finalAfterShootSound = getFinalSound(itemstack, "GunAfterShootSound", soundData != null ? soundData.after_shoot_sound : "", getItemStackFromSlot(ModGuns.isRevolverGun(itemstack) ? 6 : 2, itemstack).getItem() == magazineAttachment ? magazineAfterShootSound : defaultAfterShootSound);
         String finalDropSound = getFinalSound(itemstack, "GunBulletDropSound", soundData != null ? soundData.bullet_drop_sound : "", dropSound);
         playSound(level, x, y, z, finalShootSound, volume, pitch);
         JaamsWeaponryMod.queueServerWork(afterShotDelay, () -> {
@@ -211,6 +216,25 @@ public class GunSoundHandler {
             "jaams_weaponry:shotgun_after_shoot",
             "jaams_weaponry:shotshell_drop",
             3.0
+        );
+    }
+
+    public static void playRevolverAttachmentSound(LevelAccessor level, double x, double y, double z, Entity entity, ItemStack itemstack) {
+        handleWeaponFire(
+            level,
+            x,
+            y,
+            z,
+            entity,
+            itemstack,
+            ModItems.COPPER_MUZZLE.get(),
+            "jaams_weaponry:revolver_muzzle_shoot",
+            "jaams_weaponry:revolver_shoot",
+            null,
+            "jaams_weaponry:revolver_magazine_after_shot",
+            "jaams_weaponry:revolver_after_shoot",
+            "jaams_weaponry:bullet_drop",
+            1.8
         );
     }
 }

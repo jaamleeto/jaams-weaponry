@@ -26,15 +26,17 @@ public class TraitAcrobaticLungeMixin {
                 || !ModTraits.isAcrobaticLungeItem(stack)) {
             return;
         }
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         float strength = getStrength(stack, stack.getTag());
         float maxDistance = getMaxDistance(stack, stack.getTag());
         float maxVerticalPull = getMaxVerticalPull(stack, stack.getTag());
         float distanceScaling = getDistanceScaling(stack, stack.getTag());
-        int durabilityCost = getDurabilityCost(stack, stack.getTag());
 
         MovementHandler.pullTowardsEnemy(target, attacker, 1.0F, stack,
                 strength, strength, maxDistance, 2.0, 1.0F, 0.1,
-                maxVerticalPull, 0.5F, distanceScaling, durabilityCost);
+                maxVerticalPull, 0.5F, distanceScaling);
         attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                 SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 1.3F);
     }
@@ -76,9 +78,6 @@ public class TraitAcrobaticLungeMixin {
 
     @Unique
     private int getDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("AcrobaticLungeDurabilityCost")) {
-            return Math.max(0, tag.getInt("AcrobaticLungeDurabilityCost"));
-        }
-        return TraitsConfig.ACROBATIC_LUNGE_DURABILITY_COST.get();
+        return 0;
     }
 }

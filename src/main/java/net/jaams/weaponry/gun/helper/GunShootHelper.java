@@ -99,6 +99,8 @@ public class GunShootHelper {
             GunSoundHandler.playScattergunEmptySound(level, x, y, z, entity, gunStack);
         } else if (type == ModGuns.GunType.SHOTGUN) {
             GunSoundHandler.playShotgunEmptySound(level, x, y, z, entity, gunStack);
+        } else if (type == ModGuns.GunType.REVOLVER) {
+            GunSoundHandler.playRevolverEmptySound(level, x, y, z, entity, gunStack);
         } else {
             GunSoundHandler.playPistolEmptySound(level, x, y, z, entity, gunStack);
         }
@@ -112,6 +114,8 @@ public class GunShootHelper {
             GunSoundHandler.playScattergunAttachmentSound(level, x, y, z, entity, gunStack);
         } else if (type == ModGuns.GunType.SHOTGUN) {
             GunSoundHandler.playShotgunAttachmentSound(level, x, y, z, entity, gunStack);
+        } else if (type == ModGuns.GunType.REVOLVER) {
+            GunSoundHandler.playRevolverAttachmentSound(level, x, y, z, entity, gunStack);
         } else {
             GunSoundHandler.playPistolAttachmentSound(level, x, y, z, entity, gunStack);
         }
@@ -159,7 +163,14 @@ public class GunShootHelper {
     }
 
     public static ItemStack getAmmoFromGun(ItemStack gunStack) {
-        return gunStack.getCapability(ForgeCapabilities.ITEM_HANDLER).map(handler -> handler.getStackInSlot(1).copy())
+        if (ModGuns.isRevolverGun(gunStack)) {
+            int chamberSlot = ModGuns.getRevolverChamberSlot(gunStack);
+            return gunStack.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                    .map(handler -> handler.getStackInSlot(chamberSlot).copy())
+                    .orElse(ItemStack.EMPTY);
+        }
+        return gunStack.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                .map(handler -> handler.getStackInSlot(1).copy())
                 .orElse(ItemStack.EMPTY);
     }
 
@@ -309,9 +320,14 @@ public class GunShootHelper {
             });
         }
         gunStack.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            for (int slot = 0; slot < handler.getSlots(); slot++) {
-                if (slot != 1) {
-                    consumeAttachment(handler, slot, attachmentConsumption);
+            if (ModGuns.isRevolverGun(gunStack)) {
+                // Revolver: only consume attachment from slot 6
+                consumeAttachment(handler, 6, attachmentConsumption);
+            } else {
+                for (int slot = 0; slot < handler.getSlots(); slot++) {
+                    if (slot != 1) {
+                        consumeAttachment(handler, slot, attachmentConsumption);
+                    }
                 }
             }
         });
@@ -319,7 +335,8 @@ public class GunShootHelper {
 
     public static void consumeAmmoFromGun(ItemStack gunStack, int amount, LivingEntity entity) {
         gunStack.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            ItemStack ammoInSlot = handler.getStackInSlot(1);
+            int ammoSlot = ModGuns.isRevolverGun(gunStack) ? ModGuns.getRevolverChamberSlot(gunStack) : 1;
+            ItemStack ammoInSlot = handler.getStackInSlot(ammoSlot);
             if (ammoInSlot.isEmpty())
                 return;
             boolean consumeAmmo = true;

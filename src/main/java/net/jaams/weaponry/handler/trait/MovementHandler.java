@@ -17,12 +17,12 @@ public class MovementHandler {
             float basePullStrength, float maxPullDistance, double maxPullSpeed,
             float attackStrengthPullModifier, double baseMovementSpeed,
             float maxVerticalPull, float verticalPullDampening,
-            float pullDistanceScaling, int durabilityCostPull) {
+            float pullDistanceScaling) {
         applyPull(entity, sourceEntity, attackStrength, itemStack,
                 basePullStrength, maxPullDistance, maxPullSpeed,
                 attackStrengthPullModifier, baseMovementSpeed,
                 maxVerticalPull, verticalPullDampening, pullDistanceScaling,
-                durabilityCostPull, false, false);
+                false, false);
     }
 
     
@@ -32,7 +32,7 @@ public class MovementHandler {
             float maxPullDistance, double maxPullSpeed,
             float attackStrengthPullModifier, double baseMovementSpeed,
             float maxVerticalPull, float verticalPullDampening,
-            float pullDistanceScaling, int durabilityCostPull) {
+            float pullDistanceScaling) {
         boolean isSneaking = sourceEntity.isShiftKeyDown();
         float strength = isSneaking ? baseAttractStrength : basePullStrength;
         LivingEntity pulledEntity = isSneaking ? entity : sourceEntity;
@@ -41,7 +41,7 @@ public class MovementHandler {
                 strength, maxPullDistance, maxPullSpeed,
                 attackStrengthPullModifier, baseMovementSpeed,
                 maxVerticalPull, verticalPullDampening, pullDistanceScaling,
-                durabilityCostPull, pulledEntity == sourceEntity, false);
+                pulledEntity == sourceEntity, false);
     }
 
     
@@ -50,12 +50,12 @@ public class MovementHandler {
             float basePushStrength, float maxPushDistance, double maxPushSpeed,
             float attackStrengthPushModifier, double baseMovementSpeed,
             float maxVerticalPush, float verticalPushDampening,
-            float pushDistanceScaling, int durabilityCostPush) {
+            float pushDistanceScaling) {
         applyPull(sourceEntity, entity, attackStrength, itemStack,
                 basePushStrength, maxPushDistance, maxPushSpeed,
                 attackStrengthPushModifier, baseMovementSpeed,
                 maxVerticalPush, verticalPushDampening, pushDistanceScaling,
-                durabilityCostPush, true, true);
+                true, true);
     }
 
     
@@ -64,7 +64,7 @@ public class MovementHandler {
             float basePullStrength, float maxPullDistance, double maxPullSpeed,
             float attackStrengthPullModifier, double baseMovementSpeed,
             float maxVerticalPull, float verticalPullDampening,
-            float pullDistanceScaling, int durabilityCostPull,
+            float pullDistanceScaling,
             boolean isPullingSelf, boolean invertDirection) {
         if (pulledEntity.distanceTo(targetEntity) > maxPullDistance) {
             return;
@@ -119,11 +119,6 @@ public class MovementHandler {
 
         pulledEntity.setDeltaMovement(newMotion);
         pulledEntity.hurtMarked = true;
-
-        if (itemStack != null && !isPullingSelf) {
-            itemStack.hurtAndBreak(durabilityCostPull, targetEntity,
-                    p -> p.broadcastBreakEvent(targetEntity.getUsedItemHand()));
-        }
 
         pulledEntity.level().playSound(null,
                 pulledEntity.position().x, pulledEntity.position().y, pulledEntity.position().z,

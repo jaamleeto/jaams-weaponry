@@ -33,6 +33,9 @@ public class TraitPowerBoostMixin {
             return;
         if (!isPowerBoostEnabled(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
 
         CompoundTag nbt = stack.getOrCreateTag();
         int hits = nbt.getInt(NBT_HITS) + 1;

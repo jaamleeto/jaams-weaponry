@@ -34,8 +34,9 @@ public class GunInventoryCapability implements ICapabilitySerializable<CompoundT
 		return inventoryHandler;
 	}
 
-	private ItemStackHandler createItemHandler() {
-		return new ItemStackHandler(3) {
+	    private ItemStackHandler createItemHandler() {
+	        int slotCount = ModGuns.getGunSlotCount(gunType);
+	        return new ItemStackHandler(slotCount) {
 			@Override
 			public int getSlotLimit(int slot) {
 				return ModGuns.getSlotStackLimit(gunType, slot, gunStack);

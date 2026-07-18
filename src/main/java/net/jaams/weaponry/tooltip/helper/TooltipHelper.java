@@ -4,6 +4,7 @@ import java.util.List;
 import net.jaams.weaponry.tooltip.item.GunDefaultItemTooltip;
 import net.jaams.weaponry.tooltip.item.GunItemTooltip;
 import net.jaams.weaponry.tooltip.item.PistolItemTooltip;
+import net.jaams.weaponry.tooltip.item.RevolverItemTooltip;
 import net.jaams.weaponry.tooltip.item.ScattergunItemTooltip;
 import net.jaams.weaponry.tooltip.item.ShotgunItemTooltip;
 import net.jaams.weaponry.tooltip.item.SlingshotTooltip;
@@ -145,6 +146,7 @@ public class TooltipHelper {
         GunDefaultItemTooltip.add(stack, tooltip);
         PistolItemTooltip.add(stack, tooltip);
         ScattergunItemTooltip.add(stack, tooltip);
+        RevolverItemTooltip.add(stack, tooltip);
         ShotgunItemTooltip.add(stack, tooltip);
         SlingshotTooltip.add(stack, tooltip);
         AttachmentItemTooltip.add(stack, tooltip);

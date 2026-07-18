@@ -230,14 +230,6 @@ public class TraitAfterStrikeMixin {
 
     @Unique
     private int getDurabilityCost(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("AfterStrikeDurabilityCost")) {
-            return Math.max(0, tag.getInt("AfterStrikeDurabilityCost"));
-        }
-        int value = TraitModifierData.getAfterStrike(stack)
-                .map((entry) -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.AFTER_STRIKE_DURABILITY_COST.get());
-        return Math.max(0, value);
+        return 0;
     }
 }

@@ -161,6 +161,38 @@
             }
         ]
     },
+    "gun_system_revolver_open": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_open",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_revolver_closed": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_closed",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_revolver_bullet": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_bullet",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_revolver_attachment": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_attachment",
+                "stream": false
+            }
+        ]
+    },
     "pistol_shoot": {
         "subtitle": "subtitles.pistol_shoot",
         "sounds": [
@@ -292,6 +324,51 @@
         "sounds": [
             {
                 "name": "jaams_weaponry:shotgun_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_shoot": {
+        "subtitle": "subtitles.revolver_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_after_shoot": {
+        "subtitle": "subtitles.revolver_after_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_empty": {
+        "subtitle": "subtitles.revolver_empty",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_empty",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_muzzle_shoot": {
+        "subtitle": "subtitles.revolver_muzzle_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_muzzle_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_magazine_after_shot": {
+        "subtitle": "subtitles.revolver_magazine_after_shot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_magazine_after_shot",
                 "stream": false
             }
         ]

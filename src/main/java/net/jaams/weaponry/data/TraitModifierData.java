@@ -284,7 +284,6 @@ public class TraitModifierData {
         public Float pierce_range = null;
         public Integer pierce_cooldown = null;
         public Integer no_target_cooldown = null;
-        public Integer durability_cost = null;
         public Float min_damage = null;
         public String piercing_assault_mode = null;
         public Integer use_duration_ticks = null;
@@ -327,43 +326,36 @@ public class TraitModifierData {
     public static class AquaticGrudgeEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class ArthropodGrudgeEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class UndeadGrudgeEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class TraitorGrudgeEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class SnoutGrudgeEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class BoneGrudgeEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class AntiAerialEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class ArmorBreakerEntry {
@@ -447,7 +439,6 @@ public class TraitModifierData {
     public static class RottenGrudgeEntry {
 
         public Float bonus_damage = null;
-        public Integer durability_cost = null;
     }
 
     public static class BackstabEntry {
@@ -525,21 +516,18 @@ public class TraitModifierData {
         public Float bonus_damage = null;
         public Integer min_armor = null;
         public Boolean require_fully_charged = null;
-        public Integer durability_cost = null;
     }
 
     public static class DuelistEntry {
 
         public Float bonus_damage = null;
         public Boolean require_fully_charged = null;
-        public Integer durability_cost = null;
     }
 
     public static class ThreatResponseEntry {
 
         public Float bonus_damage = null;
         public Boolean require_fully_charged = null;
-        public Integer durability_cost = null;
     }
 
     public static class ReachAdvantageEntry {
@@ -548,7 +536,6 @@ public class TraitModifierData {
         public Float min_distance = null;
         public Float max_distance = null;
         public Boolean require_fully_charged = null;
-        public Integer durability_cost = null;
     }
 
     public static class AfterStrikeEntry {
@@ -560,7 +547,6 @@ public class TraitModifierData {
         public Integer attack_interval = null;
         public Float initial_modifier = null;
         public Float decay_factor = null;
-        public Integer durability_cost = null;
     }
 
     public static class QuickCraftingEntry {
@@ -602,7 +588,6 @@ public class TraitModifierData {
         public Boolean enabled = null;
         public Float chance = null;
         public Boolean require_critical = null;
-        public Integer durability_cost = null;
         public Boolean mount_item = null;
     }
 

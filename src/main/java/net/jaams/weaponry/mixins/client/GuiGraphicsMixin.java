@@ -48,7 +48,10 @@ public abstract class GuiGraphicsMixin {
             boolean ammoFromGun = GunSystemCommonConfig.GUN_AMMO_FROM_GUN.get();
             boolean bundleInteraction = GunSystemCommonConfig.GUN_BUNDLE_INTERACTION.get();
             if (ammoFromGun) {
-                ItemStack ammoStack = ModGuns.getItemStack(itemStack, 1);
+                int ammoSlot = ModGuns.isRevolverGun(itemStack)
+                        ? ModGuns.getRevolverChamberSlot(itemStack)
+                        : 1;
+                ItemStack ammoStack = ModGuns.getItemStack(itemStack, ammoSlot);
                 if (!ammoStack.isEmpty()) {
                     renderGunBar(itemStack, ammoStack, x, y);
                 } else {

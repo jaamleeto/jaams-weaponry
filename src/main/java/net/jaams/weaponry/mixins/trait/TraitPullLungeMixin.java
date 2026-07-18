@@ -25,15 +25,17 @@ public class TraitPullLungeMixin {
         if (target == null || attacker == null || attacker.level().isClientSide || !ModTraits.isPullLungeItem(stack)) {
             return;
         }
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         float strength = getStrength(stack, stack.getTag());
         float maxDistance = getMaxDistance(stack, stack.getTag());
         float maxVerticalPull = getMaxVerticalPull(stack, stack.getTag());
         float distanceScaling = getDistanceScaling(stack, stack.getTag());
-        int durabilityCost = getDurabilityCost(stack, stack.getTag());
 
         MovementHandler.pullEnemyTowardsPlayer(target, attacker, 1.0F, stack,
                 strength, maxDistance, 2.0, 1.0F, 0.1,
-                maxVerticalPull, 0.5F, distanceScaling, durabilityCost);
+                maxVerticalPull, 0.5F, distanceScaling);
         attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                 SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 1.3F);
     }
@@ -75,9 +77,6 @@ public class TraitPullLungeMixin {
 
     @Unique
     private int getDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("PullLungeDurabilityCost")) {
-            return Math.max(0, tag.getInt("PullLungeDurabilityCost"));
-        }
-        return TraitsConfig.PULL_LUNGE_DURABILITY_COST.get();
+        return 0;
     }
 }

@@ -24,6 +24,9 @@ public class TraitDisarmMixin {
         if (target == null || attacker == null || attacker.level().isClientSide || !ModTraits.isDisarmItem(stack)) {
             return;
         }
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         float chance = getChance(stack, stack.getTag());
         if (attacker.getRandom().nextFloat() >= chance) {
             return;

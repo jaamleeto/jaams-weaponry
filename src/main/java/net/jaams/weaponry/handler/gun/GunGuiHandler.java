@@ -66,11 +66,33 @@ public class GunGuiHandler {
 
     private static void renderBulletInGui(Minecraft mc, ItemStack gunItem, CustomizeGuiOverlayEvent.DebugText event, int x, int y) {
         gunItem.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent((cap) -> {
-            ItemStack slot0 = getSlotStack(cap, 0);
-            ItemStack slot1 = getSlotStack(cap, 1);
-            ItemStack slot2 = getSlotStack(cap, 2);
-            int itemCount = countRenderSlots(slot0, slot1, slot2);
-            if (itemCount == 0) return;
+            int itemCount;
+            int[] slots;
+            if (ModGuns.isRevolverGun(gunItem)) {
+                int currentChamber = ModGuns.getRevolverChamberSlot(gunItem);
+                ItemStack chamberBullet = getSlotStack(cap, currentChamber);
+                ItemStack attachment = getSlotStack(cap, 0);
+                int count = 0;
+                if (GunSystemClientConfig.RENDER_SLOT_0.get() && !attachment.isEmpty()) count++;
+                if (!chamberBullet.isEmpty()) count++;
+                itemCount = count;
+                if (itemCount == 0) return;
+                slots = new int[itemCount];
+                int idx = 0;
+                if (GunSystemClientConfig.RENDER_SLOT_0.get() && !attachment.isEmpty()) slots[idx++] = 0;
+                if (!chamberBullet.isEmpty()) slots[idx++] = currentChamber;
+            } else {
+                ItemStack slot0 = getSlotStack(cap, 0);
+                ItemStack slot1 = getSlotStack(cap, 1);
+                ItemStack slot2 = getSlotStack(cap, 2);
+                itemCount = countRenderSlots(slot0, slot1, slot2);
+                if (itemCount == 0) return;
+                slots = new int[itemCount];
+                int idx = 0;
+                if (GunSystemClientConfig.RENDER_SLOT_0.get() && !slot0.isEmpty()) slots[idx++] = 0;
+                if (GunSystemClientConfig.RENDER_SLOT_1.get() && GunSystemCommonConfig.GUN_AMMO_FROM_GUN.get() && !slot1.isEmpty()) slots[idx++] = 1;
+                if (GunSystemClientConfig.RENDER_SLOT_2.get() && !slot2.isEmpty()) slots[idx++] = 2;
+            }
             final int adjustedX = x - ((itemCount - 1) * (SLOT_WIDTH / 2));
             final int adjustedY = y;
             GuiGraphics guiGraphics = event.getGuiGraphics();
@@ -87,16 +109,12 @@ public class GunGuiHandler {
                 renderBackgroundWithBorder(guiGraphics, adjustedX - 2, adjustedY - 2, itemCount * SLOT_WIDTH, SLOT_HEIGHT, backgroundColor, borderColor, borderThickness);
             }
             int currentX = adjustedX;
-            if (GunSystemClientConfig.RENDER_SLOT_0.get() && !slot0.isEmpty()) {
-                renderItemSlot(mc, slot0, guiGraphics, currentX, adjustedY);
-                currentX += SLOT_WIDTH;
-            }
-            if (GunSystemClientConfig.RENDER_SLOT_1.get() && GunSystemCommonConfig.GUN_AMMO_FROM_GUN.get() && !slot1.isEmpty()) {
-                renderItemSlot(mc, slot1, guiGraphics, currentX, adjustedY);
-                currentX += SLOT_WIDTH;
-            }
-            if (GunSystemClientConfig.RENDER_SLOT_2.get() && !slot2.isEmpty()) {
-                renderItemSlot(mc, slot2, guiGraphics, currentX, adjustedY);
+            for (int slot : slots) {
+                ItemStack slotStack = getSlotStack(cap, slot);
+                if (!slotStack.isEmpty()) {
+                    renderItemSlot(mc, slotStack, guiGraphics, currentX, adjustedY);
+                    currentX += SLOT_WIDTH;
+                }
             }
             RenderSystem.defaultBlendFunc();
             RenderSystem.disableBlend();

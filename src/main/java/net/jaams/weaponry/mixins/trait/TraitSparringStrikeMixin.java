@@ -20,6 +20,9 @@ public class TraitSparringStrikeMixin {
             return;
         if (!ModTraits.isSparringStrikeItem(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(sourceentity.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(sourceentity.getOffhandItem(), stack))
+            return;
         CombatEffectHandler.handleSparringStrike(entity, sourceentity, stack);
     }
 }

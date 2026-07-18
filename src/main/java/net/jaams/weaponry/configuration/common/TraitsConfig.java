@@ -149,7 +149,7 @@ public class TraitsConfig {
     public static ForgeConfigSpec.DoubleValue PIERCING_ASSAULT_RANGE;
     public static ForgeConfigSpec.IntValue PIERCING_ASSAULT_PIERCE_COOLDOWN;
     public static ForgeConfigSpec.IntValue PIERCING_ASSAULT_NO_TARGET_COOLDOWN;
-    public static ForgeConfigSpec.IntValue PIERCING_ASSAULT_DURABILITY_COST;
+
     public static ForgeConfigSpec.EnumValue<ModEnums.PiercingAssaultMode> PIERCING_ASSAULT_ACTIVATION_MODE;
     public static ForgeConfigSpec.IntValue PIERCING_ASSAULT_CHARGE_DURATION_TICKS;
     public static ForgeConfigSpec.EnumValue<UseAnim> PIERCING_ASSAULT_CHARGE_ANIMATION;
@@ -233,7 +233,7 @@ public class TraitsConfig {
 
     public static ForgeConfigSpec.DoubleValue DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_CHANCE;
     public static ForgeConfigSpec.BooleanValue DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_REQUIRE_CRITICAL;
-    public static ForgeConfigSpec.IntValue DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_DURABILITY_COST;
+
     public static ForgeConfigSpec.BooleanValue DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_MOUNT_ITEM;
 
     public static ForgeConfigSpec.DoubleValue DISABLING_SHOT_SHURIKEN_PROJECTILE_CHANCE;
@@ -250,21 +250,21 @@ public class TraitsConfig {
     public static ForgeConfigSpec.DoubleValue PIERCER_STRIKE_BONUS_DAMAGE;
     public static ForgeConfigSpec.IntValue PIERCER_STRIKE_MIN_ARMOR;
     public static ForgeConfigSpec.BooleanValue PIERCER_STRIKE_REQUIRE_FULLY_CHARGED;
-    public static ForgeConfigSpec.IntValue PIERCER_STRIKE_DURABILITY_COST;
+
 
     public static ForgeConfigSpec.DoubleValue DUELIST_BONUS_DAMAGE;
     public static ForgeConfigSpec.BooleanValue DUELIST_REQUIRE_FULLY_CHARGED;
-    public static ForgeConfigSpec.IntValue DUELIST_DURABILITY_COST;
+
 
     public static ForgeConfigSpec.DoubleValue THREAT_RESPONSE_BONUS_DAMAGE;
     public static ForgeConfigSpec.BooleanValue THREAT_RESPONSE_REQUIRE_FULLY_CHARGED;
-    public static ForgeConfigSpec.IntValue THREAT_RESPONSE_DURABILITY_COST;
+
 
     public static ForgeConfigSpec.DoubleValue REACH_ADVANTAGE_BONUS_DAMAGE;
     public static ForgeConfigSpec.DoubleValue REACH_ADVANTAGE_MIN_DISTANCE;
     public static ForgeConfigSpec.DoubleValue REACH_ADVANTAGE_MAX_DISTANCE;
     public static ForgeConfigSpec.BooleanValue REACH_ADVANTAGE_REQUIRE_FULLY_CHARGED;
-    public static ForgeConfigSpec.IntValue REACH_ADVANTAGE_DURABILITY_COST;
+
 
     public static ForgeConfigSpec.IntValue AFTER_STRIKE_REQUIRED_HITS;
     public static ForgeConfigSpec.IntValue AFTER_STRIKE_STRIKES_COUNT;
@@ -273,11 +273,11 @@ public class TraitsConfig {
     public static ForgeConfigSpec.DoubleValue AFTER_STRIKE_DECAY_FACTOR;
     public static ForgeConfigSpec.BooleanValue AFTER_STRIKE_REQUIRES_CHARGED;
     public static ForgeConfigSpec.BooleanValue AFTER_STRIKE_CRITICAL_TRIGGERS;
-    public static ForgeConfigSpec.IntValue AFTER_STRIKE_DURABILITY_COST;
+
 
     public static ForgeConfigSpec.IntValue BUSTER_STRIKE_REQUIRED_HITS;
     public static ForgeConfigSpec.DoubleValue BUSTER_STRIKE_BONUS_MULTIPLIER;
-    public static ForgeConfigSpec.IntValue BUSTER_STRIKE_DURABILITY_PENALTY;
+
     public static ForgeConfigSpec.DoubleValue BUSTER_STRIKE_REMOVE_CHANCE;
     public static ForgeConfigSpec.BooleanValue BUSTER_STRIKE_REQUIRES_CHARGED;
 
@@ -291,19 +291,19 @@ public class TraitsConfig {
     public static ForgeConfigSpec.BooleanValue QUICK_CRAFTING_GLOBAL_COOLDOWN;
 
     public static ForgeConfigSpec.DoubleValue AQUATIC_GRUDGE_BONUS_DAMAGE;
-    public static ForgeConfigSpec.IntValue AQUATIC_GRUDGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue ARTHROPOD_GRUDGE_BONUS_DAMAGE;
-    public static ForgeConfigSpec.IntValue ARTHROPOD_GRUDGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue UNDEAD_GRUDGE_BONUS_DAMAGE;
-    public static ForgeConfigSpec.IntValue UNDEAD_GRUDGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue TRAITOR_GRUDGE_BONUS_DAMAGE;
-    public static ForgeConfigSpec.IntValue TRAITOR_GRUDGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue SNOUT_GRUDGE_BONUS_DAMAGE;
-    public static ForgeConfigSpec.IntValue SNOUT_GRUDGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue BONE_GRUDGE_BONUS_DAMAGE;
-    public static ForgeConfigSpec.IntValue BONE_GRUDGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue ANTI_AERIAL_BONUS_DAMAGE;
-    public static ForgeConfigSpec.IntValue ANTI_AERIAL_DURABILITY_COST;
+
 
     public static ForgeConfigSpec.DoubleValue ROTTEN_GRUDGE_BONUS_DAMAGE;
     public static ForgeConfigSpec.DoubleValue ARMOR_BREAKER_CHANCE;
@@ -317,23 +317,23 @@ public class TraitsConfig {
     public static ForgeConfigSpec.DoubleValue ACROBATIC_LUNGE_MAX_DISTANCE;
     public static ForgeConfigSpec.DoubleValue ACROBATIC_LUNGE_MAX_VERTICAL_PULL;
     public static ForgeConfigSpec.DoubleValue ACROBATIC_LUNGE_DISTANCE_SCALING;
-    public static ForgeConfigSpec.IntValue ACROBATIC_LUNGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue DEXTEROUS_LUNGE_PULL_STRENGTH;
     public static ForgeConfigSpec.DoubleValue DEXTEROUS_LUNGE_ATTRACT_STRENGTH;
     public static ForgeConfigSpec.DoubleValue DEXTEROUS_LUNGE_MAX_DISTANCE;
     public static ForgeConfigSpec.DoubleValue DEXTEROUS_LUNGE_MAX_VERTICAL_PULL;
     public static ForgeConfigSpec.DoubleValue DEXTEROUS_LUNGE_DISTANCE_SCALING;
-    public static ForgeConfigSpec.IntValue DEXTEROUS_LUNGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue PULL_LUNGE_STRENGTH;
     public static ForgeConfigSpec.DoubleValue PULL_LUNGE_MAX_DISTANCE;
     public static ForgeConfigSpec.DoubleValue PULL_LUNGE_MAX_VERTICAL_PULL;
     public static ForgeConfigSpec.DoubleValue PULL_LUNGE_DISTANCE_SCALING;
-    public static ForgeConfigSpec.IntValue PULL_LUNGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue DISENGAGE_STRENGTH;
     public static ForgeConfigSpec.DoubleValue DISENGAGE_MAX_DISTANCE;
     public static ForgeConfigSpec.DoubleValue DISENGAGE_MAX_VERTICAL_PUSH;
     public static ForgeConfigSpec.DoubleValue DISENGAGE_DISTANCE_SCALING;
-    public static ForgeConfigSpec.IntValue DISENGAGE_DURABILITY_COST;
+
     public static ForgeConfigSpec.DoubleValue DISARM_CHANCE;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DISARM_NON_DISARMABLE_ITEMS;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> DISARM_NON_DISARMABLE_ENTITIES;
@@ -349,7 +349,7 @@ public class TraitsConfig {
     public static ForgeConfigSpec.BooleanValue SUPPRESSING_STRIKE;
     public static ForgeConfigSpec.DoubleValue SUPPRESSING_STRIKE_CHANCE;
     public static ForgeConfigSpec.IntValue SUPPRESSING_STRIKE_DURATION;
-    public static ForgeConfigSpec.IntValue ROTTEN_GRUDGE_DURABILITY_COST;
+
 
     public static ForgeConfigSpec.BooleanValue FRAGILITY;
     public static ForgeConfigSpec.BooleanValue SLIPPERY;
@@ -499,8 +499,7 @@ public class TraitsConfig {
         builder.push("Hunter's Boomerang Projectile");
         DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_CHANCE = builder.comment("Chance to disarm on hit (0.0-1.0)").defineInRange("Disarm Chance", 0.05, 0.0, 1.0);
         DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_REQUIRE_CRITICAL = builder.comment("Only disarm on critical hits").define("Require Critical Hit", false);
-        DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_DURABILITY_COST = builder.comment("Extra durability cost when disarming shot triggers").defineInRange("Extra Durability Cost", 1,
-                0, 50);
+
         DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_MOUNT_ITEM = builder.comment("Mount the disarmed item on the projectile").define("Mount Disarmed Item", true);
         builder.pop();
         builder.pop();
@@ -591,24 +590,24 @@ public class TraitsConfig {
         PIERCER_STRIKE_MIN_ARMOR = builder.comment("Minimum armor value the target must have for the trait to trigger")
                 .defineInRange("Min Armor", 4, 0, 30);
         PIERCER_STRIKE_REQUIRE_FULLY_CHARGED = builder.comment("Require fully charged attack to trigger").define("Require Fully Charged", true);
-        PIERCER_STRIKE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Duelist");
         DUELIST_BONUS_DAMAGE = builder.comment("Bonus damage when not targeting the attacking entity").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
         DUELIST_REQUIRE_FULLY_CHARGED = builder.comment("Require fully charged attack to trigger").define("Require Fully Charged", true);
-        DUELIST_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Threat Response");
         THREAT_RESPONSE_BONUS_DAMAGE = builder.comment("Bonus damage against the entity that last attacked you").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
         THREAT_RESPONSE_REQUIRE_FULLY_CHARGED = builder.comment("Require fully charged attack to trigger").define("Require Fully Charged", true);
-        THREAT_RESPONSE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Reach Advantage");
         REACH_ADVANTAGE_BONUS_DAMAGE = builder.comment("Bonus damage per block of distance").defineInRange("Bonus Damage per Block", 0.5, 0.0, 10.0);
         REACH_ADVANTAGE_MIN_DISTANCE = builder.comment("Minimum distance in blocks to trigger").defineInRange("Min Distance Blocks", 2.0, 0.0, 100.0);
         REACH_ADVANTAGE_MAX_DISTANCE = builder.comment("Maximum distance in blocks for bonus").defineInRange("Max Distance Blocks", 16.0, 0.0, 100.0);
         REACH_ADVANTAGE_REQUIRE_FULLY_CHARGED = builder.comment("Require fully charged attack to trigger").define("Require Fully Charged", true);
-        REACH_ADVANTAGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("After Strike");
         AFTER_STRIKE_REQUIRED_HITS = builder.comment("Hits required to trigger After Strike flurry").defineInRange("Required Hits", 3, 1, 100);
@@ -620,12 +619,12 @@ public class TraitsConfig {
         AFTER_STRIKE_CRITICAL_TRIGGERS = builder.comment(
                 "If true, landing a critical hit will instantly trigger the After Strike flurry, bypassing the hit counter.")
                 .define("Critical Triggers Flurry", true);
-        AFTER_STRIKE_DURABILITY_COST = builder.comment("Durability cost per flurry trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Buster Strike");
         BUSTER_STRIKE_REQUIRED_HITS = builder.comment("Hits required to trigger Buster Strike").defineInRange("Required Hits", 3, 1, 100);
         BUSTER_STRIKE_BONUS_MULTIPLIER = builder.comment("Bonus damage multiplier for the empowered hit").defineInRange("Bonus Damage Multiplier", 0.7, 0.0, 5.0);
-        BUSTER_STRIKE_DURABILITY_PENALTY = builder.comment("Extra durability damage when triggering").defineInRange("Durability Penalty", 3, 0, 100);
+
         BUSTER_STRIKE_REMOVE_CHANCE = builder.comment("Chance to reset hit counter after trigger (0.0-1.0)").defineInRange("Tag Remove Chance", 0.3, 0.0, 1.0);
         BUSTER_STRIKE_REQUIRES_CHARGED = builder.comment("Require fully charged attack to trigger").define("Require Fully Charged", true);
         builder.pop();
@@ -643,36 +642,36 @@ public class TraitsConfig {
         builder.pop();
         builder.push("Aquatic Grudge");
         AQUATIC_GRUDGE_BONUS_DAMAGE = builder.comment("Bonus damage vs aquatic mobs").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        AQUATIC_GRUDGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Arthropod Grudge");
         ARTHROPOD_GRUDGE_BONUS_DAMAGE = builder.comment("Bonus damage vs arthropods").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        ARTHROPOD_GRUDGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Undead Grudge");
         UNDEAD_GRUDGE_BONUS_DAMAGE = builder.comment("Bonus damage vs undead").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        UNDEAD_GRUDGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Traitor Grudge");
         TRAITOR_GRUDGE_BONUS_DAMAGE = builder.comment("Bonus damage vs illagers").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        TRAITOR_GRUDGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Snout Grudge");
         SNOUT_GRUDGE_BONUS_DAMAGE = builder.comment("Bonus damage vs piglins").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        SNOUT_GRUDGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Bone Grudge");
         BONE_GRUDGE_BONUS_DAMAGE = builder.comment("Bonus damage vs skeletons").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        BONE_GRUDGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Anti Aerial");
         ANTI_AERIAL_BONUS_DAMAGE = builder.comment("Bonus damage vs flying mobs").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        ANTI_AERIAL_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
 
         builder.push("Rotten Grudge");
         ROTTEN_GRUDGE_BONUS_DAMAGE = builder.comment("Bonus damage vs zombies").defineInRange("Bonus Damage", 5.0, 0.0, 100.0);
-        ROTTEN_GRUDGE_DURABILITY_COST = builder.comment("Durability cost per trigger").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Armor Breaker");
         ARMOR_BREAKER_CHANCE = builder.comment("Chance to damage armor on hit").defineInRange("Chance", 0.25, 0.0, 1.0);
@@ -691,33 +690,33 @@ public class TraitsConfig {
                 .defineList("Immune Items", List.of(), (obj) -> obj instanceof String);
         builder.pop();
         builder.push("Acrobatic Lunge");
-        ACROBATIC_LUNGE_STRENGTH = builder.comment("Pull strength toward target").defineInRange("Pull Strength", 2.5, 0.0, 5.0);
-        ACROBATIC_LUNGE_MAX_DISTANCE = builder.comment("Max pull distance in blocks").defineInRange("Max Pull Distance", 20.0, 1.0, 100.0);
-        ACROBATIC_LUNGE_MAX_VERTICAL_PULL = builder.comment("Max vertical pull distance").defineInRange("Max Vertical Pull", 0.5, 0.0, 5.0);
+        ACROBATIC_LUNGE_STRENGTH = builder.comment("Pull strength toward target").defineInRange("Pull Strength", 3.5, 0.0, 100.0);
+        ACROBATIC_LUNGE_MAX_DISTANCE = builder.comment("Max pull distance in blocks").defineInRange("Max Pull Distance", 20.0, 1.0, 255.0);
+        ACROBATIC_LUNGE_MAX_VERTICAL_PULL = builder.comment("Max vertical pull distance").defineInRange("Max Vertical Pull", 0.15, 0.0, 5.0);
         ACROBATIC_LUNGE_DISTANCE_SCALING = builder.comment("Distance scaling factor").defineInRange("Distance Scaling", 1.0, 0.0, 5.0);
-        ACROBATIC_LUNGE_DURABILITY_COST = builder.comment("Durability cost per use").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Dexterous Lunge");
-        DEXTEROUS_LUNGE_PULL_STRENGTH = builder.comment("Pull strength toward target").defineInRange("Pull Strength", 3.5, 0.0, 5.0);
-        DEXTEROUS_LUNGE_ATTRACT_STRENGTH = builder.comment("Attract strength for item pickup").defineInRange("Attract Strength", 2.5, 0.0, 5.0);
-        DEXTEROUS_LUNGE_MAX_DISTANCE = builder.comment("Max pull distance in blocks").defineInRange("Max Pull Distance", 20.0, 1.0, 100.0);
-        DEXTEROUS_LUNGE_MAX_VERTICAL_PULL = builder.comment("Max vertical pull distance").defineInRange("Max Vertical Pull", 0.5, 0.0, 5.0);
+        DEXTEROUS_LUNGE_PULL_STRENGTH = builder.comment("Pull strength toward target").defineInRange("Pull Strength", 4.5, 0.0, 100.0);
+        DEXTEROUS_LUNGE_ATTRACT_STRENGTH = builder.comment("Attract strength for item pickup").defineInRange("Attract Strength", 3.5, 0.0, 100.0);
+        DEXTEROUS_LUNGE_MAX_DISTANCE = builder.comment("Max pull distance in blocks").defineInRange("Max Pull Distance", 20.0, 1.0, 255.0);
+        DEXTEROUS_LUNGE_MAX_VERTICAL_PULL = builder.comment("Max vertical pull distance").defineInRange("Max Vertical Pull", 0.15, 0.0, 5.0);
         DEXTEROUS_LUNGE_DISTANCE_SCALING = builder.comment("Distance scaling factor").defineInRange("Distance Scaling", 1.0, 0.0, 5.0);
-        DEXTEROUS_LUNGE_DURABILITY_COST = builder.comment("Durability cost per use").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Pull Lunge");
-        PULL_LUNGE_STRENGTH = builder.comment("Pull strength toward target").defineInRange("Pull Strength", 2.5, 0.0, 5.0);
-        PULL_LUNGE_MAX_DISTANCE = builder.comment("Max pull distance in blocks").defineInRange("Max Pull Distance", 20.0, 1.0, 100.0);
-        PULL_LUNGE_MAX_VERTICAL_PULL = builder.comment("Max vertical pull distance").defineInRange("Max Vertical Pull", 0.5, 0.0, 5.0);
+        PULL_LUNGE_STRENGTH = builder.comment("Pull strength toward target").defineInRange("Pull Strength", 3.5, 0.0, 100.0);
+        PULL_LUNGE_MAX_DISTANCE = builder.comment("Max pull distance in blocks").defineInRange("Max Pull Distance", 20.0, 1.0, 255.0);
+        PULL_LUNGE_MAX_VERTICAL_PULL = builder.comment("Max vertical pull distance").defineInRange("Max Vertical Pull", 0.15, 0.0, 5.0);
         PULL_LUNGE_DISTANCE_SCALING = builder.comment("Distance scaling factor").defineInRange("Distance Scaling", 1.0, 0.0, 5.0);
-        PULL_LUNGE_DURABILITY_COST = builder.comment("Durability cost per use").defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Disengage");
-        DISENGAGE_STRENGTH = builder.comment("Rebound strength away from target").defineInRange("Rebound Strength", 5.0, 0.0, 20.0);
-        DISENGAGE_MAX_DISTANCE = builder.defineInRange("Max Push Distance", 20.0, 1.0, 100.0);
-        DISENGAGE_MAX_VERTICAL_PUSH = builder.defineInRange("Max Vertical Push", 0.5, 0.0, 5.0);
+        DISENGAGE_STRENGTH = builder.comment("Rebound strength away from target").defineInRange("Rebound Strength", 4.5, 0.0, 100.0);
+        DISENGAGE_MAX_DISTANCE = builder.defineInRange("Max Push Distance", 20.0, 1.0, 255.0);
+        DISENGAGE_MAX_VERTICAL_PUSH = builder.defineInRange("Max Vertical Push", 0.15, 0.0, 5.0);
         DISENGAGE_DISTANCE_SCALING = builder.defineInRange("Distance Scaling", 1.0, 0.0, 5.0);
-        DISENGAGE_DURABILITY_COST = builder.defineInRange("Durability Cost", 1, 0, 100);
+
         builder.pop();
         builder.push("Disarm");
         DISARM_CHANCE = builder.comment("Chance to disarm on hit").defineInRange("Disarm Chance", 0.15, 0.0, 1.0);
@@ -838,7 +837,7 @@ public class TraitsConfig {
                 "Apply cooldown to all items with the piercing_assault trait in the inventory when the cooldown triggers, preventing abuse by switching between multiple piercing assault weapons")
                 .define("Global Cooldown", true);
         PIERCING_ASSAULT_NO_TARGET_COOLDOWN = builder.comment("Cooldown when no target hit").defineInRange("No Target Cooldown Ticks", 40, 1, 200);
-        PIERCING_ASSAULT_DURABILITY_COST = builder.comment("Durability cost per use").defineInRange("Durability Cost", 2, 0, 100);
+
         PIERCING_ASSAULT_ACTIVATION_MODE = builder.comment(
                 "Activation mode: SPRINT_CLICK (sprint + right-click), INSTANT_ON_RIGHT_CLICK (right-click), CHARGE_AND_RELEASE (hold right-click, release to dash), CHARGE_AND_FINISH_USING (hold until fully charged), CHARGE_RELEASE_AND_FINISH (dash on release or when fully charged)")
                 .defineEnum("Activation Mode", ModEnums.PiercingAssaultMode.SPRINT_CLICK);

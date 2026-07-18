@@ -91,6 +91,30 @@ public class GunSystemCommonConfig {
     public static ForgeConfigSpec.IntValue GUN_SHOTGUN_SHOOT_ATTACHMENT_CONSUMPTION;
     public static ForgeConfigSpec.EnumValue<ModEnums.GunFirePattern> GUN_SHOTGUN_SHOOT_FIRE_PATTERN;
 
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_PROJECTILE_DAMAGE_MODIFIER;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_PROJECTILE_KNOCKBACK_MODIFIER;
+    public static ForgeConfigSpec.IntValue GUN_REVOLVER_SHOOT_PROJECTILE_PIERCING_MODIFIER;
+    public static ForgeConfigSpec.IntValue GUN_REVOLVER_SHOOT_PROJECTILE_COUNT;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_INACCURACY;
+    public static ForgeConfigSpec.IntValue GUN_REVOLVER_SHOOT_COOLDOWN;
+    public static ForgeConfigSpec.IntValue GUN_REVOLVER_SHOOT_OFFHAND_COOLDOWN;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_DEFAULT_MODIFIER;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_SPREAD_ANGLE;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_GUN_SHOT_SIZE;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_GUN_SHOT_DISTANCE;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_SHAKE_INTENSITY;
+    public static ForgeConfigSpec.IntValue GUN_REVOLVER_SHOOT_SHAKE_RESET_DELAY;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_RECOIL_DISTANCE;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_CROUCH_RECOIL_REDUCTION;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_VERTICAL_RECOIL_MULTIPLIER;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_XROT_RECOIL_INTENSITY;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_PROJECTILE_SPEED;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_MUZZLE_MODIFIER;
+    public static ForgeConfigSpec.DoubleValue GUN_REVOLVER_SHOOT_MAGAZINE_MODIFIER;
+    public static ForgeConfigSpec.IntValue GUN_REVOLVER_SHOOT_AMMO_CONSUMPTION;
+    public static ForgeConfigSpec.IntValue GUN_REVOLVER_SHOOT_ATTACHMENT_CONSUMPTION;
+    public static ForgeConfigSpec.EnumValue<ModEnums.GunFirePattern> GUN_REVOLVER_SHOOT_FIRE_PATTERN;
+
     public static void register(ForgeConfigSpec.Builder builder) {
         builder.push("Gun System Common Handler");
         builder.push("Gun Inventory Settings");
@@ -273,6 +297,53 @@ public class GunSystemCommonConfig {
         GUN_SHOTGUN_SHOOT_AMMO_CONSUMPTION = builder.comment("Ammo consumed per shot for shotgun")
                 .defineInRange("Ammo Consumption", 1, 1, 64);
         GUN_SHOTGUN_SHOOT_ATTACHMENT_CONSUMPTION = builder.comment("Attachment items consumed per shotgun shot").defineInRange("Attachment Consumption", 1, 1, 64);
+        builder.pop();
+        builder.push("Revolver Shoot");
+        GUN_REVOLVER_SHOOT_PROJECTILE_DAMAGE_MODIFIER = builder.comment("Projectile damage modifier for revolver")
+                .defineInRange("Projectile Damage Modifier", 7.0, 0.0, 100.0);
+        GUN_REVOLVER_SHOOT_PROJECTILE_KNOCKBACK_MODIFIER = builder.comment("Projectile knockback modifier for revolver")
+                .defineInRange("Projectile Knockback Modifier", 0.1, 0.0, 5.0);
+        GUN_REVOLVER_SHOOT_PROJECTILE_PIERCING_MODIFIER = builder.comment("Projectile piercing modifier for revolver")
+                .defineInRange("Projectile Piercing Modifier", 0, 0, 10);
+        GUN_REVOLVER_SHOOT_PROJECTILE_COUNT = builder.comment("Number of projectiles fired per shot (revolver)")
+                .defineInRange("Projectile Count", 1, 1, 100);
+        GUN_REVOLVER_SHOOT_INACCURACY = builder.comment("Inaccuracy for revolver").defineInRange("Inaccuracy", 0.0,
+                0.0, 10.0);
+        GUN_REVOLVER_SHOOT_COOLDOWN = builder.comment("Cooldown for revolver in ticks").defineInRange("Cooldown",
+                25, 0, 72000);
+        GUN_REVOLVER_SHOOT_OFFHAND_COOLDOWN = builder.comment("Offhand cooldown for revolver")
+                .defineInRange("Offhand Cooldown", 8, 0, 72000);
+        GUN_REVOLVER_SHOOT_DEFAULT_MODIFIER = builder.comment("Default modifier for revolver")
+                .defineInRange("Default Modifier", 1.0, 0.1, 10.0);
+        GUN_REVOLVER_SHOOT_SPREAD_ANGLE = builder.comment("Spread angle for revolver shot")
+                .defineInRange("Spread Angle", 0.0, 0.0, 30.0);
+        GUN_REVOLVER_SHOOT_FIRE_PATTERN = builder.comment("Fire pattern for revolver")
+                .defineEnum("Shot Fire Pattern", ModEnums.GunFirePattern.DEFAULT);
+        GUN_REVOLVER_SHOOT_GUN_SHOT_SIZE = builder.comment("Gun shot size for revolver")
+                .defineInRange("Gun Shot Size", 0.8, 0.1, 50.0);
+        GUN_REVOLVER_SHOOT_GUN_SHOT_DISTANCE = builder.comment("Gun shot distance for revolver")
+                .defineInRange("Gun Shot Distance", 0.8, 0.1, 50.0);
+        GUN_REVOLVER_SHOOT_SHAKE_INTENSITY = builder.comment("Shake intensity for revolver")
+                .defineInRange("Shake Intensity", 0.6, 0.0, 50.0);
+        GUN_REVOLVER_SHOOT_SHAKE_RESET_DELAY = builder.comment("Shake reset delay for revolver")
+                .defineInRange("Shake Reset Delay", 5, 0, 50);
+        GUN_REVOLVER_SHOOT_RECOIL_DISTANCE = builder.comment("Recoil distance for revolver").defineInRange("Recoil",
+                0.6, 0.0, 50.0);
+        GUN_REVOLVER_SHOOT_VERTICAL_RECOIL_MULTIPLIER = builder.comment("Vertical recoil multiplier for revolver")
+                .defineInRange("Recoil Vertical Multiplier", 0.5, 0.0, 2.0);
+        GUN_REVOLVER_SHOOT_CROUCH_RECOIL_REDUCTION = builder.comment("Crouch recoil reduction for revolver")
+                .defineInRange("Recoil Crouch Reduction", 0.6, 0.0, 1.0);
+        GUN_REVOLVER_SHOOT_XROT_RECOIL_INTENSITY = builder.comment("X rotation recoil intensity for revolver")
+                .defineInRange("Recoil Pitch Kick", 2.0, 0.0, 10.0);
+        GUN_REVOLVER_SHOOT_PROJECTILE_SPEED = builder.comment("Projectile base speed for revolver")
+                .defineInRange("Projectile Speed", 4.8, 0.1, 50.0);
+        GUN_REVOLVER_SHOOT_MUZZLE_MODIFIER = builder.comment("Muzzle modifier for revolver")
+                .defineInRange("Muzzle Modifier", 1.5, 0.1, 5.0);
+        GUN_REVOLVER_SHOOT_MAGAZINE_MODIFIER = builder.comment("Magazine modifier for revolver")
+                .defineInRange("Magazine Modifier", 2.0, 0.1, 5.0);
+        GUN_REVOLVER_SHOOT_AMMO_CONSUMPTION = builder.comment("Ammo consumed per shot for revolver")
+                .defineInRange("Ammo Consumption", 1, 1, 64);
+        GUN_REVOLVER_SHOOT_ATTACHMENT_CONSUMPTION = builder.comment("Attachment items consumed per revolver shot").defineInRange("Attachment Consumption", 1, 1, 64);
         builder.pop();
         builder.pop();
         builder.pop();

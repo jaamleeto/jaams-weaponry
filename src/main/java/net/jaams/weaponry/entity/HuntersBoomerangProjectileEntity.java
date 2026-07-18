@@ -289,8 +289,7 @@ public class HuntersBoomerangProjectileEntity extends BaseReturningProjectileEnt
     }
 
     protected int getDisarmDurabilityCost(ItemStack weapon) {
-        return ModProjectiles.getDisarmingShotDurabilityCost(weapon,
-                TraitsConfig.DISARMING_SHOT_HUNTERS_BOOMERANG_PROJECTILE_DURABILITY_COST.get());
+        return 0;
     }
 
     protected boolean shouldMountDisarmedItem(ItemStack weapon) {

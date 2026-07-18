@@ -3,8 +3,10 @@ package net.jaams.weaponry.mixins.common;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.jaams.weaponry.configuration.common.GunSystemCommonConfig;
+import net.jaams.weaponry.configuration.client.TooltipsConfig;
 import net.jaams.weaponry.tooltip.helper.TooltipHelper;
 import net.jaams.weaponry.util.ModGuns;
+import net.jaams.weaponry.util.ModTooltips;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -40,32 +42,59 @@ public abstract class ItemTooltipMixin {
         if (!showInventory)
             return;
         stack.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent((handler) -> {
-            for (int i = 0; i < 3; i++) {
+            int slotCount = handler.getSlots();
+            for (int i = 0; i < slotCount; i++) {
                 ItemStack slotItem = handler.getStackInSlot(i);
                 if (slotItem.isEmpty())
                     continue;
                 MutableComponent iconComponent;
                 MutableComponent textComponent;
                 Style style = Style.EMPTY.withColor(TextColor.fromRgb(0xCD7F32));
-                if (i == 1) {
-                    String itemName = slotItem.getHoverName().getString();
-                    int count = slotItem.getCount();
-                    iconComponent = Component.literal("\uFFF1")
-                            .withStyle((s) -> s.withFont(new ResourceLocation("jaams_weaponry", "default")));
-                    textComponent = Component.literal(" " + itemName + " x" + count);
-                    style = Style.EMPTY.withColor(TextColor.fromRgb(0xFFD700));
-                } else {
-                    String itemName = slotItem.getHoverName().getString();
-                    int count = slotItem.getCount();
-                    iconComponent = Component.literal("\uFFF2")
-                            .withStyle((s) -> s.withFont(new ResourceLocation("jaams_weaponry", "default")));
-                    boolean isDamageable = slotItem.isDamageableItem() && slotItem.getMaxDamage() > 0;
-                    if (isDamageable) {
-                        int durability = slotItem.getMaxDamage() - slotItem.getDamageValue();
-                        int maxDurability = slotItem.getMaxDamage();
-                        textComponent = Component.literal(" " + itemName + " " + durability + "/" + maxDurability);
+                if (ModGuns.isRevolverGun(stack)) {
+                    if (i >= 1 && i <= 6) {
+                        String itemName = slotItem.getHoverName().getString();
+                        int count = slotItem.getCount();
+                        iconComponent = Component.literal("\uFFF1")
+                                .withStyle((s) -> s.withFont(new ResourceLocation("jaams_weaponry", "default")));
+                        String chamberLabel = TooltipsConfig.TOOLTIP_REVOLVER_ROMAN_NUMERALS.get()
+                                ? ModTooltips.toRoman(i) : Integer.toString(i);
+                        textComponent = Component.literal(" Chamber " + chamberLabel + ": " + itemName + " x" + count);
+                        style = Style.EMPTY.withColor(TextColor.fromRgb(0xFFD700));
                     } else {
+                        String itemName = slotItem.getHoverName().getString();
+                        int count = slotItem.getCount();
+                        iconComponent = Component.literal("\uFFF2")
+                                .withStyle((s) -> s.withFont(new ResourceLocation("jaams_weaponry", "default")));
+                        boolean isDamageable = slotItem.isDamageableItem() && slotItem.getMaxDamage() > 0;
+                        if (isDamageable) {
+                            int durability = slotItem.getMaxDamage() - slotItem.getDamageValue();
+                            int maxDurability = slotItem.getMaxDamage();
+                            textComponent = Component.literal(" " + itemName + " " + durability + "/" + maxDurability);
+                        } else {
+                            textComponent = Component.literal(" " + itemName + " x" + count);
+                        }
+                    }
+                } else {
+                    if (i == 1) {
+                        String itemName = slotItem.getHoverName().getString();
+                        int count = slotItem.getCount();
+                        iconComponent = Component.literal("\uFFF1")
+                                .withStyle((s) -> s.withFont(new ResourceLocation("jaams_weaponry", "default")));
                         textComponent = Component.literal(" " + itemName + " x" + count);
+                        style = Style.EMPTY.withColor(TextColor.fromRgb(0xFFD700));
+                    } else {
+                        String itemName = slotItem.getHoverName().getString();
+                        int count = slotItem.getCount();
+                        iconComponent = Component.literal("\uFFF2")
+                                .withStyle((s) -> s.withFont(new ResourceLocation("jaams_weaponry", "default")));
+                        boolean isDamageable = slotItem.isDamageableItem() && slotItem.getMaxDamage() > 0;
+                        if (isDamageable) {
+                            int durability = slotItem.getMaxDamage() - slotItem.getDamageValue();
+                            int maxDurability = slotItem.getMaxDamage();
+                            textComponent = Component.literal(" " + itemName + " " + durability + "/" + maxDurability);
+                        } else {
+                            textComponent = Component.literal(" " + itemName + " x" + count);
+                        }
                     }
                 }
                 MutableComponent combined = Component.empty().append(iconComponent)

@@ -20,6 +20,9 @@ public class TraitSlipperyMixin {
             return;
         if (!ModTraits.isSlipperyItem(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         SelfEffectHandler.handleSlippery(target, attacker, stack);
     }
 }

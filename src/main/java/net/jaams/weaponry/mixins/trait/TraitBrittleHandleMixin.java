@@ -20,6 +20,9 @@ public class TraitBrittleHandleMixin {
             return;
         if (!ModTraits.isBrittleHandleItem(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         SelfEffectHandler.handleBrittleHandle(target, attacker, stack);
     }
 }

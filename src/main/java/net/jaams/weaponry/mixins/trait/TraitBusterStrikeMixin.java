@@ -78,6 +78,9 @@ public class TraitBusterStrikeMixin {
             return;
         if (!isBusterStrikeEnabled(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         float attackScale = attacker.getAttackStrengthScale(0.5F);
         if (requiresFullyCharged(stack) && attackScale < 0.9F) {
             return;
@@ -281,15 +284,7 @@ public class TraitBusterStrikeMixin {
 
     @Unique
     private int getDurabilityPenalty(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("BusterStrikeDurabilityPenalty")) {
-            return Math.max(0, tag.getInt("BusterStrikeDurabilityPenalty"));
-        }
-        int value = TraitModifierData.getBusterStrike(stack)
-                .map((entry) -> entry.durability_penalty)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.BUSTER_STRIKE_DURABILITY_PENALTY.get());
-        return Math.max(0, value);
+        return 0;
     }
 
 }

@@ -25,15 +25,17 @@ public class TraitDisengageMixin {
         if (target == null || attacker == null || attacker.level().isClientSide || !ModTraits.isDisengageItem(stack)) {
             return;
         }
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         float strength = getStrength(stack, stack.getTag());
         float maxDistance = getMaxDistance(stack, stack.getTag());
         float maxVerticalPush = getMaxVerticalPush(stack, stack.getTag());
         float distanceScaling = getDistanceScaling(stack, stack.getTag());
-        int durabilityCost = getDurabilityCost(stack, stack.getTag());
 
         MovementHandler.pushAwayFromTarget(target, attacker, 1.0F, stack,
                 strength, maxDistance, 2.0, 1.0F, 0.1,
-                maxVerticalPush, 0.5F, distanceScaling, durabilityCost);
+                maxVerticalPush, 0.5F, distanceScaling);
         attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                 SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 0.7F);
     }
@@ -75,9 +77,6 @@ public class TraitDisengageMixin {
 
     @Unique
     private int getDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("DisengageDurabilityCost")) {
-            return Math.max(0, tag.getInt("DisengageDurabilityCost"));
-        }
-        return TraitsConfig.DISENGAGE_DURABILITY_COST.get();
+        return 0;
     }
 }

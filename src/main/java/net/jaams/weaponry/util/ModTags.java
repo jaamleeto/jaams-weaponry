@@ -56,6 +56,7 @@ public class ModTags {
     public static final TagKey<Item> SAW_CLEAVERS = create("item/saw_cleavers");
     public static final TagKey<Item> SAW_CLEAVERS_UNFOLDED = create("item/saw_cleavers_unfolded");
     public static final TagKey<Item> SCATTERGUNS = create("item/scatterguns");
+    public static final TagKey<Item> REVOLVERS = create("item/revolvers");
     public static final TagKey<Item> SCYTHES = create("item/scythes");
     public static final TagKey<Item> SHARP_STONE_BLADES = create("item/sharp_stone_blades");
     public static final TagKey<Item> SHARP_STONES = create("item/sharp_stones");

@@ -63,9 +63,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getAntiAerialBonusDamage(stack, tag);
-        int durabilityCost = getAntiAerialDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.4F);
         }
     }
@@ -90,15 +89,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.ANTI_AERIAL_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getAntiAerialDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("AntiAerialDurabilityCost")) {
-            return Math.max(0, tag.getInt("AntiAerialDurabilityCost"));
-        }
-        return TraitModifierData.getAntiAerial(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.ANTI_AERIAL_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -113,9 +104,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getAquaticGrudgeBonusDamage(stack, tag);
-        int durabilityCost = getAquaticGrudgeDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.2F);
         }
     }
@@ -139,15 +129,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.AQUATIC_GRUDGE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getAquaticGrudgeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("AquaticGrudgeDurabilityCost")) {
-            return Math.max(0, tag.getInt("AquaticGrudgeDurabilityCost"));
-        }
-        return TraitModifierData.getAquaticGrudge(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.AQUATIC_GRUDGE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -162,9 +144,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getArthropodGrudgeBonusDamage(stack, tag);
-        int durabilityCost = getArthropodGrudgeDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.2F);
         }
     }
@@ -179,15 +160,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.ARTHROPOD_GRUDGE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getArthropodGrudgeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("ArthropodGrudgeDurabilityCost")) {
-            return Math.max(0, tag.getInt("ArthropodGrudgeDurabilityCost"));
-        }
-        return TraitModifierData.getArthropodGrudge(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.ARTHROPOD_GRUDGE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -204,9 +177,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getBoneGrudgeBonusDamage(stack, tag);
-        int durabilityCost = getBoneGrudgeDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.2F);
         }
     }
@@ -221,15 +193,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.BONE_GRUDGE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getBoneGrudgeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("BoneGrudgeDurabilityCost")) {
-            return Math.max(0, tag.getInt("BoneGrudgeDurabilityCost"));
-        }
-        return TraitModifierData.getBoneGrudge(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.BONE_GRUDGE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -247,9 +211,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getDuelistBonusDamage(stack, tag);
-        int durabilityCost = getDuelistDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 0.9F);
         }
     }
@@ -264,15 +227,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.DUELIST_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getDuelistDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("DuelistDurabilityCost")) {
-            return Math.max(0, tag.getInt("DuelistDurabilityCost"));
-        }
-        return TraitModifierData.getDuelist(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.DUELIST_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -297,11 +252,6 @@ public class BonusDamageHandler {
 
         attacker.getCapability(AmountProvider.AMOUNT).ifPresent(amount -> {
             ModUtils.applyPiercingDamage(attacker, target, stack, bonusDamage);
-            int durabilityCost = getPiercerStrikeDurabilityCost(stack, tag);
-            if (durabilityCost > 0) {
-                ModUtils.applyTraitDurabilityCost(stack, attacker, durabilityCost,
-                        entity -> entity.broadcastBreakEvent(entity.getUsedItemHand()));
-            }
             playHitSound(attacker, target, 0.8F);
         });
     }
@@ -326,15 +276,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.PIERCER_STRIKE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getPiercerStrikeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("PiercerStrikeDurabilityCost")) {
-            return Math.max(0, tag.getInt("PiercerStrikeDurabilityCost"));
-        }
-        return TraitModifierData.getPiercerStrike(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.PIERCER_STRIKE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -358,8 +300,7 @@ public class BonusDamageHandler {
         float calculatedBonus = ModUtils.calculateDistanceBonus(attacker, target, false,
                 maxDistance, minDistance, bonusDamagePerBlock, 1.0F);
         if (calculatedBonus > 0) {
-            int durabilityCost = getReachAdvantageDurabilityCost(stack, tag);
-            applyBonusDamageWithCost(attacker, target, stack, calculatedBonus, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, calculatedBonus, 0);
             playHitSound(attacker, target, 1.1F);
         }
     }
@@ -394,15 +335,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.REACH_ADVANTAGE_MAX_DISTANCE.get().floatValue());
     }
 
-    private static int getReachAdvantageDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("ReachAdvantageDurabilityCost")) {
-            return Math.max(0, tag.getInt("ReachAdvantageDurabilityCost"));
-        }
-        return TraitModifierData.getReachAdvantage(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.REACH_ADVANTAGE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -419,9 +352,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getRottenGrudgeBonusDamage(stack, tag);
-        int durabilityCost = getRottenGrudgeDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.2F);
         }
     }
@@ -436,15 +368,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.ROTTEN_GRUDGE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getRottenGrudgeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("RottenGrudgeDurabilityCost")) {
-            return Math.max(0, tag.getInt("RottenGrudgeDurabilityCost"));
-        }
-        return TraitModifierData.getRottenGrudge(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.ROTTEN_GRUDGE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -462,9 +386,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getSnoutGrudgeBonusDamage(stack, tag);
-        int durabilityCost = getSnoutGrudgeDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.2F);
         }
     }
@@ -479,15 +402,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.SNOUT_GRUDGE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getSnoutGrudgeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("SnoutGrudgeDurabilityCost")) {
-            return Math.max(0, tag.getInt("SnoutGrudgeDurabilityCost"));
-        }
-        return TraitModifierData.getSnoutGrudge(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.SNOUT_GRUDGE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -505,9 +420,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getThreatResponseBonusDamage(stack, tag);
-        int durabilityCost = getThreatResponseDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.0F);
         }
     }
@@ -522,15 +436,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.THREAT_RESPONSE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getThreatResponseDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("ThreatResponseDurabilityCost")) {
-            return Math.max(0, tag.getInt("ThreatResponseDurabilityCost"));
-        }
-        return TraitModifierData.getThreatResponse(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.THREAT_RESPONSE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -547,9 +453,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getTraitorGrudgeBonusDamage(stack, tag);
-        int durabilityCost = getTraitorGrudgeDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.2F);
         }
     }
@@ -564,15 +469,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.TRAITOR_GRUDGE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getTraitorGrudgeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("TraitorGrudgeDurabilityCost")) {
-            return Math.max(0, tag.getInt("TraitorGrudgeDurabilityCost"));
-        }
-        return TraitModifierData.getTraitorGrudge(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.TRAITOR_GRUDGE_DURABILITY_COST.get());
-    }
+
 
     
 
@@ -587,9 +484,8 @@ public class BonusDamageHandler {
 
         CompoundTag tag = stack.getTag();
         float bonusDamage = getUndeadGrudgeBonusDamage(stack, tag);
-        int durabilityCost = getUndeadGrudgeDurabilityCost(stack, tag);
         if (bonusDamage > 0) {
-            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, durabilityCost);
+            applyBonusDamageWithCost(attacker, target, stack, bonusDamage, 0);
             playHitSound(attacker, target, 1.2F);
         }
     }
@@ -604,15 +500,7 @@ public class BonusDamageHandler {
                 .orElseGet(() -> TraitsConfig.UNDEAD_GRUDGE_BONUS_DAMAGE.get().floatValue());
     }
 
-    private static int getUndeadGrudgeDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("UndeadGrudgeDurabilityCost")) {
-            return Math.max(0, tag.getInt("UndeadGrudgeDurabilityCost"));
-        }
-        return TraitModifierData.getUndeadGrudge(stack)
-                .map(entry -> entry.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.UNDEAD_GRUDGE_DURABILITY_COST.get());
-    }
+
 
     
 

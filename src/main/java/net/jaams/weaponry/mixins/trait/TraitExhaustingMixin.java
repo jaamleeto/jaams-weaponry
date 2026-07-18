@@ -20,6 +20,9 @@ public class TraitExhaustingMixin {
             return;
         if (!ModTraits.isExhaustingItem(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         SelfEffectHandler.handleExhausting(target, attacker, stack);
     }
 }

@@ -1,76 +1,21 @@
 {
     "parent": "item/handheld",
+    "loader": "forge:separate_transforms",
     "textures": {
-        "layer0": "jaams_weaponry:item/nunchaku_attacking_3"
+        "layer0": "jaams_weaponry:item/nunchaku_3"
     },
-    "display": {
-        "thirdperson_righthand": {
-            "rotation": [
-                2,
-                -90,
-                53
-            ],
-            "translation": [
-                0,
-                4.75,
-                3.75
-            ],
-            "scale": [
-                1.85,
-                1.85,
-                0.85
-            ]
+    "base": {
+        "parent": "jaams_weaponry:item/skin_michaelangelo_handheld"
+    },
+    "perspectives": {
+        "gui": {
+            "parent": "jaams_weaponry:item/skin_michaelangelo_gui"
         },
-        "thirdperson_lefthand": {
-            "rotation": [
-                2,
-                90,
-                -53
-            ],
-            "translation": [
-                0,
-                4.75,
-                3.75
-            ],
-            "scale": [
-                1.85,
-                1.85,
-                0.85
-            ]
+        "ground": {
+            "parent": "jaams_weaponry:item/skin_michaelangelo_gui"
         },
-        "firstperson_righthand": {
-            "rotation": [
-                -5,
-                -95,
-                51
-            ],
-            "translation": [
-                1.25,
-                5.63,
-                1.0
-            ],
-            "scale": [
-                1.38,
-                1.38,
-                0.68
-            ]
-        },
-        "firstperson_lefthand": {
-            "rotation": [
-                -5,
-                95,
-                -51
-            ],
-            "translation": [
-                1.25,
-                5.63,
-                1.0
-            ],
-            "scale": [
-                1.38,
-                1.38,
-                0.68
-            ]
+        "fixed": {
+            "parent": "jaams_weaponry:item/skin_michaelangelo_gui"
         }
     }
 }

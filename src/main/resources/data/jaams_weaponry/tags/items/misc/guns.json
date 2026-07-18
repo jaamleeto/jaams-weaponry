@@ -12,6 +12,10 @@
         {
             "id": "#jaams_weaponry:item/shotguns",
             "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/revolvers",
+            "required": false
         }
     ]
 }

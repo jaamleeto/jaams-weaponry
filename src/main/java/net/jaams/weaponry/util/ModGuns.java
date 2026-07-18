@@ -20,6 +20,7 @@ import net.jaams.weaponry.entity.ItemProjectileEntity;
 import net.jaams.weaponry.entity.SharpBulletProjectileEntity;
 import net.jaams.weaponry.gun.shoot.DefaultShoot;
 import net.jaams.weaponry.gun.shoot.PistolShoot;
+import net.jaams.weaponry.gun.shoot.RevolverShoot;
 import net.jaams.weaponry.gun.shoot.ScattergunShoot;
 import net.jaams.weaponry.gun.shoot.ShotgunShoot;
 import net.jaams.weaponry.handler.gun.GunActionsHandler;
@@ -31,6 +32,7 @@ import net.jaams.weaponry.packet.GunInventoryPacket;
 import net.jaams.weaponry.packet.GunShootPacket;
 import net.jaams.weaponry.world.inventory.GunGUIMenu;
 import net.jaams.weaponry.world.inventory.PistolGUIMenu;
+import net.jaams.weaponry.world.inventory.RevolverGUIMenu;
 import net.jaams.weaponry.world.inventory.ScattergunGUIMenu;
 import net.jaams.weaponry.world.inventory.ShotgunGUIMenu;
 
@@ -86,14 +88,14 @@ public final class ModGuns {
             return false;
         }
         if (stack.hasTag() && stack.getTag().contains("GunType", CompoundTag.TAG_STRING)) {
-            String customType = stack.getTag().getString("GunType").toUpperCase().trim();
-            return switch (customType) {
-                case "PISTOL", "SCATTERGUN", "SHOTGUN", "GUN" -> true;
-                default -> false;
-            };
-        }
+        String customType = stack.getTag().getString("GunType").toUpperCase().trim();
+        return switch (customType) {
+            case "PISTOL", "SCATTERGUN", "SHOTGUN", "GUN", "REVOLVER" -> true;
+            default -> false;
+        };
+    }
         if (stack.is(ModTags.GUNS) || stack.is(ModTags.PISTOLS) || stack.is(ModTags.SCATTERGUNS)
-                || stack.is(ModTags.SHOTGUNS)) {
+                || stack.is(ModTags.SHOTGUNS) || stack.is(ModTags.REVOLVERS)) {
             return true;
         }
         return GunItemData.getData(stack).isPresent();
@@ -104,23 +106,26 @@ public final class ModGuns {
             return null;
         }
         if (stack.hasTag() && stack.getTag().contains("GunType", CompoundTag.TAG_STRING)) {
-            String customType = stack.getTag().getString("GunType").toUpperCase().trim();
-            return switch (customType) {
-                case "PISTOL" -> GunType.PISTOL;
-                case "SCATTERGUN" -> GunType.SCATTERGUN;
-                case "SHOTGUN" -> GunType.SHOTGUN;
-                case "GUN" -> GunType.GUN;
-                default -> null;
-            };
-        }
-        if (stack.is(ModTags.PISTOLS))
-            return GunType.PISTOL;
-        if (stack.is(ModTags.SCATTERGUNS))
-            return GunType.SCATTERGUN;
-        if (stack.is(ModTags.SHOTGUNS))
-            return GunType.SHOTGUN;
-        if (stack.is(ModTags.GUNS))
-            return GunType.GUN;
+        String customType = stack.getTag().getString("GunType").toUpperCase().trim();
+        return switch (customType) {
+            case "PISTOL" -> GunType.PISTOL;
+            case "SCATTERGUN" -> GunType.SCATTERGUN;
+            case "SHOTGUN" -> GunType.SHOTGUN;
+            case "GUN" -> GunType.GUN;
+            case "REVOLVER" -> GunType.REVOLVER;
+            default -> null;
+        };
+    }
+    if (stack.is(ModTags.PISTOLS))
+        return GunType.PISTOL;
+    if (stack.is(ModTags.SCATTERGUNS))
+        return GunType.SCATTERGUN;
+    if (stack.is(ModTags.SHOTGUNS))
+        return GunType.SHOTGUN;
+    if (stack.is(ModTags.REVOLVERS))
+        return GunType.REVOLVER;
+    if (stack.is(ModTags.GUNS))
+        return GunType.GUN;
         return GunItemData.getData(stack)
                 .map((data) -> getGunTypeFromString(data.gun.gun_type))
                 .orElse(null);
@@ -134,6 +139,7 @@ public final class ModGuns {
             case "SCATTERGUN" -> GunType.SCATTERGUN;
             case "SHOTGUN" -> GunType.SHOTGUN;
             case "GUN" -> GunType.GUN;
+            case "REVOLVER" -> GunType.REVOLVER;
             default -> null;
         };
     }
@@ -176,6 +182,9 @@ public final class ModGuns {
             case SHOTGUN:
                 ShotgunShoot.shoot(world, player.getX(), player.getY(), player.getZ(), player, itemStack);
                 break;
+            case REVOLVER:
+                RevolverShoot.shoot(world, player.getX(), player.getY(), player.getZ(), player, itemStack);
+                break;
             case GUN:
                 DefaultShoot.shoot(world, player.getX(), player.getY(), player.getZ(), player, itemStack);
                 break;
@@ -189,7 +198,8 @@ public final class ModGuns {
         GUN,
         PISTOL,
         SCATTERGUN,
-        SHOTGUN
+        SHOTGUN,
+        REVOLVER
     }
 
     public static void spawnProjectile(
@@ -262,6 +272,7 @@ public final class ModGuns {
             case PISTOL -> GunSystemCommonConfig.GUN_PISTOL_SHOOT_MUZZLE_MODIFIER.get();
             case SCATTERGUN -> GunSystemCommonConfig.GUN_SCATTERGUN_SHOOT_MUZZLE_MODIFIER.get();
             case SHOTGUN -> GunSystemCommonConfig.GUN_SHOTGUN_SHOOT_MUZZLE_MODIFIER.get();
+            case REVOLVER -> GunSystemCommonConfig.GUN_REVOLVER_SHOOT_MUZZLE_MODIFIER.get();
             case GUN -> 1.0;
         };
     }
@@ -270,8 +281,9 @@ public final class ModGuns {
     public static double getMuzzleSpeedMultiplier(ItemStack gunStack) {
         GunType type = getGunType(gunStack);
         if (type == null) return 1.0;
+        int muzzleSlot = type == GunType.REVOLVER ? 6 : 0;
         ItemStack muzzleAttach = gunStack.getCapability(ForgeCapabilities.ITEM_HANDLER)
-                .map(handler -> handler.getStackInSlot(0))
+                .map(handler -> handler.getStackInSlot(muzzleSlot))
                 .orElse(ItemStack.EMPTY);
         if (muzzleAttach.isEmpty()) return 1.0;
         double multiplier = getMuzzleModifierForType(type);
@@ -279,12 +291,13 @@ public final class ModGuns {
         return multiplier * attachSpeedMod;
     }
 
-    
+
     public static double getMuzzleDamageMultiplier(ItemStack gunStack) {
         GunType type = getGunType(gunStack);
         if (type == null) return 1.0;
+        int muzzleSlot = type == GunType.REVOLVER ? 6 : 0;
         ItemStack muzzleAttach = gunStack.getCapability(ForgeCapabilities.ITEM_HANDLER)
-                .map(handler -> handler.getStackInSlot(0))
+                .map(handler -> handler.getStackInSlot(muzzleSlot))
                 .orElse(ItemStack.EMPTY);
         if (muzzleAttach.isEmpty()) return 1.0;
         double multiplier = getMuzzleModifierForType(type);
@@ -316,6 +329,7 @@ public final class ModGuns {
             case PISTOL -> GunSystemCommonConfig.GUN_PISTOL_SHOOT_FIRE_PATTERN.get();
             case SCATTERGUN -> GunSystemCommonConfig.GUN_SCATTERGUN_SHOOT_FIRE_PATTERN.get();
             case SHOTGUN -> GunSystemCommonConfig.GUN_SHOTGUN_SHOOT_FIRE_PATTERN.get();
+            case REVOLVER -> GunSystemCommonConfig.GUN_REVOLVER_SHOOT_FIRE_PATTERN.get();
             case GUN -> ModEnums.GunFirePattern.DEFAULT;
             default -> ModEnums.GunFirePattern.DEFAULT;
         };
@@ -587,6 +601,11 @@ public final class ModGuns {
                 case 2 -> toPlace.is(ModItems.COPPER_EXTENDED_MAGAZINE.get());
                 default -> false;
             };
+            case REVOLVER -> switch (slot) {
+                case 0 -> toPlace.is(ModItems.COPPER_MUZZLE.get());
+                case 1, 2, 3, 4, 5, 6 -> toPlace.is(ModTags.BULLETS);
+                default -> false;
+            };
             case GUN -> slot == 1 && toPlace.is(ModTags.BULLETS);
             default -> false;
         };
@@ -601,6 +620,10 @@ public final class ModGuns {
             int limit = gunData.slot_limits.get(slot);
             return Math.max(1, limit);
         }
+        if (type == GunType.REVOLVER) {
+            if (slot >= 0 && slot <= 5) return 1;
+            return 1;
+        }
         if (slot == 0 || slot == 2) {
             return 1;
         }
@@ -609,6 +632,7 @@ public final class ModGuns {
             case SCATTERGUN -> GunSystemCommonConfig.GUN_SCATTERGUN_MAX_AMMO.get();
             case SHOTGUN -> GunSystemCommonConfig.GUN_SHOTGUN_MAX_AMMO.get();
             case GUN -> GunSystemCommonConfig.GUN_PISTOL_MAX_AMMO.get();
+            case REVOLVER -> 1;
         };
     }
 
@@ -620,6 +644,7 @@ public final class ModGuns {
             case PISTOL -> openPistolInventory(serverPlayer, itemStack, hand);
             case SCATTERGUN -> openScattergunInventory(serverPlayer, itemStack, hand);
             case SHOTGUN -> openShotgunInventory(serverPlayer, itemStack, hand);
+            case REVOLVER -> openRevolverInventory(serverPlayer, itemStack, hand);
             case GUN -> openGenericGunInventory(serverPlayer, itemStack, hand);
         }
     }
@@ -633,7 +658,8 @@ public final class ModGuns {
                 CompoundTag inventoryTag = new CompoundTag();
                 ListTag itemsList = new ListTag();
                 boolean hasAnyItem = false;
-                for (int i = 0; i < 3; i++) {
+                int slotCount = handler.getSlots();
+                for (int i = 0; i < slotCount; i++) {
                     ItemStack slotStack = itemHandler.getStackInSlot(i);
                     if (!slotStack.isEmpty()) {
                         CompoundTag itemTag = new CompoundTag();
@@ -644,7 +670,7 @@ public final class ModGuns {
                     }
                 }
                 inventoryTag.put("Items", itemsList);
-                inventoryTag.putInt("Size", 3);
+                inventoryTag.putInt("Size", slotCount);
                 if (hasAnyItem) {
                     tag.put("Inventory", inventoryTag);
                 } else {
@@ -751,6 +777,11 @@ public final class ModGuns {
 
     public static ItemStack extractFullStackFromGun(IItemHandler h) {
         int[] p = { 1, 0, 2 };
+        int slotCount = h.getSlots();
+        if (slotCount > 3) {
+            p = new int[slotCount];
+            for (int i = 0; i < slotCount; i++) p[i] = i;
+        }
         for (int s : p) {
             ItemStack st = h.getStackInSlot(s);
             if (!st.isEmpty()) {
@@ -781,8 +812,9 @@ public final class ModGuns {
         if (item.isEmpty() || type == null) {
             return new int[] {};
         }
+        int maxSlot = type == GunType.REVOLVER ? 7 : 3;
         List<Integer> valid = new ArrayList<>();
-        for (int slot = 0; slot < 3; slot++) {
+        for (int slot = 0; slot < maxSlot; slot++) {
             if (canPlaceInGunSlot(gunStack, item, type, slot)) {
                 valid.add(slot);
             }
@@ -796,18 +828,25 @@ public final class ModGuns {
     public static boolean isAmmo(ItemStack gunStack, ItemStack stack, GunType type) {
         if (stack.isEmpty() || type == null)
             return false;
+        if (type == GunType.REVOLVER) {
+            return stack.is(ModTags.BULLETS);
+        }
         if (hasCustomSlotRule(gunStack, 1)) {
             return canPlaceInGunSlot(gunStack, stack, type, 1);
         }
         return switch (type) {
             case PISTOL, SCATTERGUN, GUN -> stack.is(ModTags.BULLETS);
             case SHOTGUN -> stack.is(ModTags.SHOTSHELLS);
+            case REVOLVER -> stack.is(ModTags.BULLETS);
         };
     }
 
     public static boolean isAttachment(ItemStack gunStack, ItemStack stack, GunType type) {
         if (stack.isEmpty() || type == null)
             return false;
+        if (type == GunType.REVOLVER) {
+            return canPlaceInGunSlot(gunStack, stack, type, 6);
+        }
         if (hasCustomSlotRule(gunStack, 0) || hasCustomSlotRule(gunStack, 2)) {
             return canPlaceInGunSlot(gunStack, stack, type, 0) || canPlaceInGunSlot(gunStack, stack, type, 2);
         }
@@ -818,6 +857,7 @@ public final class ModGuns {
                 stack.is(ModItems.COPPER_CHOKE.get()) || stack.is(ModItems.COPPER_QUICK_DRAW_MAGAZINE.get());
             case SHOTGUN ->
                 stack.is(ModItems.COPPER_CHOKE.get()) || stack.is(ModItems.COPPER_EXTENDED_MAGAZINE.get());
+            case REVOLVER -> stack.is(ModItems.COPPER_MUZZLE.get());
             case GUN -> false;
         };
     }
@@ -838,17 +878,27 @@ public final class ModGuns {
         if (type == null) {
             return null;
         }
+        if (type == GunType.REVOLVER) {
+            if (isAmmo(gunStack, item, type)) {
+                return ModSounds.GUN_SYSTEM_REVOLVER_BULLET.get();
+            } else if (isAttachment(gunStack, item, type)) {
+                return ModSounds.GUN_SYSTEM_REVOLVER_ATTACHMENT.get();
+            }
+            return null;
+        }
         if (isAmmo(gunStack, item, type)) {
             return switch (type) {
                 case PISTOL, GUN -> ModSounds.GUN_SYSTEM_PISTOL_BULLET.get();
                 case SCATTERGUN -> ModSounds.GUN_SYSTEM_SCATTERGUN_BULLET.get();
                 case SHOTGUN -> ModSounds.GUN_SYSTEM_SHOTGUN_SHELL.get();
+                case REVOLVER -> ModSounds.GUN_SYSTEM_REVOLVER_BULLET.get();
             };
         } else if (isAttachment(gunStack, item, type)) {
             return switch (type) {
                 case PISTOL -> ModSounds.GUN_SYSTEM_PISTOL_ATTACHMENT.get();
                 case SCATTERGUN -> ModSounds.GUN_SYSTEM_SCATTERGUN_ATTACHMENT.get();
                 case SHOTGUN -> ModSounds.GUN_SYSTEM_SHOTGUN_ATTACHMENT.get();
+                case REVOLVER -> ModSounds.GUN_SYSTEM_REVOLVER_ATTACHMENT.get();
                 case GUN -> null;
             };
         }
@@ -1086,5 +1136,59 @@ public final class ModGuns {
                     buf.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
                 });
         serverPlayer.swing(hand, true);
+    }
+
+    public static void openRevolverInventory(ServerPlayer serverPlayer, ItemStack itemStack, InteractionHand hand) {
+        NetworkHooks.openScreen(
+                serverPlayer,
+                new MenuProvider() {
+                    @Override
+                    public Component getDisplayName() {
+                        return Component.literal("Gun Storage");
+                    }
+
+                    @Override
+                    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+                        FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+                        buffer.writeBlockPos(player.blockPosition());
+                        buffer.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
+                        return new RevolverGUIMenu(id, inventory, buffer);
+                    }
+                },
+                (buf) -> {
+                    buf.writeBlockPos(serverPlayer.blockPosition());
+                    buf.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
+                });
+        serverPlayer.swing(hand, true);
+    }
+
+    public static final int REVOLVER_CHAMBER_COUNT = 6;
+
+    public static int getRevolverCurrentChamber(ItemStack gunStack) {
+        if (gunStack == null || gunStack.isEmpty()) return 0;
+        CompoundTag tag = gunStack.getTag();
+        if (tag != null && tag.contains("RevolverCurrentChamber")) {
+            return tag.getInt("RevolverCurrentChamber") % REVOLVER_CHAMBER_COUNT;
+        }
+        return 0;
+    }
+
+    public static int getRevolverChamberSlot(ItemStack gunStack) {
+        return getRevolverCurrentChamber(gunStack) + 1;
+    }
+
+    public static void advanceRevolverChamber(ItemStack gunStack) {
+        if (gunStack == null || gunStack.isEmpty()) return;
+        CompoundTag tag = gunStack.getOrCreateTag();
+        int current = getRevolverCurrentChamber(gunStack);
+        tag.putInt("RevolverCurrentChamber", (current + 1) % REVOLVER_CHAMBER_COUNT);
+    }
+
+    public static boolean isRevolverGun(ItemStack gunStack) {
+        return getGunType(gunStack) == GunType.REVOLVER;
+    }
+
+    public static int getGunSlotCount(GunType type) {
+        return type == GunType.REVOLVER ? 7 : 3;
     }
 }

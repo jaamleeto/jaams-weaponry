@@ -20,6 +20,9 @@ public class TraitDisablingStrikeMixin {
             return;
         if (!ModTraits.isDisablingStrikeItem(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         CombatEffectHandler.handleDisablingStrike(target, attacker, stack);
     }
 }

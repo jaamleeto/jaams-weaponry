@@ -26,17 +26,19 @@ public class TraitDexterousLungeMixin {
                 || !ModTraits.isDexterousLungeItem(stack)) {
             return;
         }
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         CompoundTag tag = stack.getTag();
         float pullStrength = getPullStrength(stack, tag);
         float attractStrength = getAttractStrength(stack, tag);
         float maxDistance = getMaxDistance(stack, tag);
         float maxVerticalPull = getMaxVerticalPull(stack, tag);
         float distanceScaling = getDistanceScaling(stack, tag);
-        int durabilityCost = getDurabilityCost(stack, tag);
 
         MovementHandler.pullTowardsEnemy(target, attacker, 1.0F, stack,
                 pullStrength, attractStrength, maxDistance, 2.0, 1.0F, 0.1,
-                maxVerticalPull, 0.5F, distanceScaling, durabilityCost);
+                maxVerticalPull, 0.5F, distanceScaling);
         attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                 SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 1.3F);
     }
@@ -89,9 +91,6 @@ public class TraitDexterousLungeMixin {
 
     @Unique
     private int getDurabilityCost(ItemStack stack, CompoundTag tag) {
-        if (tag != null && tag.contains("DexterousLungeDurabilityCost")) {
-            return Math.max(0, tag.getInt("DexterousLungeDurabilityCost"));
-        }
-        return TraitsConfig.DEXTEROUS_LUNGE_DURABILITY_COST.get();
+        return 0;
     }
 }

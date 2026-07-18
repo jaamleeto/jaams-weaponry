@@ -20,6 +20,9 @@ public class TraitOverstrainMixin {
             return;
         if (!ModTraits.isOverstrainItem(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         SelfEffectHandler.handleOverstrain(target, attacker, stack);
     }
 }

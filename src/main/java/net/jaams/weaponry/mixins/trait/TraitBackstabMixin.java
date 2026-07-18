@@ -253,6 +253,9 @@ public class TraitBackstabMixin {
             return;
         if (!isBackstabEnabled(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         CompoundTag tag = stack.getTag();
         double maxDistance = getMaxDistance(stack, tag);
         double maxAngle = getMaxAngle(stack, tag);

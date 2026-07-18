@@ -20,6 +20,9 @@ public class TraitBarbedHandleMixin {
             return;
         if (!ModTraits.isBarbedHandleItem(stack))
             return;
+        if (!ItemStack.isSameItemSameTags(attacker.getMainHandItem(), stack) &&
+                !ItemStack.isSameItemSameTags(attacker.getOffhandItem(), stack))
+            return;
         SelfEffectHandler.handleBarbedHandle(target, attacker, stack);
     }
 }

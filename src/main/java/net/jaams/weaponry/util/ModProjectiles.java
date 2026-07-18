@@ -951,14 +951,7 @@ public final class ModProjectiles {
     }
 
     public static int getDisarmingShotDurabilityCost(ItemStack weapon, int configDefault) {
-        if (weapon != null && weapon.hasTag() && weapon.getTag().contains("DisarmingShotDurabilityCost", 3)) {
-            return weapon.getTag().getInt("DisarmingShotDurabilityCost");
-        }
-        Optional<TraitModifierData.DisarmingShotEntry> trait = TraitModifierData.getDisarmingShot(weapon);
-        if (trait.isPresent() && trait.get() != null) {
-            return trait.get().durability_cost;
-        }
-        return configDefault;
+        return 0;
     }
 
     public static boolean getDisarmingShotMountItem(ItemStack weapon, boolean configDefault) {

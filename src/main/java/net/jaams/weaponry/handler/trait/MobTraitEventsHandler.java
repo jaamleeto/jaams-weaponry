@@ -117,10 +117,9 @@ public class MobTraitEventsHandler {
                 float maxDistance = getAcrobaticLungeMaxDistance(mainHand);
                 float maxVerticalPull = getAcrobaticLungeMaxVerticalPull(mainHand);
                 float distanceScaling = getAcrobaticLungeDistanceScaling(mainHand);
-                int durabilityCost = getAcrobaticLungeDurabilityCost(mainHand);
                 MovementHandler.pullTowardsEnemy(target, attacker, attackStrength, mainHand,
                         strength, strength, maxDistance, 2.0, 1.0F, 0.1,
-                        maxVerticalPull, 0.5F, distanceScaling, durabilityCost);
+                        maxVerticalPull, 0.5F, distanceScaling);
                 attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                         SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 1.3F);
             }
@@ -130,10 +129,9 @@ public class MobTraitEventsHandler {
                 float maxDistance = getDexterousLungeMaxDistance(mainHand);
                 float maxVerticalPull = getDexterousLungeMaxVerticalPull(mainHand);
                 float distanceScaling = getDexterousLungeDistanceScaling(mainHand);
-                int durabilityCost = getDexterousLungeDurabilityCost(mainHand);
                 MovementHandler.pullTowardsEnemy(target, attacker, attackStrength, mainHand,
                         pullStrength, attractStrength, maxDistance, 2.0, 1.0F, 0.1,
-                        maxVerticalPull, 0.5F, distanceScaling, durabilityCost);
+                        maxVerticalPull, 0.5F, distanceScaling);
                 attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                         SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 1.3F);
             }
@@ -142,10 +140,9 @@ public class MobTraitEventsHandler {
                 float maxDistance = getPullLungeMaxDistance(mainHand);
                 float maxVerticalPull = getPullLungeMaxVerticalPull(mainHand);
                 float distanceScaling = getPullLungeDistanceScaling(mainHand);
-                int durabilityCost = getPullLungeDurabilityCost(mainHand);
                 MovementHandler.pullEnemyTowardsPlayer(target, attacker, attackStrength, mainHand,
                         strength, maxDistance, 2.0, 1.0F, 0.1,
-                        maxVerticalPull, 0.5F, distanceScaling, durabilityCost);
+                        maxVerticalPull, 0.5F, distanceScaling);
                 attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                         SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 1.3F);
             }
@@ -154,10 +151,9 @@ public class MobTraitEventsHandler {
                 float maxDistance = getDisengageMaxDistance(mainHand);
                 float maxVerticalPush = getDisengageMaxVerticalPush(mainHand);
                 float distanceScaling = getDisengageDistanceScaling(mainHand);
-                int durabilityCost = getDisengageDurabilityCost(mainHand);
                 MovementHandler.pushAwayFromTarget(target, attacker, attackStrength, mainHand,
                         strength, maxDistance, 2.0, 1.0F, 0.1,
-                        maxVerticalPush, 0.5F, distanceScaling, durabilityCost);
+                        maxVerticalPush, 0.5F, distanceScaling);
                 attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                         SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.0F, 0.7F);
             }
@@ -341,11 +337,7 @@ public class MobTraitEventsHandler {
     }
 
     private static int getAcrobaticLungeDurabilityCost(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("AcrobaticLungeDurabilityCost")) {
-            return Math.max(0, tag.getInt("AcrobaticLungeDurabilityCost"));
-        }
-        return TraitsConfig.ACROBATIC_LUNGE_DURABILITY_COST.get();
+        return 0;
     }
 
     private static float getDexterousLungePullStrength(ItemStack stack) {
@@ -395,11 +387,7 @@ public class MobTraitEventsHandler {
     }
 
     private static int getDexterousLungeDurabilityCost(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("DexterousLungeDurabilityCost")) {
-            return Math.max(0, tag.getInt("DexterousLungeDurabilityCost"));
-        }
-        return TraitsConfig.DEXTEROUS_LUNGE_DURABILITY_COST.get();
+        return 0;
     }
 
     private static float getPullLungeStrength(ItemStack stack) {
@@ -438,11 +426,7 @@ public class MobTraitEventsHandler {
     }
 
     private static int getPullLungeDurabilityCost(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("PullLungeDurabilityCost")) {
-            return Math.max(0, tag.getInt("PullLungeDurabilityCost"));
-        }
-        return TraitsConfig.PULL_LUNGE_DURABILITY_COST.get();
+        return 0;
     }
 
     private static float getDisengageStrength(ItemStack stack) {
@@ -481,11 +465,7 @@ public class MobTraitEventsHandler {
     }
 
     private static int getDisengageDurabilityCost(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("DisengageDurabilityCost")) {
-            return Math.max(0, tag.getInt("DisengageDurabilityCost"));
-        }
-        return TraitsConfig.DISENGAGE_DURABILITY_COST.get();
+        return 0;
     }
 
     private static float getDisarmChance(ItemStack stack) {

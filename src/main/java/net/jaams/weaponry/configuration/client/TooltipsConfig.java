@@ -91,6 +91,8 @@ public class TooltipsConfig {
     public static ForgeConfigSpec.BooleanValue TOOLTIP_GUN_ATTACHMENTS;
     public static ForgeConfigSpec.BooleanValue TOOLTIP_SLINGSHOT_BASE_AMMO;
 
+    public static ForgeConfigSpec.BooleanValue TOOLTIP_REVOLVER_ROMAN_NUMERALS;
+
     public static void register(ForgeConfigSpec.Builder builder) {
         builder.push("Tooltips System Handler");
 
@@ -127,6 +129,8 @@ public class TooltipsConfig {
                 .define("Show Gun Base Ammo", true);
         TOOLTIP_GUN_ATTACHMENTS = builder.comment("Show the attachments line in gun tooltips")
                 .define("Show Gun Attachments", true);
+        TOOLTIP_REVOLVER_ROMAN_NUMERALS = builder.comment("Use roman numerals for revolver chamber labels in tooltip")
+                .define("Revolver Roman Numerals", true);
         builder.pop();
         builder.push("Slingshots");
         TOOLTIP_SLINGSHOT_BASE_AMMO = builder.comment("Show the base ammo line in slingshot tooltips")

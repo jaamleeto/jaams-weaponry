@@ -680,14 +680,7 @@ public class TraitPiercingAssaultMixin {
 
     @Unique
     private int getDurabilityCost(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("PiercingAssaultDurabilityCost")) {
-            return Math.max(0, tag.getInt("PiercingAssaultDurabilityCost"));
-        }
-        return TraitModifierData.getPiercingAssault(stack)
-                .map((e) -> e.durability_cost)
-                .filter(java.util.Objects::nonNull)
-                .orElseGet(() -> TraitsConfig.PIERCING_ASSAULT_DURABILITY_COST.get());
+        return 0;
     }
 
     @Unique
