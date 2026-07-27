@@ -50,8 +50,8 @@ repositories {
 }
 
 dependencies {
-    // playerAnimator (optional runtime integration, soft compat via try/catch)
-    compileOnly files('libs/player-animation-lib-forge-2.0.4+1.21.1.jar')
+    // playerAnimator (CurseForge Maven)
+    implementation "curse.maven:playeranimator-658587:7389814"
 
     implementation 'curse.maven:catalogue-459701:6926815'
     implementation 'curse.maven:damagenumbers-1022853:5475556'
