@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT License"
+
+[[mods]]
+modId="jaams_weaponry"
+version="1.1.1"
+displayName="Jaam's Weaponry"
+displayURL="https://linktr.ee/jaamleeto"
+logoFile="jaams_weaponry_banner.png"
+authors="Jaamleeto"
+credits="MrGreen_4u"
+description="Jaam's Weaponry is a themed weapon expansion mod that adds a wide variety of unique weapons, each with distinct mechanics and highly customizable options to tailor your combat style."
+issueTrackerURL="https://github.com/jaamleeto/jaams-weaponry/issues"
+
+[[mixins]]
+config="mixins.jaams_weaponry.json"
+
+[[dependencies.jaams_weaponry]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.jaams_weaponry]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21.1]"
+    ordering="AFTER"
+    side="BOTH"
+
+[modproperties."jaams_weaponry"]
+catalogueItemIcon="jaams_weaponry:iron_buster_sword"
+catalogueBackground="jaams_weaponry_background.png"
+configuredBackground="minecraft:textures/block/spruce_planks.png"

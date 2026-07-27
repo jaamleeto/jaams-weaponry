@@ -1,0 +1,21 @@
+{
+  "parent": "item/bow",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "layer0": "jaams_weaponry:item/great_crossbow_arrow"
+  },
+  "base": {
+    "parent": "jaams_weaponry:item/great_crossbow_arrow_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "jaams_weaponry:item/great_crossbow_arrow_gui"
+    },
+    "ground": {
+      "parent": "jaams_weaponry:item/great_crossbow_arrow_gui"
+    },
+    "fixed": {
+      "parent": "jaams_weaponry:item/great_crossbow_arrow_gui"
+    }
+  }
+}

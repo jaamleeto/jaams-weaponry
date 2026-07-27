@@ -1,0 +1,36 @@
+{
+    "enabled": true,
+    "chance": 1.0,
+    "target": [
+        "minecraft:toolsmith"
+    ],
+    "trades": [
+        {
+            "sell_item": "jaams_weaponry:flint_hammer",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 8,
+            "max_uses": 12,
+            "xp": 5,
+            "villager_level": 1
+        },
+        {
+            "sell_item": "jaams_weaponry:heavy_iron_ingot",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 6,
+            "max_uses": 12,
+            "xp": 3,
+            "villager_level": 1
+        },
+        {
+            "sell_item": "jaams_weaponry:double_iron_ingot",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 10,
+            "max_uses": 12,
+            "xp": 5,
+            "villager_level": 2
+        }
+    ]
+}

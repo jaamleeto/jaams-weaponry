@@ -1,0 +1,29 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:bullet",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:fire_bullet",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:heavy_bullet",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:glowing_bullet",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:sharp_bullet",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:echo_bullet",
+            "required": false
+        }
+    ]
+}

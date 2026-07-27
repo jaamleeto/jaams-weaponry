@@ -1,0 +1,26 @@
+{
+    "target": [
+        "#jaams_weaponry:item/reverse_daggers"
+    ],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [
+        {
+            "type": "mod_not_loaded",
+            "mod_id": "bettercombat"
+        }
+    ],
+    "modifiers": {
+        "slots": [
+            "mainhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "minecraft:player.entity_interaction_range",
+                "name": "Reach Modifier",
+                "amount": -0.5,
+                "operation": "addition"
+            }
+        ]
+    }
+}

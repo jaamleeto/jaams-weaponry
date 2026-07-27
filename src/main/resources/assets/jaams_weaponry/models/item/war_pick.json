@@ -1,0 +1,33 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "layer0": "jaams_weaponry:item/war_pick"
+  },
+  "base": {
+    "parent": "jaams_weaponry:item/war_pick_gui"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "jaams_weaponry:item/war_pick_gui"
+    },
+    "ground": {
+      "parent": "jaams_weaponry:item/war_pick_gui"
+    },
+    "fixed": {
+      "parent": "jaams_weaponry:item/war_pick_gui"
+    },
+    "firstperson_righthand": {
+      "parent": "jaams_weaponry:item/war_pick_handheld"
+    },
+    "firstperson_lefthand": {
+      "parent": "jaams_weaponry:item/war_pick_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "jaams_weaponry:item/war_pick_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "jaams_weaponry:item/war_pick_handheld"
+    }
+  }
+}

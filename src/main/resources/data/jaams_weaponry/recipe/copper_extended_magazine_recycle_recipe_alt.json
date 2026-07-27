@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 4,
+  "cookingtime": 80,
+  "ingredient": {
+    "item": "jaams_weaponry:copper_extended_magazine"
+  },
+  "result": {
+    "id": "minecraft:copper_ingot"
+  }
+}

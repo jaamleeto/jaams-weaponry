@@ -1,0 +1,22 @@
+{
+    "target": [
+        "jaams_weaponry:electrum_greatsword"
+    ],
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "modifiers": {
+        "slots": [
+            "mainhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "oreganized:kinetic_damage",
+                "name": "Kinetic damage modifier",
+                "amount": 2.6,
+                "operation": "addition",
+                "uuid": "cb3f55d3-645c-4f38-a497-9c13a33db5cf"
+            }
+        ]
+    }
+}

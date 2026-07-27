@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_longsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_longsword",
+            "required": false
+        }
+    ]
+}

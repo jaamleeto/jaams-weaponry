@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "saw_cleaver",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " bc",
+    "dc "
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:planks"
+    },
+    "b": {
+      "item": "jaams_weaponry:long_stick"
+    },
+    "c": {
+      "item": "jaams_weaponry:double_compressed_wood"
+    },
+    "d": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:wooden_saw_cleaver"
+  }
+}

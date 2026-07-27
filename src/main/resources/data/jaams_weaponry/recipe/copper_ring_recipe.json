@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ring",
+  "category": "equipment",
+  "pattern": [
+    "aa",
+    "ab"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:copper_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:copper_ring"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "leafscopperbackport"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "copperagebackport"
+        }
+      ]
+    }
+  ]
+}

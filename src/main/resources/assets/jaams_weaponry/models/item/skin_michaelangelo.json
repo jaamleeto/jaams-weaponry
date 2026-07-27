@@ -1,0 +1,20 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "jaams_weaponry:item/nunchaku_3"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "jaams_weaponry:nunchaku_pulling": 0
+            },
+            "model": "jaams_weaponry:item/skin_michaelangelo_idle"
+        },
+        {
+            "predicate": {
+                "jaams_weaponry:nunchaku_pulling": 1
+            },
+            "model": "jaams_weaponry:item/skin_michaelangelo_active"
+        }
+    ]
+}

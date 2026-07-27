@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "double_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    {
+      "tag": "minecraft:stone_tool_materials"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:double_compressed_stone"
+  }
+}

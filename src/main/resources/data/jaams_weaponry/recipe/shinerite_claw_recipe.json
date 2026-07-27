@@ -1,0 +1,28 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "claw",
+  "category": "equipment",
+  "pattern": [
+    "a ",
+    " a",
+    "ab"
+  ],
+  "key": {
+    "a": {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:shinerite_claw"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

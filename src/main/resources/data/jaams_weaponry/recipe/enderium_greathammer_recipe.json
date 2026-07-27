@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "majruszsdifficulty:enderium_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "jaams_weaponry:netherite_greathammer"
+  },
+  "addition": {
+    "item": "jaams_weaponry:heavy_enderium_ingot"
+  },
+  "result": {
+    "id": "jaams_weaponry:enderium_greathammer"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "majruszsdifficulty"
+    }
+  ]
+}

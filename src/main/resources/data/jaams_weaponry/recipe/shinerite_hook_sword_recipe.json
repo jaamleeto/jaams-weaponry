@@ -1,0 +1,31 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "hook_sword",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    "ba ",
+    "c  "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "b": {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    "c": {
+      "item": "jaams_weaponry:long_stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:shinerite_hook_sword"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

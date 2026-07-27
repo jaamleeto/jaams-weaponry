@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "jaams_weaponry:diamond_butterfly_sword"
+  },
+  "addition": {
+    "item": "jaams_weaponry:double_netherite_ingot"
+  },
+  "result": {
+    "id": "jaams_weaponry:netherite_butterfly_sword"
+  }
+}

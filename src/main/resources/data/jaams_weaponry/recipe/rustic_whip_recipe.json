@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "rustic_whip",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    "bab",
+    "cb "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:leather"
+    },
+    "b": {
+      "item": "jaams_weaponry:sharp_stone"
+    },
+    "c": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:rustic_whip"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "jaams_weaponry:secure_grip",
+    "jaams_weaponry:overdrive",
+    "jaams_weaponry:aftermath",
+    "jaams_weaponry:ghost_clip",
+    "jaams_weaponry:frameguard",
+    "jaams_weaponry:backblast"
+  ]
+}

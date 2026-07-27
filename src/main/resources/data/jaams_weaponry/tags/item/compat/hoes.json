@@ -1,0 +1,45 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:wooden_hoe",
+            "required": false
+        },
+        {
+            "id": "minecraft:stone_hoe",
+            "required": false
+        },
+        {
+            "id": "minecraft:iron_hoe",
+            "required": false
+        },
+        {
+            "id": "minecraft:golden_hoe",
+            "required": false
+        },
+        {
+            "id": "minecraft:diamond_hoe",
+            "required": false
+        },
+        {
+            "id": "minecraft:netherite_hoe",
+            "required": false
+        },
+        {
+            "id": "cavesanddepths:rosegoldhoe",
+            "required": false
+        },
+        {
+            "id": "jaams_shinerite:shinerite_hoe",
+            "required": false
+        },
+        {
+            "id": "majruszsdifficulty:enderium_hoe",
+            "required": false
+        },
+        {
+            "id": "oreganized:electrum_hoe",
+            "required": false
+        }
+    ]
+}

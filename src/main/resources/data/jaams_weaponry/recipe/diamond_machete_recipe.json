@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "machete",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    " a ",
+    "b  "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:diamond"
+    },
+    "b": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:diamond_machete"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "double_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "item": "minecraft:netherite_ingot"
+    },
+    {
+      "item": "minecraft:netherite_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:double_netherite_ingot"
+  }
+}

@@ -1,0 +1,37 @@
+{
+    "_comment_fields": {
+        "target": "Item IDs or tags to match. Supports exact, wildcard (*), regex:, and negation (!).",
+        "pose": "Continuous bedrock pose (is_pose:true, loop:true). Applied while conditions match.",
+        "animation": "One-shot bedrock animation (loop:false). Plays once when entry first matches.",
+        "animation_speed": "Playback speed for the one-shot animation.",
+        "hand": "\"mainhand\", \"offhand\", or \"either\" (default).",
+        "entity": "Entity type filter. Empty = player only. Supports wildcard and negation.",
+        "first_person": "Show animation in first person.",
+        "condition_mode": "\"and\" (all must match) or \"or\" (any match).",
+        "conditions": [
+            "enchantment: item has enchantment at minimum level.",
+            "tag: item belongs to a tag.",
+            "has_gun_ammo: held gun has enough ammo to fire.",
+            "is_on_cooldown: held item is on a cooldown timer.",
+            "is_using_item: player is actively using/holding right-click.",
+            "is_not_using_item: player is NOT using any item."
+        ]
+    },
+    "target": [
+        "jaams_weaponry:example_item"
+    ],
+    "enabled": true,
+    "priority": 0,
+    "pose": "combat_ready",
+    "animation": "cheer",
+    "animation_speed": 1.0,
+    "hand": "mainhand",
+    "entity": "minecraft:player",
+    "first_person": true,
+    "condition_mode": "and",
+    "conditions": [
+        {
+            "type": "is_not_using_item"
+        }
+    ]
+}

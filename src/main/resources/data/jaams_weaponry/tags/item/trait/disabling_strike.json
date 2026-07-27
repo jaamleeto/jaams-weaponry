@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/cleavers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/battle_axes",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/saw_cleavers",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "jaams_weaponry:item/rosegold_ring"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [300, -90, 25],
+      "translation": [1.13, 3.2, -0.62],
+      "scale": [0.75, 0.75, 0.75]
+    },
+    "firstperson_lefthand": {
+      "rotation": [300, 90, -25],
+      "translation": [1.13, 3.2, -0.62],
+      "scale": [0.75, 0.75, 0.75]
+    }
+  }
+}

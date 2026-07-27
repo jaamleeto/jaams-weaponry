@@ -1,0 +1,200 @@
+{
+    "entity": [
+        "minecraft:drowned"
+    ],
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [
+        { "type": "is_baby", "negate": true }
+    ],
+    "items": [
+        {
+            "item": "minecraft:stone_sword",
+            "slot": "mainhand",
+            "chance": 0.30,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_dagger",
+            "slot": "mainhand",
+            "chance": 0.30,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:fishing_rod",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_spear",
+            "slot": "mainhand",
+            "chance": 0.30,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:sharp_stone",
+            "slot": "mainhand",
+            "chance": 0.30,
+            "count": 6,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_dagger",
+            "slot": "mainhand",
+            "chance": 0.10,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:sharp_stone",
+                    "slot": "offhand",
+                    "count": 6,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "minecraft:trident",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_spear",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:stone_axe",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_machete",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:smoke_bomb",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_machete",
+            "slot": "mainhand",
+            "chance": 0.10,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:sharp_stone",
+                    "slot": "offhand",
+                    "count": 16,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        },
+        {
+            "item": "jaams_weaponry:stone_claw",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_katar",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_buster_sword",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:fishing_rod",
+            "slot": "mainhand",
+            "chance": 0.25,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_claw",
+            "slot": "mainhand",
+            "chance": 0.10,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": [],
+            "equipment": [
+                {
+                    "item": "jaams_weaponry:stone_claw",
+                    "slot": "offhand",
+                    "count": 1,
+                    "replace_existing": false,
+                    "enchantments": {},
+                    "nbt": {},
+                    "conditions": []
+                }
+            ]
+        }
+    ]
+}

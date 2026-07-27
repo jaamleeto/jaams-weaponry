@@ -1,0 +1,95 @@
+package net.jaams.weaponry.client.renderer;
+
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.util.Mth;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.Minecraft;
+
+import net.jaams.weaponry.entity.GiantShurikenProjectileEntity;
+import net.jaams.weaponry.data.ProjectileRenderData;
+import net.jaams.weaponry.data.ThrowableItemData;
+import net.jaams.weaponry.configuration.client.ProjectileClientConfig;
+
+import java.util.Locale;
+
+import com.mojang.math.Axis;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+@OnlyIn(Dist.CLIENT)
+public class GiantShurikenProjectileRenderer extends EntityRenderer<GiantShurikenProjectileEntity> {
+    public GiantShurikenProjectileRenderer(EntityRendererProvider.Context context) {
+        super(context);
+    }
+
+    @Override
+    public void render(GiantShurikenProjectileEntity entity, float entityYaw, float partialTicks, PoseStack matrixStack,
+            MultiBufferSource buffer, int packedLight) {
+        matrixStack.pushPose();
+        ItemStack weapon = entity.getWeaponItem();
+        ProjectileRenderData data = new ProjectileRenderData(weapon);
+        ThrowableItemData.RenderEntry render = ThrowableItemData.getRenderConfig(weapon);
+        float scale = data.getFloat("ProjectileScale", (render != null && render.scale != null) ? render.scale
+                : ProjectileClientConfig.GIANT_SHURIKEN_PROJECTILE_SCALE.get().floatValue());
+        float yawOffset = data.getFloat("ProjectileYawOffset",
+                (render != null && render.yaw_offset != null) ? render.yaw_offset : 90.0f);
+        float baseZRotation = data.getFloat("ProjectileBaseZRotation",
+                (render != null && render.base_z_rotation != null) ? render.base_z_rotation : 135.0f);
+        float offsetX = data.getFloat("ProjectileOffsetX",
+                (render != null && render.offset_x != null) ? render.offset_x : 0.0f);
+        float offsetY = data.getFloat("ProjectileOffsetY",
+                (render != null && render.offset_y != null) ? render.offset_y : -0.270f);
+        float offsetZ = data.getFloat("ProjectileOffsetZ",
+                (render != null && render.offset_z != null) ? render.offset_z : 0.0f);
+        float spinSpeed = data.getFloat("ProjectileSpin",
+                (render != null && render.spin_speed != null) ? render.spin_speed : 25.0f);
+        String spinAxis = data.getString("ProjectileSpinAxis",
+                (render != null && render.spin_axis != null) ? render.spin_axis : "Z");
+        float spinOffset = data.getFloat("ProjectileSpinOffset",
+                (render != null && render.spin_offset != null) ? render.spin_offset : 0.0f);
+        ItemDisplayContext display = ItemDisplayContext.GROUND;
+        ItemDisplayContext nbtDisplay = data.getDisplay("ProjectileDisplay", null);
+        if (nbtDisplay != null) {
+            display = nbtDisplay;
+        } else if (render != null && render.display_context != null && !render.display_context.isEmpty()) {
+            ItemDisplayContext jsonDisplay = ThrowableItemData.parseDisplayContext(render.display_context);
+            if (jsonDisplay != null) {
+                display = jsonDisplay;
+            }
+        }
+        matrixStack.scale(scale, scale, scale);
+        float lerpYaw = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot());
+        matrixStack.mulPose(Axis.YP.rotationDegrees(lerpYaw + yawOffset));
+        float pitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
+        float zRotation = (pitch != 0.0F) ? baseZRotation - pitch : baseZRotation;
+        float spinRotation = 0.0F;
+        if (spinSpeed != 0 && !entity.hasImpacted()) {
+            float velocityFactor = (float) entity.getDeltaMovement().length() * 10.0F;
+            float finalSpinSpeed = spinSpeed + velocityFactor;
+            spinRotation = (entity.tickCount + partialTicks) * finalSpinSpeed + spinOffset;
+        }
+        switch (spinAxis.toUpperCase(Locale.ROOT)) {
+            case "X" -> matrixStack.mulPose(Axis.XP.rotationDegrees(zRotation + spinRotation));
+            case "Y" -> matrixStack.mulPose(Axis.YP.rotationDegrees(zRotation + spinRotation));
+            default -> matrixStack.mulPose(Axis.ZP.rotationDegrees(zRotation + spinRotation));
+        }
+        matrixStack.translate(offsetX, offsetY, offsetZ);
+        Minecraft.getInstance().getItemRenderer().renderStatic(weapon, display, packedLight, OverlayTexture.NO_OVERLAY,
+                matrixStack, buffer, entity.level(), entity.getId());
+        matrixStack.popPose();
+        super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(GiantShurikenProjectileEntity entity) {
+        return InventoryMenu.BLOCK_ATLAS;
+    }
+}

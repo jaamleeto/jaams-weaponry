@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:sharp_stone_blade",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "jaams_weaponry:vigorous_rage",
+  "providers": [
+    {
+      "item": "jaams_weaponry:ragers_bottle"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jeed"
+    }
+  ]
+}

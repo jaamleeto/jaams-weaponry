@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pistol",
+  "category": "equipment",
+  "pattern": [
+    "abc",
+    " de"
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "b": {
+      "item": "minecraft:fire_charge"
+    },
+    "c": {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    "d": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "e": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:shinerite_pistol"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

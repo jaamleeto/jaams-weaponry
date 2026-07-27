@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "stake",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:weapon/sharp_stone_blades"
+    },
+    {
+      "item": "jaams_weaponry:short_stick"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:stake"
+  }
+}

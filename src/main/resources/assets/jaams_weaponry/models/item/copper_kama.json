@@ -1,0 +1,42 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "jaams_weaponry:item/copper_kama"
+    },
+    "display": {
+        "firstperson_righthand": {
+            "rotation": [
+                0,
+                -90,
+                25
+            ],
+            "translation": [
+                1.13,
+                2.45,
+                -0.13
+            ],
+            "scale": [
+                0.68,
+                0.68,
+                0.68
+            ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [
+                0,
+                90,
+                -25
+            ],
+            "translation": [
+                1.13,
+                2.45,
+                -0.13
+            ],
+            "scale": [
+                0.68,
+                0.68,
+                0.68
+            ]
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "hammer",
+  "category": "equipment",
+  "pattern": [
+    "aaa",
+    "aaa",
+    " b "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "b": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:shinerite_hammer"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

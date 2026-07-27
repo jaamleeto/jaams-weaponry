@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_greatsword",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_greatsword",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_slingshot",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_slingshot",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:rustic_whip",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/hook_swords",
+            "required": false
+        }
+    ]
+}

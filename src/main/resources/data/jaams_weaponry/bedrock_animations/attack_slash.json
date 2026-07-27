@@ -1,0 +1,82 @@
+{
+    "animations": {
+        "attack_slash": {
+            "loop": false,
+            "animation_length": 0.6,
+            "blend_in": 2,
+            "blend_out": 4,
+            "sound_effects": {
+                "0.1": {
+                    "effect": "minecraft:entity.player.attack.strong"
+                }
+            },
+            "events": {
+                "0.2": [
+                    {
+                        "type": "particle",
+                        "particle": "minecraft:crit",
+                        "count": 8,
+                        "speed": 0.15
+                    }
+                ],
+                "0.3": [
+                    {
+                        "type": "camera_shake",
+                        "intensity": 0.3,
+                        "duration": 4
+                    }
+                ]
+            },
+            "bones": {
+                "right_arm": {
+                    "rotation": {
+                        "0.0": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "0.15": [
+                            -120,
+                            -10,
+                            -20
+                        ],
+                        "0.4": [
+                            -60,
+                            -5,
+                            -5
+                        ],
+                        "0.6": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                },
+                "left_arm": {
+                    "rotation": {
+                        "0.0": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "0.15": [
+                            -90,
+                            20,
+                            10
+                        ],
+                        "0.4": [
+                            -40,
+                            10,
+                            5
+                        ],
+                        "0.6": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

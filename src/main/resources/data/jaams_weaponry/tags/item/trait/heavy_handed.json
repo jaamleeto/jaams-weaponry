@@ -1,0 +1,25 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/longswords",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/zweihanders",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/buster_swords",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/scythes",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/greathammers",
+            "required": false
+        }
+    ]
+}

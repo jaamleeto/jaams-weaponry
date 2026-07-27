@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 1,
+  "cookingtime": 60,
+  "ingredient": {
+    "tag": "jaams_weaponry:shotshells"
+  },
+  "result": {
+    "id": "minecraft:gold_nugget"
+  }
+}

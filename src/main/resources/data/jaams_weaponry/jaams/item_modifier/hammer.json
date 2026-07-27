@@ -1,0 +1,23 @@
+{
+    "target": [
+        "#jaams_weaponry:item/hammers"
+    ],
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [],
+    "modifiers": {
+        "slots": [
+            "mainhand",
+            "offhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "minecraft:generic.movement_speed",
+                "name": "Movement Penalty",
+                "amount": -0.02,
+                "operation": "addition",
+                "uuid": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+            }
+        ]
+    }
+}

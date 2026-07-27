@@ -1,0 +1,19 @@
+{
+    "target": [
+        "#jaams_weaponry:item/shotguns"
+    ],
+    "enabled": true,
+    "priority": 0,
+    "pose": "combat_ready",
+    "animation": "",
+    "animation_speed": 1.0,
+    "hand": "mainhand",
+    "entity": "minecraft:player",
+    "first_person": true,
+    "condition_mode": "and",
+    "conditions": [
+        {
+            "type": "is_not_using_item"
+        }
+    ]
+}

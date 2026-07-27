@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:smelting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 4,
+  "cookingtime": 100,
+  "ingredient": {
+    "item": "jaams_weaponry:copper_choke"
+  },
+  "result": {
+    "id": "minecraft:copper_ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "leafscopperbackport"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "copperagebackport"
+        }
+      ]
+    }
+  ]
+}

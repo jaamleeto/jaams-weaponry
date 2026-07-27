@@ -1,0 +1,32 @@
+{
+    "animations": {
+        "shoulder_rest": {
+            "loop": true,
+            "animation_length": 1.0,
+            "cancel_on_player_animator": true,
+            "is_pose": true,
+            "blend_in": 8,
+            "blend_speed": 2.0,
+            "bones": {
+                "right_arm": {
+                    "rotation": {
+                        "0.0": [
+                            -85,
+                            -20,
+                            15
+                        ]
+                    }
+                },
+                "left_arm": {
+                    "rotation": {
+                        "0.0": [
+                            -10,
+                            15,
+                            -5
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

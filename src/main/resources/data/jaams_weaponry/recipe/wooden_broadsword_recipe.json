@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "broadsword",
+  "category": "equipment",
+  "pattern": [
+    "a",
+    "b",
+    "c"
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_compressed_wood"
+    },
+    "b": {
+      "item": "jaams_weaponry:heavy_compressed_wood"
+    },
+    "c": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:wooden_broadsword"
+  }
+}

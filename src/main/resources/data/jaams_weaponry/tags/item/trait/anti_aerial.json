@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/longswords",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/spears",
+            "required": false
+        }
+    ]
+}

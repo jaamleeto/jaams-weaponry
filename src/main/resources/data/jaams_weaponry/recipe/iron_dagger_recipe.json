@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dagger",
+  "category": "equipment",
+  "pattern": [
+    " a",
+    "b "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:short_stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:iron_dagger"
+  }
+}

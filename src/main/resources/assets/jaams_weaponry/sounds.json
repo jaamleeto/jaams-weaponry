@@ -1,0 +1,1194 @@
+{
+    "archers_grace_started": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:archers_grace_started",
+                "stream": false
+            }
+        ]
+    },
+    "archers_grace_expires": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:archers_grace_expires",
+                "stream": false
+            }
+        ]
+    },
+    "warrior_grace_started": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:warrior_grace_started",
+                "stream": false
+            }
+        ]
+    },
+    "warrior_grace_expires": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:warrior_grace_expires",
+                "stream": false
+            }
+        ]
+    },
+    "vigorous_rage_started": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:vigorous_rage_started",
+                "stream": false
+            }
+        ]
+    },
+    "vigorous_rage_expires": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:vigorous_rage_expires",
+                "stream": false
+            }
+        ]
+    },
+    "archers_grace_shoot": {
+        "subtitle": "subtitles.archers_grace_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:archers_grace_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "warrior_grace_hit": {
+        "subtitle": "subtitles.warrior_grace_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:warrior_grace_hit",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_pistol_open": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_pistol_open",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_pistol_closed": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_pistol_closed",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_pistol_bullet": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_pistol_bullet",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_pistol_attachment": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_pistol_attachment",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_scattergun_open": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_scattergun_open",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_scattergun_closed": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_scattergun_closed",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_scattergun_bullet": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_scattergun_bullet",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_scattergun_attachment": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_scattergun_attachment",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_shotgun_open": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_shotgun_open",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_shotgun_closed": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_shotgun_closed",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_shotgun_attachment": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_shotgun_attachment",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_shotgun_shell": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_shotgun_shell",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_revolver_open": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_open",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_revolver_closed": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_closed",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_revolver_bullet": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_bullet",
+                "stream": false
+            }
+        ]
+    },
+    "gun_system_revolver_attachment": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gun_system_revolver_attachment",
+                "stream": false
+            }
+        ]
+    },
+    "pistol_shoot": {
+        "subtitle": "subtitles.pistol_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pistol_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "pistol_after_shoot": {
+        "subtitle": "subtitles.pistol_after_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pistol_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "pistol_empty": {
+        "subtitle": "subtitles.pistol_empty",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pistol_empty",
+                "stream": false
+            }
+        ]
+    },
+    "pistol_muzzle_shoot": {
+        "subtitle": "subtitles.pistol_muzzle_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pistol_muzzle_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "pistol_magazine_after_shot": {
+        "subtitle": "subtitles.pistol_magazine_after_shot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pistol_magazine_after_shot",
+                "stream": false
+            }
+        ]
+    },
+    "scattergun_shoot": {
+        "subtitle": "subtitles.scattergun_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:scattergun_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "scattergun_muzzle_shoot": {
+        "subtitle": "subtitles.scattergun_muzzle_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:scattergun_muzzle_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "scattergun_magazine_after_shoot": {
+        "subtitle": "subtitles.scattergun_magazine_after_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:scattergun_magazine_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "scattergun_empty": {
+        "subtitle": "subtitles.scattergun_empty",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:scattergun_empty",
+                "stream": false
+            }
+        ]
+    },
+    "scattergun_after_shoot": {
+        "subtitle": "subtitles.scattergun_after_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:scattergun_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "shotgun_shoot": {
+        "subtitle": "subtitles.shotgun_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shotgun_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "shotgun_magazine_after_shoot": {
+        "subtitle": "subtitles.shotgun_magazine_after_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shotgun_magazine_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "shotgun_empty": {
+        "subtitle": "subtitles.shotgun_empty",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shotgun_empty",
+                "stream": false
+            }
+        ]
+    },
+    "shotgun_choke_shoot": {
+        "subtitle": "subtitles.shotgun_choke_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shotgun_choke_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "shotgun_after_shoot": {
+        "subtitle": "subtitles.shotgun_after_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shotgun_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_shoot": {
+        "subtitle": "subtitles.revolver_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_after_shoot": {
+        "subtitle": "subtitles.revolver_after_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_after_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_empty": {
+        "subtitle": "subtitles.revolver_empty",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_empty",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_muzzle_shoot": {
+        "subtitle": "subtitles.revolver_muzzle_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_muzzle_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "revolver_magazine_after_shot": {
+        "subtitle": "subtitles.revolver_magazine_after_shot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:revolver_magazine_after_shot",
+                "stream": false
+            }
+        ]
+    },
+    "smoke_bomb": {
+        "subtitle": "subtitles.smoke_bomb",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:smoke_bomb",
+                "stream": false
+            }
+        ]
+    },
+    "dynamite_fired": {
+        "subtitle": "subtitles.dynamite_fired",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:dynamite_fired",
+                "stream": false
+            }
+        ]
+    },
+    "dynamite_igniting": {
+        "subtitle": "subtitles.dynamite_igniting",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:dynamite_igniting",
+                "stream": false
+            }
+        ]
+    },
+    "incapable_using": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:incapable_using",
+                "stream": false
+            }
+        ]
+    },
+    "bonk": {
+        "subtitle": "subtitles.bonk",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:bonk",
+                "stream": false
+            }
+        ]
+    },
+    "bottle_break": {
+        "subtitle": "subtitles.bottle_break",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:bottle_break",
+                "stream": false
+            }
+        ]
+    },
+    "bullet_drop": {
+        "subtitle": "subtitles.bullet_drop",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:bullet_drop",
+                "stream": false
+            }
+        ]
+    },
+    "shotshell_drop": {
+        "subtitle": "subtitles.shotshell_drop",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shotshell_drop",
+                "stream": false
+            }
+        ]
+    },
+    "broom_hit": {
+        "subtitle": "subtitles.broom_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:broom_hit",
+                "stream": false
+            }
+        ]
+    },
+    "broom_throw": {
+        "subtitle": "subtitles.broom_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:broom_throw",
+                "stream": false
+            }
+        ]
+    },
+    "broom_return": {
+        "subtitle": "subtitles.broom_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:broom_return",
+                "stream": false
+            }
+        ]
+    },
+    "shuriken_ground": {
+        "subtitle": "subtitles.shuriken_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shuriken_ground",
+                "stream": false
+            }
+        ]
+    },
+    "shuriken_hit": {
+        "subtitle": "subtitles.shuriken_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shuriken_hit",
+                "stream": false
+            }
+        ]
+    },
+    "shuriken_throw": {
+        "subtitle": "subtitles.shuriken_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:shuriken_throw",
+                "stream": false
+            }
+        ]
+    },
+    "kunai_ground": {
+        "subtitle": "subtitles.kunai_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:kunai_ground",
+                "stream": false
+            }
+        ]
+    },
+    "kunai_hit": {
+        "subtitle": "subtitles.kunai_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:kunai_hit",
+                "stream": false
+            }
+        ]
+    },
+    "kunai_throw": {
+        "subtitle": "subtitles.kunai_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:kunai_throw",
+                "stream": false
+            }
+        ]
+    },
+    "giant_shuriken_ground": {
+        "subtitle": "subtitles.giant_shuriken_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:giant_shuriken_ground",
+                "stream": false
+            }
+        ]
+    },
+    "giant_shuriken_hit": {
+        "subtitle": "subtitles.giant_shuriken_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:giant_shuriken_hit",
+                "stream": false
+            }
+        ]
+    },
+    "giant_shuriken_return": {
+        "subtitle": "subtitles.giant_shuriken_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:giant_shuriken_return",
+                "stream": false
+            }
+        ]
+    },
+    "giant_shuriken_throw": {
+        "subtitle": "subtitles.giant_shuriken_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:giant_shuriken_throw",
+                "stream": false
+            }
+        ]
+    },
+    "pronged_kunai_ground": {
+        "subtitle": "subtitles.pronged_kunai_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pronged_kunai_ground",
+                "stream": false
+            }
+        ]
+    },
+    "pronged_kunai_hit": {
+        "subtitle": "subtitles.pronged_kunai_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pronged_kunai_hit",
+                "stream": false
+            }
+        ]
+    },
+    "pronged_kunai_return": {
+        "subtitle": "subtitles.pronged_kunai_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pronged_kunai_return",
+                "stream": false
+            }
+        ]
+    },
+    "pronged_kunai_throw": {
+        "subtitle": "subtitles.pronged_kunai_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:pronged_kunai_throw",
+                "stream": false
+            }
+        ]
+    },
+    "stake_ground": {
+        "subtitle": "subtitles.stake_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:stake_ground",
+                "stream": false
+            }
+        ]
+    },
+    "stake_hit": {
+        "subtitle": "subtitles.stake_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:stake_hit",
+                "stream": false
+            }
+        ]
+    },
+    "sharp_stone_ground": {
+        "subtitle": "subtitles.sharp_stone_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:sharp_stone_ground",
+                "stream": false
+            }
+        ]
+    },
+    "sharp_stone_hit": {
+        "subtitle": "subtitles.sharp_stone_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:sharp_stone_hit",
+                "stream": false
+            }
+        ]
+    },
+    "sharp_stone_fired": {
+        "subtitle": "subtitles.sharp_stone_fired",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:sharp_stone_fired",
+                "stream": false
+            }
+        ]
+    },
+    "switch": {
+        "subtitle": "subtitles.switch",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:switch",
+                "stream": false
+            }
+        ]
+    },
+    "decapitation": {
+        "subtitle": "subtitles.decapitation",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:decapitation",
+                "stream": false
+            }
+        ]
+    },
+    "dash": {
+        "subtitle": "subtitles.dash",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:dash",
+                "stream": false
+            }
+        ]
+    },
+    "katana_slash": {
+        "subtitle": "subtitles.katana_slash",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:katana_slash",
+                "stream": false
+            }
+        ]
+    },
+    "katana_slash_cut": {
+        "subtitle": "subtitles.katana_slash_cut",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:katana_slash_cut",
+                "stream": false
+            }
+        ]
+    },
+    "tessen_open": {
+        "subtitle": "subtitles.tessen_open",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:tessen_open",
+                "stream": false
+            }
+        ]
+    },
+    "tessen_closed": {
+        "subtitle": "subtitles.tessen_closed",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:tessen_closed",
+                "stream": false
+            }
+        ]
+    },
+    "empty_sound": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:empty_sound",
+                "stream": false
+            }
+        ]
+    },
+    "bullet_hit": {
+        "subtitle": "subtitles.bullet_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:bullet_hit",
+                "stream": false
+            }
+        ]
+    },
+    "axe_ground": {
+        "subtitle": "subtitles.axe_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:axe_ground",
+                "stream": false
+            }
+        ]
+    },
+    "axe_hit": {
+        "subtitle": "subtitles.axe_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:axe_hit",
+                "stream": false
+            }
+        ]
+    },
+    "axe_return": {
+        "subtitle": "subtitles.axe_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:axe_return",
+                "stream": false
+            }
+        ]
+    },
+    "axe_throw": {
+        "subtitle": "subtitles.axe_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:axe_throw",
+                "stream": false
+            }
+        ]
+    },
+    "cleaver_ground": {
+        "subtitle": "subtitles.cleaver_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:cleaver_ground",
+                "stream": false
+            }
+        ]
+    },
+    "cleaver_hit": {
+        "subtitle": "subtitles.cleaver_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:cleaver_hit",
+                "stream": false
+            }
+        ]
+    },
+    "cleaver_return": {
+        "subtitle": "subtitles.cleaver_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:cleaver_return",
+                "stream": false
+            }
+        ]
+    },
+    "cleaver_throw": {
+        "subtitle": "subtitles.cleaver_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:cleaver_throw",
+                "stream": false
+            }
+        ]
+    },
+    "hammer_slam": {
+        "subtitle": "subtitles.hammer_slam",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:hammer_slam",
+                "stream": false
+            }
+        ]
+    },
+    "hunters_boomerang_ground": {
+        "subtitle": "subtitles.hunters_boomerang_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:hunters_boomerang_ground",
+                "stream": false
+            }
+        ]
+    },
+    "hunters_boomerang_hit": {
+        "subtitle": "subtitles.hunters_boomerang_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:hunters_boomerang_hit",
+                "stream": false
+            }
+        ]
+    },
+    "hunters_boomerang": {
+        "subtitle": "subtitles.hunters_boomerang",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:hunters_boomerang_return",
+                "stream": false
+            }
+        ]
+    },
+    "hunters_boomerang_throw": {
+        "subtitle": "subtitles.hunters_boomerang_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:hunters_boomerang_throw",
+                "stream": false
+            }
+        ]
+    },
+    "ring_ground": {
+        "subtitle": "subtitles.ring_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:ring_ground",
+                "stream": false
+            }
+        ]
+    },
+    "ring_hit": {
+        "subtitle": "subtitles.ring_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:ring_hit",
+                "stream": false
+            }
+        ]
+    },
+    "ring_return": {
+        "subtitle": "subtitles.ring_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:ring_return",
+                "stream": false
+            }
+        ]
+    },
+    "ring_throw": {
+        "subtitle": "subtitles.ring_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:ring_throw",
+                "stream": false
+            }
+        ]
+    },
+    "royal_spear_ground": {
+        "subtitle": "subtitles.royal_spear_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_spear_ground",
+                "stream": false
+            }
+        ]
+    },
+    "royal_spear_hit": {
+        "subtitle": "subtitles.royal_spear_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_spear_hit",
+                "stream": false
+            }
+        ]
+    },
+    "royal_spear_return": {
+        "subtitle": "subtitles.royal_spear_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_spear_return",
+                "stream": false
+            }
+        ]
+    },
+    "royal_spear_throw": {
+        "subtitle": "subtitles.royal_spear_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_spear_throw",
+                "stream": false
+            }
+        ]
+    },
+    "spear_hit": {
+        "subtitle": "subtitles.spear_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:spear_hit",
+                "stream": false
+            }
+        ]
+    },
+    "spear_ground": {
+        "subtitle": "subtitles.spear_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:spear_ground",
+                "stream": false
+            }
+        ]
+    },
+    "spear_return": {
+        "subtitle": "subtitles.spear_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:spear_return",
+                "stream": false
+            }
+        ]
+    },
+    "spear_throw": {
+        "subtitle": "subtitles.spear_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:spear_throw",
+                "stream": false
+            }
+        ]
+    },
+    "switch_alt": {
+        "subtitle": "subtitles.switch_alt",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:switch_alt",
+                "stream": false
+            }
+        ]
+    },
+    "swoosh_air": {
+        "subtitle": "subtitles.swoosh_air",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:swoosh_air",
+                "stream": false
+            }
+        ]
+    },
+    "thin_swoosh_air": {
+        "subtitle": "subtitles.thin_swoosh_air",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:thin_swoosh_air",
+                "stream": false
+            }
+        ]
+    },
+    "weapon_fired": {
+        "subtitle": "subtitles.weapon_fired",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:weapon_fired",
+                "stream": false
+            }
+        ]
+    },
+    "whip_hit": {
+        "subtitle": "subtitles.whip_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:whip_hit",
+                "stream": false
+            }
+        ]
+    },
+    "bokken_hit": {
+        "subtitle": "subtitles.bokken_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:bokken_hit",
+                "stream": false
+            }
+        ]
+    },
+    "nunchaku_hit": {
+        "subtitle": "subtitles.nunchaku_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:nunchaku_hit",
+                "stream": false
+            }
+        ]
+    },
+    "war_pick_hit": {
+        "subtitle": "subtitles.war_pick_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:war_pick_hit",
+                "stream": false
+            }
+        ]
+    },
+    "slingshot_load": {
+        "subtitle": "subtitles.slingshot_load",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:slingshot_load",
+                "stream": false
+            }
+        ]
+    },
+    "slingshot_shoot": {
+        "subtitle": "subtitles.slingshot_shoot",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:slingshot_shoot",
+                "stream": false
+            }
+        ]
+    },
+    "bullet_ground": {
+        "subtitle": "subtitles.bullet_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:bullet_ground",
+                "stream": false
+            }
+        ]
+    },
+    "broom_ground": {
+        "subtitle": "subtitles.broom_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:broom_ground_0",
+                "stream": false
+            },
+            {
+                "name": "jaams_weaponry:broom_ground_1",
+                "stream": false
+            }
+        ]
+    },
+    "gauntlet_hit": {
+        "subtitle": "subtitles.gauntlet_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:gauntlet_hit_0",
+                "stream": false
+            },
+            {
+                "name": "jaams_weaponry:gauntlet_hit_1",
+                "stream": false
+            },
+            {
+                "name": "jaams_weaponry:gauntlet_hit_2",
+                "stream": false
+            }
+        ]
+    },
+    "nunchaku_chain": {
+        "subtitle": "subtitles.nunchaku_chain",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:nunchaku_chain",
+                "stream": false
+            }
+        ]
+    },
+    "royal_axe_ground": {
+        "subtitle": "subtitles.royal_axe_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_axe_ground",
+                "stream": false
+            }
+        ]
+    },
+    "royal_axe_hit": {
+        "subtitle": "subtitles.royal_axe_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_axe_hit",
+                "stream": false
+            }
+        ]
+    },
+    "royal_axe_return": {
+        "subtitle": "subtitles.royal_axe_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_axe_return",
+                "stream": false
+            }
+        ]
+    },
+    "royal_axe_throw": {
+        "subtitle": "subtitles.royal_axe_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_axe_throw",
+                "stream": false
+            }
+        ]
+    },
+    "royal_axe_thunder": {
+        "subtitle": "subtitles.royal_axe_thunder",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:royal_axe_thunder",
+                "stream": false
+            }
+        ]
+    },
+    "broom_clean": {
+        "subtitle": "subtitles.broom_clean",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:broom_clean",
+                "stream": false
+            }
+        ]
+    },
+    "projectile_ground": {
+        "subtitle": "subtitles.projectile_ground",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:projectile_ground",
+                "stream": false
+            }
+        ]
+    },
+    "projectile_return": {
+        "subtitle": "subtitles.projectile_return",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:projectile_return",
+                "stream": false
+            }
+        ]
+    },
+    "projectile_hit": {
+        "subtitle": "subtitles.projectile_hit",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:projectile_hit",
+                "stream": false
+            }
+        ]
+    },
+    "projectile_throw": {
+        "subtitle": "subtitles.projectile_throw",
+        "sounds": [
+            {
+                "name": "jaams_weaponry:projectile_throw",
+                "stream": false
+            }
+        ]
+    },
+    "knocked_out_started": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:knocked_out_started",
+                "stream": false
+            }
+        ]
+    },
+    "knocked_out_expires": {
+        "sounds": [
+            {
+                "name": "jaams_weaponry:knocked_out_expires",
+                "stream": false
+            }
+        ]
+    }
+}

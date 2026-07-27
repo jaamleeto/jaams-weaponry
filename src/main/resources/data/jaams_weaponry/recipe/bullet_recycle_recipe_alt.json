@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 1,
+  "cookingtime": 40,
+  "ingredient": {
+    "tag": "jaams_weaponry:bullets"
+  },
+  "result": {
+    "id": "minecraft:gold_nugget"
+  }
+}

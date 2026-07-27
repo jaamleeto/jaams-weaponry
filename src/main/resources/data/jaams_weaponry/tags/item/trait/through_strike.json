@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/knuckles",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/twinblades",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/kamas",
+            "required": false
+        }
+    ]
+}

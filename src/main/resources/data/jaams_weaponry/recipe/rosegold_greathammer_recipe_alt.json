@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "cavesanddepths:rosegoldupgradesmithingtemplate"
+  },
+  "base": {
+    "item": "jaams_weaponry:golden_greathammer"
+  },
+  "addition": {
+    "item": "jaams_weaponry:heavy_rosegold_ingot"
+  },
+  "result": {
+    "id": "jaams_weaponry:rosegold_greathammer"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "cavesanddepths"
+    }
+  ]
+}

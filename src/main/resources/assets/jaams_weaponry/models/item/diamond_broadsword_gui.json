@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "jaams_weaponry:item/diamond_broadsword"
+  }
+}
