@@ -15,6 +15,6 @@
   "slots": [
     "any"
   ],
-  "supported_items": "#minecraft:enchantable/durability",
+  "supported_items": "#jaams_weaponry:enchantable/secure_grip",
   "weight": 5
 }

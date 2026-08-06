@@ -6,6 +6,8 @@ import java.util.Optional;
 import net.jaams.weaponry.loader.TraitModifierLoader;
 import net.minecraft.world.item.ItemStack;
 
+import com.google.gson.JsonElement;
+
 public class TraitModifierData {
 
     public List<String> target = new ArrayList<>();
@@ -39,6 +41,10 @@ public class TraitModifierData {
         public short nbt_short_value;
         public long nbt_long_value;
         public String nbt_string_value;
+        /** Component ID for has_component / component_value conditions (1.21.1+). */
+        public String component;
+        /** Expected value for component_value condition, parsed via component codec. */
+        public JsonElement component_value;
     }
 
     public static class TraitsEntry {

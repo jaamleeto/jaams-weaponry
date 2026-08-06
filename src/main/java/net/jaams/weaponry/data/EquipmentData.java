@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+import com.google.gson.JsonElement;
 
 public class EquipmentData {
 
@@ -53,6 +56,13 @@ public class EquipmentData {
         public Map<String, Object> nbt = new HashMap<>();
 
         
+        /**
+         * Data-component section (1.21.1+), applied like the {@code components}
+         * section of an {@code item_modifier} file.
+         */
+        public Map<String, JsonElement> components = new LinkedHashMap<>();
+
+        
         public List<ItemCondition> conditions = new ArrayList<>();
 
         
@@ -97,6 +107,13 @@ public class EquipmentData {
         public Map<String, Object> nbt = new HashMap<>();
 
         
+        /**
+         * Data-component section (1.21.1+), applied like the {@code components}
+         * section of an {@code item_modifier} file.
+         */
+        public Map<String, JsonElement> components = new LinkedHashMap<>();
+
+        
         public List<ItemCondition> conditions = new ArrayList<>();
 
         public net.minecraft.world.entity.EquipmentSlot getEquipmentSlot() {
@@ -127,7 +144,13 @@ public class EquipmentData {
         public String nbt_key;
         public int nbt_int_value;
         public boolean nbt_boolean_value;
+        public short nbt_short_value;
+        public long nbt_long_value;
         public String nbt_string_value;
+        /** Component ID for has_component / component_value conditions (1.21.1+). */
+        public String component;
+        /** Expected value for component_value condition, parsed via component codec. */
+        public JsonElement component_value;
     }
 
     public static class EntityCondition {

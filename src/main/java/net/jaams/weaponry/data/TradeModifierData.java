@@ -1,7 +1,11 @@
 package net.jaams.weaponry.data;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.google.gson.JsonElement;
 
 public class TradeModifierData {
     public Boolean enabled = true;
@@ -24,6 +28,11 @@ public class TradeModifierData {
         public String sell_item;
         public int sell_count = 1;
         public String sell_nbt = "";
+        /**
+         * Data-component section (1.21.1+), applied like the {@code components}
+         * section of an {@code item_modifier} file.
+         */
+        public Map<String, JsonElement> components = new LinkedHashMap<>();
         public List<EnchantmentData> sell_enchantments = new ArrayList<>();
 
         public String cost_item = "minecraft:emerald";

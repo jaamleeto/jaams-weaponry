@@ -41,12 +41,20 @@ public abstract class ForgeItemMixin implements IItemExtension, ItemInjection {
         }
 
         if (stack.is(ModTags.BROOMS)) {
-            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.MULTISHOT)) {
+            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.MULTISHOT)
+                    || enchantment.is(Enchantments.PIERCING)) {
                 return true;
             }
             if (enchantment.is(Enchantments.SMITE) || enchantment.is(Enchantments.SHARPNESS)
                     || enchantment.is(Enchantments.FIRE_ASPECT) || enchantment.is(Enchantments.LOOTING)) {
                 return false;
+            }
+        }
+
+        if (stack.is(ModTags.AXES)) {
+            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.PIERCING)
+                    || enchantment.is(Enchantments.MULTISHOT)) {
+                return true;
             }
         }
 
@@ -71,6 +79,14 @@ public abstract class ForgeItemMixin implements IItemExtension, ItemInjection {
             }
             if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
                 return false;
+            }
+        }
+
+        if (stack.is(ModTags.HUNTERS_BOOMERANGS) || stack.is(ModTags.PRONGED_KUNAIS)
+                || stack.is(ModTags.GIANT_SHURIKENS) || stack.is(ModTags.ROYAL_AXES)) {
+            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.PIERCING)
+                    || enchantment.is(Enchantments.MULTISHOT)) {
+                return true;
             }
         }
 

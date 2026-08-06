@@ -163,6 +163,8 @@ public class ThrowableModifierLoader extends SimpleJsonResourceReloadListener {
             case "item" -> checkItem(cond, stack);
             case "mod" -> checkMod(cond, stack);
             case "rarity" -> checkRarity(cond, stack);
+            case "has_component" -> cond.component != null && ModComponents.hasComponent(stack, cond.component);
+            case "component_value" -> ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
             default -> false;
         };
     }
@@ -190,7 +192,7 @@ public class ThrowableModifierLoader extends SimpleJsonResourceReloadListener {
             case "boolean" -> tag.contains(cond.key, 1) && tag.getBoolean(cond.key) == cond.nbt_boolean_value;
             case "int" -> tag.contains(cond.key, 3) && tag.getInt(cond.key) == cond.nbt_int_value;
             case "short" -> tag.contains(cond.key, 2) && tag.getShort(cond.key) == cond.nbt_short_value;
-            case "long" -> tag.contains(cond.key, 4) && tag.getLong(cond.key) == long.class.cast(cond.nbt_long_value);
+            case "long" -> tag.contains(cond.key, 4) && tag.getLong(cond.key) == cond.nbt_long_value;
             case "string" -> tag.contains(cond.key, 8) && cond.nbt_string_value != null
                     && cond.nbt_string_value.equals(tag.getString(cond.key));
             default -> false;

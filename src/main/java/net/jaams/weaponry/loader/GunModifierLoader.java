@@ -22,6 +22,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.core.registries.Registries;
 
 import net.jaams.weaponry.data.GunItemData;
@@ -146,6 +147,8 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
             case "item" -> checkItem(cond, stack);
             case "mod" -> checkMod(cond, stack);
             case "rarity" -> checkRarity(cond, stack);
+            case "has_component" -> cond.component != null && ModComponents.hasComponent(stack, cond.component);
+            case "component_value" -> ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
             default -> false;
         };
     }
@@ -167,10 +170,15 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
         if (stack == null || !ModComponents.has(stack) || cond.key == null)
             return false;
         CompoundTag tag = ModComponents.get(stack);
+        if (tag == null)
+            return false;
         return switch (cond.nbt_key != null ? cond.nbt_key.toLowerCase() : "") {
-            case "boolean" -> tag.getBoolean(cond.key) == cond.nbt_boolean_value;
-            case "int" -> tag.getInt(cond.key) == cond.nbt_int_value;
-            case "string" -> cond.nbt_string_value != null && cond.nbt_string_value.equals(tag.getString(cond.key));
+            case "boolean" -> tag.contains(cond.key, Tag.TAG_BYTE) && tag.getBoolean(cond.key) == cond.nbt_boolean_value;
+            case "int" -> tag.contains(cond.key, Tag.TAG_INT) && tag.getInt(cond.key) == cond.nbt_int_value;
+            case "short" -> tag.contains(cond.key, Tag.TAG_SHORT) && tag.getShort(cond.key) == cond.nbt_short_value;
+            case "long" -> tag.contains(cond.key, Tag.TAG_LONG) && tag.getLong(cond.key) == cond.nbt_long_value;
+            case "string" -> tag.contains(cond.key, Tag.TAG_STRING) && cond.nbt_string_value != null
+                    && cond.nbt_string_value.equals(tag.getString(cond.key));
             default -> false;
         };
     }

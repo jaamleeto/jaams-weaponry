@@ -4,7 +4,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.141'
 }
 
-version = '1.1.1'
+version = '1.1.2'
 group = 'net.jaams'
 
 base {
@@ -41,8 +41,15 @@ repositories {
     mavenCentral()
     maven { name = 'NeoForged'; url = 'https://maven.neoforged.net/releases' }
     maven {
-        name = 'CursedMaven'
+        name = 'CurseMaven'
         url = 'https://cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+    maven {
+        name = 'CurseForge'
+        url = 'https://maven.curseforge.com'
         content {
             includeGroup 'curse.maven'
         }
@@ -50,8 +57,8 @@ repositories {
 }
 
 dependencies {
-    // playerAnimator (CurseForge Maven)
-    implementation "curse.maven:playeranimator-658587:7389814"
+
+    implementation("curse.maven:playeranimator-658587:6024462")
 
     implementation 'curse.maven:catalogue-459701:6926815'
     implementation 'curse.maven:damagenumbers-1022853:5475556'

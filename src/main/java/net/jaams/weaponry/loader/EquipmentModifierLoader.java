@@ -113,16 +113,16 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
 
     public java.util.Optional<ItemStack> resolveItem(ItemEntry entry) {
         if (entry == null || entry.item == null || entry.item.isEmpty()) return java.util.Optional.empty();
-        return resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.count);
+        return resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.components, entry.count);
     }
 
     public java.util.Optional<ItemStack> resolveEquipItem(EquipEntry entry) {
         if (entry == null || entry.item == null || entry.item.isEmpty()) return java.util.Optional.empty();
-        return resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.count);
+        return resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.components, entry.count);
     }
 
     private java.util.Optional<ItemStack> resolveItem(String itemPattern, Map<String, Integer> enchantments,
-            boolean randomEnch, Map<String, Object> nbt, int count) {
+            boolean randomEnch, Map<String, Object> nbt, Map<String, JsonElement> components, int count) {
         ResourceLocation itemId = resolveItemPattern(itemPattern);
         if (itemId == null) return java.util.Optional.empty();
         Item item = BuiltInRegistries.ITEM.get(itemId);
@@ -130,6 +130,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
         ItemStack stack = new ItemStack(item, Math.max(count, 1));
         applyEnchantments(stack, enchantments, randomEnch);
         applyNbt(stack, nbt);
+        ModComponents.applyComponents(stack, components);
         return java.util.Optional.of(stack);
     }
 
@@ -262,10 +263,19 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
             case "nbt" -> {
                 if (cond.key == null || stack == null || !ModComponents.has(stack)) yield false;
                 CompoundTag tag = ModComponents.get(stack);
+                if (tag == null) yield false;
                 yield switch (cond.nbt_key != null ? cond.nbt_key.toLowerCase(Locale.ROOT) : "") {
-                    case "boolean" -> tag.getBoolean(cond.key) == cond.nbt_boolean_value;
-                    case "int" -> tag.getInt(cond.key) == cond.nbt_int_value;
-                    case "string" -> cond.nbt_string_value != null && cond.nbt_string_value.equals(tag.getString(cond.key));
+                    case "boolean" -> tag.contains(cond.key, net.minecraft.nbt.Tag.TAG_BYTE)
+                            && tag.getBoolean(cond.key) == cond.nbt_boolean_value;
+                    case "int" -> tag.contains(cond.key, net.minecraft.nbt.Tag.TAG_INT)
+                            && tag.getInt(cond.key) == cond.nbt_int_value;
+                    case "short" -> tag.contains(cond.key, net.minecraft.nbt.Tag.TAG_SHORT)
+                            && tag.getShort(cond.key) == cond.nbt_short_value;
+                    case "long" -> tag.contains(cond.key, net.minecraft.nbt.Tag.TAG_LONG)
+                            && tag.getLong(cond.key) == cond.nbt_long_value;
+                    case "string" -> tag.contains(cond.key, net.minecraft.nbt.Tag.TAG_STRING)
+                            && cond.nbt_string_value != null
+                            && cond.nbt_string_value.equals(tag.getString(cond.key));
                     default -> false;
                 };
             }
@@ -286,6 +296,8 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
                 yield sid != null && cond.mod_id.equals(sid.getNamespace());
             }
             case "rarity" -> cond.rarity != null && stack != null && stack.getRarity().name().equalsIgnoreCase(cond.rarity);
+            case "has_component" -> cond.component != null && ModComponents.hasComponent(stack, cond.component);
+            case "component_value" -> ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
             default -> false;
         };
     }

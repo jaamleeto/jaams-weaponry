@@ -4,6 +4,10 @@
         {
             "id": "#jaams_weaponry:item/hammers",
             "required": false
+        },
+        {
+            "id": "minecraft:mace",
+            "required": false
         }
     ]
 }

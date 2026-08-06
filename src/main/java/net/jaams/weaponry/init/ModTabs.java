@@ -17,7 +17,6 @@ import net.jaams.weaponry.loader.TabModifierLoader;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -112,6 +111,7 @@ public class ModTabs {
                     ItemStack stack = new ItemStack(item);
                     if (stack.is(tagKey)) {
                         applyNBT(stack, entry.nbt);
+                        ModComponents.applyComponents(stack, entry.components);
                         stacksToAdd.add(stack);
                     }
                 }
@@ -137,6 +137,7 @@ public class ModTabs {
                 return null;
             ItemStack stack = new ItemStack(item);
             applyNBT(stack, entry.nbt);
+            ModComponents.applyComponents(stack, entry.components);
             return stack;
         } catch (Exception e) {
             LOGGER.warn("Failed to create stack: {}", entry.item);
@@ -147,11 +148,9 @@ public class ModTabs {
     private static void applyNBT(ItemStack stack, String nbtString) {
         if (nbtString == null || nbtString.isEmpty())
             return;
-        try {
-            CompoundTag tag = TagParser.parseTag(nbtString);
+        CompoundTag tag = ModComponents.parseNbtString(nbtString);
+        if (tag != null) {
             ModComponents.set(stack, tag);
-        } catch (Exception e) {
-            LOGGER.warn("Invalid NBT");
         }
     }
 

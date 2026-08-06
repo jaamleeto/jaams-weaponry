@@ -4,10 +4,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.core.Holder;
 import net.jaams.weaponry.util.ModComponents;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
-import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.ModList;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,6 +13,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -34,12 +31,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.component.DataComponentType;
-
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
 
 import net.jaams.weaponry.loader.ItemModifierLoader;
 import net.jaams.weaponry.data.ItemModifierData;
@@ -56,7 +47,6 @@ import com.google.gson.JsonElement;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
 public class ItemModifierHandler {
-    private static final Logger LOGGER = LogManager.getLogger(ItemModifierHandler.class);
 
     @SubscribeEvent
     public static void onItemDataAttributeModifier(ItemAttributeModifierEvent event) {
@@ -70,7 +60,7 @@ public class ItemModifierHandler {
             if (!checkConditions(stack, data))
                 continue;
             applyNbt(stack, data);
-            applyComponents(stack, data);
+            ModComponents.applyComponents(stack, data.components);
             for (EquipmentSlot slot : EquipmentSlot.values()) {
                 if (data.appliesToSlot(slot)) {
                     applyAttributes(event, data, slot);
@@ -177,28 +167,9 @@ public class ItemModifierHandler {
                 return cond.nbt_key != null && tag != null && tag.contains(cond.nbt_key, Tag.TAG_STRING)
                         && Objects.equals(tag.getString(cond.nbt_key), cond.nbt_string_value);
             case "has_component":
-                if (cond.component != null) {
-                    ResourceLocation compId = ResourceLocation.tryParse(cond.component);
-                    DataComponentType<?> compType = BuiltInRegistries.DATA_COMPONENT_TYPE.get(compId);
-                    return compType != null && stack.has(compType);
-                }
-                return false;
+                return cond.component != null && ModComponents.hasComponent(stack, cond.component);
             case "component_value":
-                if (cond.component != null && cond.component_value != null) {
-                    ResourceLocation compId = ResourceLocation.tryParse(cond.component);
-                    DataComponentType<?> compType = BuiltInRegistries.DATA_COMPONENT_TYPE.get(compId);
-                    if (compType == null) return false;
-                    try {
-                        DataResult<?> result = compType.codec().parse(JsonOps.INSTANCE, cond.component_value);
-                        if (result.isError()) return false;
-                        Object expected = result.getOrThrow();
-                        Object current = stack.get(compType);
-                        return Objects.equals(current, expected);
-                    } catch (Exception e) {
-                        return false;
-                    }
-                }
-                return false;
+                return ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
             case "has_enchantment":
                 if (cond.enchantment != null) {
                     ResourceLocation enchId = ResourceLocation.tryParse(cond.enchantment);
@@ -240,9 +211,34 @@ public class ItemModifierHandler {
                 uuid = UUID.nameUUIDFromBytes((data.toString() + "|" + slot.getName() + "|" + entry.name)
                         .getBytes(StandardCharsets.UTF_8));
             }
-            AttributeModifier modifier = new AttributeModifier(
-                    ResourceLocation.fromNamespaceAndPath("jaams_weaponry", uuid.toString()), entry.amount, operation);
-            event.addModifier(attribute, modifier, EquipmentSlotGroup.bySlot(slot));
+
+            EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(slot);
+
+            if (operation == AttributeModifier.Operation.ADD_VALUE) {
+                // Sum into existing modifiers instead of adding a new one
+                boolean replaced = false;
+                for (ItemAttributeModifiers.Entry existing : List.copyOf(event.getModifiers())) {
+                    if (existing.attribute().is(attrLoc) && existing.slot() == slotGroup) {
+                        AttributeModifier oldMod = existing.modifier();
+                        AttributeModifier newMod = new AttributeModifier(
+                                oldMod.id(),
+                                oldMod.amount() + entry.amount,
+                                oldMod.operation());
+                        event.replaceModifier(attribute, newMod, existing.slot());
+                        replaced = true;
+                        break;
+                    }
+                }
+                if (!replaced) {
+                    AttributeModifier modifier = new AttributeModifier(
+                            ResourceLocation.fromNamespaceAndPath("jaams_weaponry", uuid.toString()), entry.amount, operation);
+                    event.addModifier(attribute, modifier, slotGroup);
+                }
+            } else {
+                AttributeModifier modifier = new AttributeModifier(
+                        ResourceLocation.fromNamespaceAndPath("jaams_weaponry", uuid.toString()), entry.amount, operation);
+                event.addModifier(attribute, modifier, slotGroup);
+            }
         }
     }
 
@@ -267,41 +263,6 @@ public class ItemModifierHandler {
         }
         if (changed) {
             ModComponents.set(stack, current);
-        }
-    }
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private static void applyComponents(ItemStack stack, ItemModifierData data) {
-        if (data.components == null || data.components.isEmpty())
-            return;
-        for (Map.Entry<String, JsonElement> entry : data.components.entrySet()) {
-            if (entry.getKey() == null || entry.getValue() == null)
-                continue;
-            ResourceLocation compId = ResourceLocation.tryParse(entry.getKey());
-            if (compId == null) {
-                LOGGER.warn("Invalid component ID: {}", entry.getKey());
-                continue;
-            }
-            DataComponentType type = BuiltInRegistries.DATA_COMPONENT_TYPE.get(compId);
-            if (type == null) {
-                LOGGER.warn("Unknown data component type: {}", compId);
-                continue;
-            }
-            try {
-                Codec codec = type.codec();
-                DataResult result = codec.parse(JsonOps.INSTANCE, entry.getValue());
-                if (result.isError()) {
-                    LOGGER.error("Failed to parse data component {}: {}", compId, result.error().orElse("unknown error"));
-                    continue;
-                }
-                Object value = result.getOrThrow();
-                Object current = stack.get(type);
-                if (!Objects.equals(current, value)) {
-                    stack.set(type, value);
-                }
-            } catch (Exception e) {
-                LOGGER.error("Error applying data component {}", compId, e);
-            }
         }
     }
 

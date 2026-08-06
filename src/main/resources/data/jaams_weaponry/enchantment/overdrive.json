@@ -15,6 +15,6 @@
   "slots": [
     "any"
   ],
-  "supported_items": "#minecraft:enchantable/sword",
+  "supported_items": "#jaams_weaponry:enchantable/overdrive",
   "weight": 5
 }

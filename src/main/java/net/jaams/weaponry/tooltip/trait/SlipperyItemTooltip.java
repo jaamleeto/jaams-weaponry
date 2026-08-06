@@ -6,6 +6,7 @@ import java.util.List;
 import net.jaams.weaponry.configuration.client.TooltipsConfig;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.data.TraitModifierData;
+import net.jaams.weaponry.init.ModEnchantments;
 import net.jaams.weaponry.util.ModTooltips;
 import net.jaams.weaponry.util.ModTraits;
 import net.minecraft.ChatFormatting;
@@ -20,6 +21,9 @@ public class SlipperyItemTooltip {
             return;
         }
         if (!ModTraits.isSlipperyItem(stack)) {
+            return;
+        }
+        if (ModEnchantments.level(stack, ModEnchantments.SECURE_GRIP) > 0) {
             return;
         }
         CompoundTag tag = ModComponents.get(stack);

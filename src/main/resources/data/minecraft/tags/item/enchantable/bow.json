@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#jaams_weaponry:item/royal_bows",
+    "jaams_weaponry:hunters_bow",
+    "jaams_weaponry:compound_bow",
+    "jaams_weaponry:flat_bow",
+    "jaams_weaponry:short_bow"
+  ]
+}

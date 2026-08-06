@@ -1,5 +1,5 @@
 {
-  "anvil_cost": 4,
+  "anvil_cost": 2,
   "description": {
     "translate": "enchantment.jaams_weaponry.backblast"
   },
@@ -13,8 +13,9 @@
     "per_level_above_first": 8
   },
   "slots": [
-    "any"
+    "mainhand",
+    "offhand"
   ],
-  "supported_items": "#minecraft:enchantable/durability",
+  "supported_items": "#jaams_weaponry:enchantable/backblast",
   "weight": 2
 }

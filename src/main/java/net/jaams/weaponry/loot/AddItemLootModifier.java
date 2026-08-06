@@ -2,8 +2,6 @@ package net.jaams.weaponry.loot;
 import net.jaams.weaponry.util.ModComponents;
 
 import com.google.common.base.Suppliers;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -96,17 +94,14 @@ public class AddItemLootModifier extends LootModifier {
 
                 
                 if (entry.nbt != null && !entry.nbt.isEmpty()) {
-                    try {
-                        JsonElement element = JsonParser.parseString(entry.nbt);
-                        if (element.isJsonObject()) {
-                            String jsonStr = element.getAsJsonObject().toString();
-                            ModComponents.set(stack, net.minecraft.nbt.TagParser.parseTag(jsonStr));
-                        }
-                    } catch (Exception e) {
-                        JaamsWeaponryMod.LOGGER.warn("AddItemLootModifier: Failed to parse NBT for '{}': {}",
-                            entry.item, e.getMessage());
+                    CompoundTag tag = ModComponents.parseNbtString(entry.nbt);
+                    if (tag != null) {
+                        ModComponents.set(stack, tag);
                     }
                 }
+
+                
+                ModComponents.applyComponents(stack, entry.components);
 
                 
                 if (entry.enchantments != null) {

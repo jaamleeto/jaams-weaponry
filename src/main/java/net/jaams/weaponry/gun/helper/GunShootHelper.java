@@ -352,7 +352,7 @@ public class GunShootHelper {
                 }
             }
             if (consumeAmmo) {
-                consumeItem(ammoInSlot, amount);
+                handler.extractItem(ammoSlot, amount, false);
             }
         });
     }

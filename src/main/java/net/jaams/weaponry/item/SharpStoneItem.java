@@ -1,6 +1,7 @@
 
 package net.jaams.weaponry.item;
 
+import net.jaams.weaponry.util.ModUtils;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -13,7 +14,7 @@ import com.google.common.collect.ImmutableMultimap;
 
 public class SharpStoneItem extends Item {
 	public SharpStoneItem() {
-		super(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON).attributes(net.jaams.weaponry.util.ModAttributeHelper.mainhand(1.5, -2.4)));
+		super(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON).attributes(ModUtils.mainhand(1.5, -2.4)));
 	}
 
 	@Override

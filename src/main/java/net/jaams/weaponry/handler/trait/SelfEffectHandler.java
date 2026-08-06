@@ -27,6 +27,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.jaams.weaponry.configuration.common.EffectsConfig;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.data.TraitModifierData;
+import net.jaams.weaponry.init.ModEnchantments;
 import net.jaams.weaponry.init.ModMobEffects;
 import net.jaams.weaponry.util.ModUtils;
 
@@ -404,6 +405,9 @@ public class SelfEffectHandler {
 
     public static void handleSlippery(LivingEntity target, LivingEntity attacker, ItemStack stack) {
         if (!TraitsConfig.SLIPPERY.get()) {
+            return;
+        }
+        if (ModEnchantments.level(stack, ModEnchantments.SECURE_GRIP) > 0) {
             return;
         }
         InteractionHand hand = getHandHoldingStack(attacker, stack);

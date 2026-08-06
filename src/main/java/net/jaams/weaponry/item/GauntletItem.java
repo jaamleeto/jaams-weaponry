@@ -1,4 +1,3 @@
-
 package net.jaams.weaponry.item;
 
 import net.jaams.weaponry.util.ModUtils;
@@ -18,7 +17,12 @@ import com.google.common.collect.ImmutableMultimap;
 
 public class GauntletItem extends Item implements IDyeableItem {
 	public GauntletItem() {
-		super(new Item.Properties().durability(220).rarity(Rarity.COMMON).attributes(net.jaams.weaponry.util.ModAttributeHelper.mainhand(1, -2.4)));
+		super(new Item.Properties().durability(220).rarity(Rarity.COMMON).attributes(ModUtils.mainhand(1, -2.4)));
+	}
+
+	@Override
+	public int getEnchantmentValue() {
+		return 16;
 	}
 
 	@Override
@@ -31,7 +35,6 @@ public class GauntletItem extends Item implements IDyeableItem {
 		return false;
 	}
 
-	
 
 @Override
 public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {

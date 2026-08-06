@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.data.TradeModifierData;
@@ -68,17 +69,14 @@ public class TradeModifierHandler {
 
                 
                 if (tradeEntry.sell_nbt != null && !tradeEntry.sell_nbt.isEmpty()) {
-                    try {
-                        var element = com.google.gson.JsonParser.parseString(tradeEntry.sell_nbt);
-                        if (element.isJsonObject()) {
-                            String jsonStr = element.getAsJsonObject().toString();
-                            ModComponents.set(sellStack, net.minecraft.nbt.TagParser.parseTag(jsonStr));
-                        }
-                    } catch (Exception e) {
-                        JaamsWeaponryMod.LOGGER.warn("TradeModifier: Failed to parse NBT for '{}': {}",
-                            tradeEntry.sell_item, e.getMessage());
+                    CompoundTag tag = ModComponents.parseNbtString(tradeEntry.sell_nbt);
+                    if (tag != null) {
+                        ModComponents.set(sellStack, tag);
                     }
                 }
+
+                
+                ModComponents.applyComponents(sellStack, tradeEntry.components);
 
                 
                 if (tradeEntry.sell_enchantments != null) {

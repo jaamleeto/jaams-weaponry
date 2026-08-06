@@ -2,8 +2,8 @@
 package net.jaams.weaponry.item;
 
 import net.jaams.weaponry.init.ModEnchantments;
-
 import net.jaams.weaponry.util.ModComponents;
+import net.jaams.weaponry.util.ModUtils;
 
 import java.util.List;
 import javax.annotation.Nullable;
@@ -54,7 +54,7 @@ public class HuntersBowItem extends BowItem {
     public static final float XROT_RECOIL_INTENSITY = 2.5F;
 
     public HuntersBowItem() {
-        super(new Item.Properties().durability(384).rarity(Rarity.COMMON).attributes(net.jaams.weaponry.util.ModAttributeHelper.mainhand(2, -2.4)));
+        super(new Item.Properties().durability(384).rarity(Rarity.COMMON).attributes(ModUtils.mainhand(2, -2.4)));
     }
 
     @Override

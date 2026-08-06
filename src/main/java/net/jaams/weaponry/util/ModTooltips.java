@@ -66,6 +66,8 @@ public class ModTooltips {
     public static void addStat(ItemStack stack, List<Component> tooltip, String key, double value) {
         if (!canAddTooltip(stack, true, false, TooltipsConfig.EXCLUDED_CONTROL_TOOLTIPS_ITEMS.get()))
             return;
+        if (value <= 0)
+            return;
         double rounded = roundToTwoDecimals(value);
         java.text.DecimalFormat df = new java.text.DecimalFormat("0.##");
         String formattedValue = df.format(rounded);
@@ -82,6 +84,8 @@ public class ModTooltips {
 
     public static void addStatInt(ItemStack stack, List<Component> tooltip, String key, int value) {
         if (!canAddTooltip(stack, true, false, TooltipsConfig.EXCLUDED_CONTROL_TOOLTIPS_ITEMS.get()))
+            return;
+        if (value <= 0)
             return;
         tooltip.add(Component.translatable("tooltip.jaams_weaponry.properties." + key, value)
                 .withStyle(ChatFormatting.GRAY));

@@ -7,6 +7,15 @@
     "conditions": [],
     "items": [
         {
+            "item": "minecraft:bow",
+            "slot": "mainhand",
+            "chance": 0.7,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
             "item": "jaams_weaponry:short_bow",
             "slot": "mainhand",
             "chance": 0.5,

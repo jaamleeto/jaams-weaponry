@@ -11,7 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.minecraft.client.Minecraft;
 
 @EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
-public class RenderEvents {
+public class RenderEventsHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void renderArm(RenderArmEvent event) {

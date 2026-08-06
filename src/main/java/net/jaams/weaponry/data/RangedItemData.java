@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.google.gson.JsonElement;
+
 public class RangedItemData {
     public List<String> target = new ArrayList<>();
     public Boolean enabled = true;
@@ -34,6 +36,10 @@ public class RangedItemData {
         public short nbt_short_value;
         public long nbt_long_value;
         public String nbt_string_value;
+        /** Component ID for has_component / component_value conditions (1.21.1+). */
+        public String component;
+        /** Expected value for component_value condition, parsed via component codec. */
+        public JsonElement component_value;
     }
 
     public static class RangedEntry {

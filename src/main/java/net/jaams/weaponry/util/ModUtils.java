@@ -80,7 +80,9 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.ShovelItem;
@@ -1194,5 +1196,17 @@ public class ModUtils {
             }
         }
         return total;
+    }
+
+    /** Mainhand attack-damage/attack-speed modifiers, mirroring the old getDefaultAttributeModifiers overrides. */
+    public static ItemAttributeModifiers mainhand(double attackDamage, double attackSpeed) {
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, attackDamage, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED,
+                        new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND)
+                .build();
     }
 }

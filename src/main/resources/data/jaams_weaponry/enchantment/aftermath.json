@@ -15,6 +15,6 @@
   "slots": [
     "any"
   ],
-  "supported_items": "#minecraft:enchantable/bow",
+  "supported_items": "#jaams_weaponry:enchantable/aftermath",
   "weight": 10
 }

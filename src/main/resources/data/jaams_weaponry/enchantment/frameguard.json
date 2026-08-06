@@ -13,8 +13,9 @@
     "per_level_above_first": 8
   },
   "slots": [
-    "any"
+    "mainhand",
+    "offhand"
   ],
-  "supported_items": "#minecraft:enchantable/durability",
+  "supported_items": "#jaams_weaponry:enchantable/frameguard",
   "weight": 5
 }

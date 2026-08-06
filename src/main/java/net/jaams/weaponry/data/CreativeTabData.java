@@ -2,6 +2,10 @@ package net.jaams.weaponry.data;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.google.gson.JsonElement;
 
 public class CreativeTabData {
     public String tab_id = "weaponry";
@@ -12,6 +16,11 @@ public class CreativeTabData {
     public static class Entry {
         public String item;
         public String nbt;
+        /**
+         * Data-component section (1.21.1+), applied like the {@code components}
+         * section of an {@code item_modifier} file.
+         */
+        public Map<String, JsonElement> components = new LinkedHashMap<>();
         public boolean remove = false;
         public boolean clear_defaults = false;
         public int weight = 0;

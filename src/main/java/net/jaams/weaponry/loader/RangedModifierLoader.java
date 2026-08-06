@@ -166,6 +166,8 @@ public class RangedModifierLoader extends SimpleJsonResourceReloadListener {
             case "item" -> checkItem(cond, stack);
             case "mod" -> checkMod(cond, stack);
             case "rarity" -> checkRarity(cond, stack);
+            case "has_component" -> cond.component != null && ModComponents.hasComponent(stack, cond.component);
+            case "component_value" -> ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
             default -> false;
         };
     }

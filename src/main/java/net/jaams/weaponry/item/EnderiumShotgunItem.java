@@ -1,6 +1,7 @@
 
 package net.jaams.weaponry.item;
 
+import net.jaams.weaponry.util.ModUtils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,7 +15,7 @@ import com.google.common.collect.ImmutableMultimap;
 
 public class EnderiumShotgunItem extends Item {
 	public EnderiumShotgunItem(Properties properties) {
-		super(properties.attributes(net.jaams.weaponry.util.ModAttributeHelper.mainhand(6, -2.4)));
+		super(properties.attributes(ModUtils.mainhand(6, -2.4)));
 	}
 
 	@Override
