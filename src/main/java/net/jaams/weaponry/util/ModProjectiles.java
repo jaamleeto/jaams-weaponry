@@ -93,7 +93,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getInt("MultishotCloneDespawnTicks");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.multishot_clone_despawn_ticks : 15;
+        return config != null && config.multishot_clone_despawn_ticks != null ? config.multishot_clone_despawn_ticks : 15;
     }
 
     public static ParticleOptions getTrailParticle(ItemStack weapon, ParticleOptions defaultParticle) {
@@ -171,7 +171,7 @@ public final class ModProjectiles {
             return Math.max(1, ModComponents.get(weapon).getInt("ProjectileDespawnTicks"));
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        int def = config != null ? config.despawn_ticks : (int) configDefault;
+        int def = config != null && config.despawn_ticks != null ? config.despawn_ticks : (int) configDefault;
         return Math.max(1, def);
     }
 
@@ -180,7 +180,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getFloat("ProjectileWaterInertia");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.water_inertia : (float) configDefault;
+        return config != null && config.water_inertia != null ? config.water_inertia : (float) configDefault;
     }
 
     public static boolean getAllowCriticals(ItemStack weapon, boolean configDefault) {
@@ -188,7 +188,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getBoolean("ProjectileAllowCriticals");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.allow_criticals : configDefault;
+        return config != null && config.allow_criticals != null ? config.allow_criticals : configDefault;
     }
 
     public static int getIgnoreHitTicks(ItemStack weapon, int configDefault) {
@@ -196,7 +196,7 @@ public final class ModProjectiles {
             return Math.max(0, ModComponents.get(weapon).getInt("ProjectileIgnoreHitTicks"));
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        int def = config != null ? config.ignore_hit_ticks : configDefault;
+        int def = config != null && config.ignore_hit_ticks != null ? config.ignore_hit_ticks : configDefault;
         return Math.max(0, def);
     }
 
@@ -205,7 +205,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getBoolean("ProjectileBreakOnEntityHit");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.break_on_entity_hit : configDefault;
+        return config != null && config.break_on_entity_hit != null ? config.break_on_entity_hit : configDefault;
     }
 
     public static boolean shouldBreakOnBlockHit(ItemStack weapon, boolean configDefault) {
@@ -213,7 +213,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getBoolean("ProjectileBreakOnBlockHit");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.break_on_block_hit : configDefault;
+        return config != null && config.break_on_block_hit != null ? config.break_on_block_hit : configDefault;
     }
 
     public static boolean shouldBreakOnPiercingExhausted(ItemStack weapon, boolean configDefault) {
@@ -221,7 +221,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getBoolean("ProjectileBreakOnPiercingExhausted");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.break_on_piercing_exhausted : configDefault;
+        return config != null && config.break_on_piercing_exhausted != null ? config.break_on_piercing_exhausted : configDefault;
     }
 
     public static boolean shouldBreakAfterMaxBlockBreaks(ItemStack weapon, boolean configDefault) {
@@ -229,7 +229,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getBoolean("ProjectileBreakAfterMaxBlockBreaks");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.break_after_max_block_breaks : configDefault;
+        return config != null && config.break_after_max_block_breaks != null ? config.break_after_max_block_breaks : configDefault;
     }
 
     public static int getMaxBlockBreaks(ItemStack weapon, int configDefault) {
@@ -237,7 +237,7 @@ public final class ModProjectiles {
             return Math.max(0, ModComponents.get(weapon).getInt("ProjectileMaxBlockBreaks"));
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        int def = config != null ? config.max_block_breaks : configDefault;
+        int def = config != null && config.max_block_breaks != null ? config.max_block_breaks : configDefault;
         return Math.max(0, def);
     }
 
@@ -246,7 +246,7 @@ public final class ModProjectiles {
             return ModComponents.get(weapon).getBoolean("ProjectileDisableShield");
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        return config != null ? config.disable_shield : configDefault;
+        return config != null && config.disable_shield != null ? config.disable_shield : configDefault;
     }
 
     public static int getShieldDisableCooldownTicks(ItemStack weapon, int configDefault) {
@@ -254,7 +254,7 @@ public final class ModProjectiles {
             return Math.max(20, ModComponents.get(weapon).getInt("ProjectileDisableCooldownTicks"));
         }
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        int def = config != null ? config.disable_cooldown_ticks : configDefault;
+        int def = config != null && config.disable_cooldown_ticks != null ? config.disable_cooldown_ticks : configDefault;
         return Math.max(20, def);
     }
 
@@ -305,8 +305,10 @@ public final class ModProjectiles {
         float width = defaultWidth;
         float height = defaultHeight;
         ThrowableItemData.ProjectileEntry config = ThrowableItemData.getProjectileConfig(weapon);
-        if (config != null) {
+        if (config != null && config.hitbox_width != null) {
             width = config.hitbox_width;
+        }
+        if (config != null && config.hitbox_height != null) {
             height = config.hitbox_height;
         }
         if (weapon != null && ModComponents.has(weapon)) {

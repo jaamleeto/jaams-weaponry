@@ -7,6 +7,7 @@ import net.jaams.weaponry.util.ModComponents;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -598,9 +599,9 @@ public abstract class BaseWeaponProjectileEntity extends AbstractArrow implement
             return;
         }
         ThrowableItemData.ThrowableEntry jsonData = null;
-        List<ThrowableItemData> modifiers = ThrowableModifierLoader.INSTANCE.getForItem(weapon.getItem());
-        if (!modifiers.isEmpty()) {
-            jsonData = modifiers.get(0).throwable;
+        Optional<ThrowableItemData> data = ThrowableModifierLoader.INSTANCE.getDataForStack(weapon);
+        if (data.isPresent()) {
+            jsonData = data.get().throwable;
         }
         float damage = (jsonData != null && jsonData.base_damage != null && jsonData.base_damage >= 0)
                 ? jsonData.base_damage

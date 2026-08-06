@@ -14,7 +14,7 @@ import net.jaams.weaponry.util.ModUtils;
 import net.jaams.weaponry.util.ModTooltips;
 import net.jaams.weaponry.util.ModTags;
 import net.jaams.weaponry.util.ModEnums;
-import net.jaams.weaponry.loader.ThrowableModifierLoader;
+import net.jaams.weaponry.data.ThrowableItemData;
 import net.jaams.weaponry.entity.DynamiteProjectileEntity;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.configuration.common.ThrowableConfig;
@@ -55,7 +55,7 @@ public class ThrowableDynamiteTooltip {
     }
 
     private static boolean hasJsonThrowable(ItemStack stack) {
-        return !ThrowableModifierLoader.INSTANCE.getForItem(stack.getItem()).isEmpty();
+        return ThrowableItemData.getData(stack).isPresent();
     }
 
     private static boolean isDynamite(ItemStack stack) {

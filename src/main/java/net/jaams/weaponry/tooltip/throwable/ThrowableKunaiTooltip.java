@@ -15,7 +15,7 @@ import net.jaams.weaponry.util.ModTooltips;
 import net.jaams.weaponry.util.ModTags;
 import net.jaams.weaponry.util.ModProjectiles;
 import net.jaams.weaponry.util.ModEnums;
-import net.jaams.weaponry.loader.ThrowableModifierLoader;
+import net.jaams.weaponry.data.ThrowableItemData;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.configuration.common.ThrowableConfig;
 import net.jaams.weaponry.configuration.common.ProjectileCommonConfig;
@@ -55,7 +55,7 @@ public class ThrowableKunaiTooltip {
     }
 
     private static boolean hasJsonThrowable(ItemStack stack) {
-        return !ThrowableModifierLoader.INSTANCE.getForItem(stack.getItem()).isEmpty();
+        return ThrowableItemData.getData(stack).isPresent();
     }
 
     private static boolean isKunai(ItemStack stack) {

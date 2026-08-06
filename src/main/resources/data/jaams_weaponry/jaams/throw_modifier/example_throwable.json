@@ -1,6 +1,6 @@
 {
     "target": [
-        "jaams_weaponry:example_throwable"
+        "jaams_weaponry:example_item"
     ],
     "enabled": true,
     "priority": 0,
@@ -11,8 +11,8 @@
         "base_damage": 8.0,
         "base_knockback": 1.5,
         "pierce_level": 2,
-        "projectile": "minecraft:trident",
-        "throw_mode": "THROW",
+        "projectile": "TRIDENT",
+        "throw_mode": "CHARGE_AND_RELEASE",
         "throw_sound": "minecraft:entity.arrow.shoot",
         "use_duration_ticks": 20,
         "min_charge_ticks": 5,
