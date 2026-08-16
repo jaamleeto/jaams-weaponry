@@ -27,7 +27,7 @@ import net.jaams.weaponry.util.ModTraits;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class MobTraitEventsHandler {
 
     

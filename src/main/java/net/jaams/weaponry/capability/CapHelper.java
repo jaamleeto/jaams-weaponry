@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
-/** Optional-style item-handler lookups replacing the Forge LazyOptional capability API. */
 public final class CapHelper {
 
     private CapHelper() {

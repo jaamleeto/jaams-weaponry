@@ -81,10 +81,13 @@ import net.jaams.weaponry.tooltip.trait.UnstableEdgeItemTooltip;
 import net.jaams.weaponry.tooltip.trait.WhirlingStrikeItemTooltip;
 import net.jaams.weaponry.tooltip.trait.WildSweepItemTooltip;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import net.jaams.weaponry.data.ThrowableItemData;
+import net.jaams.weaponry.util.ModComponents;
 import net.jaams.weaponry.util.ModTooltips;
 
 public class TooltipHelper {
@@ -154,7 +157,8 @@ public class TooltipHelper {
         FlintItemTooltip.add(stack, tooltip);
         SmokeBombItemTooltip.add(stack, tooltip);
         ThrowableItemTooltip.add(stack, tooltip);
-        ThrowableAxeTooltip.add(stack, tooltip);
+        if (!isDataDrivenThrowable(stack)) {
+            ThrowableAxeTooltip.add(stack, tooltip);
         ThrowableCleaverTooltip.add(stack, tooltip);
         ThrowableRoyalAxeTooltip.add(stack, tooltip);
         ThrowableRoyalSpearTooltip.add(stack, tooltip);
@@ -169,6 +173,7 @@ public class TooltipHelper {
         ThrowableRingTooltip.add(stack, tooltip);
         ThrowableBroomTooltip.add(stack, tooltip);
         ThrowableDynamiteTooltip.add(stack, tooltip);
+        }
         if (stack.is(Items.BOW)) {
             ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.shooting",
                     ChatFormatting.YELLOW);
@@ -177,5 +182,20 @@ public class TooltipHelper {
             ModTooltips.addStat(stack, tooltip, "draw_speed", 1.0);
             ModTooltips.addStat(stack, tooltip, "recoil", 0.0);
         }
+    }
+
+    private static boolean isDataDrivenThrowable(ItemStack stack) {
+        if (ThrowableItemData.getData(stack).isPresent()) {
+            return true;
+        }
+        CompoundTag tag = ModComponents.get(stack);
+        if (tag != null) {
+            for (String key : tag.getAllKeys()) {
+                if (key.startsWith("Force") && key.endsWith("Throwable") && tag.getBoolean(key)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

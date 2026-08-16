@@ -79,13 +79,13 @@ public class GunActionsHandler {
                 .map((d) -> d.particle)
                 .orElse(null);
         String shotParticleId = getFinalParticle(itemstack, "GunShotParticle",
-                particleData != null ? particleData.shot_particle : "");
+                particleData != null ? particleData.shot_particle : null);
         double finalShotSize = getFinalDouble(itemstack, "GunShotSize",
-                particleData != null ? particleData.shot_size : -1.0, baseParticleSize);
+                particleData != null ? particleData.shot_size : null, baseParticleSize);
         double finalShotDistance = getFinalDouble(itemstack, "GunShotDistance",
-                particleData != null ? particleData.shot_distance : -1.0, particleDistance);
+                particleData != null ? particleData.shot_distance : null, particleDistance);
         int particleCount = getFinalInt(itemstack, "GunShotParticleCount",
-                particleData != null ? particleData.particle_count : -1, 1);
+                particleData != null ? particleData.particle_count : null, 1);
         float finalParticleSize = (float) (adjustedParticleSize * (finalShotSize / baseParticleSize));
         if (finalShotDistance != particleDistance) {
             adjustedDistance = Math.max(finalShotDistance - 0.1f, 0.1f);
@@ -133,20 +133,20 @@ public class GunActionsHandler {
         return "";
     }
 
-    private static double getFinalDouble(ItemStack gunStack, String nbtKey, double jsonValue, double defaultValue) {
+    private static double getFinalDouble(ItemStack gunStack, String nbtKey, Double jsonValue, double defaultValue) {
         if (ModComponents.has(gunStack) && ModComponents.get(gunStack).contains(nbtKey)) {
             return ModComponents.get(gunStack).getDouble(nbtKey);
         }
-        if (jsonValue != -1.0)
+        if (jsonValue != null)
             return jsonValue;
         return defaultValue;
     }
 
-    private static int getFinalInt(ItemStack gunStack, String nbtKey, int jsonValue, int defaultValue) {
+    private static int getFinalInt(ItemStack gunStack, String nbtKey, Integer jsonValue, int defaultValue) {
         if (ModComponents.has(gunStack) && ModComponents.get(gunStack).contains(nbtKey)) {
             return ModComponents.get(gunStack).getInt(nbtKey);
         }
-        if (jsonValue != -1)
+        if (jsonValue != null)
             return jsonValue;
         return defaultValue;
     }

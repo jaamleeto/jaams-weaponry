@@ -1,6 +1,7 @@
 package net.jaams.weaponry.component.gui;
 
 import net.jaams.weaponry.capability.CapHelper;
+import net.jaams.weaponry.util.ModGuns;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -176,22 +177,46 @@ public abstract class BaseGunGUIMenu extends AbstractContainerMenu implements Su
 		}
 		ItemStack original = stackInSlot.copy();
 		int customCount = getSlotCount();
-		if (index < customCount) {
-			if (!moveItemStackTo(stackInSlot, customCount, slots.size(), true))
+		int handlerSlot = getHandlerSlotIndex(slot);
+		if (handlerSlot >= 0) {
+			// Gun slot -> player inventory. Extract through the handler so the gun's
+			// contents are always written back (component-backed handlers return copies).
+			ItemStack extracted = internal.extractItem(handlerSlot, stackInSlot.getCount(), false);
+			if (extracted.isEmpty())
 				return ItemStack.EMPTY;
-			slot.onQuickCraft(stackInSlot, original);
-		} else {
-			if (!moveItemStackTo(stackInSlot, 0, customCount, false)) {
-				if (index < customCount + 27) {
-					if (!moveItemStackTo(stackInSlot, customCount + 27, slots.size(), true))
-						return ItemStack.EMPTY;
-				} else {
-					if (!moveItemStackTo(stackInSlot, customCount, customCount + 27, false))
-						return ItemStack.EMPTY;
-				}
+			boolean anyMoved = moveItemStackTo(extracted, customCount, slots.size(), true);
+			if (!anyMoved) {
+				// Player inventory could not hold it: put everything back so nothing is lost.
+				internal.insertItem(handlerSlot, extracted, false);
 				return ItemStack.EMPTY;
 			}
+			if (!extracted.isEmpty()) {
+				ItemStack rejected = internal.insertItem(handlerSlot, extracted, false);
+				if (!rejected.isEmpty() && !playerIn.level().isClientSide()) {
+					playerIn.drop(rejected, false);
+				}
+			}
+			slot.onQuickCraft(stackInSlot, original);
+			return original;
 		}
+		// Player inventory -> gun slots. Insert through the handler so whatever does not fit
+		// stays in the source slot instead of being voided.
+		ModGuns.GunType type = ModGuns.getGunType(boundItemStack);
+		ItemStack remainder = type != null ? ModGuns.insertIntoGun(internal, boundItemStack, stackInSlot, type)
+				: stackInSlot;
+		int inserted = stackInSlot.getCount() - remainder.getCount();
+		if (inserted <= 0) {
+			// The gun cannot accept this item right now: rearrange within the player inventory.
+			if (index < customCount + 27) {
+				if (!moveItemStackTo(stackInSlot, customCount + 27, slots.size(), true))
+					return ItemStack.EMPTY;
+			} else {
+				if (!moveItemStackTo(stackInSlot, customCount, customCount + 27, false))
+					return ItemStack.EMPTY;
+			}
+			return ItemStack.EMPTY;
+		}
+		stackInSlot.shrink(inserted);
 		if (stackInSlot.getCount() == 0)
 			slot.set(ItemStack.EMPTY);
 		else
@@ -200,6 +225,15 @@ public abstract class BaseGunGUIMenu extends AbstractContainerMenu implements Su
 			return ItemStack.EMPTY;
 		slot.onTake(playerIn, stackInSlot);
 		return original;
+	}
+
+	private int getHandlerSlotIndex(Slot slot) {
+		for (Map.Entry<Integer, Slot> entry : customSlots.entrySet()) {
+			if (entry.getValue() == slot) {
+				return entry.getKey();
+			}
+		}
+		return -1;
 	}
 
 	@Override

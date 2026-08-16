@@ -28,10 +28,6 @@ public class TradeModifierData {
         public String sell_item;
         public int sell_count = 1;
         public String sell_nbt = "";
-        /**
-         * Data-component section (1.21.1+), applied like the {@code components}
-         * section of an {@code item_modifier} file.
-         */
         public Map<String, JsonElement> components = new LinkedHashMap<>();
         public List<EnchantmentData> sell_enchantments = new ArrayList<>();
 

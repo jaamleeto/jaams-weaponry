@@ -145,7 +145,7 @@
             "conditions": []
         },
         {
-            "item": "#jaams_weaponry:brooms",
+            "item": "#jaams_weaponry:item/brooms",
             "slot": "mainhand",
             "chance": 0.22,
             "replace_existing": false,
@@ -291,7 +291,7 @@
             "conditions": []
         },
         {
-            "item": "#jaams_weaponry:brooms",
+            "item": "#jaams_weaponry:item/brooms",
             "slot": "mainhand",
             "chance": 0.08,
             "replace_existing": false,

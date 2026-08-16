@@ -36,6 +36,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -429,6 +430,18 @@ public class DynamiteProjectileEntity extends BaseWeaponProjectileEntity {
                         interaction));
         world.explode(this, pos.x, pos.y, pos.z, power, fire, interaction);
         this.discard();
+    }
+
+    @Override
+    protected boolean tryPickup(Player player) {
+        if (this.isIgnited()) {
+            return false;
+        }
+        return super.tryPickup(player);
+    }
+
+    private boolean isIgnited() {
+        return this.entityData.get(ID_TICKS_ON_GROUND) >= getFuseTicks(this.getWeaponItem()) - 15;
     }
 
     private void handleProjectileCollisions(ServerLevel serverWorld, boolean isInWater) {

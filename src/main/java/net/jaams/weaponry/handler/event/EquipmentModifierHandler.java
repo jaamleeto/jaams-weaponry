@@ -17,7 +17,7 @@ import net.jaams.weaponry.loader.EquipmentModifierLoader;
 import java.util.Set;
 
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class EquipmentModifierHandler {
     private static final Logger LOGGER = LogManager.getLogger(EquipmentModifierHandler.class);
 

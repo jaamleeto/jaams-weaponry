@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.capability.aberration.AberrationProvider;
 import net.jaams.weaponry.capability.amount.AmountProvider;
+import net.jaams.weaponry.compat.EpicFightCompat;
 import net.jaams.weaponry.dyeable.IDyeableItem;
 import net.jaams.weaponry.init.ModMobEffects;
 import net.jaams.weaponry.packet.AberrationPacket;
@@ -690,16 +691,8 @@ public class ModUtils {
     }
 
     public static boolean isEntityInBattleMode(Entity entity) {
-        if (entity == null) {
-            return false;
-        }
-        CompoundTag entityData = new CompoundTag();
-        entity.saveWithoutId(entityData);
-        CompoundTag forgeCaps = entityData.getCompound("ForgeCaps");
-        if (forgeCaps.contains("epicfight:skill_cap")) {
-            CompoundTag skillCap = forgeCaps.getCompound("epicfight:skill_cap");
-            String playerMode = skillCap.getString("playerMode");
-            return "EPICFIGHT".equals(playerMode) || "BATTLE".equals(playerMode);
+        if (entity instanceof Player player) {
+            return EpicFightCompat.isEpicFightMode(player);
         }
         return false;
     }
@@ -1168,11 +1161,6 @@ public class ModUtils {
         return false;
     }
 
-    /**
-     * 1.21 replacement for the removed EnchantmentHelper.doPostHurtEffects/doPostDamageEffects pair.
-     * Applies the attacker's weapon enchant post-attack effects to the target (thorns etc. flow through
-     * the damage pipeline automatically now). No-op on the client.
-     */
     public static void applyAttackEnchantEffects(LivingEntity target, LivingEntity attacker) {
         if (target == null || attacker == null)
             return;
@@ -1184,7 +1172,6 @@ public class ModUtils {
         }
     }
 
-    /** 1.21: sum ATTACK_DAMAGE modifier amounts for a slot from the stack's ItemAttributeModifiers component. */
     public static double attackDamageModifierSum(ItemStack stack, EquipmentSlot slot) {
         double total = 0.0;
         net.minecraft.world.entity.EquipmentSlotGroup group = net.minecraft.world.entity.EquipmentSlotGroup.bySlot(slot);
@@ -1198,7 +1185,6 @@ public class ModUtils {
         return total;
     }
 
-    /** Mainhand attack-damage/attack-speed modifiers, mirroring the old getDefaultAttributeModifiers overrides. */
     public static ItemAttributeModifiers mainhand(double attackDamage, double attackSpeed) {
         return ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE,

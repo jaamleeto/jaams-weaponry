@@ -217,7 +217,7 @@ public abstract class PlayerModelPoseMixin {
         if (nbtValue > 0)
             return nbtValue;
         GunItemData.ShootEntry shootData = GunItemData.getShootData(gunStack);
-        if (shootData != null && shootData.ammo_consumption > 0)
+        if (shootData != null && shootData.ammo_consumption != null)
             return shootData.ammo_consumption;
         ModGuns.GunType type = ModGuns.getGunType(gunStack);
         if (type == null)

@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
-/** 1.21: painting variants are data-driven (data/jaams_weaponry/painting_variant/*.json). */
 public class ModPaintings {
 
     public static final ResourceKey<PaintingVariant> LA_ESPADA = key("la_espada");

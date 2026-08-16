@@ -18,7 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.UUID;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class HeavyHandedHandler {
 
     private static final UUID HEAVY_HANDED_MOVEMENT_UUID = UUID.fromString("a1b2c3d4-e5f6-7890-abcd-ef1234567890");

@@ -5,7 +5,7 @@
   "experience": 1,
   "cookingtime": 60,
   "ingredient": {
-    "tag": "jaams_weaponry:shotshells"
+    "tag": "jaams_weaponry:misc/shotshells"
   },
   "result": {
     "id": "minecraft:gold_nugget"

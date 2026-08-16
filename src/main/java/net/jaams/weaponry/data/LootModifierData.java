@@ -32,10 +32,6 @@ public class LootModifierData {
         public int count_max = 1;
         public float chance = 1.0f;
         public String nbt = "";
-        /**
-         * Data-component section (1.21.1+), applied like the {@code components}
-         * section of an {@code item_modifier} file.
-         */
         public Map<String, JsonElement> components = new LinkedHashMap<>();
         public List<EnchantmentData> enchantments = new ArrayList<>();
     }

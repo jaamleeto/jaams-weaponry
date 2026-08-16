@@ -8,7 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.jaams.weaponry.animation.AnimationAPI;
+import net.jaams.weaponry.compat.EpicFightCompat;
 import net.jaams.weaponry.util.ModAnimations;
+import net.jaams.weaponry.util.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.LocalPlayer;
@@ -33,6 +35,8 @@ public abstract class AnimationItemInHandRendererMixin {
                 return;
         }
         if (!master.equals("jaams_weaponry"))
+            return;
+        if (EpicFightCompat.isEpicFightMode(localPlayer) && EpicFightCompat.isFirstPersonModelActive())
             return;
         if (ModAnimations.isLocalPlayerInFirstPerson(localPlayer)) {
             if (dispatcher == null)

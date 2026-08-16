@@ -34,25 +34,15 @@ public abstract class ForgeItemMixin implements IItemExtension, ItemInjection {
     @Override
     public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
         if (ModCompats.isSlingshot(stack)) {
-            if (enchantment.is(Enchantments.POWER) || enchantment.is(Enchantments.PUNCH) || enchantment.is(Enchantments.FLAME)
-                    || enchantment.is(Enchantments.PIERCING) || enchantment.is(Enchantments.MULTISHOT)) {
+            if (enchantment.is(Enchantments.POWER) || enchantment.is(Enchantments.PUNCH)
+                    || enchantment.is(Enchantments.FLAME) || enchantment.is(Enchantments.PIERCING)
+                    || enchantment.is(Enchantments.MULTISHOT)) {
                 return true;
             }
         }
 
-        if (stack.is(ModTags.BROOMS)) {
-            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.MULTISHOT)
-                    || enchantment.is(Enchantments.PIERCING)) {
-                return true;
-            }
-            if (enchantment.is(Enchantments.SMITE) || enchantment.is(Enchantments.SHARPNESS)
-                    || enchantment.is(Enchantments.FIRE_ASPECT) || enchantment.is(Enchantments.LOOTING)) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.AXES)) {
-            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.PIERCING)
+        if (ModCompats.isThrowableActive(stack)) {
+            if (enchantment.is(Enchantments.PIERCING) || enchantment.is(Enchantments.LOYALTY)
                     || enchantment.is(Enchantments.MULTISHOT)) {
                 return true;
             }
@@ -62,31 +52,6 @@ public abstract class ForgeItemMixin implements IItemExtension, ItemInjection {
                 || stack.is(ModTags.HOOK_SWORDS) || stack.is(ModTags.KATARS) || stack.is(ModTags.KNUCKLES)) {
             if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
                 return false;
-            }
-        }
-
-        if (stack.is(ModTags.CLEAVERS) || stack.is(ModTags.RINGS)) {
-            if (enchantment.is(Enchantments.PIERCING) || enchantment.is(Enchantments.LOYALTY)
-                    || enchantment.is(Enchantments.MULTISHOT)) {
-                return true;
-            }
-        }
-
-        if (stack.is(ModTags.SPEARS)) {
-            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.PIERCING)
-                    || enchantment.is(Enchantments.MULTISHOT)) {
-                return true;
-            }
-            if (enchantment.is(Enchantments.SWEEPING_EDGE)) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.HUNTERS_BOOMERANGS) || stack.is(ModTags.PRONGED_KUNAIS)
-                || stack.is(ModTags.GIANT_SHURIKENS) || stack.is(ModTags.ROYAL_AXES)) {
-            if (enchantment.is(Enchantments.LOYALTY) || enchantment.is(Enchantments.PIERCING)
-                    || enchantment.is(Enchantments.MULTISHOT)) {
-                return true;
             }
         }
 

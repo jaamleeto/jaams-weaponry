@@ -1,5 +1,5 @@
 {
-    "enabled": true,
+    "enabled": false,
     "priority": 0,
     "target": [
         "jaams_weaponry:example_slingshot"

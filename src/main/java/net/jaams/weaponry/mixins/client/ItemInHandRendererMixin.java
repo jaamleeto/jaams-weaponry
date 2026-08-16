@@ -14,6 +14,7 @@ import com.mojang.math.Axis;
 
 import net.jaams.weaponry.item.BroomItem;
 import net.jaams.weaponry.item.FlatBowItem;
+import net.jaams.weaponry.compat.EpicFightCompat;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.data.TraitModifierData;
 import net.jaams.weaponry.configuration.client.AssortedClientConfig;
@@ -37,7 +38,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
-import net.neoforged.fml.ModList;
 
 import java.util.Optional;
 
@@ -140,7 +140,7 @@ public abstract class ItemInHandRendererMixin {
             return;
         }
 
-        
+
         if (jaams$applyWhirlingStrikeFirstPersonTransform(entity, itemStack, isMainHand, horizontal, poseStack)) {
             return;
         }
@@ -279,10 +279,8 @@ public abstract class ItemInHandRendererMixin {
             }
         }
 
-        if (ModList.get() != null && ModList.get().isLoaded("epicfight")) {
-            if (ModUtils.isEntityInBattleMode(entity) || ModUtils.hasEpicFightAttribute(entity)) {
-                applyEpicFightTransformations(entity, itemStack, item, isInHand, isItemInHand, isUsingItem, poseStack);
-            }
+        if (EpicFightCompat.hasCustomRender(entity) || ModUtils.isEntityInBattleMode(entity)) {
+            applyEpicFightTransformations(entity, itemStack, item, isInHand, isItemInHand, isUsingItem, poseStack);
         }
     }
 
@@ -418,10 +416,13 @@ public abstract class ItemInHandRendererMixin {
         }
 
         else if (isInHand && !isUsingItem
-                && (itemStack.is(ModTags.DYNAMITES) || itemStack.is(ModTags.SMOKE_BOMBS)
-                        || itemStack.is(ModTags.SHURIKENS) || itemStack.is(ModTags.GIANT_SHURIKENS)
-                        || itemStack.is(ModTags.BROOMS) || itemStack.is(ModTags.SHARP_STONES))) {
-            poseStack.translate(0.0, -0.34, 0.0);
+                && itemStack.is(ModTags.SHARP_STONES)) {
+            poseStack.translate(0.0, 0.01, -0.05);
+        }
+
+        else if (isInHand && !isUsingItem
+                && (itemStack.is(ModTags.DYNAMITES) || itemStack.is(ModTags.SMOKE_BOMBS))) {
+                     poseStack.translate(0.0, 0.01, -0.05);
         }
 
         else if (isInHand

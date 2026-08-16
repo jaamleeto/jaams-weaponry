@@ -6,7 +6,6 @@ import net.jaams.weaponry.capability.ModAttachments;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
-/** Attachment accessor keeping the old capability-style Optional API. */
 public final class AmountProvider {
 
 	private AmountProvider() {

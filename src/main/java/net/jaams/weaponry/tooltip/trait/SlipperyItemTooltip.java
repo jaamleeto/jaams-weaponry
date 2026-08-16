@@ -23,7 +23,7 @@ public class SlipperyItemTooltip {
         if (!ModTraits.isSlipperyItem(stack)) {
             return;
         }
-        if (ModEnchantments.level(stack, ModEnchantments.SECURE_GRIP) > 0) {
+        if (TraitsConfig.SLIPPERY_SECURE_GRIP_CANCELS.get() && ModEnchantments.level(stack, ModEnchantments.SECURE_GRIP) > 0) {
             return;
         }
         CompoundTag tag = ModComponents.get(stack);

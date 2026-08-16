@@ -5,7 +5,6 @@ import net.jaams.weaponry.init.ModEnchantments;
 import net.jaams.weaponry.util.ModComponents;
 
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;

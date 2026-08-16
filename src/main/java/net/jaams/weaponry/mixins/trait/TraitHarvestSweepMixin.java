@@ -5,9 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.jaams.weaponry.util.ModComponents;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.data.TraitModifierData;
 import net.jaams.weaponry.util.ModTraits;
@@ -21,7 +19,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -149,25 +146,27 @@ public class TraitHarvestSweepMixin {
             }
         }
         
-        Map<Item, ItemStack> consolidatedDrops = new HashMap<>();
+        List<ItemStack> consolidatedDrops = new ArrayList<>();
         for (ItemStack drop : allDrops) {
-            Item item = drop.getItem();
-            consolidatedDrops.compute(item, (key, existing) -> {
-                if (existing == null) {
-                    return drop.copy();
-                } else {
-                    existing.grow(drop.getCount());
-                    return existing;
+            ItemStack existing = null;
+            for (ItemStack consolidated : consolidatedDrops) {
+                if (ItemStack.isSameItemSameComponents(consolidated, drop)) {
+                    existing = consolidated;
+                    break;
                 }
-            });
+            }
+            if (existing == null) {
+                consolidatedDrops.add(drop.copy());
+            } else {
+                existing.grow(drop.getCount());
+            }
         }
         
-        for (ItemStack drop : consolidatedDrops.values()) {
+        for (ItemStack drop : consolidatedDrops) {
             int remaining = drop.getCount();
-            Item item = drop.getItem();
             for (int i = 0; i < inventory.getContainerSize() && remaining > 0; i++) {
                 ItemStack slotStack = inventory.getItem(i);
-                if (!slotStack.isEmpty() && slotStack.getItem() == item) {
+                if (!slotStack.isEmpty() && ItemStack.isSameItemSameComponents(slotStack, drop)) {
                     int spaceLeft = slotStack.getMaxStackSize() - slotStack.getCount();
                     if (spaceLeft > 0) {
                         int amountToAdd = Math.min(remaining, spaceLeft);
@@ -179,7 +178,7 @@ public class TraitHarvestSweepMixin {
             }
             while (remaining > 0) {
                 int amountToAdd = Math.min(remaining, drop.getMaxStackSize());
-                ItemStack newStack = new ItemStack(item, amountToAdd);
+                ItemStack newStack = drop.copyWithCount(amountToAdd);
                 int emptySlot = -1;
                 for (int i = 0; i < inventory.getContainerSize(); i++) {
                     if (inventory.getItem(i).isEmpty()) {
@@ -192,7 +191,7 @@ public class TraitHarvestSweepMixin {
                     remaining -= amountToAdd;
                     inventory.setChanged();
                 } else {
-                    ItemStack remainingStack = new ItemStack(item, remaining);
+                    ItemStack remainingStack = drop.copyWithCount(remaining);
                     level.addFreshEntity(new ItemEntity(level, centerPos.getX() + 0.5, centerPos.getY() + 0.5,
                             centerPos.getZ() + 0.5, remainingStack));
                     break;

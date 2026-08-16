@@ -50,7 +50,7 @@ public class FlintMalletItem extends PickaxeItem {
 
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemstack) {
-        ItemStack retval = new ItemStack(this);
+        ItemStack retval = itemstack.copyWithCount(1);
         retval.setDamageValue(itemstack.getDamageValue() + 1);
         if (retval.getDamageValue() >= retval.getMaxDamage()) {
             return ItemStack.EMPTY;

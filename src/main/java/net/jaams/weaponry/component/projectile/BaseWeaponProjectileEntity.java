@@ -722,11 +722,6 @@ public abstract class BaseWeaponProjectileEntity extends AbstractArrow implement
         return baseDamage;
     }
 
-    /**
-     * 1.20.1 EnchantmentHelper.getDamageBonus replacement: sharpness/smite/bane
-     * bonuses with the legacy formulas, using the 1.21 sensitivity tags instead of
-     * the removed MobType.
-     */
     protected float getEnchantmentDamageBonus(ItemStack weapon, LivingEntity target) {
         float bonus = 0.0F;
         int sharpness = ModEnchantments.level(weapon, Enchantments.SHARPNESS);

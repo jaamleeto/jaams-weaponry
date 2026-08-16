@@ -16,7 +16,7 @@ import net.jaams.weaponry.registry.TopItems;
 import net.jaams.weaponry.registry.ShineriteItems;
 import net.jaams.weaponry.dyeable.IDyeableItem;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class ColorRegisterHandler {
 	@SubscribeEvent
 	public static void onItemColorShineriteRegister(RegisterColorHandlersEvent.Item event) {

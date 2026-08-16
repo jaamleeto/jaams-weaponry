@@ -1,5 +1,6 @@
 package net.jaams.weaponry.data;
 
+import net.jaams.weaponry.condition.ConditionSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemDisplayContext;
 
@@ -16,6 +17,7 @@ public class ThrowableItemData {
     public List<String> target = new ArrayList<>();
     public Boolean enabled = true;
     public int priority = 0;
+    public transient String id;
     public String condition_mode = "and";
     public List<Condition> conditions = new ArrayList<>();
     public ThrowableEntry throwable = new ThrowableEntry();
@@ -23,7 +25,7 @@ public class ThrowableItemData {
     public TrailEntry trail = new TrailEntry();
     public ProjectileEntry projectile = new ProjectileEntry();
 
-    public static class Condition {
+    public static class Condition implements ConditionSource {
         public String type;
         public String mod_id;
         public String enchantment;
@@ -33,15 +35,62 @@ public class ThrowableItemData {
         public String tag;
         public String rarity;
         public String nbt_type;
+        public String nbt_key;
         public int nbt_int_value;
         public boolean nbt_boolean_value;
         public short nbt_short_value;
         public long nbt_long_value;
         public String nbt_string_value;
-        /** Component ID for has_component / component_value conditions (1.21.1+). */
         public String component;
-        /** Expected value for component_value condition, parsed via component codec. */
         public JsonElement component_value;
+
+        @Override
+        public String type() { return type; }
+
+        @Override
+        public String modId() { return mod_id; }
+
+        @Override
+        public String enchantment() { return enchantment; }
+
+        @Override
+        public int level() { return level; }
+
+        @Override
+        public String key() { return key; }
+
+        @Override
+        public String nbtType() { return nbt_type != null ? nbt_type : nbt_key; }
+
+        @Override
+        public String item() { return item; }
+
+        @Override
+        public String tag() { return tag; }
+
+        @Override
+        public String rarity() { return rarity; }
+
+        @Override
+        public int nbtIntValue() { return nbt_int_value; }
+
+        @Override
+        public boolean nbtBooleanValue() { return nbt_boolean_value; }
+
+        @Override
+        public short nbtShortValue() { return nbt_short_value; }
+
+        @Override
+        public long nbtLongValue() { return nbt_long_value; }
+
+        @Override
+        public String nbtStringValue() { return nbt_string_value; }
+
+        @Override
+        public String component() { return component; }
+
+        @Override
+        public JsonElement componentValue() { return component_value; }
     }
 
     public static class ThrowableEntry {

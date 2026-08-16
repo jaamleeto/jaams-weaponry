@@ -9,6 +9,9 @@
   "addition": {
     "tag": "jaams_weaponry:ingredient/rosegold_ingot"
   },
+  "result": {
+    "id": "jaams_weaponry:rosegold_katar"
+  },
   "neoforge:conditions": [
     {
       "type": "neoforge:mod_loaded",

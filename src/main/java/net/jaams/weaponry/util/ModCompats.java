@@ -6,9 +6,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 
 import net.jaams.weaponry.data.RangedItemData;
+import net.jaams.weaponry.data.ThrowableItemData;
 import net.jaams.weaponry.data.ThrowableTypeData;
+import net.jaams.weaponry.configuration.common.TraitsConfig;
 
 public class ModCompats {
+	public static boolean isThrowableActive(ItemStack stack) {
+		if (stack == null || stack.isEmpty())
+			return false;
+		if (!TraitsConfig.THROWABLE.get())
+			return false;
+		CompoundTag tag = ModComponents.get(stack);
+		if (tag != null && tag.contains("ThrowableTrait")) {
+			return tag.getBoolean("ThrowableTrait");
+		}
+		if (ThrowableItemData.getData(stack).isPresent()) {
+			return true;
+		}
+		ThrowableTypeData legacy = ThrowableTypeData.getType(stack);
+		return legacy != null && ThrowableTypeData.isEnabled(legacy.name);
+	}
+
 	public static boolean isSmokeBomb(ItemStack stack) {
 		if (stack == null || stack.isEmpty())
 			return false;

@@ -10,7 +10,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = "jaams_weaponry", value = Dist.CLIENT)
 public class ModelRegisterHandler {
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent

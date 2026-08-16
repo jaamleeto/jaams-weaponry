@@ -1,9 +1,6 @@
 package net.jaams.weaponry.handler.trait;
 
-import net.jaams.weaponry.util.ModComponents;
-
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -125,10 +122,10 @@ public class QuickSwapHandler {
     }
 
     private static void replaceItem(LivingEntity entity, InteractionHand hand, ItemStack newItem, ItemStack oldItem) {
-        CompoundTag nbt = ModComponents.get(oldItem);
-        if (nbt != null) {
-            ModComponents.set(newItem, nbt.copy());
-        }
+        // Transfer all data components (enchantments, custom name, durability,
+        // attribute modifiers, mod data, etc.) from the original weapon to its
+        // swapped form so no data is lost during the quick swap.
+        newItem.applyComponentsAndValidate(oldItem.getComponentsPatch());
         newItem.setCount(oldItem.getCount());
         entity.setItemInHand(hand, newItem);
         if (entity instanceof ServerPlayer serverPlayer) {

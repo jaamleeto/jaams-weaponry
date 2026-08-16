@@ -56,10 +56,6 @@ public class EquipmentData {
         public Map<String, Object> nbt = new HashMap<>();
 
         
-        /**
-         * Data-component section (1.21.1+), applied like the {@code components}
-         * section of an {@code item_modifier} file.
-         */
         public Map<String, JsonElement> components = new LinkedHashMap<>();
 
         
@@ -107,10 +103,6 @@ public class EquipmentData {
         public Map<String, Object> nbt = new HashMap<>();
 
         
-        /**
-         * Data-component section (1.21.1+), applied like the {@code components}
-         * section of an {@code item_modifier} file.
-         */
         public Map<String, JsonElement> components = new LinkedHashMap<>();
 
         
@@ -147,9 +139,7 @@ public class EquipmentData {
         public short nbt_short_value;
         public long nbt_long_value;
         public String nbt_string_value;
-        /** Component ID for has_component / component_value conditions (1.21.1+). */
         public String component;
-        /** Expected value for component_value condition, parsed via component codec. */
         public JsonElement component_value;
     }
 

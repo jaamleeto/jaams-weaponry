@@ -117,14 +117,14 @@ public class GunSoundHandler {
         GunItemData.SoundEntry soundData = GunItemData.getData(itemstack)
             .map((d) -> d.sound)
             .orElse(null);
-        float volume = getFinalFloat(itemstack, "GunSoundVolume", soundData != null ? soundData.sound_volume : -1.0f, 1.0f);
-        float pitch = getFinalFloat(itemstack, "GunSoundPitch", soundData != null ? soundData.sound_pitch : -1.0f, 1.0f);
-        double bulletDropChance = getFinalDouble(itemstack, "GunBulletDropChance", soundData != null ? soundData.bullet_drop_chance : -1.0, 0.7);
-        int afterShotDelay = getFinalInt(itemstack, "GunAfterShotDelay", soundData != null ? soundData.after_shot_delay : -1, 10);
-        int emptyCooldown = getFinalInt(itemstack, "GunEmptyCooldown", soundData != null ? soundData.empty_cooldown : -1, 20);
-        String finalShootSound = getFinalSound(itemstack, "GunShootSound", soundData != null ? soundData.shoot_sound : "", getItemStackFromSlot(ModGuns.isRevolverGun(itemstack) ? 6 : 0, itemstack).getItem() == muzzleAttachment ? muzzleShootSound : defaultShootSound);
-        String finalAfterShootSound = getFinalSound(itemstack, "GunAfterShootSound", soundData != null ? soundData.after_shoot_sound : "", getItemStackFromSlot(ModGuns.isRevolverGun(itemstack) ? 6 : 2, itemstack).getItem() == magazineAttachment ? magazineAfterShootSound : defaultAfterShootSound);
-        String finalDropSound = getFinalSound(itemstack, "GunBulletDropSound", soundData != null ? soundData.bullet_drop_sound : "", dropSound);
+        float volume = getFinalFloat(itemstack, "GunSoundVolume", soundData != null ? soundData.sound_volume : null, 1.0f);
+        float pitch = getFinalFloat(itemstack, "GunSoundPitch", soundData != null ? soundData.sound_pitch : null, 1.0f);
+        double bulletDropChance = getFinalDouble(itemstack, "GunBulletDropChance", soundData != null ? soundData.bullet_drop_chance : null, 0.7);
+        int afterShotDelay = getFinalInt(itemstack, "GunAfterShotDelay", soundData != null ? soundData.after_shot_delay : null, 10);
+        int emptyCooldown = getFinalInt(itemstack, "GunEmptyCooldown", soundData != null ? soundData.empty_cooldown : null, 20);
+        String finalShootSound = getFinalSound(itemstack, "GunShootSound", soundData != null ? soundData.shoot_sound : null, getItemStackFromSlot(ModGuns.isRevolverGun(itemstack) ? 6 : 0, itemstack).getItem() == muzzleAttachment ? muzzleShootSound : defaultShootSound);
+        String finalAfterShootSound = getFinalSound(itemstack, "GunAfterShootSound", soundData != null ? soundData.after_shoot_sound : null, getItemStackFromSlot(ModGuns.isRevolverGun(itemstack) ? 6 : 2, itemstack).getItem() == magazineAttachment ? magazineAfterShootSound : defaultAfterShootSound);
+        String finalDropSound = getFinalSound(itemstack, "GunBulletDropSound", soundData != null ? soundData.bullet_drop_sound : null, dropSound);
         playSound(level, x, y, z, finalShootSound, volume, pitch);
         JaamsWeaponryMod.queueServerWork(afterShotDelay, () -> {
             playSound(level, x, y, z, finalAfterShootSound, volume, pitch);
@@ -145,25 +145,25 @@ public class GunSoundHandler {
         return defaultValue != null ? defaultValue : "";
     }
 
-    private static float getFinalFloat(ItemStack gunStack, String nbtKey, float jsonValue, float defaultValue) {
+    private static float getFinalFloat(ItemStack gunStack, String nbtKey, Float jsonValue, float defaultValue) {
         if (ModComponents.has(gunStack) && ModComponents.get(gunStack).contains(nbtKey)) {
             return ModComponents.get(gunStack).getFloat(nbtKey);
         }
-        return jsonValue != -1.0f ? jsonValue : defaultValue;
+        return jsonValue != null ? jsonValue : defaultValue;
     }
 
-    private static double getFinalDouble(ItemStack gunStack, String nbtKey, double jsonValue, double defaultValue) {
+    private static double getFinalDouble(ItemStack gunStack, String nbtKey, Double jsonValue, double defaultValue) {
         if (ModComponents.has(gunStack) && ModComponents.get(gunStack).contains(nbtKey)) {
             return ModComponents.get(gunStack).getDouble(nbtKey);
         }
-        return jsonValue != -1.0 ? jsonValue : defaultValue;
+        return jsonValue != null ? jsonValue : defaultValue;
     }
 
-    private static int getFinalInt(ItemStack gunStack, String nbtKey, int jsonValue, int defaultValue) {
+    private static int getFinalInt(ItemStack gunStack, String nbtKey, Integer jsonValue, int defaultValue) {
         if (ModComponents.has(gunStack) && ModComponents.get(gunStack).contains(nbtKey)) {
             return ModComponents.get(gunStack).getInt(nbtKey);
         }
-        return jsonValue != -1 ? jsonValue : defaultValue;
+        return jsonValue != null ? jsonValue : defaultValue;
     }
 
     public static void playPistolAttachmentSound(LevelAccessor level, double x, double y, double z, Entity entity, ItemStack itemstack) {

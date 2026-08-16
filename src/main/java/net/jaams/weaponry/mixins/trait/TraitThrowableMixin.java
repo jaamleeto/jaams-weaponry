@@ -519,7 +519,7 @@ public abstract class TraitThrowableMixin {
                 }
             }
             boolean isCreative = player.getAbilities().instabuild;
-            if (!isCreative) {
+            if (!isCreative && shouldConsumeOnThrow(stack)) {
                 stack.shrink(1);
                 if (stack.isEmpty())
                     player.setItemInHand(hand, ItemStack.EMPTY);
@@ -535,13 +535,22 @@ public abstract class TraitThrowableMixin {
         boolean success = performThrowWithDamageCheck(level, player, hand, stack, power);
         if (success && !level.isClientSide) {
             boolean isCreative = player.getAbilities().instabuild;
-            if (!isCreative && !isRiptideTrident(stack, player)) {
+            if (!isCreative && !isRiptideTrident(stack, player) && shouldConsumeOnThrow(stack)) {
                 stack.shrink(1);
                 if (stack.isEmpty())
                     player.setItemInHand(hand, ItemStack.EMPTY);
             }
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
+    }
+
+    @Unique
+    private boolean shouldConsumeOnThrow(ItemStack stack) {
+        ThrowableItemData.ThrowableEntry json = getJsonData(stack);
+        if (json != null && json.consume_on_throw != null) {
+            return json.consume_on_throw;
+        }
+        return true;
     }
 
     @Unique

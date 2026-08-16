@@ -407,7 +407,7 @@ public class SelfEffectHandler {
         if (!TraitsConfig.SLIPPERY.get()) {
             return;
         }
-        if (ModEnchantments.level(stack, ModEnchantments.SECURE_GRIP) > 0) {
+        if (TraitsConfig.SLIPPERY_SECURE_GRIP_CANCELS.get() && ModEnchantments.level(stack, ModEnchantments.SECURE_GRIP) > 0) {
             return;
         }
         InteractionHand hand = getHandHoldingStack(attacker, stack);

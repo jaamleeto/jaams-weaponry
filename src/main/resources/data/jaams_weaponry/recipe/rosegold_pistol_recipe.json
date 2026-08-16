@@ -4,7 +4,7 @@
   "category": "equipment",
   "pattern": [
     "abc",
-    "  d"
+    " de"
   ],
   "key": {
     "a": {

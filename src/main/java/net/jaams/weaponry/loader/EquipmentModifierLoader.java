@@ -49,7 +49,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final EquipmentModifierLoader INSTANCE = new EquipmentModifierLoader();

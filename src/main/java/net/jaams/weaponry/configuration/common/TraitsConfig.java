@@ -382,6 +382,7 @@ public class TraitsConfig {
     public static ModConfigSpec.DoubleValue FRAGILITY_REMAINING_ITEM_CHANCE;
     public static ModConfigSpec.DoubleValue SLIPPERY_CHANCE;
     public static ModConfigSpec.DoubleValue SLIPPERY_THROW_DISTANCE;
+    public static ModConfigSpec.BooleanValue SLIPPERY_SECURE_GRIP_CANCELS;
     public static ModConfigSpec.DoubleValue EXHAUSTING_EXHAUSTION;
     public static ModConfigSpec.IntValue BRITTLE_HANDLE_EXTRA_DURABILITY;
     public static ModConfigSpec.DoubleValue BARBED_HANDLE_DAMAGE_RETURN_FACTOR;
@@ -916,6 +917,7 @@ public class TraitsConfig {
         builder.push("Slippery");
         SLIPPERY_CHANCE = builder.comment("Chance to disarm self on hit").defineInRange("Self Disarm Chance", 0.08, 0.0, 1.0);
         SLIPPERY_THROW_DISTANCE = builder.comment("Distance weapon is thrown").defineInRange("Throw Distance", 1.2, 0.0, 5.0);
+        SLIPPERY_SECURE_GRIP_CANCELS = builder.comment("Whether the Secure Grip enchantment completely nullifies the Slippery trait. If false, the Slippery trait still applies (self disarm and tooltip) even when the item has Secure Grip.").define("Secure Grip Nullifies Slippery", true);
         builder.pop();
         builder.push("Exhausting");
         EXHAUSTING_EXHAUSTION = builder.comment("Exhaustion added per hit").defineInRange("Exhaustion Per Hit", 0.5, 0.0, 10.0);

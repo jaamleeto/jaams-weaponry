@@ -27,7 +27,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-@EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = JaamsWeaponryMod.MODID, value = Dist.CLIENT)
 public class HeldPoseHandler {
     private static final Logger LOGGER = LogManager.getLogger(HeldPoseHandler.class);
 

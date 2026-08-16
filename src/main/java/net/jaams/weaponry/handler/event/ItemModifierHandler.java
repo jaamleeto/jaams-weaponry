@@ -32,6 +32,7 @@ import net.minecraft.nbt.ByteTag;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
 
+import net.jaams.weaponry.condition.ConditionResult;
 import net.jaams.weaponry.loader.ItemModifierLoader;
 import net.jaams.weaponry.data.ItemModifierData;
 
@@ -45,7 +46,7 @@ import java.nio.charset.StandardCharsets;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonElement;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class ItemModifierHandler {
 
     @SubscribeEvent
@@ -69,7 +70,7 @@ public class ItemModifierHandler {
         }
     }
 
-    private static boolean checkConditions(ItemStack stack, ItemModifierData data) {
+    public static boolean checkConditions(ItemStack stack, ItemModifierData data) {
         if (data.conditions.isEmpty())
             return true;
         boolean isOrMode = "or".equalsIgnoreCase(data.condition_mode);
@@ -77,7 +78,7 @@ public class ItemModifierHandler {
         for (ItemModifierData.Condition cond : data.conditions) {
             if (cond.type == null)
                 continue;
-            boolean conditionMet = evaluateSingleCondition(stack, tag, cond);
+            boolean conditionMet = evaluateSingleCondition(stack, tag, cond).pass();
             if (isOrMode && conditionMet) {
                 return true;
             }
@@ -88,39 +89,51 @@ public class ItemModifierHandler {
         return isOrMode ? false : true;
     }
 
-    private static boolean evaluateSingleCondition(ItemStack stack, CompoundTag tag, ItemModifierData.Condition cond) {
+    public static ConditionResult evaluateCondition(ItemStack stack, ItemModifierData.Condition cond) {
+        return evaluateSingleCondition(stack, ModComponents.get(stack), cond);
+    }
+
+    private static ConditionResult evaluateSingleCondition(ItemStack stack, CompoundTag tag,
+            ItemModifierData.Condition cond) {
         String type = cond.type.toLowerCase().trim();
         switch (type) {
             case "is_damageable":
             case "s_damageable":
-                return stack.isDamageableItem();
+                return ConditionResult.of(stack.isDamageableItem(), "item is not damageable");
             case "is_damaged":
-                return stack.isDamaged();
+                return ConditionResult.of(stack.isDamaged(), "item is not damaged");
             case "is_enchanted":
-                return stack.isEnchanted();
+                return ConditionResult.of(stack.isEnchanted(), "item is not enchanted");
             case "is_enchantable":
-                return stack.isEnchantable();
+                return ConditionResult.of(stack.isEnchantable(), "item is not enchantable");
             case "is_edible":
-                return stack.has(net.minecraft.core.component.DataComponents.FOOD);
+                return ConditionResult.of(stack.has(net.minecraft.core.component.DataComponents.FOOD),
+                        "item is not edible");
             case "is_stackable":
-                return stack.getMaxStackSize() > 1;
+                return ConditionResult.of(stack.getMaxStackSize() > 1, "item is not stackable");
             case "mod_loaded":
-                return cond.mod_id != null && ModList.get().isLoaded(cond.mod_id);
+                return ConditionResult.of(cond.mod_id != null && ModList.get().isLoaded(cond.mod_id),
+                        "mod '" + cond.mod_id + "' is not loaded");
             case "mod_not_loaded":
-                return cond.mod_id != null && !ModList.get().isLoaded(cond.mod_id);
+                return ConditionResult.of(cond.mod_id != null && !ModList.get().isLoaded(cond.mod_id),
+                        "mod '" + cond.mod_id + "' is loaded");
             case "mod_id":
                 if (cond.mod_id != null) {
                     ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
-                    return cond.mod_id.equals(itemId.getNamespace());
+                    boolean matches = cond.mod_id.equals(itemId.getNamespace());
+                    return ConditionResult.of(matches, "item namespace '" + itemId.getNamespace()
+                            + "' != mod_id '" + cond.mod_id + "'");
                 }
-                return false;
+                return ConditionResult.fail("mod_id not set");
             case "is_item":
                 if (cond.item != null) {
                     ResourceLocation wanted = ResourceLocation.tryParse(cond.item);
                     ResourceLocation current = BuiltInRegistries.ITEM.getKey(stack.getItem());
-                    return current.equals(wanted);
+                    boolean matches = wanted != null && current.equals(wanted);
+                    return ConditionResult.of(matches,
+                            "item is '" + current + "', expected '" + cond.item + "'");
                 }
-                return true;
+                return ConditionResult.PASS;
             case "is_tagged":
                 if (cond.tag != null) {
                     boolean negate = cond.tag.startsWith("!");
@@ -130,51 +143,108 @@ public class ItemModifierHandler {
                     ResourceLocation tagId = ResourceLocation.tryParse(tagStr);
                     if (tagId != null) {
                         boolean inTag = stack.is(TagKey.create(Registries.ITEM, tagId));
-                        return negate != inTag;
+                        return ConditionResult.of(negate != inTag,
+                                (negate ? "item is in tag '" : "item is not in tag '") + tagStr + "'");
                     }
+                    return ConditionResult.fail("invalid tag id '" + cond.tag + "'");
                 }
-                return true;
+                return ConditionResult.PASS;
             case "is_rarity":
                 if (cond.rarity != null) {
                     String r = cond.rarity.toLowerCase().trim();
                     Rarity itemRarity = stack.getRarity();
-                    return switch (r) {
+                    boolean matches = switch (r) {
                         case "common" -> itemRarity == Rarity.COMMON;
                         case "uncommon" -> itemRarity == Rarity.UNCOMMON;
                         case "rare" -> itemRarity == Rarity.RARE;
                         case "epic" -> itemRarity == Rarity.EPIC;
                         default -> false;
                     };
+                    return ConditionResult.of(matches,
+                            "rarity is '" + itemRarity.name() + "', expected '" + cond.rarity + "'");
                 }
-                return true;
+                return ConditionResult.PASS;
             case "has_nbt":
-            case "has_nbt_key":
+            case "has_nbt_key": {
                 String k = cond.nbt_key != null ? cond.nbt_key : cond.key;
-                return k != null && tag != null && tag.contains(k);
-            case "has_int_tag":
-                return cond.nbt_key != null && tag != null && tag.contains(cond.nbt_key, Tag.TAG_INT)
-                        && tag.getInt(cond.nbt_key) == cond.nbt_int_value;
-            case "has_boolean_tag":
-                return cond.nbt_key != null && tag != null && tag.contains(cond.nbt_key, Tag.TAG_BYTE)
-                        && tag.getBoolean(cond.nbt_key) == cond.nbt_boolean_value;
-            case "has_short_nbt":
-                return cond.nbt_key != null && tag != null && tag.contains(cond.nbt_key, Tag.TAG_SHORT)
-                        && tag.getShort(cond.nbt_key) == cond.nbt_short_value;
-            case "has_long_nbt":
-                return cond.nbt_key != null && tag != null && tag.contains(cond.nbt_key, Tag.TAG_LONG)
-                        && tag.getLong(cond.nbt_key) == cond.nbt_long_value;
-            case "has_string_nbt":
-                return cond.nbt_key != null && tag != null && tag.contains(cond.nbt_key, Tag.TAG_STRING)
-                        && Objects.equals(tag.getString(cond.nbt_key), cond.nbt_string_value);
+                if (k == null)
+                    return ConditionResult.fail("key not set");
+                if (tag == null)
+                    return ConditionResult.fail("item has no mod data");
+                return ConditionResult.of(tag.contains(k), "key '" + k + "' not found in mod data");
+            }
+            case "has_int_tag": {
+                String k = cond.nbt_key != null ? cond.nbt_key : cond.key;
+                if (k == null)
+                    return ConditionResult.fail("key not set");
+                if (tag == null)
+                    return ConditionResult.fail("item has no mod data");
+                if (!tag.contains(k, Tag.TAG_INT))
+                    return ConditionResult.fail("key '" + k + "' is not an int");
+                boolean matches = tag.getInt(k) == cond.nbt_int_value;
+                return ConditionResult.of(matches, "key '" + k + "' = " + tag.getInt(k) + ", expected "
+                        + cond.nbt_int_value);
+            }
+            case "has_boolean_tag": {
+                String k = cond.nbt_key != null ? cond.nbt_key : cond.key;
+                if (k == null)
+                    return ConditionResult.fail("key not set");
+                if (tag == null)
+                    return ConditionResult.fail("item has no mod data");
+                if (!tag.contains(k, Tag.TAG_BYTE))
+                    return ConditionResult.fail("key '" + k + "' is not a boolean");
+                boolean matches = tag.getBoolean(k) == cond.nbt_boolean_value;
+                return ConditionResult.of(matches, "key '" + k + "' = " + tag.getBoolean(k) + ", expected "
+                        + cond.nbt_boolean_value);
+            }
+            case "has_short_nbt": {
+                String k = cond.nbt_key != null ? cond.nbt_key : cond.key;
+                if (k == null)
+                    return ConditionResult.fail("key not set");
+                if (tag == null)
+                    return ConditionResult.fail("item has no mod data");
+                if (!tag.contains(k, Tag.TAG_SHORT))
+                    return ConditionResult.fail("key '" + k + "' is not a short");
+                boolean matches = tag.getShort(k) == cond.nbt_short_value;
+                return ConditionResult.of(matches, "key '" + k + "' = " + tag.getShort(k) + ", expected "
+                        + cond.nbt_short_value);
+            }
+            case "has_long_nbt": {
+                String k = cond.nbt_key != null ? cond.nbt_key : cond.key;
+                if (k == null)
+                    return ConditionResult.fail("key not set");
+                if (tag == null)
+                    return ConditionResult.fail("item has no mod data");
+                if (!tag.contains(k, Tag.TAG_LONG))
+                    return ConditionResult.fail("key '" + k + "' is not a long");
+                boolean matches = tag.getLong(k) == cond.nbt_long_value;
+                return ConditionResult.of(matches, "key '" + k + "' = " + tag.getLong(k) + ", expected "
+                        + cond.nbt_long_value);
+            }
+            case "has_string_nbt": {
+                String k = cond.nbt_key != null ? cond.nbt_key : cond.key;
+                if (k == null)
+                    return ConditionResult.fail("key not set");
+                if (tag == null)
+                    return ConditionResult.fail("item has no mod data");
+                if (!tag.contains(k, Tag.TAG_STRING))
+                    return ConditionResult.fail("key '" + k + "' is not a string");
+                boolean matches = Objects.equals(tag.getString(k), cond.nbt_string_value);
+                return ConditionResult.of(matches, "key '" + k + "' = '" + tag.getString(k) + "', expected '"
+                        + cond.nbt_string_value + "'");
+            }
             case "has_component":
-                return cond.component != null && ModComponents.hasComponent(stack, cond.component);
+                return ConditionResult.of(cond.component != null && ModComponents.hasComponent(stack, cond.component),
+                        "item does not have component '" + cond.component + "'");
             case "component_value":
-                return ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
+                return ConditionResult.of(
+                        ModComponents.componentValueMatches(stack, cond.component, cond.component_value),
+                        "component '" + cond.component + "' value does not match");
             case "has_enchantment":
                 if (cond.enchantment != null) {
                     ResourceLocation enchId = ResourceLocation.tryParse(cond.enchantment);
                     if (enchId == null)
-                        return false;
+                        return ConditionResult.fail("invalid enchantment id '" + cond.enchantment + "'");
                     int currentLevel = 0;
                     for (var enchEntry : EnchantmentHelper.getEnchantmentsForCrafting(stack).entrySet()) {
                         if (enchEntry.getKey().is(enchId)) {
@@ -182,11 +252,14 @@ public class ItemModifierHandler {
                             break;
                         }
                     }
-                    return cond.level <= 0 ? currentLevel >= 1 : currentLevel >= cond.level;
+                    int required = cond.level <= 0 ? 1 : cond.level;
+                    boolean matches = currentLevel >= required;
+                    return ConditionResult.of(matches, "enchantment '" + cond.enchantment + "' level "
+                            + currentLevel + " < required " + required);
                 }
-                return true;
+                return ConditionResult.PASS;
             default:
-                return true;
+                return ConditionResult.PASS;
         }
     }
 
@@ -215,7 +288,6 @@ public class ItemModifierHandler {
             EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(slot);
 
             if (operation == AttributeModifier.Operation.ADD_VALUE) {
-                // Sum into existing modifiers instead of adding a new one
                 boolean replaced = false;
                 for (ItemAttributeModifiers.Entry existing : List.copyOf(event.getModifiers())) {
                     if (existing.attribute().is(attrLoc) && existing.slot() == slotGroup) {

@@ -1,34 +1,31 @@
 package net.jaams.weaponry.loader;
 
-import net.jaams.weaponry.util.ModComponents;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.core.registries.Registries;
 
+import net.jaams.weaponry.condition.ConditionEvaluator;
 import net.jaams.weaponry.data.ThrowableItemData;
+import net.jaams.weaponry.util.ModEnums;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Map;
-import java.util.Locale;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,7 +34,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class ThrowableModifierLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final ThrowableModifierLoader INSTANCE = new ThrowableModifierLoader();
@@ -83,6 +80,20 @@ public class ThrowableModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Throwable modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
+                if (data.throwable.throw_mode != null && !data.throwable.throw_mode.isEmpty()) {
+                    try {
+                        ModEnums.ThrowMode.valueOf(data.throwable.throw_mode.toUpperCase(Locale.ROOT));
+                    } catch (IllegalArgumentException e) {
+                        LOGGER.warn("Throwable modifier file {}: invalid throw_mode '{}'", fileId,
+                                data.throwable.throw_mode);
+                        errors++;
+                    }
+                }
+                for (String warning : ConditionEvaluator.validateConditions(data.conditions)) {
+                    LOGGER.warn("Throwable modifier file {}: {}", fileId, warning);
+                    errors++;
+                }
+                data.id = fileId.toString();
                 newThrowables.put(fileId, data);
                 count++;
             } catch (Exception e) {
@@ -131,103 +142,19 @@ public class ThrowableModifierLoader extends SimpleJsonResourceReloadListener {
                 result.add(data);
             }
         }
-        result.sort((a, b) -> Integer.compare(b.priority, a.priority));
+        result.sort((a, b) -> {
+            int byPriority = Integer.compare(b.priority, a.priority);
+            if (byPriority != 0)
+                return byPriority;
+            return String.valueOf(a.id).compareTo(String.valueOf(b.id));
+        });
         return result;
     }
 
     public boolean evaluateConditions(ThrowableItemData data, ItemStack stack) {
-        if (data == null || stack == null) return false;
-        if (data.conditions == null || data.conditions.isEmpty()) {
-            return true;
-        }
-        boolean isAndMode = "and".equalsIgnoreCase(data.condition_mode);
-        for (ThrowableItemData.Condition cond : data.conditions) {
-            boolean conditionMet = evaluateSingleCondition(cond, stack);
-            if (isAndMode && !conditionMet) {
-                return false;
-            }
-            if (!isAndMode && conditionMet) {
-                return true;
-            }
-        }
-        return isAndMode;
-    }
-
-    private boolean evaluateSingleCondition(ThrowableItemData.Condition cond, ItemStack stack) {
-        if (cond == null || cond.type == null)
+        if (data == null || stack == null)
             return false;
-        return switch (cond.type.toLowerCase(Locale.ROOT)) {
-            case "enchantment" -> checkEnchantment(cond, stack);
-            case "nbt" -> checkNBT(cond, stack);
-            case "tag" -> checkTag(cond, stack);
-            case "item" -> checkItem(cond, stack);
-            case "mod" -> checkMod(cond, stack);
-            case "rarity" -> checkRarity(cond, stack);
-            case "has_component" -> cond.component != null && ModComponents.hasComponent(stack, cond.component);
-            case "component_value" -> ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
-            default -> false;
-        };
-    }
-
-    private boolean checkEnchantment(ThrowableItemData.Condition cond, ItemStack stack) {
-        if (stack == null || cond.enchantment == null)
-            return false;
-        ResourceLocation enchId = ResourceLocation.tryParse(cond.enchantment);
-        if (enchId == null)
-            return false;
-        int level = 0;
-        for (var e : net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentsForCrafting(stack).entrySet()) {
-            if (e.getKey().is(enchId)) { level = e.getIntValue(); break; }
-        }
-        return level >= cond.level;
-    }
-
-    private boolean checkNBT(ThrowableItemData.Condition cond, ItemStack stack) {
-        if (stack == null || !ModComponents.has(stack) || cond.key == null || cond.nbt_type == null)
-            return false;
-        CompoundTag tag = ModComponents.get(stack);
-        if (tag == null)
-            return false;
-        return switch (cond.nbt_type.toLowerCase(Locale.ROOT)) {
-            case "boolean" -> tag.contains(cond.key, 1) && tag.getBoolean(cond.key) == cond.nbt_boolean_value;
-            case "int" -> tag.contains(cond.key, 3) && tag.getInt(cond.key) == cond.nbt_int_value;
-            case "short" -> tag.contains(cond.key, 2) && tag.getShort(cond.key) == cond.nbt_short_value;
-            case "long" -> tag.contains(cond.key, 4) && tag.getLong(cond.key) == cond.nbt_long_value;
-            case "string" -> tag.contains(cond.key, 8) && cond.nbt_string_value != null
-                    && cond.nbt_string_value.equals(tag.getString(cond.key));
-            default -> false;
-        };
-    }
-
-    private boolean checkTag(ThrowableItemData.Condition cond, ItemStack stack) {
-        if (cond.tag == null || stack == null)
-            return false;
-        ResourceLocation tagId = ResourceLocation.tryParse(cond.tag);
-        if (tagId == null)
-            return false;
-        return stack.is(TagKey.create(Registries.ITEM, tagId));
-    }
-
-    private boolean checkItem(ThrowableItemData.Condition cond, ItemStack stack) {
-        if (cond.item == null || stack == null)
-            return false;
-        ResourceLocation itemId = ResourceLocation.tryParse(cond.item);
-        if (itemId == null || stack == null) return false;
-        ResourceLocation stackId = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        return stackId != null && stackId.equals(itemId);
-    }
-
-    private boolean checkMod(ThrowableItemData.Condition cond, ItemStack stack) {
-        if (cond.mod_id == null || stack == null)
-            return false;
-        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        return itemId != null && cond.mod_id.equalsIgnoreCase(itemId.getNamespace());
-    }
-
-    private boolean checkRarity(ThrowableItemData.Condition cond, ItemStack stack) {
-        if (cond.rarity == null || stack == null)
-            return false;
-        return stack.getRarity().name().equalsIgnoreCase(cond.rarity);
+        return ConditionEvaluator.evaluateAll(data.conditions, data.condition_mode, stack);
     }
 
     private boolean matchesTarget(List<String> targets, ResourceLocation itemId) {

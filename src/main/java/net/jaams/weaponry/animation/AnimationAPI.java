@@ -891,7 +891,7 @@ public class AnimationAPI {
         }
     }
 
-    @EventBusSubscriber(modid = JaamsWeaponryMod.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = JaamsWeaponryMod.MODID, value = Dist.CLIENT)
     public static class AnimationLoader {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {

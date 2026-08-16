@@ -261,7 +261,6 @@ public class GreatCrossbowItem extends CrossbowItem {
             arrow.setCritArrow(true);
         }
         if (shooter instanceof net.minecraft.world.entity.Mob) {
-            // 1.21: Pillager/Piglin shootCrossbowProjectile hook removed; mob bonus damage applied here instead.
             arrow.setBaseDamage(arrow.getBaseDamage() * 2.5F);
         }
         arrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);

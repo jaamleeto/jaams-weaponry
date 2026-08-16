@@ -26,7 +26,7 @@ import net.jaams.weaponry.data.TraitModifierData;
 
 import java.util.Optional;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class ParryGuardHandler {
 
     public static float PARTICLE_OFFSET_Y = 0.6F;

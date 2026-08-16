@@ -294,7 +294,6 @@ public class HuntersCrossbowItem extends CrossbowItem {
                 : Items.ARROW);
         AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, shooter, crossbowStack);
         if (shooter instanceof net.minecraft.world.entity.Mob) {
-            // 1.21: mob shootCrossbowProjectile hook removed; damage cap applied here instead.
             arrow.setBaseDamage(Math.min(arrow.getBaseDamage(), 2.0));
         }
         if (shooter instanceof Player) {

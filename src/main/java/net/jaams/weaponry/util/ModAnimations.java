@@ -1099,7 +1099,6 @@ public class ModAnimations {
             player.noCulling = false;
         }
 
-        // Remove first-person data if the player's model is not humanoid
         if (isFirstPersonAnimation(player) && !isUsingCompatibleModel(player)) {
             setFirstPersonAnimation(player, false);
             removeRestoreFirstPerson(player);

@@ -1,18 +1,15 @@
 package net.jaams.weaponry.loader;
 
-import net.jaams.weaponry.util.ModComponents;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
@@ -21,12 +18,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.core.registries.Registries;
 
+import net.jaams.weaponry.condition.ConditionEvaluator;
 import net.jaams.weaponry.data.GunItemData;
+import net.jaams.weaponry.util.ModGuns;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -36,7 +33,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class GunModifierLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final GunModifierLoader INSTANCE = new GunModifierLoader();
@@ -82,6 +79,17 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Gun modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
+                try {
+                    ModGuns.GunType.valueOf(data.gun.gun_type.toUpperCase(Locale.ROOT));
+                } catch (IllegalArgumentException e) {
+                    LOGGER.warn("Gun modifier file {}: invalid gun_type '{}'", fileId, data.gun.gun_type);
+                    errors++;
+                }
+                for (String warning : ConditionEvaluator.validateConditions(data.conditions)) {
+                    LOGGER.warn("Gun modifier file {}: {}", fileId, warning);
+                    errors++;
+                }
+                data.id = fileId.toString();
                 newGuns.put(fileId, data);
                 count++;
             } catch (Exception e) {
@@ -117,102 +125,19 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
                 result.add(data);
             }
         }
-        result.sort((a, b) -> Integer.compare(b.priority, a.priority));
+        result.sort((a, b) -> {
+            int byPriority = Integer.compare(b.priority, a.priority);
+            if (byPriority != 0)
+                return byPriority;
+            return String.valueOf(a.id).compareTo(String.valueOf(b.id));
+        });
         return result;
     }
 
     public boolean evaluateConditions(GunItemData data, ItemStack stack) {
-        if (data == null || stack == null) return false;
-        if (data.conditions == null || data.conditions.isEmpty()) {
-            return true;
-        }
-        boolean isAndMode = "and".equalsIgnoreCase(data.condition_mode);
-        for (GunItemData.Condition cond : data.conditions) {
-            boolean conditionMet = evaluateSingleCondition(cond, stack);
-            if (isAndMode && !conditionMet)
-                return false;
-            if (!isAndMode && conditionMet)
-                return true;
-        }
-        return isAndMode;
-    }
-
-    private boolean evaluateSingleCondition(GunItemData.Condition cond, ItemStack stack) {
-        if (cond == null || cond.type == null)
+        if (data == null || stack == null)
             return false;
-        return switch (cond.type.toLowerCase()) {
-            case "enchantment" -> checkEnchantment(cond, stack);
-            case "nbt" -> checkNBT(cond, stack);
-            case "tag" -> checkTag(cond, stack);
-            case "item" -> checkItem(cond, stack);
-            case "mod" -> checkMod(cond, stack);
-            case "rarity" -> checkRarity(cond, stack);
-            case "has_component" -> cond.component != null && ModComponents.hasComponent(stack, cond.component);
-            case "component_value" -> ModComponents.componentValueMatches(stack, cond.component, cond.component_value);
-            default -> false;
-        };
-    }
-
-    private boolean checkEnchantment(GunItemData.Condition cond, ItemStack stack) {
-        if (stack == null || cond.enchantment == null)
-            return false;
-        ResourceLocation enchId = ResourceLocation.tryParse(cond.enchantment);
-        if (enchId == null)
-            return false;
-        int level = 0;
-        for (var e : net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentsForCrafting(stack).entrySet()) {
-            if (e.getKey().is(enchId)) { level = e.getIntValue(); break; }
-        }
-        return level >= cond.level;
-    }
-
-    private boolean checkNBT(GunItemData.Condition cond, ItemStack stack) {
-        if (stack == null || !ModComponents.has(stack) || cond.key == null)
-            return false;
-        CompoundTag tag = ModComponents.get(stack);
-        if (tag == null)
-            return false;
-        return switch (cond.nbt_key != null ? cond.nbt_key.toLowerCase() : "") {
-            case "boolean" -> tag.contains(cond.key, Tag.TAG_BYTE) && tag.getBoolean(cond.key) == cond.nbt_boolean_value;
-            case "int" -> tag.contains(cond.key, Tag.TAG_INT) && tag.getInt(cond.key) == cond.nbt_int_value;
-            case "short" -> tag.contains(cond.key, Tag.TAG_SHORT) && tag.getShort(cond.key) == cond.nbt_short_value;
-            case "long" -> tag.contains(cond.key, Tag.TAG_LONG) && tag.getLong(cond.key) == cond.nbt_long_value;
-            case "string" -> tag.contains(cond.key, Tag.TAG_STRING) && cond.nbt_string_value != null
-                    && cond.nbt_string_value.equals(tag.getString(cond.key));
-            default -> false;
-        };
-    }
-
-    private boolean checkTag(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.tag == null || stack == null)
-            return false;
-        ResourceLocation tagId = ResourceLocation.tryParse(cond.tag);
-        if (tagId == null)
-            return false;
-        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, tagId);
-        return stack.is(tagKey);
-    }
-
-    private boolean checkItem(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.item == null || stack == null)
-            return false;
-        ResourceLocation itemId = ResourceLocation.tryParse(cond.item);
-        if (itemId == null || stack == null) return false;
-        ResourceLocation stackId = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        return stackId != null && stackId.equals(itemId);
-    }
-
-    private boolean checkMod(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.mod_id == null || stack == null)
-            return false;
-        ResourceLocation stackId = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        return stackId != null && cond.mod_id.equals(stackId.getNamespace());
-    }
-
-    private boolean checkRarity(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.rarity == null || stack == null)
-            return false;
-        return stack.getRarity().name().equalsIgnoreCase(cond.rarity);
+        return ConditionEvaluator.evaluateAll(data.conditions, data.condition_mode, stack);
     }
 
     private boolean matchesTarget(List<String> targets, ResourceLocation itemId) {
@@ -243,16 +168,14 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
         }
         if (pattern.startsWith("#")) {
             ResourceLocation tagId = ResourceLocation.tryParse(pattern.substring(1));
-            return tagId != null && isItemInTag(itemId, tagId);
+            if (tagId == null)
+                return false;
+            TagKey<Item> tagKey = TagKey.create(Registries.ITEM, tagId);
+            Item item = BuiltInRegistries.ITEM.get(itemId);
+            return item != null && new ItemStack(item).is(tagKey);
         }
         ResourceLocation loc = ResourceLocation.tryParse(pattern);
         return loc != null && loc.equals(itemId);
-    }
-
-    private boolean isItemInTag(ResourceLocation itemId, ResourceLocation tagId) {
-        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, tagId);
-        Item item = BuiltInRegistries.ITEM.get(itemId);
-        return item != null && new ItemStack(item).is(tagKey);
     }
 
     @SubscribeEvent

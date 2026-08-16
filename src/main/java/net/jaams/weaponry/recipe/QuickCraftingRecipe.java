@@ -67,7 +67,10 @@ public class QuickCraftingRecipe extends CustomRecipe {
         if (!toolStack.isEmpty()) {
             Item resultItem = getResultItem(toolStack);
             int resultCount = getResultCount(toolStack);
-            return new ItemStack(resultItem, resultCount);
+            ItemStack resultStack = new ItemStack(resultItem, resultCount);
+            TraitModifierData.getQuickCrafting(toolStack).ifPresent((entry) -> ModComponents
+                    .applyJsonData(resultStack, entry.result_nbt, entry.result_components));
+            return resultStack;
         }
         return new ItemStack(TopItems.STAKE.get());
     }

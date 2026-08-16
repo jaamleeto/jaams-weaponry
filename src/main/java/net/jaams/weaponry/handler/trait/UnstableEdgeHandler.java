@@ -16,7 +16,7 @@ import net.jaams.weaponry.util.ModTraits;
 import net.jaams.weaponry.data.TraitModifierData;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class UnstableEdgeHandler {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onLivingHurt(LivingIncomingDamageEvent event) {

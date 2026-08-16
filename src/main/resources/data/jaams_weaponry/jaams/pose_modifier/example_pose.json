@@ -20,7 +20,7 @@
     "target": [
         "jaams_weaponry:example_item"
     ],
-    "enabled": true,
+    "enabled": false,
     "priority": 0,
     "pose": "combat_ready",
     "animation": "cheer",

@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.ChatFormatting;
 
+import net.jaams.weaponry.compat.EpicFightCompat;
 import net.jaams.weaponry.util.ModUtils;
 import net.jaams.weaponry.configuration.client.TooltipsConfig;
 
@@ -29,15 +30,36 @@ import java.util.HashSet;
 import java.util.Collections;
 import java.util.ArrayList;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT)
 public abstract class ItemTooltipHandler {
     private static final String SHIFT_HINT = "tooltip.jaams_weaponry.shift_details";
     private static final String ALT_HINT = "tooltip.jaams_weaponry.alt_desc";
     private static final String CTRL_HINT = "tooltip.jaams_weaponry.ctrl_info";
     private static final String MOD_ID = "jaams";
 
-    @SubscribeEvent(priority = EventPriority.LOW)
-    public static void addSpacingBetweenInfoCategories(ItemTooltipEvent event) {
+    /**
+     * Snapshot of the mod's own tooltip lines taken at HIGHEST priority. Epic
+     * Fight (and possibly other mods) runs at NORMAL priority and, when its innate
+     * skill tooltip key (default: left shift) is held, clears the entire tooltip and
+     * replaces it with the skill description, which would otherwise erase the mod's
+     * traits and shift descriptions. This snapshot lets us restore those lines at
+     * LOWEST priority, after every other mod has already processed the event.
+     */
+    private static List<Component> capturedModTooltipLines = Collections.emptyList();
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void captureModTooltipLines(ItemTooltipEvent event) {
+        capturedModTooltipLines = new ArrayList<>();
+        for (Component line : event.getToolTip()) {
+            String key = getKey(line);
+            if (key != null && key.contains(MOD_ID)
+                    && (key.contains("trait.") || key.contains("properties") || key.endsWith(".long_desc"))) {
+                capturedModTooltipLines.add(line);
+            }
+        }
+    }
+
+    private static void addSpacingBetweenInfoCategories(ItemTooltipEvent event) {
         if (!Screen.hasControlDown()) {
             return;
         }
@@ -129,8 +151,7 @@ public abstract class ItemTooltipHandler {
         return null;
     }
 
-    @SubscribeEvent(priority = EventPriority.LOW)
-    public static void addSpacingBeforeAquaTraits(ItemTooltipEvent event) {
+    private static void addSpacingBeforeAquaTraits(ItemTooltipEvent event) {
         List<Component> lines = event.getToolTip();
         if (lines.size() <= 1)
             return;
@@ -174,8 +195,7 @@ public abstract class ItemTooltipHandler {
         return -1;
     }
 
-    @SubscribeEvent(priority = EventPriority.LOW)
-    public static void addSpacingOnlyBetweenLongDescAndProperties(ItemTooltipEvent event) {
+    private static void addSpacingOnlyBetweenLongDescAndProperties(ItemTooltipEvent event) {
         List<Component> lines = event.getToolTip();
         if (lines.size() <= 1)
             return;
@@ -233,11 +253,12 @@ public abstract class ItemTooltipHandler {
         return key.substring(start, end);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onItemTooltip(ItemTooltipEvent event) {
         List<Component> lines = event.getToolTip();
         if (lines.isEmpty())
             return;
+        restoreModTooltipsClearedByEpicFight(event, lines);
         Item item = event.getItemStack().getItem();
         ResourceLocation itemKey = BuiltInRegistries.ITEM.getKey(item);
         filterTooltipByConfig(lines, itemKey, item);
@@ -259,6 +280,37 @@ public abstract class ItemTooltipHandler {
         TooltipVisibility visibility = detectVisibility(lines);
         addSpacingAfterLastSpecialLine(lines);
         addHintsOnlyIfMissing(lines, content, visibility, shiftDown);
+        addSpacingBetweenInfoCategories(event);
+        addSpacingBeforeAquaTraits(event);
+        addSpacingOnlyBetweenLongDescAndProperties(event);
+    }
+
+    /**
+     * Epic Fight's item tooltip handler runs at NORMAL priority and, while its
+     * "weapon innate skill tooltip" key (default: left shift) is held, calls
+     * {@code tooltip.clear()} on weapons with a skill, wiping the whole tooltip.
+     * This re-adds the mod's captured lines when they were removed by that logic so
+     * the mod's traits and shift descriptions stay visible and compatible with Epic
+     * Fight.
+     */
+    private static void restoreModTooltipsClearedByEpicFight(ItemTooltipEvent event, List<Component> lines) {
+        if (capturedModTooltipLines.isEmpty() || !EpicFightCompat.isEpicFightLoaded())
+            return;
+        if (hasModTooltipContent(lines))
+            return;
+        int insertIndex = Math.min(1, lines.size());
+        lines.addAll(insertIndex, capturedModTooltipLines);
+    }
+
+    private static boolean hasModTooltipContent(List<Component> lines) {
+        for (Component line : lines) {
+            String key = getKey(line);
+            if (key != null && key.contains(MOD_ID)
+                    && (key.contains("trait.") || key.contains("properties") || key.endsWith(".long_desc"))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void applyDisabledFeatureFilters(List<Component> lines) {

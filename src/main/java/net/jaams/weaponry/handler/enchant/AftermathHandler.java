@@ -40,7 +40,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class AftermathHandler {
 
     private static final Map<Player, AftermathData> aftermathPlayers = new ConcurrentHashMap<>();
@@ -263,7 +263,6 @@ public class AftermathHandler {
         float finalCalculatedDamage = extraDamage;
         if (EnchantmentsConfig.AFTERMATH_PROTECTION_REDUCES_DAMAGE.get()
                 && target.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
-            // 1.21: EnchantmentHelper.modifyDamage folds in the target's protection enchantments
             finalCalculatedDamage = net.minecraft.world.item.enchantment.EnchantmentHelper.getDamageProtection(serverLevel, target, damageSource) > 0
                     ? net.minecraft.world.damagesource.CombatRules.getDamageAfterMagicAbsorb(finalCalculatedDamage,
                         net.minecraft.world.item.enchantment.EnchantmentHelper.getDamageProtection(serverLevel, target, damageSource))

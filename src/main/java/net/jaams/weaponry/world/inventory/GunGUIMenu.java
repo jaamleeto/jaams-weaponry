@@ -20,10 +20,10 @@ public class GunGUIMenu extends BaseGunGUIMenu {
         super(ModMenus.GUN_GUI.get(), id, inv, extraData);
     }
 
-    @Override
-    protected int getSlotCount() {
-        return 2;
-    }
+    	@Override
+    	protected int getSlotCount() {
+    		return 1;
+    	}
 
     @Override
     protected void setupGunSlots() {

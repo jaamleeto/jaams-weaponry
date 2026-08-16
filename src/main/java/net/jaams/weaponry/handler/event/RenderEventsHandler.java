@@ -10,7 +10,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 import net.minecraft.client.Minecraft;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = "jaams_weaponry", value = Dist.CLIENT)
 public class RenderEventsHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

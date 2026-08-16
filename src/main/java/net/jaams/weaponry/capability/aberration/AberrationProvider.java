@@ -6,7 +6,6 @@ import net.jaams.weaponry.capability.ModAttachments;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-/** Attachment accessor keeping the old capability-style Optional API. */
 public final class AberrationProvider {
 
 	private AberrationProvider() {

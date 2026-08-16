@@ -26,7 +26,7 @@ import java.util.Random;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class TradeModifierHandler {
     private static final Logger LOGGER = LogManager.getLogger(TradeModifierHandler.class);
 

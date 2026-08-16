@@ -59,7 +59,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class GuardStanceHandler {
 
     public static float PARTICLE_OFFSET_Y = 0.6F;

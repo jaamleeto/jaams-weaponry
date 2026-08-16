@@ -9,7 +9,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -35,7 +34,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final HeldPoseModifierLoader INSTANCE = new HeldPoseModifierLoader();
@@ -81,6 +80,7 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Held pose file {} is disabled, skipping", fileId);
                     continue;
                 }
+                data.id = fileId.toString();
                 newPoses.put(fileId, data);
                 count++;
             } catch (Exception e) {
@@ -90,7 +90,12 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
         }
 
         List<HeldPoseData> sorted = new ArrayList<>(newPoses.values());
-        sorted.sort((a, b) -> Integer.compare(b.priority, a.priority));
+        sorted.sort((a, b) -> {
+            int byPriority = Integer.compare(b.priority, a.priority);
+            if (byPriority != 0)
+                return byPriority;
+            return String.valueOf(a.id).compareTo(String.valueOf(b.id));
+        });
         this.poses = newPoses;
         this.sortedCache = sorted;
         LOGGER.info("Loaded {} held pose entries ({} errors)", count, errors);
@@ -99,27 +104,6 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
 
     public List<HeldPoseData> getAll() {
         return sortedCache;
-    }
-
-
-    public HeldPoseData getForItem(Item item) {
-        if (item == null || item == Items.AIR) {
-            return null;
-        }
-        try {
-            ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
-            if (itemId == null || itemId.getPath().isEmpty()) {
-                return null;
-            }
-            for (HeldPoseData data : sortedCache) {
-                if (data != null && matchesTarget(data.target, itemId)) {
-                    return data;
-                }
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        return null;
     }
 
     public boolean matchesTarget(List<String> targets, ResourceLocation itemId) {
@@ -258,7 +242,7 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
         if (nbtValue > 0)
             return nbtValue;
         GunItemData.ShootEntry shootData = GunItemData.getShootData(gunStack);
-        if (shootData != null && shootData.ammo_consumption > 0)
+        if (shootData != null && shootData.ammo_consumption != null)
             return shootData.ammo_consumption;
         return switch (type) {
             case PISTOL -> GunSystemCommonConfig.GUN_PISTOL_SHOOT_AMMO_CONSUMPTION.get();

@@ -38,15 +38,7 @@
             "required": false
         },
         {
-            "id": "jaams_weaponry:shinerite_saw_cleaver_unfolded",
-            "required": false
-        },
-        {
             "id": "jaams_weaponry:electrum_saw_cleaver_unfolded",
-            "required": false
-        },
-        {
-            "id": "jaams_weaponry:enderium_saw_cleaver_unfolded",
             "required": false
         }
     ]

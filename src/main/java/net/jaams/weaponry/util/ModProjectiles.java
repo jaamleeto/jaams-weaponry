@@ -1223,18 +1223,20 @@ public final class ModProjectiles {
         ItemStack mainHand = mob.getItemInHand(InteractionHand.MAIN_HAND);
         ItemStack offHand = mob.getItemInHand(InteractionHand.OFF_HAND);
         if (!mainHand.isEmpty() && !offHand.isEmpty()) {
-            if (!mainHand.is(pickupItemStack.getItem()) || mainHand.getCount() >= mainHand.getMaxStackSize()) {
-                if (!offHand.is(pickupItemStack.getItem()) || offHand.getCount() >= offHand.getMaxStackSize()) {
+            if (!ItemStack.isSameItemSameComponents(mainHand, pickupItemStack)
+                    || mainHand.getCount() >= mainHand.getMaxStackSize()) {
+                if (!ItemStack.isSameItemSameComponents(offHand, pickupItemStack)
+                        || offHand.getCount() >= offHand.getMaxStackSize()) {
                     return false;
                 }
             }
         }
-        if (!mainHand.isEmpty() && mainHand.is(pickupItemStack.getItem())
+        if (!mainHand.isEmpty() && ItemStack.isSameItemSameComponents(mainHand, pickupItemStack)
                 && mainHand.getCount() < mainHand.getMaxStackSize()) {
             mainHand.grow(1);
             playPickupSoundMob(level, mob);
             return true;
-        } else if (!offHand.isEmpty() && offHand.is(pickupItemStack.getItem())
+        } else if (!offHand.isEmpty() && ItemStack.isSameItemSameComponents(offHand, pickupItemStack)
                 && offHand.getCount() < offHand.getMaxStackSize()) {
             offHand.grow(1);
             playPickupSoundMob(level, mob);

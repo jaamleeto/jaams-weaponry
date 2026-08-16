@@ -5,11 +5,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ComponentItemHandler;
 
-/**
- * Per-stack 3-slot gun inventory (attachment / ammo / attachment), stored in
- * the vanilla {@code minecraft:container} component. Replaces the old Forge
- * ICapabilitySerializable provider (which lived in ForgeCaps NBT).
- */
 public class GunItemHandler extends ComponentItemHandler {
 	private final ModGuns.GunType gunType;
 	private final ItemStack gunStack;

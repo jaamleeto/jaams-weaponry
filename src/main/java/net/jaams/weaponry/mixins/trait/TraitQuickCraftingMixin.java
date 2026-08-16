@@ -239,6 +239,8 @@ public class TraitQuickCraftingMixin {
             Item resultItem = jaam$getResultItem(itemstack);
             int resultCount = jaam$getResultCount(itemstack);
             ItemStack resultStack = new ItemStack(resultItem, resultCount);
+            TraitModifierData.getQuickCrafting(itemstack).ifPresent((entry) -> ModComponents
+                    .applyJsonData(resultStack, entry.result_nbt, entry.result_components));
             if (entity instanceof Player player) {
                 ItemHandlerHelper.giveItemToPlayer(player, resultStack);
                 int cooldown = jaam$getCooldown(itemstack);

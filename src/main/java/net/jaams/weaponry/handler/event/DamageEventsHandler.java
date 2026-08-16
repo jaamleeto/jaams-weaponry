@@ -14,7 +14,7 @@ import net.jaams.weaponry.packet.AmountPacket;
 import net.jaams.weaponry.capability.amount.AmountProvider;
 import net.jaams.weaponry.JaamsWeaponryMod;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class DamageEventsHandler {
 	@SubscribeEvent
 	public static void onLivingDamageHurt(LivingIncomingDamageEvent event) {

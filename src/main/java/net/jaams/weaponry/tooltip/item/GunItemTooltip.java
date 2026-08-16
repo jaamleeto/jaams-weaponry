@@ -254,28 +254,28 @@ public class GunItemTooltip {
     }
 
     private static void addProjectileCount(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        int count = getFinalInt(stack, "GunProjectileCount", data.shoot != null ? data.shoot.projectile_count : -1, getDefaultProjectileCount(data.gun.gun_type));
+        int count = getFinalInt(stack, "GunProjectileCount", data.shoot != null ? data.shoot.projectile_count : null, getDefaultProjectileCount(data.gun.gun_type));
         if (count > 0) {
             ModTooltips.addStat(stack, tooltip, "projectile_count", count);
         }
     }
 
     private static void addSpreadAngle(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double spread = getFinalDouble(stack, "GunSpreadAngle", data.shoot != null ? data.shoot.spread_angle : -1.0, getDefaultSpreadAngle(data.gun.gun_type));
+        double spread = getFinalDouble(stack, "GunSpreadAngle", data.shoot != null ? data.shoot.spread_angle : null, getDefaultSpreadAngle(data.gun.gun_type));
         if (spread > 0) {
             ModTooltips.addStat(stack, tooltip, "spread_angle", spread);
         }
     }
 
     private static void addInaccuracy(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double inaccuracy = getFinalDouble(stack, "GunProjectileInaccuracy", data.shoot != null ? data.shoot.inaccuracy : -1.0, getDefaultInaccuracy(data.gun.gun_type));
+        double inaccuracy = getFinalDouble(stack, "GunProjectileInaccuracy", data.shoot != null ? data.shoot.inaccuracy : null, getDefaultInaccuracy(data.gun.gun_type));
         if (inaccuracy > 0) {
             ModTooltips.addStat(stack, tooltip, "inaccuracy", inaccuracy);
         }
     }
 
     private static void addProjectileSpeed(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double speed = getFinalDouble(stack, "GunProjectileSpeed", data.shoot != null ? data.shoot.projectile_speed : -1.0, getDefaultProjectileSpeed(data.gun.gun_type));
+        double speed = getFinalDouble(stack, "GunProjectileSpeed", data.shoot != null ? data.shoot.projectile_speed : null, getDefaultProjectileSpeed(data.gun.gun_type));
         if (speed > 0) {
             speed *= ModGuns.getMuzzleSpeedMultiplier(stack);
             ModTooltips.addStat(stack, tooltip, "projectile_speed", speed);
@@ -283,7 +283,7 @@ public class GunItemTooltip {
     }
 
     private static void addCooldown(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double cooldown = getFinalDouble(stack, "GunCooldown", data.shoot != null ? data.shoot.cooldown : -1.0, getDefaultCooldown(data.gun.gun_type));
+        double cooldown = getFinalDouble(stack, "GunCooldown", data.shoot != null ? data.shoot.cooldown : null, getDefaultCooldown(data.gun.gun_type));
         if (cooldown > 0) {
             double seconds = cooldown / 20.0;
             ModTooltips.addStat(stack, tooltip, "cooldown", ModTooltips.roundToTwoDecimals(seconds));
@@ -291,7 +291,7 @@ public class GunItemTooltip {
     }
 
     private static void addRecoil(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double recoil = getFinalDouble(stack, "GunRecoilDistance", data.shoot != null ? data.shoot.recoil_distance : -1.0, getDefaultRecoil(data.gun.gun_type));
+        double recoil = getFinalDouble(stack, "GunRecoilDistance", data.shoot != null ? data.shoot.recoil_distance : null, getDefaultRecoil(data.gun.gun_type));
         if (recoil > 0) {
             int backblastLevel = ModEnchantments.level(stack, ModEnchantments.BACKBLAST);
             if (backblastLevel > 0) {
@@ -302,7 +302,7 @@ public class GunItemTooltip {
     }
 
     private static void addDamageModifier(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double damage = getFinalDouble(stack, "GunProjectileDamageModifier", data.shoot != null ? data.shoot.damage_modifier : -1.0, getDefaultDamageModifier(data.gun.gun_type));
+        double damage = getFinalDouble(stack, "GunProjectileDamageModifier", data.shoot != null ? data.shoot.damage_modifier : null, getDefaultDamageModifier(data.gun.gun_type));
         if (damage > 0) {
             damage *= ModGuns.getMuzzleDamageMultiplier(stack);
             ModTooltips.addStat(stack, tooltip, "damage_modifier", damage);
@@ -310,14 +310,14 @@ public class GunItemTooltip {
     }
 
     private static void addKnockbackModifier(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double knockback = getFinalDouble(stack, "GunProjectileKnockbackModifier", data.shoot != null ? data.shoot.knockback_modifier : -1.0, getDefaultKnockbackModifier(data.gun.gun_type));
+        double knockback = getFinalDouble(stack, "GunProjectileKnockbackModifier", data.shoot != null ? data.shoot.knockback_modifier : null, getDefaultKnockbackModifier(data.gun.gun_type));
         if (knockback > 0) {
             ModTooltips.addStat(stack, tooltip, "knockback_modifier", knockback);
         }
     }
 
     private static void addPiercingModifier(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        int piercing = getFinalInt(stack, "GunProjectilePiercingModifier", data.shoot != null ? data.shoot.piercing_modifier : -1, getDefaultPiercingModifier(data.gun.gun_type));
+        int piercing = getFinalInt(stack, "GunProjectilePiercingModifier", data.shoot != null ? data.shoot.piercing_modifier : null, getDefaultPiercingModifier(data.gun.gun_type));
         if (piercing > 0) {
             ModTooltips.addStat(stack, tooltip, "piercing_modifier", piercing);
         }
@@ -419,21 +419,21 @@ public class GunItemTooltip {
         };
     }
 
-    private static double getFinalDouble(ItemStack stack, String key, double jsonValue, double defaultValue) {
+    private static double getFinalDouble(ItemStack stack, String key, Double jsonValue, double defaultValue) {
         if (ModComponents.has(stack) && ModComponents.get(stack).contains(key)) {
             return ModComponents.get(stack).getDouble(key);
         }
-        if (jsonValue != -1.0) {
+        if (jsonValue != null) {
             return jsonValue;
         }
         return defaultValue;
     }
 
-    private static int getFinalInt(ItemStack stack, String key, int jsonValue, int defaultValue) {
+    private static int getFinalInt(ItemStack stack, String key, Integer jsonValue, int defaultValue) {
         if (ModComponents.has(stack) && ModComponents.get(stack).contains(key)) {
             return ModComponents.get(stack).getInt(key);
         }
-        if (jsonValue != -1) {
+        if (jsonValue != null) {
             return jsonValue;
         }
         return defaultValue;

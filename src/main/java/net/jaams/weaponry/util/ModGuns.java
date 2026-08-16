@@ -77,9 +77,8 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.checkerframework.checker.units.qual.h;
-import org.checkerframework.checker.units.qual.s;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -449,7 +448,6 @@ public final class ModGuns {
             arrow.shoot(velocity.x, velocity.y, velocity.z, (float) velocity.length(), 0.0F);
             if (damage > 0)
                 arrow.setBaseDamage(damage);
-            // 1.21: arrow knockback derives from the weapon's Punch enchantment (no setter); skipped for raw arrows.
             if (piercing > 0)
                 ((net.jaams.weaponry.mixins.access.AbstractArrowAccessorMixin) (Object) arrow).invokeSetPierceLevel((byte) Math.min(piercing, 127));
             if (isMultishotClone)
@@ -465,7 +463,6 @@ public final class ModGuns {
         if (damageMod != 1.0) {
             arrow.setBaseDamage(arrow.getBaseDamage() * damageMod);
         }
-        // 1.21: knockback derives from the weapon's Punch enchantment (no setter/getter); modifier skipped for raw arrows.
         if (piercing > 0) {
             ((net.jaams.weaponry.mixins.access.AbstractArrowAccessorMixin) (Object) arrow).invokeSetPierceLevel((byte) piercing);
         }
@@ -642,8 +639,6 @@ public final class ModGuns {
     }
 
     public static void updateGunInventory(ItemStack itemstack) {
-        // Contents persist and sync through the minecraft:container component
-        // (GunItemHandler). Only strip the legacy pre-1.20.5 NBT mirror if present.
         if (itemstack.isEmpty())
             return;
         CompoundTag tag = ModComponents.get(itemstack);
@@ -658,31 +653,57 @@ public final class ModGuns {
             return false;
         if (gunStack.getCount() != 1 || action != ClickAction.SECONDARY)
             return false;
+        if (slot instanceof net.minecraft.world.inventory.ResultSlot)
+            return false;
         GunType type = getGunType(gunStack);
         if (type == null)
             return false;
         return CapHelper.itemHandler(gunStack)
                 .map((handler) -> {
+                    // Never auto-insert into a slot backed by this same gun's handler: the slot would
+                    // hand out copies of the very contents we are mutating, so writing the remainder
+                    // back could void items. Let vanilla handle that click instead.
+                    if (slot instanceof SlotItemHandler slotHandler && slotHandler.getItemHandler() == handler)
+                        return false;
                     ItemStack cursor = slot.getItem();
                     if (cursor.isEmpty()) {
+                        // Unload: move a full stack out of the gun into the empty slot.
                         ItemStack extracted = extractFullStackFromGun(handler);
-                        if (!extracted.isEmpty()) {
-                            playExtractSound(player, gunStack, extracted);
-                            slot.safeInsert(extracted);
-                            return true;
+                        if (extracted.isEmpty())
+                            return false;
+                        playExtractSound(player, gunStack, extracted);
+                        ItemStack leftover = slot.safeInsert(extracted);
+                        if (!leftover.isEmpty()) {
+                            // Target slot could not hold everything: put it back into the gun.
+                            ItemStack rejected = insertIntoGun(handler, gunStack, leftover, type);
+                            if (!rejected.isEmpty() && !player.level().isClientSide())
+                                player.drop(rejected, false);
                         }
-                    } else {
-                        int[] validSlots = getValidInsertSlots(gunStack, cursor, type);
-                        for (int s : validSlots) {
-                            int inserted = insertIntoSlot(handler, s, cursor);
-                            if (inserted > 0) {
-                                playInsertSound(player, gunStack, cursor.copyWithCount(inserted));
-                                cursor.shrink(inserted);
-                                return true;
-                            }
-                        }
+                        return true;
                     }
-                    return false;
+                    // Load: insert the hovered stack into the gun, keeping the remainder in the slot.
+                    ItemStack remaining = insertIntoGun(handler, gunStack, cursor, type);
+                    int inserted = cursor.getCount() - remaining.getCount();
+                    if (inserted <= 0)
+                        return false;
+                    playInsertSound(player, gunStack, cursor.copyWithCount(inserted));
+                    if (slot.getItem() == cursor) {
+                        // The slot hands out a live reference (vanilla inventories, ItemStackHandler):
+                        // shrinking the stack persists directly.
+                        cursor.shrink(inserted);
+                        slot.setChanged();
+                    } else if (!remaining.isEmpty()) {
+                        // The slot hands out copies (e.g. component-backed handlers): write the
+                        // remainder back explicitly so items are neither lost nor duplicated.
+                        slot.set(remaining);
+                    } else if (slot instanceof SlotItemHandler slotItemHandler) {
+                        // Everything was inserted and the slot hands out copies: empty it safely
+                        // through the handler (setStackInSlot rejects empty stacks on some handlers).
+                        slotItemHandler.getItemHandler().extractItem(slotItemHandler.getSlotIndex(), Integer.MAX_VALUE, false);
+                    } else {
+                        slot.set(ItemStack.EMPTY);
+                    }
+                    return true;
                 })
                 .orElse(false);
     }
@@ -699,22 +720,23 @@ public final class ModGuns {
         return CapHelper.itemHandler(gunStack)
                 .map((handler) -> {
                     if (cursorStack.isEmpty()) {
+                        // Right-click the gun with an empty cursor: move a full stack out of the gun's
+                        // inventory directly onto the cursor. Extraction goes through the handler, so the
+                        // gun's components are always written back (no loss or duplication).
                         ItemStack extracted = extractFullStackFromGun(handler);
-                        if (!extracted.isEmpty()) {
-                            playExtractSound(player, gunStack, extracted);
-                            access.set(extracted);
-                            return true;
-                        }
-                    } else {
-                        int[] validSlots = getValidInsertSlots(gunStack, cursorStack, type);
-                        for (int s : validSlots) {
-                            int inserted = insertIntoSlot(handler, s, cursorStack);
-                            if (inserted > 0) {
-                                playInsertSound(player, gunStack, cursorStack.copyWithCount(inserted));
-                                cursorStack.shrink(inserted);
-                                return true;
-                            }
-                        }
+                        if (extracted.isEmpty())
+                            return false;
+                        playExtractSound(player, gunStack, extracted);
+                        access.set(extracted);
+                        return true;
+                    }
+                    // Load: insert the carried stack into the gun, keeping the remainder on the cursor.
+                    ItemStack remaining = insertIntoGun(handler, gunStack, cursorStack, type);
+                    int inserted = cursorStack.getCount() - remaining.getCount();
+                    if (inserted > 0) {
+                        playInsertSound(player, gunStack, cursorStack.copyWithCount(inserted));
+                        cursorStack.shrink(inserted);
+                        return true;
                     }
                     return false;
                 })
@@ -763,7 +785,7 @@ public final class ModGuns {
 
     public static int insertIntoSlot(IItemHandler h, int slot, ItemStack in) {
         ItemStack ex = h.getStackInSlot(slot);
-        int max = 64;
+        int max = Math.min(h.getSlotLimit(slot), in.getMaxStackSize());
         int add;
         if (ex.isEmpty())
             add = Math.min(in.getCount(), max);
@@ -776,6 +798,22 @@ public final class ModGuns {
         ItemStack copy = in.copyWithCount(add);
         ItemStack rem = h.insertItem(slot, copy, false);
         return add - rem.getCount();
+    }
+
+    /**
+     * Inserts as much of {@code stack} as possible into the gun's valid slots, respecting slot rules
+     * and per-slot stack limits. Returns the remainder that could not be inserted (never loses items).
+     */
+    public static ItemStack insertIntoGun(IItemHandler handler, ItemStack gunStack, ItemStack stack, GunType type) {
+        if (stack.isEmpty() || type == null || handler == null)
+            return stack;
+        ItemStack remainder = stack;
+        for (int slot : getValidInsertSlots(gunStack, remainder, type)) {
+            if (remainder.isEmpty())
+                break;
+            remainder = handler.insertItem(slot, remainder, false);
+        }
+        return remainder;
     }
 
     public static int[] getValidInsertSlots(ItemStack gunStack, ItemStack item, GunType type) {

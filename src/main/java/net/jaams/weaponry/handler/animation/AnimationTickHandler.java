@@ -14,7 +14,7 @@ import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.util.ModAnimations;
 
 
-@EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = JaamsWeaponryMod.MODID, value = Dist.CLIENT)
 public class AnimationTickHandler {
 
     @SubscribeEvent

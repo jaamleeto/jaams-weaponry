@@ -18,7 +18,6 @@ public class RevolverShoot {
 				GunSystemCommonConfig.GUN_REVOLVER_SHOOT_OFFHAND_COOLDOWN::get, GunSystemCommonConfig.GUN_REVOLVER_SHOOT_RECOIL_DISTANCE::get, GunSystemCommonConfig.GUN_REVOLVER_SHOOT_CROUCH_RECOIL_REDUCTION::get,
 				GunSystemCommonConfig.GUN_REVOLVER_SHOOT_VERTICAL_RECOIL_MULTIPLIER::get, GunSystemCommonConfig.GUN_REVOLVER_SHOOT_XROT_RECOIL_INTENSITY::get, GunSystemCommonConfig.GUN_REVOLVER_SHOOT_SHAKE_INTENSITY::get,
 				GunSystemCommonConfig.GUN_REVOLVER_SHOOT_SHAKE_RESET_DELAY::get);
-		// Advance the revolver chamber after extracting ammo
-		ModGuns.advanceRevolverChamber(itemstack);
+		        ModGuns.advanceRevolverChamber(itemstack);
 	}
 }

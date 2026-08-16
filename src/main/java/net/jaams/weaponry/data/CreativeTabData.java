@@ -16,10 +16,6 @@ public class CreativeTabData {
     public static class Entry {
         public String item;
         public String nbt;
-        /**
-         * Data-component section (1.21.1+), applied like the {@code components}
-         * section of an {@code item_modifier} file.
-         */
         public Map<String, JsonElement> components = new LinkedHashMap<>();
         public boolean remove = false;
         public boolean clear_defaults = false;

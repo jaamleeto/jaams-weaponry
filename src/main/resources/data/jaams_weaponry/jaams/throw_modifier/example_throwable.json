@@ -1,8 +1,8 @@
 {
     "target": [
-        "jaams_weaponry:example_item"
+        "jaams_weaponry:sharp_stone"
     ],
-    "enabled": true,
+    "enabled": false,
     "priority": 0,
     "condition_mode": "and",
     "conditions": [],

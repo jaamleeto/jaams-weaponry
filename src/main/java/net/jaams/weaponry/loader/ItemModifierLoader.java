@@ -30,7 +30,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class ItemModifierLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final ItemModifierLoader INSTANCE = new ItemModifierLoader();
@@ -71,6 +71,7 @@ public class ItemModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
+                data.id = fileId.toString();
                 newModifiers.put(fileId, data);
                 count++;
             } catch (Exception e) {
@@ -106,7 +107,12 @@ public class ItemModifierLoader extends SimpleJsonResourceReloadListener {
                 result.add(data);
             }
         }
-        result.sort((a, b) -> Integer.compare(b.priority, a.priority));
+        result.sort((a, b) -> {
+            int byPriority = Integer.compare(b.priority, a.priority);
+            if (byPriority != 0)
+                return byPriority;
+            return String.valueOf(a.id).compareTo(String.valueOf(b.id));
+        });
         return result;
     }
 

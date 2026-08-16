@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class CapabilityEvents {
 
     private static void syncAll(ServerPlayer receiver, Entity target) {
@@ -75,7 +75,6 @@ public class CapabilityEvents {
 
     @SubscribeEvent
     public static void onCapabilityPlayerClone(PlayerEvent.Clone event) {
-        // Data is carried over by AttachmentType#copyOnDeath; only re-sync to the new client entity.
         if (!event.getEntity().level().isClientSide && event.getEntity() instanceof ServerPlayer newPlayer) {
             syncAll(newPlayer, newPlayer);
         }

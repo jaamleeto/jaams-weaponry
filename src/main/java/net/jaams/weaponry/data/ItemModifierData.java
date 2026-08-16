@@ -14,15 +14,11 @@ public class ItemModifierData {
     public List<String> target = new ArrayList<>();
     public Boolean enabled = true;
     public int priority = 0;
+    public transient String id;
     public String condition_mode = "and";
     public List<Condition> conditions = new ArrayList<>();
     public ModifierEntry modifiers = new ModifierEntry();
     public List<NbtEntry> nbt = new ArrayList<>();
-    /**
-     * Data-component section (1.21.1+).
-     * Keys are component IDs like "minecraft:custom_name", "minecraft:unbreakable", etc.
-     * Values are JSON representations parsed by each component type's codec.
-     */
     public Map<String, JsonElement> components = new LinkedHashMap<>();
 
     public static class Condition {
@@ -40,9 +36,7 @@ public class ItemModifierData {
         public short nbt_short_value;
         public long nbt_long_value;
         public String nbt_string_value;
-        /** Component ID for has_component / component_value conditions (1.21.1+). */
         public String component;
-        /** Expected value for component_value condition, parsed via component codec. */
         public JsonElement component_value;
     }
 

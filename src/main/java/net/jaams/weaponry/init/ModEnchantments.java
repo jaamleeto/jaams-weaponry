@@ -14,11 +14,6 @@ import net.minecraft.world.level.Level;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 
-/**
- * 1.21: enchantments are data-driven (data/jaams_weaponry/enchantment/*.json).
- * This class keeps the old constant names as ResourceKeys plus level helpers so
- * gameplay handlers keep working without registry plumbing at each call site.
- */
 public class ModEnchantments {
 
     public static final ResourceKey<Enchantment> SECURE_GRIP = key("secure_grip");
@@ -32,7 +27,6 @@ public class ModEnchantments {
         return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(JaamsWeaponryMod.MODID, name));
     }
 
-    /** Level of the given enchantment on the stack (0 when absent). Registry-free: scans the stack's component. */
     public static int level(ItemStack stack, ResourceKey<Enchantment> enchantment) {
         if (stack == null || stack.isEmpty())
             return 0;
@@ -44,16 +38,10 @@ public class ModEnchantments {
         return 0;
     }
 
-    /** Resolve the actual Holder from a level's registry access (needed to create enchanted stacks). */
     public static Holder<Enchantment> holder(Level level, ResourceKey<Enchantment> enchantment) {
         return level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(enchantment);
     }
 
-    /**
-     * Resolve an enchantment Holder from its id via the running server's dynamic registry.
-     * 1.21 removed {@code BuiltInRegistries.ENCHANTMENT}; enchantments live in a datapack registry.
-     * Returns null off-server or when the id is unknown.
-     */
     @org.jetbrains.annotations.Nullable
     public static Holder<Enchantment> holderFromId(net.minecraft.resources.ResourceLocation id) {
         if (id == null) return null;
@@ -65,7 +53,6 @@ public class ModEnchantments {
                 .orElse(null);
     }
 
-    /** Highest level of the enchantment across the entity's equipped items (old getEnchantmentLevel semantics). */
     public static int entityLevel(LivingEntity entity, ResourceKey<Enchantment> enchantment) {
         int best = 0;
         for (ItemStack stack : entity.getAllSlots()) {
@@ -74,10 +61,6 @@ public class ModEnchantments {
         return best;
     }
 
-    /**
-     * 1.20.1 EnchantmentHelper.getDamageBonus replacement (removed in 1.21). Sharpness always,
-     * Smite vs undead, Bane vs arthropods — computed from the stack's data-component enchantments.
-     */
     public static float damageBonus(ItemStack stack, net.minecraft.world.entity.LivingEntity target) {
         float bonus = 0.0F;
         int sharpness = level(stack, net.minecraft.world.item.enchantment.Enchantments.SHARPNESS);
@@ -97,7 +80,6 @@ public class ModEnchantments {
         return bonus;
     }
 
-    /** Overdrive durability cost (was OverdriveEnchantment.getDurabilityCost). */
     public static int overdriveDurabilityCost(int level) {
         if (!net.jaams.weaponry.configuration.common.EnchantmentsConfig.OVERDRIVE.get()) {
             return 0;

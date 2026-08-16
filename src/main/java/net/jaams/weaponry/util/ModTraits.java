@@ -483,6 +483,25 @@ public class ModTraits {
                 ModTags.PARRY_GUARD);
     }
 
+    /**
+     * Whether the item belongs to a trait that makes the player hold right-click to
+     * charge/release (or spin), i.e. anything whose use is not a plain weapon swing:
+     * whirling strike, slash/piercing assault, shock impact, quick swap and throwable.
+     */
+    public static boolean isChargeUseItem(ItemStack stack) {
+        return isWhirlingStrikeItem(stack)
+                || isSlashAssaultItem(stack)
+                || isPiercingAssaultItem(stack)
+                || isQuickSwapItem(stack)
+                || isShockImpactItem(stack)
+                || ModCompats.isThrowableActive(stack);
+    }
+
+    /** Whether the item should show the Epic Fight guard pose while being used. */
+    public static boolean isGuardPoseItem(ItemStack stack) {
+        return isGuardStanceItem(stack) || isParryGuardItem(stack) || isChargeUseItem(stack);
+    }
+
     private static boolean isTraitItem(ItemStack stack, ModConfigSpec.BooleanValue config, String nbtKey,
             String jsonKey, TagKey<Item> tag) {
         if (stack == null || stack.isEmpty() || !config.get())

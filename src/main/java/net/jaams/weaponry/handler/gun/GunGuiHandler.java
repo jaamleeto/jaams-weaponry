@@ -25,7 +25,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class GunGuiHandler {
 
     private static final int SLOT_WIDTH = 20;

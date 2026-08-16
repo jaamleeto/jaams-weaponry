@@ -9,13 +9,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
-@EventBusSubscriber(modid = "jaams_weaponry", bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = "jaams_weaponry")
 public class ModCapabilities {
 
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
-        // Guns are data-driven (NBT GunType / item tags / weapon_attributes JSON), so any
-        // item can be a gun: register the provider for every item and bail out for non-guns.
         for (Item item : BuiltInRegistries.ITEM) {
             event.registerItem(Capabilities.ItemHandler.ITEM, (stack, ctx) -> {
                 ModGuns.GunType type = ModGuns.getGunType(stack);

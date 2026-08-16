@@ -20,7 +20,7 @@ import net.jaams.weaponry.util.ModEnums;
 import net.jaams.weaponry.configuration.client.CameraEffectsConfig;
 import net.jaams.weaponry.capability.aberration.AberrationProvider;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class CameraEventsHandler {
     @SubscribeEvent
     public static void onCameraEffect(ViewportEvent.ComputeCameraAngles event) {

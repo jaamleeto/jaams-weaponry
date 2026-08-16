@@ -6,6 +6,7 @@ import net.jaams.weaponry.util.ModComponents;
 
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.capabilities.Capabilities;
 
 import net.minecraft.world.level.Level;
@@ -228,8 +229,8 @@ public class GunShootHelper {
         if (nbtValue != 0.0)
             return nbtValue;
         if (shootData != null) {
-            double jsonValue = getValueFromShootEntry(shootData, key);
-            if (jsonValue != 0.0)
+            Double jsonValue = getValueFromShootEntry(shootData, key);
+            if (jsonValue != null && jsonValue != 0.0)
                 return jsonValue;
         }
         return configDefault.getAsDouble();
@@ -241,8 +242,8 @@ public class GunShootHelper {
         if (nbtValue != 0.0)
             return nbtValue;
         if (particleData != null) {
-            double jsonValue = getValueFromParticleEntry(particleData, key);
-            if (jsonValue != 0.0)
+            Double jsonValue = getValueFromParticleEntry(particleData, key);
+            if (jsonValue != null && jsonValue != 0.0)
                 return jsonValue;
         }
         return configDefault.getAsDouble();
@@ -254,17 +255,17 @@ public class GunShootHelper {
         if (nbtValue != 0)
             return nbtValue;
         if (shootData != null) {
-            int jsonValue = getIntFromShootEntry(shootData, key);
-            if (jsonValue != 0)
+            Integer jsonValue = getIntFromShootEntry(shootData, key);
+            if (jsonValue != null && jsonValue != 0)
                 return jsonValue;
         }
         return configDefault.getAsInt();
     }
 
-    public static double getValueFromShootEntry(GunItemData.ShootEntry data, String key) {
+    public static Double getValueFromShootEntry(GunItemData.ShootEntry data, String key) {
         if (data == null)
-            return 0.0;
-        double value = switch (key) {
+            return null;
+        return switch (key) {
             case "GunCooldown" -> data.cooldown;
             case "GunRecoilDistance" -> data.recoil_distance;
             case "GunCrouchRecoilReduction" -> data.crouch_recoil_reduction;
@@ -276,35 +277,32 @@ public class GunShootHelper {
             case "GunProjectileInaccuracy" -> data.inaccuracy;
             case "GunProjectileDamageModifier" -> data.damage_modifier;
             case "GunProjectileKnockbackModifier" -> data.knockback_modifier;
-            default -> 0.0;
+            default -> null;
         };
-        return value == -1.0 ? 0.0 : value;
     }
 
-    public static double getValueFromParticleEntry(GunItemData.ParticleEntry data, String key) {
+    public static Double getValueFromParticleEntry(GunItemData.ParticleEntry data, String key) {
         if (data == null)
-            return 0.0;
-        double value = switch (key) {
+            return null;
+        return switch (key) {
             case "GunShotSize" -> data.shot_size;
             case "GunShotDistance" -> data.shot_distance;
-            default -> 0.0;
+            default -> null;
         };
-        return value == -1.0 ? 0.0 : value;
     }
 
-    public static int getIntFromShootEntry(GunItemData.ShootEntry data, String key) {
+    public static Integer getIntFromShootEntry(GunItemData.ShootEntry data, String key) {
         if (data == null)
-            return 0;
-        int value = switch (key) {
+            return null;
+        return switch (key) {
             case "GunProjectileCount" -> data.projectile_count;
             case "GunProjectilePiercingModifier" -> data.piercing_modifier;
             case "GunShakeResetDelay" -> data.shake_reset_delay;
-            case "GunOffhandCooldown" -> (int) data.offhand_cooldown;
+            case "GunOffhandCooldown" -> data.offhand_cooldown == null ? null : data.offhand_cooldown.intValue();
             case "GunAmmoConsumption" -> data.ammo_consumption;
             case "GunAttachmentConsumption" -> data.attachment_consumption;
-            default -> 0;
+            default -> null;
         };
-        return value == -1 ? 0 : value;
     }
 
     public static void consumeResourcesAfterShot(LivingEntity living, ItemStack gunStack, SourceResult source,
@@ -323,8 +321,8 @@ public class GunShootHelper {
         }
         CapHelper.itemHandler(gunStack).ifPresent(handler -> {
             if (ModGuns.isRevolverGun(gunStack)) {
-                // Revolver: only consume attachment from slot 6
-                consumeAttachment(handler, 6, attachmentConsumption);
+                // Slot 0 is the muzzle attachment; slots 1-6 are the bullet chambers.
+                consumeAttachment(handler, 0, attachmentConsumption);
             } else {
                 for (int slot = 0; slot < handler.getSlots(); slot++) {
                     if (slot != 1) {
@@ -381,19 +379,29 @@ public class GunShootHelper {
 
     public static void consumeAttachment(IItemHandler handler, int slot, int amount) {
         ItemStack attachment = handler.getStackInSlot(slot);
-        if (attachment.isEmpty())
+        if (attachment.isEmpty() || amount <= 0)
             return;
-        if (attachment.getMaxDamage() > 0) {
-            int newDamage = attachment.getDamageValue() + amount;
-            if (newDamage >= attachment.getMaxDamage()) {
-                attachment.setCount(0);
+        ItemStack remaining = attachment.copy();
+        if (remaining.getMaxDamage() > 0) {
+            int newDamage = remaining.getDamageValue() + amount;
+            if (newDamage >= remaining.getMaxDamage()) {
+                remaining.setCount(0);
             } else {
-                attachment.setDamageValue(newDamage);
+                remaining.setDamageValue(newDamage);
             }
         } else {
-            attachment.shrink(amount);
+            remaining.shrink(amount);
         }
-        handler.insertItem(slot, attachment, false);
+        // getStackInSlot returns a copy for component-backed handlers and insertItem
+        // refuses to replace a stack with different components, so write it back explicitly.
+        if (handler instanceof IItemHandlerModifiable modifiable) {
+            modifiable.setStackInSlot(slot, remaining);
+        } else {
+            handler.extractItem(slot, attachment.getCount(), false);
+            if (!remaining.isEmpty()) {
+                handler.insertItem(slot, remaining, false);
+            }
+        }
     }
 
     public static class SourceResult {

@@ -16,56 +16,30 @@ public interface IDyeableItem {
 
     int getDefaultColor();
 
-    /**
-     * Returns {@code true} when the stack carries a dye colour.
-     * Checks the typed {@link ModDataComponents#DYE_COLOR} component first,
-     * then falls back to the legacy {@code "color"} key inside the
-     * {@link ModComponents} CompoundTag so that pre-existing items keep working.
-     */
     default boolean hasColor(ItemStack stack) {
-        // New: typed data component
         if (stack.has(ModDataComponents.DYE_COLOR.get())) {
             return true;
         }
-        // Legacy: CompoundTag key
         CompoundTag tag = ModComponents.getOrCreate(stack);
         return tag.contains(TAG_COLOR, Tag.TAG_INT);
     }
 
-    /**
-     * Reads the dye colour from the typed component first, then from the
-     * legacy {@code "color"} CompoundTag key.
-     */
     default int getColor(ItemStack stack) {
-        // New: typed data component
         Integer typed = stack.get(ModDataComponents.DYE_COLOR.get());
         if (typed != null) {
             return typed;
         }
-        // Legacy: CompoundTag key
         CompoundTag tag = ModComponents.getOrCreate(stack);
         return hasColor(stack) ? tag.getInt(TAG_COLOR) : getDefaultColor();
     }
 
-    /**
-     * Writes the dye colour to both the typed component and the legacy
-     * CompoundTag so that both reading paths see the value.
-     */
     default void setColor(ItemStack stack, int color) {
-        // New: typed data component
         stack.set(ModDataComponents.DYE_COLOR.get(), color);
-        // Legacy: CompoundTag key
         ModComponents.update(stack, tag -> tag.putInt(TAG_COLOR, color));
     }
 
-    /**
-     * Removes the dye colour from both the typed component and the legacy
-     * CompoundTag.
-     */
     default void removeColor(ItemStack stack) {
-        // New: typed data component
         stack.remove(ModDataComponents.DYE_COLOR.get());
-        // Legacy: CompoundTag key
         ModComponents.update(stack, tag -> tag.remove(TAG_COLOR));
     }
 

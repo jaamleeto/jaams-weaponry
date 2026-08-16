@@ -8,6 +8,7 @@ public class HeldPoseData {
     public List<String> target = new ArrayList<>();
     public Boolean enabled = true;
     public int priority = 0;
+    public transient String id;
     public String pose = "";
     public String hand = "mainhand";
     public String entity = "";
