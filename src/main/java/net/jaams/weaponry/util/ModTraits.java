@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class ModTraits {
@@ -497,8 +498,16 @@ public class ModTraits {
                 || ModCompats.isThrowableActive(stack);
     }
 
-    /** Whether the item should show the Epic Fight guard pose while being used. */
+    /**
+     * Whether the item should show the Epic Fight guard pose while being used.
+     * Items using the spear animation (trident-style throwables with the Epic
+     * Fight trident capability) are excluded: they keep Epic Fight's own trident
+     * firing animation instead of the guard pose.
+     */
     public static boolean isGuardPoseItem(ItemStack stack) {
+        if (stack == null || stack.isEmpty() || stack.getUseAnimation() == UseAnim.SPEAR) {
+            return false;
+        }
         return isGuardStanceItem(stack) || isParryGuardItem(stack) || isChargeUseItem(stack);
     }
 

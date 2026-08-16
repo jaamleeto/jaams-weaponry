@@ -52,9 +52,12 @@ import java.util.Map;
  * vanilla ({@code R = Rx * Ry * Rz}, i.e. {@code Quaternionf.rotationXYZ}) with the frame
  * alignment applied by conjugation ({@code Ry(π)·R(x,y,z)·Ry(π) = R(-x, y, -z)}), premultiplied
  * by the inverse bind chain ({@code root → joint}). Whole-leg rotations are applied to the
- * {@code Thigh_*} joints so the full leg chain (thigh, shin, knee) moves together. Positions
- * are relative offsets converted from ModelPart pixels (16 per block) into Epic Fight mesh
- * units with the same {@code (-x, y, -z)} frame mapping.
+ * {@code Thigh_*} joints so the full leg chain (thigh, shin, knee) moves together. The leg
+ * joints are an exception: Epic Fight composes the final world transform as
+ * {@code parent * bind * pose}, and the {@code Thigh_*} bind (a 180° rotation about X) would
+ * mirror the injected pitch, so its X sign is negated to keep the vanilla swing direction.
+ * Positions are relative offsets converted from ModelPart pixels (16 per block) into Epic Fight
+ * mesh units with the same {@code (-x, y, -z)} frame mapping.
  */
 @Mixin(value = PatchedEntityRenderer.class, remap = false)
 public abstract class EpicFightModelAnimationMixin {
@@ -217,8 +220,13 @@ public abstract class EpicFightModelAnimationMixin {
             float xRad = (float) Math.toRadians(rot.x);
             float yRad = (float) Math.toRadians(rot.y);
             float zRad = (float) Math.toRadians(rot.z);
+            // Epic Fight composes the final joint world transform as world = parent * bind * pose.
+            // Leg joints (Thigh_*) carry a Rx(180deg) bind that is multiplied on top of the injected
+            // rotation, which would otherwise mirror the pitch and swing the legs backward. Negating
+            // the X component for the legs only restores the vanilla pitch direction.
+            float injectedX = jaams$isLegJoint(jointName) ? xRad : -xRad;
             new Quaternionf(chainInv)
-                    .mul(new Quaternionf().rotationXYZ(-xRad, yRad, -zRad))
+                    .mul(new Quaternionf().rotationXYZ(injectedX, yRad, -zRad))
                     .mul(chain, rotation);
         }
 
@@ -325,6 +333,11 @@ public abstract class EpicFightModelAnimationMixin {
         }
 
         return result;
+    }
+
+    @Unique
+    private boolean jaams$isLegJoint(String jointName) {
+        return jointName.equals("Thigh_R") || jointName.equals("Thigh_L");
     }
 
     @Unique
