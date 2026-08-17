@@ -222,6 +222,51 @@ public final class EpicFightCompat {
         }
     }
 
+    /**
+     * Whether Epic Fight uses the vanilla player model when the player is not in combat mode
+     * (config {@code ingame.vanilla_model}). When it is disabled, Epic Fight's own model renders
+     * the player even out of combat, so the animation API's custom first-person body must not
+     * activate (it has a visual bug against Epic Fight's model).
+     */
+    public static boolean isVanillaModelActive() {
+        if (!isEpicFightLoaded()) {
+            return false;
+        }
+        try {
+            return EpicFightImpl.vanillaModelActive();
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    /**
+     * Whether the animation API's custom first-person body can render for the given player.
+     *
+     * <p>It can only render while the vanilla {@code PlayerRenderer} is in charge of the local
+     * player's body in first-person view. Mirrors the behavior of
+     * {@code LocalPlayerPatch.overrideRender()}:
+     * <ul>
+     *   <li>Epic Fight first-person model disabled &rarr; it never overrides first-person
+     *       rendering, the vanilla renderer is in charge.</li>
+     *   <li>Epic Fight first-person model enabled &rarr; it overrides while the player is in
+     *       combat mode, or when the vanilla model config is disabled (its own model is used even
+     *       out of combat).</li>
+     * </ul>
+     */
+    public static boolean canRenderAnimatedFirstPerson(Player player) {
+        if (!isEpicFightLoaded() || player == null) {
+            return true;
+        }
+        try {
+            if (!EpicFightImpl.firstPersonModelActive()) {
+                return true;
+            }
+            return !isEpicFightMode(player) && EpicFightImpl.vanillaModelActive();
+        } catch (Throwable t) {
+            return true;
+        }
+    }
+
     // ---------- player stamina ----------
 
     public static float getStamina(Player player) {
@@ -333,6 +378,10 @@ public final class EpicFightCompat {
 
         static boolean firstPersonModelActive() {
             return yesman.epicfight.config.ClientConfig.enableAnimatedFirstPersonModel;
+        }
+
+        static boolean vanillaModelActive() {
+            return yesman.epicfight.config.ClientConfig.enableOriginalModel;
         }
 
         static float getStamina(Player player) {

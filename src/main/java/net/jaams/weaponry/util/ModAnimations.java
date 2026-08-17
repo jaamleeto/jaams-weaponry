@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.animation.AnimationAPI;
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
+import net.jaams.weaponry.compat.EpicFightCompat;
 import net.jaams.weaponry.network.PlayAnimationMessage;
 import net.jaams.weaponry.network.PlayMobAnimationMessage;
 import net.minecraft.client.Minecraft;
@@ -1054,7 +1055,7 @@ public class ModAnimations {
     }
 
     public static boolean shouldRenderInFirstPerson(Player player) {
-        if (ModUtils.isEntityInBattleMode(player))
+        if (!EpicFightCompat.canRenderAnimatedFirstPerson(player))
             return false;
         return isFirstPersonAnimation(player) && isLocalPlayerInFirstPerson(player)
                 && isUsingCompatibleModel(player);

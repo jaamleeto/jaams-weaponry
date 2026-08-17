@@ -36,7 +36,7 @@ public abstract class AnimationItemInHandRendererMixin {
         }
         if (!master.equals("jaams_weaponry"))
             return;
-        if (EpicFightCompat.isEpicFightMode(localPlayer))
+        if (!EpicFightCompat.canRenderAnimatedFirstPerson(localPlayer))
             return;
         if (ModAnimations.isLocalPlayerInFirstPerson(localPlayer)) {
             if (dispatcher == null)
