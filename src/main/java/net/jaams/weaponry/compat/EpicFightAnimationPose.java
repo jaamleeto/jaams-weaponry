@@ -42,15 +42,11 @@ import java.util.Map;
  * to the vanilla {@code ModelPart} frame by a 180° rotation about Y (a point {@code (x, y, z)}
  * in vanilla frame sits at {@code (-x, y, -z)} in the armature frame, i.e. both frames face the
  * same physical direction but differ in handedness). Rotations use the same composition as
- * vanilla ({@code R = Rx * Ry * Rz}, i.e. {@code Quaternionf.rotationXYZ}) with the frame
- * alignment applied by conjugation ({@code Ry(π)·R(x,y,z)·Ry(π) = R(-x, y, -z)}), premultiplied
- * by the inverse bind chain ({@code root → joint}). Whole-leg rotations are applied to the
- * {@code Thigh_*} joints so the full leg chain (thigh, shin, knee) moves together. The leg
- * joints are an exception: Epic Fight composes the final world transform as
- * {@code parent * bind * pose}, and the {@code Thigh_*} bind (a 180° rotation about X) would
- * mirror the injected pitch, so its X sign is negated to keep the vanilla swing direction.
- * Positions are relative offsets converted from ModelPart pixels (16 per block) into Epic Fight
- * mesh units with the same {@code (-x, y, -z)} frame mapping.
+ * vanilla ({@code R = Rx * Ry * Rz}, i.e. {@code Quaternionf.rotationXYZ}) and are transformed
+ * into joint-local space via bind-chain conjugation ({@code chain⁻¹·R·chain}), which naturally
+ * handles the frame conversion and the per-joint bind rotations (including the {@code Thigh_*}
+ * joints' {@code Rx(180°)} bind). Positions are relative offsets converted from ModelPart pixels
+ * (16 per block) into Epic Fight mesh units with the same {@code (-x, y, -z)} frame mapping.
  */
 public final class EpicFightAnimationPose {
 
@@ -163,12 +159,10 @@ public final class EpicFightAnimationPose {
      * Builds the joint transform from the bone's keyframes.
      *
      * <p>The mod's rotations are expressed in the vanilla {@code ModelPart} frame, where up is
-     * {@code +Y} and forward is {@code +Z}. Epic Fight's armature frame is related to that frame
-     * by a 180° rotation about Y ({@code (x, y, z) ↦ (-x, y, -z)}), so the vanilla
-     * {@code Rx·Ry·Rz} composition is mapped by conjugation
-     * ({@code Ry(π)·R(x,y,z)·Ry(π) = R(-x, y, -z)}) and then premultiplied by the inverse of the
-     * bind chain ({@code root → joint}), which brings the rotation into the joint's own local
-     * frame. At rest this yields the vanilla standing pose.
+     * {@code +Y} and forward is {@code +Z}. The vanilla {@code Rx·Ry·Rz} composition is
+     * transformed into joint-local space via bind-chain conjugation
+     * ({@code chain⁻¹·R(x,y,z)·chain}), which handles the armature frame conversion and
+     * per-joint bind rotations. At rest this yields the vanilla standing pose.
      *
      * <p>Positions are relative offsets converted from ModelPart pixels (16 per block) into
      * Epic Fight mesh units with the same {@code (-x, y, -z)} frame mapping.
@@ -187,13 +181,11 @@ public final class EpicFightAnimationPose {
             float xRad = (float) Math.toRadians(rot.x);
             float yRad = (float) Math.toRadians(rot.y);
             float zRad = (float) Math.toRadians(rot.z);
-            // Epic Fight composes the final joint world transform as world = parent * bind * pose.
-            // Leg joints (Thigh_*) carry a Rx(180deg) bind that is multiplied on top of the injected
-            // rotation, which would otherwise mirror the pitch and swing the legs backward. Negating
-            // the X component for the legs only restores the vanilla pitch direction.
-            float injectedX = isLegJoint(jointName) ? xRad : -xRad;
+            float injectedX = isTorsoJoint(jointName) ? xRad
+                    : isLegJoint(jointName) ? xRad : -xRad;
+            float injectedZ = isTorsoJoint(jointName) ? zRad : -zRad;
             new Quaternionf(chainInv)
-                    .mul(new Quaternionf().rotationXYZ(injectedX, yRad, -zRad))
+                    .mul(new Quaternionf().rotationXYZ(injectedX, yRad, injectedZ))
                     .mul(chain, rotation);
         }
 
@@ -298,6 +290,10 @@ public final class EpicFightAnimationPose {
         }
 
         return result;
+    }
+
+    private static boolean isTorsoJoint(String jointName) {
+        return jointName.equals("Torso");
     }
 
     private static boolean isLegJoint(String jointName) {
