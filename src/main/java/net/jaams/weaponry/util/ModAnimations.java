@@ -1055,7 +1055,7 @@ public class ModAnimations {
     }
 
     public static boolean shouldRenderInFirstPerson(Player player) {
-        if (!EpicFightCompat.canRenderAnimatedFirstPerson(player))
+        if (EpicFightCompat.isEpicFightMode(player) && EpicFightCompat.isFirstPersonModelActive())
             return false;
         return isFirstPersonAnimation(player) && isLocalPlayerInFirstPerson(player)
                 && isUsingCompatibleModel(player);

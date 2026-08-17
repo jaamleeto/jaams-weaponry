@@ -242,15 +242,13 @@ public final class EpicFightCompat {
     /**
      * Whether the animation API's custom first-person body can render for the given player.
      *
-     * <p>It can only render while the vanilla {@code PlayerRenderer} is in charge of the local
-     * player's body in first-person view. Mirrors the behavior of
-     * {@code LocalPlayerPatch.overrideRender()}:
+     * <p>It is suppressed in two situations:
      * <ul>
-     *   <li>Epic Fight first-person model disabled &rarr; it never overrides first-person
-     *       rendering, the vanilla renderer is in charge.</li>
-     *   <li>Epic Fight first-person model enabled &rarr; it overrides while the player is in
-     *       combat mode, or when the vanilla model config is disabled (its own model is used even
-     *       out of combat).</li>
+     *   <li>Epic Fight is showing its own first-person model (player is in combat mode and the
+     *       animated first-person config is enabled).</li>
+     *   <li>Epic Fight renders its own model outside of combat because the vanilla-model config
+     *       is off &mdash; in this case the animation API's first-person body would clash with
+     *       the Epic Fight model.</li>
      * </ul>
      */
     public static boolean canRenderAnimatedFirstPerson(Player player) {

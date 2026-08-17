@@ -442,8 +442,7 @@ public class ModTabs {
         list.add(new ItemStack(ModItems.NETHERITE_SHOTGUN.get()));
         list.add(new ItemStack(ModItems.HEAVY_NETHERITE_INGOT.get()));
         list.add(new ItemStack(ModItems.DOUBLE_NETHERITE_INGOT.get()));
-        if (ModList.get().isLoaded("cavesanddepths") || ModList.get().isLoaded("oooh_pinky")
-                || ModList.get().isLoaded("justrosegold")) {
+        if (ModList.get().isLoaded("cavesanddepths")) {
             list.add(new ItemStack(ModItems.ROSEGOLD_DAGGER.get()));
             list.add(new ItemStack(ModItems.ROSEGOLD_KNUCKLE.get()));
             list.add(new ItemStack(ModItems.ROSEGOLD_CLEAVER.get()));

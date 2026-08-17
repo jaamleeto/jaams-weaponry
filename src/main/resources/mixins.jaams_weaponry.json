@@ -91,6 +91,7 @@
     "compat.EpicFightGuardMotionMixin",
     "compat.EpicFightModelAnimationMixin",
     "compat.EpicFightFirstPersonRendererMixin",
+    "compat.EpicFightAbstractClientPlayerPatchMixin",
     "client.PlayerModelPoseMixin",
     "client.ClientTextTooltipMixin",
     "client.GuiGraphicsMixin",

@@ -56,7 +56,7 @@ public class ModItemProperties {
             makeWeaponSkin(ModItems.GOLDEN_KATANA.get(), "weapon_skin", WeaponType.KATANA);
             makeWeaponSkin(ModItems.DIAMOND_KATANA.get(), "weapon_skin", WeaponType.KATANA);
             makeWeaponSkin(ModItems.NETHERITE_KATANA.get(), "weapon_skin", WeaponType.KATANA);
-            if (ModList.get().isLoaded("cavesanddepths") || ModList.get().isLoaded("oooh_pinky") || ModList.get().isLoaded("justrosegold")) {
+            if (ModList.get().isLoaded("cavesanddepths")) {
                 makeWeaponSkin(ModItems.ROSEGOLD_KATANA.get(), "weapon_skin", WeaponType.KATANA);
             }
             if (ModList.get().isLoaded("jaams_shinerite")) {
