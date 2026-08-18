@@ -65,6 +65,7 @@ public abstract class EpicFightModelAnimationMixin {
         if (entity instanceof Player player) {
             EpicFightAnimationPose.applyPlayerPose(armature, pose, player, partialTicks,
                     ModAnimations.shouldRenderInFirstPerson(player));
+            EpicFightAnimationPose.applyProceduralPoses(armature, pose, player, partialTicks);
         } else {
             EpicFightAnimationPose.applyMobPose(armature, pose, entity, partialTicks);
         }

@@ -7,6 +7,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import yesman.epicfight.api.animation.Joint;
@@ -19,8 +21,17 @@ import net.jaams.weaponry.animation.AnimationAPI;
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
 import net.jaams.weaponry.animation.AnimationAPI.PlayerBone;
 import net.jaams.weaponry.animation.AnimationHelper;
+import net.jaams.weaponry.configuration.client.AssortedClientConfig;
+import net.jaams.weaponry.configuration.client.GunSystemClientConfig;
+import net.jaams.weaponry.configuration.common.GunSystemCommonConfig;
+import net.jaams.weaponry.data.GunItemData;
+import net.jaams.weaponry.gun.helper.GunShootHelper;
 import net.jaams.weaponry.util.ModAnimations;
 import net.jaams.weaponry.util.ModAnimations.AnimationTickResult;
+import net.jaams.weaponry.util.ModComponents;
+import net.jaams.weaponry.util.ModGuns;
+import net.jaams.weaponry.util.ModTraits;
+import net.jaams.weaponry.util.ModUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +97,7 @@ public final class EpicFightAnimationPose {
                 continue;
 
             putBlendedTransform(armature, pose, jointName, entry.getValue(), animationProgress, player,
-                    effectiveBlend);
+                    effectiveBlend, animation, isFirstPerson);
         }
 
         Map<String, Float> combinableData = ModAnimations.getCombinableRenderData(player);
@@ -108,7 +119,7 @@ public final class EpicFightAnimationPose {
                     continue;
 
                 putBlendedTransform(armature, pose, jointName, boneEntry.getValue(), combinableProgress, player,
-                        vanillaBlend);
+                        vanillaBlend, combinableAnim, isFirstPerson);
             }
         }
     }
@@ -138,17 +149,210 @@ public final class EpicFightAnimationPose {
             if (effectiveBlend >= 1.0F && blendFactor <= 0.0F)
                 continue;
 
-            putBlendedTransform(armature, pose, jointName, entry.getValue(), progress, entity, effectiveBlend);
+            putBlendedTransform(armature, pose, jointName, entry.getValue(), progress, entity, effectiveBlend,
+                    animation, false);
         }
     }
+
+    // ==================== Procedural pose support (gun aiming, whirling strike) ====================
+
+    private static final float AIM_X_ROT = -1.4279966F;
+    private static final float WHIRL_SPEED = 0.8F;
+    private static final float WHIRL_AMOUNT = 0.5F;
+    private static final float WHIRL_BASE_X = -1.0F;
+
+    /**
+     * Applies procedural poses (gun aiming, whirling strike) to Epic Fight's armature.
+     * These are the same poses applied by {@code PlayerModelPoseMixin} for the vanilla model,
+     * translated into Epic Fight's joint space via bind-chain conjugation.
+     */
+    public static void applyProceduralPoses(Armature armature, Pose pose, Player player, float partialTicks) {
+        if (armature == null || pose == null || player == null)
+            return;
+        jaams$applyWhirlingStrikePose(armature, pose, player, partialTicks);
+        jaams$applyGunAimingPose(armature, pose, player, partialTicks);
+    }
+
+    private static void jaams$applyWhirlingStrikePose(Armature armature, Pose pose, Player player, float partialTicks) {
+        if (!AssortedClientConfig.WHIRLING_STRIKE_ARM_ANIMATION.get())
+            return;
+
+        ItemStack mainHand = player.getMainHandItem();
+        ItemStack offHand = player.getOffhandItem();
+        boolean isMainWhirling = ModTraits.isWhirlingStrikeItem(mainHand);
+        boolean isOffWhirling = ModTraits.isWhirlingStrikeItem(offHand);
+
+        if (!isMainWhirling && !isOffWhirling)
+            return;
+        if (player.getUseItemRemainingTicks() <= 0)
+            return;
+        if (!player.isUsingItem())
+            return;
+        if (player.getCooldowns().isOnCooldown(mainHand.getItem())
+                || player.getCooldowns().isOnCooldown(offHand.getItem()))
+            return;
+
+        float smoothTick = (float) player.tickCount + partialTicks;
+        boolean bothHands = isMainWhirling && isOffWhirling;
+
+        if (bothHands) {
+            jaams$putProceduralArmTransform(armature, pose, "Arm_R",
+                    WHIRL_BASE_X + WHIRL_AMOUNT * (float) Math.sin(smoothTick * WHIRL_SPEED), 0.1F, 0.0F);
+            jaams$putProceduralArmTransform(armature, pose, "Arm_L",
+                    WHIRL_BASE_X + WHIRL_AMOUNT * (float) Math.cos(smoothTick * WHIRL_SPEED), -0.1F, 0.0F);
+        } else {
+            InteractionHand usedHand = player.getUsedItemHand();
+            boolean whirlingInUsedHand = usedHand == InteractionHand.MAIN_HAND ? isMainWhirling : isOffWhirling;
+            if (!whirlingInUsedHand)
+                return;
+
+            if (usedHand == InteractionHand.MAIN_HAND) {
+                jaams$putProceduralArmTransform(armature, pose, "Arm_R",
+                        WHIRL_BASE_X + WHIRL_AMOUNT * (float) Math.sin(smoothTick * WHIRL_SPEED), 0.1F, 0.0F);
+            } else {
+                jaams$putProceduralArmTransform(armature, pose, "Arm_L",
+                        WHIRL_BASE_X + WHIRL_AMOUNT * (float) Math.sin(smoothTick * WHIRL_SPEED), -0.1F, 0.0F);
+            }
+        }
+    }
+
+    private static void jaams$applyGunAimingPose(Armature armature, Pose pose, Player player, float partialTicks) {
+        if (!GunSystemClientConfig.GUN_AIMING_ARM_ANIMATION.get())
+            return;
+        if (player.isUsingItem())
+            return;
+
+        jaams$applyHandGunAimingPose(armature, pose, player, player.getMainHandItem(),
+                InteractionHand.MAIN_HAND, player.getMainArm());
+        jaams$applyHandGunAimingPose(armature, pose, player, player.getOffhandItem(),
+                InteractionHand.OFF_HAND, player.getMainArm().getOpposite());
+    }
+
+    private static void jaams$applyHandGunAimingPose(Armature armature, Pose pose, Player player,
+            ItemStack stack, InteractionHand hand, HumanoidArm arm) {
+        if (stack.isEmpty())
+            return;
+
+        ModGuns.GunType gunType = ModGuns.getGunType(stack);
+        if (gunType == null)
+            return;
+        if (player.isUsingItem())
+            return;
+        if (stack.getItem() instanceof CrossbowItem && CrossbowItem.isCharged(stack))
+            return;
+
+        boolean isMainHand = hand == InteractionHand.MAIN_HAND;
+
+        String nbtPose = jaams$getPoseFromNBT(stack);
+        String poseType = nbtPose != null ? nbtPose.toUpperCase() : null;
+
+        if (poseType != null) {
+            if ("NONE".equals(poseType))
+                return;
+        } else {
+            if (!jaams$shouldHaveAimingPose(gunType))
+                return;
+        }
+
+        if (jaams$canDisplayPose(player, stack, gunType, isMainHand, player.isCreative())) {
+            String jointName = arm == HumanoidArm.RIGHT ? "Arm_R" : "Arm_L";
+            float headYRotOffset = isMainHand ? -0.1F : 0.1F;
+            float headXRot = (float) Math.toRadians(player.getXRot());
+
+            jaams$putProceduralArmTransform(armature, pose, jointName,
+                    AIM_X_ROT + headXRot, headYRotOffset, 0.0F);
+        }
+    }
+
+    /**
+     * Converts vanilla ModelPart-space rotations (radians) into an Epic Fight joint transform
+     * and puts it into the pose. Arm joints have their X and Z negated for frame conversion,
+     * then the rotation is conjugated by the bind chain.
+     */
+    private static void jaams$putProceduralArmTransform(Armature armature, Pose pose, String jointName,
+            float xRot, float yRot, float zRot) {
+        Quaternionf chain = computeBindChain(armature, jointName);
+        Quaternionf chainInv = new Quaternionf(chain).conjugate();
+
+        Quaternionf rotation = new Quaternionf();
+        new Quaternionf(chainInv)
+                .mul(new Quaternionf().rotationXYZ(-xRot, yRot, -zRot))
+                .mul(chain, rotation);
+
+        pose.putJointData(jointName, new JointTransform(new Vec3f(0.0F, 0.0F, 0.0F), rotation,
+                new Vec3f(1.0F, 1.0F, 1.0F)));
+    }
+
+    private static boolean jaams$shouldHaveAimingPose(ModGuns.GunType type) {
+        boolean allowedByConfig = GunSystemClientConfig.GUN_DEFAULT_AIMING_POSE.get();
+        return allowedByConfig && (type == ModGuns.GunType.GUN
+                || type == ModGuns.GunType.PISTOL
+                || type == ModGuns.GunType.SCATTERGUN);
+    }
+
+    private static boolean jaams$canDisplayPose(Player player, ItemStack stack,
+            ModGuns.GunType gunType, boolean isMainHand, boolean isCreative) {
+        ItemStack handStack = isMainHand ? player.getMainHandItem() : player.getOffhandItem();
+        if (!ItemStack.matches(stack, handStack))
+            return false;
+        if (player.getCooldowns().isOnCooldown(handStack.getItem()))
+            return false;
+        if (isCreative)
+            return true;
+
+        int ammoConsumption = jaams$getFinalAmmoConsumption(stack);
+        GunItemData.GunEntry gunData = GunItemData.getGunData(stack);
+        boolean useGunAmmo = GunShootHelper.getFinalAmmoSource(stack, "GunAmmoFromGun",
+                GunSystemCommonConfig.GUN_AMMO_FROM_GUN::get,
+                gunData != null ? gunData.ammo_from_gun : null);
+        boolean useHandAmmo = GunShootHelper.getFinalAmmoSource(stack, "GunAmmoFromHand",
+                GunSystemCommonConfig.GUN_AMMO_FROM_HAND::get,
+                gunData != null ? gunData.ammo_from_hand : null);
+        boolean useInventoryAmmo = GunShootHelper.getFinalAmmoSource(stack, "GunAmmoFromPlayerInventory",
+                GunSystemCommonConfig.GUN_AMMO_FROM_PLAYER_INVENTORY::get,
+                gunData != null ? gunData.ammo_from_player_inventory : null);
+        GunShootHelper.SourceResult source = GunShootHelper.getPreferredSourceWithPriority(
+                player, stack, useGunAmmo, useHandAmmo, useInventoryAmmo,
+                ammoConsumption, gunType);
+        return source.hasEnough();
+    }
+
+    private static String jaams$getPoseFromNBT(ItemStack stack) {
+        if (ModComponents.has(stack) && ModComponents.get(stack).contains("GunPose", 8)) {
+            return ModComponents.get(stack).getString("GunPose");
+        }
+        return null;
+    }
+
+    private static int jaams$getFinalAmmoConsumption(ItemStack gunStack) {
+        int nbtValue = ModUtils.getConfigOrNbtInt(gunStack, "GunAmmoConsumption", () -> 0);
+        if (nbtValue > 0)
+            return nbtValue;
+        GunItemData.ShootEntry shootData = GunItemData.getShootData(gunStack);
+        if (shootData != null && shootData.ammo_consumption != null)
+            return shootData.ammo_consumption;
+        ModGuns.GunType type = ModGuns.getGunType(gunStack);
+        if (type == null)
+            type = ModGuns.GunType.GUN;
+        return switch (type) {
+            case PISTOL -> GunSystemCommonConfig.GUN_PISTOL_SHOOT_AMMO_CONSUMPTION.get();
+            case SCATTERGUN -> GunSystemCommonConfig.GUN_SCATTERGUN_SHOOT_AMMO_CONSUMPTION.get();
+            case SHOTGUN -> GunSystemCommonConfig.GUN_SHOTGUN_SHOOT_AMMO_CONSUMPTION.get();
+            default -> GunSystemCommonConfig.GUN_PISTOL_SHOOT_AMMO_CONSUMPTION.get();
+        };
+    }
+
+    // ==================== Bedrock animation support ====================
 
     /**
      * Evaluates the bone's keyframes at {@code progress}, converts the values into Epic Fight
      * joint space and blends them against the pose already prepared by Epic Fight's animator.
      */
     private static void putBlendedTransform(Armature armature, Pose pose, String jointName, PlayerBone bone,
-            float progress, LivingEntity entity, float effectiveBlend) {
-        JointTransform animationTransform = buildJointTransform(armature, jointName, bone, progress, entity);
+            float progress, LivingEntity entity, float effectiveBlend, PlayerAnimation animation,
+            boolean isFirstPerson) {
+        JointTransform animationTransform = buildJointTransform(armature, jointName, bone, progress, entity,
+                animation, isFirstPerson);
         JointTransform baseTransform = pose.orElseEmpty(jointName);
         JointTransform blended = JointTransform.interpolate(animationTransform, baseTransform,
                 Mth.clamp(effectiveBlend, 0.0F, 1.0F));
@@ -168,7 +372,7 @@ public final class EpicFightAnimationPose {
      * Epic Fight mesh units with the same {@code (-x, y, -z)} frame mapping.
      */
     private static JointTransform buildJointTransform(Armature armature, String jointName, PlayerBone bone,
-            float progress, LivingEntity entity) {
+            float progress, LivingEntity entity, PlayerAnimation animation, boolean isFirstPerson) {
         Vec3f translation = new Vec3f(0.0F, 0.0F, 0.0F);
         Quaternionf rotation = new Quaternionf();
         Vec3f scale = new Vec3f(1.0F, 1.0F, 1.0F);
@@ -184,6 +388,13 @@ public final class EpicFightAnimationPose {
             float injectedX = isTorsoJoint(jointName) ? xRad
                     : isLegJoint(jointName) ? xRad : -xRad;
             float injectedZ = isTorsoJoint(jointName) ? zRad : -zRad;
+            if (animation.headRot && !isFirstPerson && jointName.equals("Head") && entity instanceof Player player) {
+                float headPitch = player.getXRot() * ((float) Math.PI / 180F);
+                float headYaw = Mth.clamp(player.yHeadRot - player.yBodyRot, -30.0F, 30.0F)
+                        * ((float) Math.PI / 180F);
+                injectedX -= headPitch;
+                yRad -= headYaw;
+            }
             new Quaternionf(chainInv)
                     .mul(new Quaternionf().rotationXYZ(injectedX, yRad, injectedZ))
                     .mul(chain, rotation);

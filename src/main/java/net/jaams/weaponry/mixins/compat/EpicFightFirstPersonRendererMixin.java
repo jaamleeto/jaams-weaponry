@@ -59,9 +59,12 @@ public abstract class EpicFightFirstPersonRendererMixin {
         LocalPlayerPatch entitypatch = this.jaams$renderingPatch;
         if (entitypatch != null) {
             Entity entity = entitypatch.getOriginal();
-            if (entity instanceof Player player && ModAnimations.isFirstPersonAnimation(player)) {
-                EpicFightAnimationPose.applyPlayerPose(armature, pose, player, this.jaams$renderingPartialTicks,
-                        true);
+            if (entity instanceof Player player) {
+                if (ModAnimations.isFirstPersonAnimation(player)) {
+                    EpicFightAnimationPose.applyPlayerPose(armature, pose, player, this.jaams$renderingPartialTicks,
+                            true);
+                }
+                EpicFightAnimationPose.applyProceduralPoses(armature, pose, player, this.jaams$renderingPartialTicks);
             }
         }
         return armature.getPoseAsTransformMatrix(pose, arg);
