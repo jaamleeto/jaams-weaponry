@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -186,6 +187,9 @@ public class SelfEffectHandler {
         if (!TraitsConfig.EXHAUSTING.get()) {
             return;
         }
+        if (attacker.hasEffect(MobEffects.DAMAGE_BOOST)) {
+            return;
+        }
         float exhaustion = getExhaustingExhaustion(stack);
         if (attacker instanceof Player player) {
             player.getFoodData().addExhaustion(exhaustion);
@@ -357,6 +361,9 @@ public class SelfEffectHandler {
 
     public static void handleOverstrain(LivingEntity target, LivingEntity attacker, ItemStack stack) {
         if (!TraitsConfig.OVERSTRAIN.get() || !EffectsConfig.DEPLETION.get()) {
+            return;
+        }
+        if (attacker.hasEffect(MobEffects.DAMAGE_BOOST)) {
             return;
         }
         float chance = getOverstrainChance(stack);

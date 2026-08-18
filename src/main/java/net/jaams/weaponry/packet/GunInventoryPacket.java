@@ -2,7 +2,6 @@ package net.jaams.weaponry.packet;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.util.ModGuns;
-import net.jaams.weaponry.util.ModUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -41,7 +40,7 @@ public class GunInventoryPacket implements CustomPacketPayload {
 			if (!(ctx.player() instanceof ServerPlayer serverPlayer))
 				return;
 			ItemStack itemStack = serverPlayer.getItemInHand(packet.hand);
-			if (!ModGuns.canOpenInventory(itemStack) || (packet.hand == InteractionHand.OFF_HAND && ModUtils.isEntityInBattleMode(serverPlayer))) {
+			if (!ModGuns.canOpenInventory(itemStack)) {
 				return;
 			}
 			ModGuns.openGunInventory(serverPlayer, itemStack, packet.hand);

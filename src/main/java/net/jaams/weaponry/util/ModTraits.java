@@ -487,11 +487,10 @@ public class ModTraits {
     /**
      * Whether the item belongs to a trait that makes the player hold right-click to
      * charge/release (or spin), i.e. anything whose use is not a plain weapon swing:
-     * whirling strike, slash/piercing assault, shock impact, quick swap and throwable.
+     * slash/piercing assault, shock impact, quick swap and throwable.
      */
     public static boolean isChargeUseItem(ItemStack stack) {
-        return isWhirlingStrikeItem(stack)
-                || isSlashAssaultItem(stack)
+        return isSlashAssaultItem(stack)
                 || isPiercingAssaultItem(stack)
                 || isQuickSwapItem(stack)
                 || isShockImpactItem(stack)
@@ -503,12 +502,15 @@ public class ModTraits {
      * Items using the spear animation (trident-style throwables with the Epic
      * Fight trident capability) are excluded: they keep Epic Fight's own trident
      * firing animation instead of the guard pose.
+     * Whirling strike items are excluded (no shield block animation).
+     * Quick crafting items are included (shield guard animation when used).
      */
     public static boolean isGuardPoseItem(ItemStack stack) {
         if (stack == null || stack.isEmpty() || stack.getUseAnimation() == UseAnim.SPEAR) {
             return false;
         }
-        return isGuardStanceItem(stack) || isParryGuardItem(stack) || isChargeUseItem(stack);
+        return isGuardStanceItem(stack) || isParryGuardItem(stack) || isChargeUseItem(stack)
+                || isQuickCraftingItem(stack);
     }
 
     private static boolean isTraitItem(ItemStack stack, ModConfigSpec.BooleanValue config, String nbtKey,

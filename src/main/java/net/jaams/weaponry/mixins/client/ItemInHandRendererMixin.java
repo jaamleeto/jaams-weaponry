@@ -411,10 +411,6 @@ public abstract class ItemInHandRendererMixin {
             poseStack.mulPose(Axis.XP.rotationDegrees(15.0F));
         }
 
-        else if (isItemInHand && itemStack.is(ModTags.KUNAIS) && !isUsingItem) {
-            poseStack.translate(0.0, -0.44, 0.0);
-        }
-
         else if (isInHand && !isUsingItem
                 && itemStack.is(ModTags.SHARP_STONES)) {
             poseStack.translate(0.0, 0.01, -0.05);

@@ -2,7 +2,6 @@ package net.jaams.weaponry.packet;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.util.ModGuns;
-import net.jaams.weaponry.util.ModUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -49,9 +48,6 @@ public class GunShootPacket implements CustomPacketPayload {
 				Level world = serverPlayer.level();
 				ItemStack itemStack = serverPlayer.getItemInHand(packet.hand);
 				if (serverPlayer.getCooldowns().isOnCooldown(itemStack.getItem())) {
-					return;
-				}
-				if (packet.hand == InteractionHand.OFF_HAND && ModUtils.isEntityInBattleMode(serverPlayer)) {
 					return;
 				}
 				ModGuns.shoot(world, serverPlayer, itemStack);

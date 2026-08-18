@@ -36,6 +36,8 @@ import net.jaams.weaponry.util.ModUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Shared animation-bridging logic used by the Epic Fight compat mixins.
@@ -160,6 +162,30 @@ public final class EpicFightAnimationPose {
     private static final float WHIRL_SPEED = 0.8F;
     private static final float WHIRL_AMOUNT = 0.5F;
     private static final float WHIRL_BASE_X = -1.0F;
+    private static final float AIM_BLEND_SPEED = 0.25F;
+    private static final float AIM_BLEND_SPEED_SWING = 0.12F;
+    private static final ConcurrentHashMap<UUID, float[]> GUN_AIM_BLEND = new ConcurrentHashMap<>();
+
+    private static float getAimBlend(Player player, boolean isMainHand) {
+        float[] arr = GUN_AIM_BLEND.get(player.getUUID());
+        return arr != null ? (isMainHand ? arr[0] : arr[1]) : 0f;
+    }
+
+    private static void setAimBlend(Player player, boolean isMainHand, float value) {
+        UUID uuid = player.getUUID();
+        float[] arr = GUN_AIM_BLEND.getOrDefault(uuid, new float[]{0f, 0f});
+        if (isMainHand) arr[0] = value; else arr[1] = value;
+        GUN_AIM_BLEND.put(uuid, arr);
+    }
+
+    private static void removeAimBlend(Player player, boolean isMainHand) {
+        UUID uuid = player.getUUID();
+        float[] arr = GUN_AIM_BLEND.get(uuid);
+        if (arr == null) return;
+        if (isMainHand) arr[0] = 0f; else arr[1] = 0f;
+        if (arr[0] <= 0.001f && arr[1] <= 0.001f) GUN_AIM_BLEND.remove(uuid);
+        else GUN_AIM_BLEND.put(uuid, arr);
+    }
 
     /**
      * Applies procedural poses (gun aiming, whirling strike) to Epic Fight's armature.
@@ -222,23 +248,65 @@ public final class EpicFightAnimationPose {
         if (player.isUsingItem())
             return;
 
-        jaams$applyHandGunAimingPose(armature, pose, player, player.getMainHandItem(),
-                InteractionHand.MAIN_HAND, player.getMainArm());
-        jaams$applyHandGunAimingPose(armature, pose, player, player.getOffhandItem(),
-                InteractionHand.OFF_HAND, player.getMainArm().getOpposite());
+        boolean animationOverride = ModAnimations.isAnimationPlaying(player) || ModAnimations.hasPose(player);
+
+        jaams$updateAndApplyHandBlend(armature, pose, player,
+                player.getMainHandItem(), InteractionHand.MAIN_HAND, player.getMainArm(), true, animationOverride);
+        jaams$updateAndApplyHandBlend(armature, pose, player,
+                player.getOffhandItem(), InteractionHand.OFF_HAND, player.getMainArm().getOpposite(), false, animationOverride);
+    }
+
+    private static void jaams$updateAndApplyHandBlend(Armature armature, Pose pose, Player player,
+            ItemStack stack, InteractionHand hand, HumanoidArm arm, boolean isMainHand, boolean animationOverride) {
+        boolean shouldShowAim = !animationOverride
+                && !player.swinging
+                && jaams$canShowAimingPose(player, stack, isMainHand);
+
+        float targetBlend = shouldShowAim ? 1f : 0f;
+        float currentBlend = getAimBlend(player, isMainHand);
+
+        if (currentBlend < targetBlend) {
+            currentBlend = Math.min(targetBlend, currentBlend + AIM_BLEND_SPEED);
+        } else if (currentBlend > targetBlend) {
+            float speed = player.swinging ? AIM_BLEND_SPEED_SWING : AIM_BLEND_SPEED;
+            currentBlend = Math.max(targetBlend, currentBlend - speed);
+        }
+
+        if (currentBlend <= 0.001f) {
+            removeAimBlend(player, isMainHand);
+            return;
+        }
+        setAimBlend(player, isMainHand, currentBlend);
+
+        jaams$applyHandGunAimingPose(armature, pose, player, stack, hand, arm, currentBlend);
+    }
+
+    private static boolean jaams$canShowAimingPose(Player player, ItemStack stack, boolean isMainHand) {
+        if (stack.isEmpty())
+            return false;
+        ModGuns.GunType gunType = ModGuns.getGunType(stack);
+        if (gunType == null)
+            return false;
+        if (stack.getItem() instanceof CrossbowItem && CrossbowItem.isCharged(stack))
+            return false;
+        String nbtPose = jaams$getPoseFromNBT(stack);
+        if (nbtPose != null) {
+            if ("NONE".equals(nbtPose.toUpperCase()))
+                return false;
+        } else {
+            if (!jaams$shouldHaveAimingPose(gunType))
+                return false;
+        }
+        return jaams$canDisplayPose(player, stack, gunType, isMainHand, player.isCreative());
     }
 
     private static void jaams$applyHandGunAimingPose(Armature armature, Pose pose, Player player,
-            ItemStack stack, InteractionHand hand, HumanoidArm arm) {
+            ItemStack stack, InteractionHand hand, HumanoidArm arm, float aimBlend) {
         if (stack.isEmpty())
             return;
 
         ModGuns.GunType gunType = ModGuns.getGunType(stack);
         if (gunType == null)
-            return;
-        if (player.isUsingItem())
-            return;
-        if (stack.getItem() instanceof CrossbowItem && CrossbowItem.isCharged(stack))
             return;
 
         boolean isMainHand = hand == InteractionHand.MAIN_HAND;
@@ -259,8 +327,14 @@ public final class EpicFightAnimationPose {
             float headYRotOffset = isMainHand ? -0.1F : 0.1F;
             float headXRot = (float) Math.toRadians(player.getXRot());
 
-            jaams$putProceduralArmTransform(armature, pose, jointName,
+            Quaternionf targetRotation = jaams$buildArmRotation(armature, jointName,
                     AIM_X_ROT + headXRot, headYRotOffset, 0.0F);
+
+            JointTransform baseTransform = pose.orElseEmpty(jointName);
+            JointTransform aimTransform = new JointTransform(new Vec3f(0.0F, 0.0F, 0.0F), targetRotation,
+                    new Vec3f(1.0F, 1.0F, 1.0F));
+            JointTransform blended = JointTransform.interpolate(baseTransform, aimTransform, aimBlend);
+            pose.putJointData(jointName, blended);
         }
     }
 
@@ -271,6 +345,13 @@ public final class EpicFightAnimationPose {
      */
     private static void jaams$putProceduralArmTransform(Armature armature, Pose pose, String jointName,
             float xRot, float yRot, float zRot) {
+        Quaternionf rotation = jaams$buildArmRotation(armature, jointName, xRot, yRot, zRot);
+        pose.putJointData(jointName, new JointTransform(new Vec3f(0.0F, 0.0F, 0.0F), rotation,
+                new Vec3f(1.0F, 1.0F, 1.0F)));
+    }
+
+    private static Quaternionf jaams$buildArmRotation(Armature armature, String jointName,
+            float xRot, float yRot, float zRot) {
         Quaternionf chain = computeBindChain(armature, jointName);
         Quaternionf chainInv = new Quaternionf(chain).conjugate();
 
@@ -278,9 +359,7 @@ public final class EpicFightAnimationPose {
         new Quaternionf(chainInv)
                 .mul(new Quaternionf().rotationXYZ(-xRot, yRot, -zRot))
                 .mul(chain, rotation);
-
-        pose.putJointData(jointName, new JointTransform(new Vec3f(0.0F, 0.0F, 0.0F), rotation,
-                new Vec3f(1.0F, 1.0F, 1.0F)));
+        return rotation;
     }
 
     private static boolean jaams$shouldHaveAimingPose(ModGuns.GunType type) {
@@ -388,12 +467,9 @@ public final class EpicFightAnimationPose {
             float injectedX = isTorsoJoint(jointName) ? xRad
                     : isLegJoint(jointName) ? xRad : -xRad;
             float injectedZ = isTorsoJoint(jointName) ? zRad : -zRad;
-            if (animation.headRot && !isFirstPerson && jointName.equals("Head") && entity instanceof Player player) {
+            if (animation.headRot && !isFirstPerson && entity instanceof Player player) {
                 float headPitch = player.getXRot() * ((float) Math.PI / 180F);
-                float headYaw = Mth.clamp(player.yHeadRot - player.yBodyRot, -30.0F, 30.0F)
-                        * ((float) Math.PI / 180F);
                 injectedX -= headPitch;
-                yRad -= headYaw;
             }
             new Quaternionf(chainInv)
                     .mul(new Quaternionf().rotationXYZ(injectedX, yRad, injectedZ))

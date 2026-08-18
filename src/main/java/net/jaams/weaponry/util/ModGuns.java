@@ -748,9 +748,6 @@ public final class ModGuns {
         if (entity.getCooldowns().isOnCooldown(stack.getItem())) {
             return InteractionResultHolder.fail(stack);
         }
-        if (hand == InteractionHand.OFF_HAND && ModUtils.isEntityInBattleMode(entity)) {
-            return InteractionResultHolder.pass(stack);
-        }
         if (world.isClientSide()) {
             boolean openInv = GunSystemClientConfig.GUN_INV_KEY.get().isPressed()
                     && canOpenInventory(stack);

@@ -1,6 +1,7 @@
 package net.jaams.weaponry.handler.trait;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.core.Holder;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.tooltip.trait.HeavyHandedItemTooltip;
@@ -32,6 +33,10 @@ public class HeavyHandedHandler {
             return;
         if (!TraitsConfig.HEAVY_HANDED.get())
             return;
+        if (player.hasEffect(MobEffects.DAMAGE_BOOST)) {
+            removeDebuffs(player);
+            return;
+        }
 
         ItemStack mainHand = player.getMainHandItem();
         ItemStack offHand = player.getOffhandItem();
