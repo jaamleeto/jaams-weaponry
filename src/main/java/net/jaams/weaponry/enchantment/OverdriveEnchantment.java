@@ -6,6 +6,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.EquipmentSlot;
 
+import net.jaams.weaponry.util.ModTags;
 import net.jaams.weaponry.configuration.common.EnchantmentsConfig;
 
 public class OverdriveEnchantment extends Enchantment {
@@ -29,8 +30,13 @@ public class OverdriveEnchantment extends Enchantment {
 	}
 
 	@Override
+	public boolean canEnchant(ItemStack stack) {
+		return EnchantmentsConfig.OVERDRIVE.get() && stack.is(ModTags.ENCHANTABLE_OVERDRIVE);
+	}
+
+	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return EnchantmentsConfig.OVERDRIVE.get() && super.canApplyAtEnchantingTable(stack);
+		return EnchantmentsConfig.OVERDRIVE.get() && stack.is(ModTags.ENCHANTABLE_OVERDRIVE);
 	}
 
 	@Override

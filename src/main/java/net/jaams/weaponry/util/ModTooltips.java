@@ -64,6 +64,8 @@ public class ModTooltips {
     }
 
     public static void addStat(ItemStack stack, List<Component> tooltip, String key, double value) {
+        if (value <= 0)
+            return;
         if (!canAddTooltip(stack, true, false, TooltipsConfig.EXCLUDED_CONTROL_TOOLTIPS_ITEMS.get()))
             return;
         double rounded = roundToTwoDecimals(value);
@@ -74,6 +76,8 @@ public class ModTooltips {
     }
 
     public static void addStatText(ItemStack stack, List<Component> tooltip, String key, String value) {
+        if (value == null || value.isEmpty())
+            return;
         if (!canAddTooltip(stack, true, false, TooltipsConfig.EXCLUDED_CONTROL_TOOLTIPS_ITEMS.get()))
             return;
         tooltip.add(Component.translatable("tooltip.jaams_weaponry.properties." + key, value)
@@ -81,6 +85,8 @@ public class ModTooltips {
     }
 
     public static void addStatInt(ItemStack stack, List<Component> tooltip, String key, int value) {
+        if (value <= 0)
+            return;
         if (!canAddTooltip(stack, true, false, TooltipsConfig.EXCLUDED_CONTROL_TOOLTIPS_ITEMS.get()))
             return;
         tooltip.add(Component.translatable("tooltip.jaams_weaponry.properties." + key, value)

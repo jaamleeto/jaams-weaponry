@@ -27,10 +27,7 @@ public class ArthropodGrudgeItemTooltip {
 			return;
 		}
 		ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.arthropod_grudge", ChatFormatting.GOLD);
-		float bonusDamage = getBonusDamage(stack, tag);
-		if (bonusDamage > 0.0F) {
-			ModTooltips.addStat(stack, tooltip, "arthropod_grudge.bonus_damage", ModTooltips.roundToTwoDecimals(bonusDamage));
-		}
+		ModTooltips.addStat(stack, tooltip, "arthropod_grudge.bonus_damage", getBonusDamage(stack, tag));
 	}
 
 	private static float getBonusDamage(ItemStack stack, CompoundTag tag) {

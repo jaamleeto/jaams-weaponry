@@ -50,10 +50,7 @@ public class QuickCraftingItemTooltip {
 	}
 
 	private static void addCooldownLine(ItemStack stack, CompoundTag tag, List<Component> tooltip) {
-		int cooldownTicks = getCooldown(stack, tag);
-		if (cooldownTicks > 0) {
-			ModTooltips.addStat(stack, tooltip, "cooldown", cooldownTicks / 20.0);
-		}
+		ModTooltips.addStat(stack, tooltip, "cooldown", getCooldown(stack, tag) / 20.0);
 	}
 
 	private static String getIngredient(ItemStack stack, CompoundTag tag) {

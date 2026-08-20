@@ -15,6 +15,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.PIERCER_STRIKE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "piercer_strike"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("PiercerStrikeTrait")) {
             return tag.getBoolean("PiercerStrikeTrait");
@@ -29,6 +31,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.DUELIST.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "duelist"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("DuelistTrait")) {
@@ -45,6 +49,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.THREAT_RESPONSE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "threat_response"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("ThreatResponseTrait")) {
             return tag.getBoolean("ThreatResponseTrait");
@@ -59,6 +65,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.REACH_ADVANTAGE.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "reach_advantage"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("ReachAdvantageTrait")) {
@@ -75,6 +83,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.AFTER_STRIKE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "after_strike"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("AfterStrikeTrait")) {
             return tag.getBoolean("AfterStrikeTrait");
@@ -89,6 +99,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.QUICK_CRAFTING.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "quick_crafting"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("QuickCraftingTrait")) {
@@ -105,6 +117,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.AQUATIC_GRUDGE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "aquatic_grudge"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("AquaticGrudgeTrait")) {
             return tag.getBoolean("AquaticGrudgeTrait");
@@ -119,6 +133,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.ARTHROPOD_GRUDGE.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "arthropod_grudge"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("ArthropodGrudgeTrait")) {
@@ -135,6 +151,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.UNDEAD_GRUDGE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "undead_grudge"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("UndeadGrudgeTrait")) {
             return tag.getBoolean("UndeadGrudgeTrait");
@@ -149,6 +167,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.TRAITOR_GRUDGE.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "traitor_grudge"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("TraitorGrudgeTrait")) {
@@ -165,6 +185,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.SNOUT_GRUDGE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "snout_grudge"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("SnoutGrudgeTrait")) {
             return tag.getBoolean("SnoutGrudgeTrait");
@@ -179,6 +201,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.BONE_GRUDGE.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "bone_grudge"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("BoneGrudgeTrait")) {
@@ -198,6 +222,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.ANTI_AERIAL.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "anti_aerial"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("AntiAerialTrait")) {
             return tag.getBoolean("AntiAerialTrait");
@@ -212,6 +238,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.ROTTEN_GRUDGE.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "rotten_grudge"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("RottenGrudgeTrait")) {
@@ -228,6 +256,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.FRAGILITY.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "fragility"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("FragilityTrait")) {
             return tag.getBoolean("FragilityTrait");
@@ -242,6 +272,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.SLIPPERY.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "slippery"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("SlipperyTrait")) {
@@ -258,6 +290,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.EXHAUSTING.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "exhausting"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("ExhaustingTrait")) {
             return tag.getBoolean("ExhaustingTrait");
@@ -272,6 +306,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.BRITTLE_HANDLE.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "brittle_handle"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("BrittleHandleTrait")) {
@@ -288,6 +324,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.BARBED_HANDLE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "barbed_handle"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("BarbedHandleTrait")) {
             return tag.getBoolean("BarbedHandleTrait");
@@ -302,6 +340,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.OVERSTRAIN.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "overstrain"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("OverstrainTrait")) {
@@ -318,6 +358,8 @@ public class ModTraits {
             return false;
         if (!TraitsConfig.UNSTABLE_EDGE.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, "unstable_edge"))
+            return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("UnstableEdgeTrait")) {
             return tag.getBoolean("UnstableEdgeTrait");
@@ -332,6 +374,8 @@ public class ModTraits {
         if (stack == null || stack.isEmpty())
             return false;
         if (!TraitsConfig.DETONATING.get())
+            return false;
+        if (TraitModifierData.isTraitDisabled(stack, "detonating"))
             return false;
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("DetonatingTrait")) {
@@ -485,6 +529,9 @@ public class ModTraits {
             String jsonKey, TagKey<Item> tag) {
         if (stack == null || stack.isEmpty() || !config.get())
             return false;
+        if (TraitModifierData.isTraitDisabled(stack, jsonKey)) {
+            return false;
+        }
         CompoundTag compoundTag = stack.getTag();
         if (compoundTag != null && compoundTag.contains(nbtKey)) {
             return compoundTag.getBoolean(nbtKey);

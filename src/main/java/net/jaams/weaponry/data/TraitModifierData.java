@@ -14,13 +14,22 @@ public class TraitModifierData {
     public String condition_mode = "and";
     public List<Condition> conditions = new ArrayList<>();
     public List<String> active_traits = new ArrayList<>();
+    public List<String> disabled_traits = new ArrayList<>();
     public TraitsEntry traits = new TraitsEntry();
     public ProjectileTraitsEntry projectile_traits = new ProjectileTraitsEntry();
 
     public boolean hasTrait(String traitName) {
         if (active_traits == null)
             return false;
+        if (hasDisabledTrait(traitName))
+            return false;
         return active_traits.stream().anyMatch((t) -> t.equalsIgnoreCase(traitName));
+    }
+
+    public boolean hasDisabledTrait(String traitName) {
+        if (disabled_traits == null)
+            return false;
+        return disabled_traits.stream().anyMatch((t) -> t.equalsIgnoreCase(traitName));
     }
 
     public static class Condition {
@@ -635,7 +644,13 @@ public class TraitModifierData {
 
     public static boolean isTraitActive(ItemStack stack, String traitName) {
         return getData(stack)
-                .map((d) -> d.hasTrait(traitName))
+                .map((d) -> d.hasTrait(traitName) && !d.hasDisabledTrait(traitName))
+                .orElse(false);
+    }
+
+    public static boolean isTraitDisabled(ItemStack stack, String traitName) {
+        return getData(stack)
+                .map((d) -> d.hasDisabledTrait(traitName))
                 .orElse(false);
     }
 

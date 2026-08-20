@@ -45,80 +45,11 @@ public abstract class ForgeItemMixin implements IForgeItem, ItemInjection {
             }
         }
 
-
-        if (stack.is(ModTags.BROOMS)) {
-            if (enchantment == Enchantments.LOYALTY
-                    || enchantment == Enchantments.MULTISHOT) {
-                return true;
-            }
-            if (enchantment == Enchantments.SMITE
-                    || enchantment == Enchantments.SHARPNESS
-                    || enchantment == Enchantments.FIRE_ASPECT
-                    || enchantment == Enchantments.MOB_LOOTING) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.CLAWS)) {
-            if (enchantment == Enchantments.SWEEPING_EDGE) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.CLEAVERS)) {
+        if (ModCompats.isThrowableActive(stack)) {
             if (enchantment == Enchantments.PIERCING
                     || enchantment == Enchantments.LOYALTY
                     || enchantment == Enchantments.MULTISHOT) {
                 return true;
-            }
-        }
-
-        if (stack.is(ModTags.DAGGERS)) {
-            if (enchantment == Enchantments.SWEEPING_EDGE) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.REVERSE_DAGGERS)) {
-            if (enchantment == Enchantments.SWEEPING_EDGE) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.HOOK_SWORDS)) {
-            if (enchantment == Enchantments.SWEEPING_EDGE) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.KATARS)) {
-            if (enchantment == Enchantments.SWEEPING_EDGE) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.KNUCKLES)) {
-            if (enchantment == Enchantments.SWEEPING_EDGE) {
-                return false;
-            }
-        }
-
-        if (stack.is(ModTags.RINGS)) {
-            if (enchantment == Enchantments.PIERCING
-                    || enchantment == Enchantments.LOYALTY
-                    || enchantment == Enchantments.MULTISHOT) {
-                return true;
-            }
-        }
-
-        if (stack.is(ModTags.SPEARS)) {
-            if (enchantment == Enchantments.LOYALTY
-                    || enchantment == Enchantments.PIERCING
-                    || enchantment == Enchantments.MULTISHOT) {
-                return true;
-            }
-            if (enchantment == Enchantments.SWEEPING_EDGE) {
-                return false;
             }
         }
 

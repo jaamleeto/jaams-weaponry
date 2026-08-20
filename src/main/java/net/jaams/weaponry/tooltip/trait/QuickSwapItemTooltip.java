@@ -99,14 +99,8 @@ public class QuickSwapItemTooltip {
     }
 
     private static void addCooldownLines(ItemStack stack, List<Component> tooltip) {
-        int mainHandCooldown = getMainHandCooldown(stack);
-        int offHandCooldown = getOffHandCooldown(stack);
-        if (mainHandCooldown > 0) {
-            ModTooltips.addStat(stack, tooltip, "main_hand_cooldown", mainHandCooldown / 20.0);
-        }
-        if (offHandCooldown > 0) {
-            ModTooltips.addStat(stack, tooltip, "off_hand_cooldown", offHandCooldown / 20.0);
-        }
+        ModTooltips.addStat(stack, tooltip, "main_hand_cooldown", getMainHandCooldown(stack) / 20.0);
+        ModTooltips.addStat(stack, tooltip, "off_hand_cooldown", getOffHandCooldown(stack) / 20.0);
     }
 
     private static String getTargetItemId(ItemStack stack) {

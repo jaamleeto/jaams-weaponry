@@ -32,11 +32,7 @@ public class ThreatResponseItemTooltip {
     }
 
     private static void addDamageBonusLine(ItemStack stack, CompoundTag tag, List<Component> tooltip) {
-        float bonusDamage = getBonusDamage(stack, tag);
-        if (bonusDamage > 0.0F) {
-            double roundedDamage = ModTooltips.roundToTwoDecimals(bonusDamage);
-            ModTooltips.addStat(stack, tooltip, "threat_response.bonus_damage", roundedDamage);
-        }
+        ModTooltips.addStat(stack, tooltip, "threat_response.bonus_damage", getBonusDamage(stack, tag));
     }
 
     private static float getBonusDamage(ItemStack stack, CompoundTag tag) {

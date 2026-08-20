@@ -163,39 +163,44 @@ public abstract class BaseGunGUIMenu extends AbstractContainerMenu implements Su
 		Slot slot = slots.get(index);
 		if (slot == null || !slot.hasItem())
 			return ItemStack.EMPTY;
+
 		ItemStack stackInSlot = slot.getItem();
+
 		if (!boundItemStack.isEmpty() && ItemStack.matches(stackInSlot, boundItemStack)) {
 			return ItemStack.EMPTY;
 		}
-		if (!isClosing && !boundItemStack.isEmpty() && ItemStack.matches(stackInSlot, boundItemStack)) {
-			isClosing = true;
-			playerIn.closeContainer();
-			return ItemStack.EMPTY;
-		}
+
 		ItemStack original = stackInSlot.copy();
 		int customCount = getSlotCount();
+		boolean moved = false;
+
 		if (index < customCount) {
-			if (!moveItemStackTo(stackInSlot, customCount, slots.size(), true))
-				return ItemStack.EMPTY;
-			slot.onQuickCraft(stackInSlot, original);
+			moved = moveItemStackTo(stackInSlot, customCount, slots.size(), true);
+			if (moved) {
+				slot.onQuickCraft(stackInSlot, original);
+			}
+		} else if (index < customCount + 27) {
+			if (moveItemStackTo(stackInSlot, 0, customCount, false)) {
+				moved = true;
+			} else {
+				moved = moveItemStackTo(stackInSlot, customCount + 27, slots.size(), true);
+			}
 		} else {
-			if (!moveItemStackTo(stackInSlot, 0, customCount, false)) {
-				if (index < customCount + 27) {
-					if (!moveItemStackTo(stackInSlot, customCount + 27, slots.size(), true))
-						return ItemStack.EMPTY;
-				} else {
-					if (!moveItemStackTo(stackInSlot, customCount, customCount + 27, false))
-						return ItemStack.EMPTY;
-				}
-				return ItemStack.EMPTY;
+			if (moveItemStackTo(stackInSlot, 0, customCount, false)) {
+				moved = true;
+			} else {
+				moved = moveItemStackTo(stackInSlot, customCount, customCount + 27, false);
 			}
 		}
+
 		if (stackInSlot.getCount() == 0)
 			slot.set(ItemStack.EMPTY);
 		else
 			slot.setChanged();
-		if (stackInSlot.getCount() == original.getCount())
+
+		if (!moved || stackInSlot.getCount() == original.getCount())
 			return ItemStack.EMPTY;
+
 		slot.onTake(playerIn, stackInSlot);
 		return original;
 	}

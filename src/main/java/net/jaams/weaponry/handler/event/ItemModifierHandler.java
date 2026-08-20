@@ -61,8 +61,10 @@ public class ItemModifierHandler {
             if (!checkConditions(stack, data))
                 continue;
             applyNbt(stack, data);
-            if (data.appliesToSlot(slot)) {
-                applyAttributes(event, data, slot);
+            for (ItemModifierData.ModifierEntry modifierEntry : data.getAllModifierEntries()) {
+                if (modifierEntry.slots.isEmpty() || modifierEntry.slots.contains(slot.getName())) {
+                    applyAttributes(event, modifierEntry);
+                }
             }
         }
     }
@@ -181,8 +183,8 @@ public class ItemModifierHandler {
         }
     }
 
-    private static void applyAttributes(ItemAttributeModifierEvent event, ItemModifierData data, EquipmentSlot slot) {
-        for (ItemModifierData.AttributeEntry entry : data.modifiers.attributes) {
+    private static void applyAttributes(ItemAttributeModifierEvent event, ItemModifierData.ModifierEntry modifierEntry) {
+        for (ItemModifierData.AttributeEntry entry : modifierEntry.attributes) {
             ResourceLocation attrLoc = ResourceLocation.tryParse(entry.attribute);
             if (attrLoc == null)
                 continue;
@@ -195,7 +197,7 @@ public class ItemModifierHandler {
                 default -> AttributeModifier.Operation.ADDITION;
             };
             UUID uuid = entry.uuid != null ? entry.uuid
-                    : UUID.nameUUIDFromBytes((data.toString() + "|" + slot.getName() + "|" + entry.name)
+                    : UUID.nameUUIDFromBytes((entry.name + "|" + modifierEntry.slots.toString())
                             .getBytes(StandardCharsets.UTF_8));
             AttributeModifier modifier = new AttributeModifier(uuid, entry.name, entry.amount, operation);
             event.addModifier(attribute, modifier);

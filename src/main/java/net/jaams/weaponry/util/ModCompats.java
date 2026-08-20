@@ -86,4 +86,13 @@ public class ModCompats {
 	public static boolean isDynamiteThrowable(ItemStack stack) {
 		return ThrowableTypeData.isThrowableType(stack, "DYNAMITE");
 	}
+
+	public static boolean isThrowableActive(ItemStack stack) {
+		if (stack == null || stack.isEmpty())
+			return false;
+		ThrowableTypeData type = ThrowableTypeData.getType(stack);
+		if (type == null)
+			return false;
+		return ThrowableTypeData.isEnabled(type.name);
+	}
 }

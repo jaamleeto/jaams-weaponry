@@ -38,16 +38,10 @@ public class AfterStrikeItemTooltip {
         double attackIntervalSeconds = attackIntervalTicks / 20.0;
         ModTooltips.addStat(stack, tooltip, "after_strike.attack_interval", attackIntervalSeconds);
         if (TooltipsConfig.TOOLTIP_AFTER_STRIKE_DAMAGE_MODIFIERS.get()) {
-            float initialModifier = getInitialDamageModifier(stack, tag);
-            if (initialModifier > 0.0F) {
-                double roundedInitial = ModTooltips.roundToTwoDecimals(initialModifier * 100.0F);
-                ModTooltips.addStat(stack, tooltip, "after_strike.initial_modifier", roundedInitial);
-            }
-            float decayFactor = getDamageDecayFactor(stack, tag);
-            if (decayFactor > 0.0F) {
-                double roundedDecay = ModTooltips.roundToTwoDecimals(decayFactor * 100.0F);
-                ModTooltips.addStat(stack, tooltip, "after_strike.decay_factor", roundedDecay);
-            }
+            ModTooltips.addStat(stack, tooltip, "after_strike.initial_modifier",
+                    ModTooltips.roundToTwoDecimals(getInitialDamageModifier(stack, tag) * 100.0F));
+            ModTooltips.addStat(stack, tooltip, "after_strike.decay_factor",
+                    ModTooltips.roundToTwoDecimals(getDamageDecayFactor(stack, tag) * 100.0F));
         }
     }
 

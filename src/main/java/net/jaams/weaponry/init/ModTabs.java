@@ -394,8 +394,7 @@ public class ModTabs {
         safeAddItem(list, ModItems.GOLDEN_PISTOL);
         safeAddItem(list, ModItems.HEAVY_GOLD_INGOT);
         safeAddItem(list, ModItems.DOUBLE_GOLD_INGOT);
-        if (ModList.get().isLoaded("cavesanddepths") || ModList.get().isLoaded("oooh_pinky")
-                || ModList.get().isLoaded("justrosegold")) {
+        if (ModList.get().isLoaded("cavesanddepths")) {
             safeAddItem(list, ModItems.ROSEGOLD_DAGGER);
             safeAddItem(list, ModItems.ROSEGOLD_KNUCKLE);
             safeAddItem(list, ModItems.ROSEGOLD_CLEAVER);

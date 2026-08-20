@@ -122,19 +122,23 @@ public class ThrowableItemData {
     }
 
     public static ThrowableEntry getThrowableData(ItemStack stack) {
-        return getData(stack).map(d -> d.throwable).orElse(null);
+        ThrowableItemData data = getData(stack).orElse(null);
+        return data != null && data.throwable != null ? data.throwable : new ThrowableEntry();
     }
 
     public static RenderEntry getRenderConfig(ItemStack stack) {
-        return getData(stack).map(d -> d.render).orElse(null);
+        ThrowableItemData data = getData(stack).orElse(null);
+        return data != null && data.render != null ? data.render : new RenderEntry();
     }
 
     public static TrailEntry getTrailConfig(ItemStack stack) {
-        return getData(stack).map(d -> d.trail).orElse(null);
+        ThrowableItemData data = getData(stack).orElse(null);
+        return data != null && data.trail != null ? data.trail : new TrailEntry();
     }
 
     public static ProjectileEntry getProjectileConfig(ItemStack stack) {
-        return getData(stack).map(d -> d.projectile).orElse(null);
+        ThrowableItemData data = getData(stack).orElse(null);
+        return data != null && data.projectile != null ? data.projectile : new ProjectileEntry();
     }
 
     public static ItemDisplayContext parseDisplayContext(String context) {

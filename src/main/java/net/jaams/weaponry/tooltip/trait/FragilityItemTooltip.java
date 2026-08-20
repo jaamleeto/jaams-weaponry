@@ -31,12 +31,8 @@ public class FragilityItemTooltip {
         double chance = ModTooltips.roundToTwoDecimals(getBreakChance(stack, tag) * 100.0);
         ModTooltips.addStat(stack, tooltip, "fragility.break_chance", chance);
 
-        
-        float threshold = getMinDurabilityThreshold(stack, tag);
-        if (threshold > 0.0F) {
-            double thresholdPercent = ModTooltips.roundToTwoDecimals(threshold * 100.0);
-            ModTooltips.addStat(stack, tooltip, "fragility.min_durability_threshold", thresholdPercent);
-        }
+        ModTooltips.addStat(stack, tooltip, "fragility.min_durability_threshold",
+                ModTooltips.roundToTwoDecimals(getMinDurabilityThreshold(stack, tag) * 100.0));
 
         
         String remainingItemId = getRemainingItemId(stack, tag);

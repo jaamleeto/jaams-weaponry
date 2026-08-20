@@ -51,7 +51,7 @@ public class ThrowableShurikenTooltip {
     }
 
     private static boolean hasJsonThrowable(ItemStack stack) {
-        return !ThrowableModifierLoader.INSTANCE.getForItem(stack.getItem()).isEmpty();
+        return ThrowableModifierLoader.INSTANCE.getDataForStack(stack).isPresent();
     }
 
     private static boolean isShuriken(ItemStack stack) {
@@ -124,14 +124,10 @@ public class ThrowableShurikenTooltip {
                 TraitsConfig.DISABLING_SHOT_SHURIKEN_PROJECTILE_COOLDOWN.get());
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.disabling_shot",
                 ChatFormatting.YELLOW);
-        if (chance > 0.0) {
-            ModTooltips.addStat(stack, tooltip, "disabling_shot_chance",
-                    ModTooltips.roundToTwoDecimals(chance * 100.0));
-        }
-        if (cooldownTicks > 0) {
-            ModTooltips.addStat(stack, tooltip, "disabling_shot_cooldown",
-                    ModTooltips.roundToTwoDecimals(cooldownTicks / 20.0));
-        }
+        ModTooltips.addStat(stack, tooltip, "disabling_shot_chance",
+                ModTooltips.roundToTwoDecimals(chance * 100.0));
+        ModTooltips.addStat(stack, tooltip, "disabling_shot_cooldown",
+                ModTooltips.roundToTwoDecimals(cooldownTicks / 20.0));
     }
 
     private static void addBaseDamage(ItemStack stack, List<Component> tooltip) {
@@ -154,9 +150,7 @@ public class ThrowableShurikenTooltip {
         } else {
             knockback = ProjectileCommonConfig.SHURIKEN_PROJECTILE_BASE_KNOCKBACK.get();
         }
-        if (knockback > 0.0) {
-            ModTooltips.addStat(stack, tooltip, "base_knockback", ModTooltips.roundToTwoDecimals(knockback));
-        }
+        ModTooltips.addStat(stack, tooltip, "base_knockback", ModTooltips.roundToTwoDecimals(knockback));
     }
 
     private static void addChargeTimesIfApplicable(ItemStack stack, List<Component> tooltip, boolean isInstant) {
@@ -170,10 +164,8 @@ public class ThrowableShurikenTooltip {
         if (maxCharge == null || maxCharge <= 0) {
             maxCharge = ThrowableConfig.THROWABLE_SHURIKEN_MAX_CHARGE.get();
         }
-        if (minCharge > 0) {
-            ModTooltips.addStat(stack, tooltip, "min_charge", ModTooltips.roundToTwoDecimals(minCharge / 20.0));
-        }
-        if (maxCharge > 0 && maxCharge != 72000) {
+        ModTooltips.addStat(stack, tooltip, "min_charge", ModTooltips.roundToTwoDecimals(minCharge / 20.0));
+        if (maxCharge != 72000) {
             ModTooltips.addStat(stack, tooltip, "max_charge", ModTooltips.roundToTwoDecimals(maxCharge / 20.0));
         }
     }
@@ -186,14 +178,10 @@ public class ThrowableShurikenTooltip {
         double maxSpeed = (maxSpeedNBT != null && maxSpeedNBT > 0) ? maxSpeedNBT
                 : ThrowableConfig.THROWABLE_SHURIKEN_MAX_SPEED.get().doubleValue();
         if (isInstant) {
-            if (maxSpeed > 0.0) {
-                ModTooltips.addStat(stack, tooltip, "throw_speed", ModTooltips.roundToTwoDecimals(maxSpeed));
-            }
+            ModTooltips.addStat(stack, tooltip, "throw_speed", ModTooltips.roundToTwoDecimals(maxSpeed));
         } else {
-            if (minSpeed > 0.0)
-                ModTooltips.addStat(stack, tooltip, "min_speed", ModTooltips.roundToTwoDecimals(minSpeed));
-            if (maxSpeed > 0.0)
-                ModTooltips.addStat(stack, tooltip, "max_speed", ModTooltips.roundToTwoDecimals(maxSpeed));
+            ModTooltips.addStat(stack, tooltip, "min_speed", ModTooltips.roundToTwoDecimals(minSpeed));
+            ModTooltips.addStat(stack, tooltip, "max_speed", ModTooltips.roundToTwoDecimals(maxSpeed));
         }
     }
 
@@ -201,9 +189,7 @@ public class ThrowableShurikenTooltip {
         Double inaccuracyNBT = ModUtils.getDoubleNBT(stack, "ThrowableInaccuracy");
         double inaccuracy = (inaccuracyNBT != null && inaccuracyNBT > 0) ? inaccuracyNBT
                 : ThrowableConfig.THROWABLE_SHURIKEN_INACCURACY.get().doubleValue();
-        if (inaccuracy > 0.1) {
-            ModTooltips.addStat(stack, tooltip, "inaccuracy", ModTooltips.roundToTwoDecimals(inaccuracy));
-        }
+        ModTooltips.addStat(stack, tooltip, "inaccuracy", ModTooltips.roundToTwoDecimals(inaccuracy));
     }
 
     private static void addPiercingLevel(ItemStack stack, List<Component> tooltip) {
@@ -213,9 +199,7 @@ public class ThrowableShurikenTooltip {
             piercingLevel = Math.max(0, nbtPiercing);
         }
         piercingLevel += EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
-        if (piercingLevel > 0) {
-            ModTooltips.addStat(stack, tooltip, "piercing_level", piercingLevel);
-        }
+        ModTooltips.addStat(stack, tooltip, "piercing_level", piercingLevel);
     }
 
     private static void addCooldownIfInstant(ItemStack stack, List<Component> tooltip, boolean isInstant) {
@@ -231,9 +215,7 @@ public class ThrowableShurikenTooltip {
         Double recoilNBT = ModUtils.getDoubleNBT(stack, "ThrowableRecoil");
         double recoil = (recoilNBT != null && recoilNBT >= 0) ? recoilNBT
                 : ThrowableConfig.THROWABLE_SHURIKEN_RECOIL.get().doubleValue();
-        if (recoil > 0.0) {
-            ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
-        }
+        ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
     }
 
     private static void addWaterInertia(ItemStack stack, List<Component> tooltip) {

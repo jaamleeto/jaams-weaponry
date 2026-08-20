@@ -26,10 +26,7 @@ public class AntiAerialItemTooltip {
             return;
         }
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.anti_aerial", ChatFormatting.GOLD);
-        float bonusDamage = getBonusDamage(stack, tag);
-        if (bonusDamage > 0.0F) {
-            ModTooltips.addStat(stack, tooltip, "anti_aerial.bonus_damage", ModTooltips.roundToTwoDecimals(bonusDamage));
-        }
+        ModTooltips.addStat(stack, tooltip, "anti_aerial.bonus_damage", getBonusDamage(stack, tag));
     }
 
     private static float getBonusDamage(ItemStack stack, CompoundTag tag) {

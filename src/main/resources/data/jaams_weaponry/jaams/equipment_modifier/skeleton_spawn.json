@@ -3,9 +3,19 @@
         "minecraft:skeleton"
     ],
     "priority": 10,
+    "global_chance": 0.7,
     "condition_mode": "and",
     "conditions": [],
     "items": [
+        {
+            "item": "minecraft:bow",
+            "slot": "mainhand",
+            "chance": 0.5,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
         {
             "item": "jaams_weaponry:short_bow",
             "slot": "mainhand",

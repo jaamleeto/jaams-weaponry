@@ -8,9 +8,15 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
+import net.jaams.weaponry.item.CompoundBowItem;
+import net.jaams.weaponry.item.FlatBowItem;
+import net.jaams.weaponry.item.HuntersBowItem;
+import net.jaams.weaponry.item.RoyalBowItem;
+import net.jaams.weaponry.item.ShortBowItem;
 import net.jaams.weaponry.loader.EquipmentModifierLoader;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -62,6 +68,28 @@ public abstract class SkeletonMixin {
             } else {
                 skeleton.goalSelector.addGoal(4, meleeGoal);
             }
+        }
+    }
+
+    @Inject(at = @At("HEAD"), method = "performRangedAttack(Lnet/minecraft/world/entity/LivingEntity;F)V", cancellable = true)
+    private void performRangedAttack(LivingEntity target, float velocity, CallbackInfo callback) {
+        AbstractSkeleton skeleton = (AbstractSkeleton) (Object) this;
+        ItemStack mainHand = skeleton.getItemInHand(InteractionHand.MAIN_HAND);
+        if (mainHand.getItem() instanceof ShortBowItem) {
+            ((ShortBowItem) mainHand.getItem()).performMobRangedAttack(skeleton.level(), skeleton, target, velocity);
+            callback.cancel();
+        } else if (mainHand.getItem() instanceof CompoundBowItem) {
+            ((CompoundBowItem) mainHand.getItem()).performMobRangedAttack(skeleton.level(), skeleton, target, velocity);
+            callback.cancel();
+        } else if (mainHand.getItem() instanceof FlatBowItem) {
+            ((FlatBowItem) mainHand.getItem()).performMobRangedAttack(skeleton.level(), skeleton, target, velocity);
+            callback.cancel();
+        } else if (mainHand.getItem() instanceof HuntersBowItem) {
+            ((HuntersBowItem) mainHand.getItem()).performMobRangedAttack(skeleton.level(), skeleton, target, velocity);
+            callback.cancel();
+        } else if (mainHand.getItem() instanceof RoyalBowItem) {
+            ((RoyalBowItem) mainHand.getItem()).performMobRangedAttack(skeleton.level(), skeleton, target, velocity);
+            callback.cancel();
         }
     }
 }

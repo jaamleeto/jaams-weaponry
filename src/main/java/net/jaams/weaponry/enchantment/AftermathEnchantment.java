@@ -6,6 +6,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.EquipmentSlot;
 
+import net.jaams.weaponry.util.ModTags;
 import net.jaams.weaponry.configuration.common.EnchantmentsConfig;
 
 public class AftermathEnchantment extends Enchantment {
@@ -29,8 +30,13 @@ public class AftermathEnchantment extends Enchantment {
 	}
 
 	@Override
+	public boolean canEnchant(ItemStack stack) {
+		return EnchantmentsConfig.AFTERMATH.get() && stack.is(ModTags.ENCHANTABLE_AFTERMATH);
+	}
+
+	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return EnchantmentsConfig.AFTERMATH.get() && super.canApplyAtEnchantingTable(stack);
+		return EnchantmentsConfig.AFTERMATH.get() && stack.is(ModTags.ENCHANTABLE_AFTERMATH);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 import net.jaams.weaponry.configuration.client.TooltipsConfig;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.data.TraitModifierData;
+import net.jaams.weaponry.init.ModEnchantments;
 import net.jaams.weaponry.util.ModTooltips;
 import net.jaams.weaponry.util.ModTraits;
 import net.minecraft.ChatFormatting;
@@ -18,6 +19,10 @@ public class SlipperyItemTooltip {
             return;
         }
         if (!ModTraits.isSlipperyItem(stack)) {
+            return;
+        }
+        // Secure Grip enchantment prevents the Slippery trait from working
+        if (stack.getEnchantmentLevel(ModEnchantments.SECURE_GRIP.get()) > 0) {
             return;
         }
         CompoundTag tag = stack.getTag();

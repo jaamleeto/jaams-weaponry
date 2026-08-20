@@ -137,11 +137,9 @@ public class ThrowableItemTooltip {
         if (throwMode == ModEnums.ThrowMode.INSTANT_ON_RIGHT_CLICK)
             return;
         int minCharge = getMinChargeTicks(stack, json, type);
-        if (minCharge > 0) {
-            ModTooltips.addStat(stack, tooltip, "min_charge", ModTooltips.roundToTwoDecimals(minCharge / 20.0));
-        }
+        ModTooltips.addStat(stack, tooltip, "min_charge", ModTooltips.roundToTwoDecimals(minCharge / 20.0));
         int maxCharge = getMaxChargeTicks(stack, json, type);
-        if (maxCharge > 0 && maxCharge != 72000) {
+        if (maxCharge != 72000) {
             ModTooltips.addStat(stack, tooltip, "max_charge", ModTooltips.roundToTwoDecimals(maxCharge / 20.0));
         }
     }
@@ -150,33 +148,25 @@ public class ThrowableItemTooltip {
             ThrowableItemData.ThrowableEntry json, ThrowableTypeData type) {
         if (throwMode == ModEnums.ThrowMode.INSTANT_ON_RIGHT_CLICK) {
             float speed = getMaxSpeed(stack, json, type);
-            if (speed > 0.0f) {
-                ModTooltips.addStat(stack, tooltip, "throw_speed", ModTooltips.roundToTwoDecimals(speed));
-            }
+            ModTooltips.addStat(stack, tooltip, "throw_speed", ModTooltips.roundToTwoDecimals(speed));
         } else {
             float minSpeed = getMinSpeed(stack, json, type);
             float maxSpeed = getMaxSpeed(stack, json, type);
-            if (minSpeed > 0.0f)
-                ModTooltips.addStat(stack, tooltip, "min_speed", ModTooltips.roundToTwoDecimals(minSpeed));
-            if (maxSpeed > 0.0f)
-                ModTooltips.addStat(stack, tooltip, "max_speed", ModTooltips.roundToTwoDecimals(maxSpeed));
+            ModTooltips.addStat(stack, tooltip, "min_speed", ModTooltips.roundToTwoDecimals(minSpeed));
+            ModTooltips.addStat(stack, tooltip, "max_speed", ModTooltips.roundToTwoDecimals(maxSpeed));
         }
     }
 
     private static void addInaccuracy(ItemStack stack, List<Component> tooltip, ThrowableItemData.ThrowableEntry json,
             ThrowableTypeData type) {
         float inaccuracy = getInaccuracy(stack, json, type);
-        if (inaccuracy > 0.1) {
-            ModTooltips.addStat(stack, tooltip, "inaccuracy", ModTooltips.roundToTwoDecimals(inaccuracy));
-        }
+        ModTooltips.addStat(stack, tooltip, "inaccuracy", ModTooltips.roundToTwoDecimals(inaccuracy));
     }
 
     private static void addRecoil(ItemStack stack, List<Component> tooltip, ThrowableItemData.ThrowableEntry json,
             ThrowableTypeData type) {
         float recoil = getRecoil(stack, json, type);
-        if (recoil > 0.0) {
-            ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
-        }
+        ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
     }
 
     private static double getRealBaseDamage(ItemStack stack, ThrowableItemData.ThrowableEntry json,
@@ -204,17 +194,13 @@ public class ThrowableItemTooltip {
     private static void addRealBaseDamage(ItemStack stack, List<Component> tooltip,
             ThrowableItemData.ThrowableEntry json, ThrowableTypeData type) {
         double damage = getRealBaseDamage(stack, json, type);
-        if (damage > 0.0) {
-            ModTooltips.addStat(stack, tooltip, "base_damage", ModTooltips.roundToTwoDecimals(damage));
-        }
+        ModTooltips.addStat(stack, tooltip, "base_damage", ModTooltips.roundToTwoDecimals(damage));
     }
 
     private static void addRealBaseKnockback(ItemStack stack, List<Component> tooltip,
             ThrowableItemData.ThrowableEntry json, ThrowableTypeData type) {
         double kb = getRealBaseKnockback(stack, json, type);
-        if (kb > 0.0) {
-            ModTooltips.addStat(stack, tooltip, "base_knockback", ModTooltips.roundToTwoDecimals(kb));
-        }
+        ModTooltips.addStat(stack, tooltip, "base_knockback", ModTooltips.roundToTwoDecimals(kb));
     }
 
     private static int getMinChargeTicks(ItemStack stack, ThrowableItemData.ThrowableEntry json,
@@ -291,9 +277,7 @@ public class ThrowableItemTooltip {
             piercing = ThrowableTypeData.getDefaultPiercingLevel(type.name);
         }
         piercing += EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
-        if (piercing > 0) {
-            ModTooltips.addStat(stack, tooltip, "piercing_level", piercing);
-        }
+        ModTooltips.addStat(stack, tooltip, "piercing_level", piercing);
     }
 
     private static void addWaterInertia(ItemStack stack, List<Component> tooltip, ThrowableTypeData type) {
@@ -331,8 +315,7 @@ public class ThrowableItemTooltip {
         int maxItems = ModProjectiles.getMaxMountedEntities(stack, true,
                 (int) ThrowableTypeData.getDefaultCollectorMaxItems(projectileType));
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.collector", ChatFormatting.YELLOW);
-        if (maxItems > 0)
-            ModTooltips.addStat(stack, tooltip, "collector_max_items", maxItems);
+        ModTooltips.addStat(stack, tooltip, "collector_max_items", maxItems);
     }
 
     private static void addDisarmingShotPropertiesIfEnabled(ItemStack stack, List<Component> tooltip,
@@ -343,10 +326,8 @@ public class ThrowableItemTooltip {
                 (float) ThrowableTypeData.getDefaultDisarmingShotChance(projectileType));
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.disarming_shot",
                 ChatFormatting.YELLOW);
-        if (chance > 0.0) {
-            ModTooltips.addStat(stack, tooltip, "disarming_shot_chance",
-                    ModTooltips.roundToTwoDecimals(chance * 100.0));
-        }
+        ModTooltips.addStat(stack, tooltip, "disarming_shot_chance",
+                ModTooltips.roundToTwoDecimals(chance * 100.0));
     }
 
     private static void addPiercingShotPropertiesIfEnabled(ItemStack stack, List<Component> tooltip) {
@@ -358,10 +339,8 @@ public class ThrowableItemTooltip {
                 TraitsConfig.PIERCING_SHOT_KUNAI_PROJECTILE_BONUS_DAMAGE.get().doubleValue());
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.piercing_shot",
                 ChatFormatting.YELLOW);
-        if (chance > 0.0)
-            ModTooltips.addStat(stack, tooltip, "piercing_shot_chance", ModTooltips.roundToTwoDecimals(chance * 100.0));
-        if (bonus > 0.0)
-            ModTooltips.addStat(stack, tooltip, "piercing_shot_bonus_damage", ModTooltips.roundToTwoDecimals(bonus));
+        ModTooltips.addStat(stack, tooltip, "piercing_shot_chance", ModTooltips.roundToTwoDecimals(chance * 100.0));
+        ModTooltips.addStat(stack, tooltip, "piercing_shot_bonus_damage", ModTooltips.roundToTwoDecimals(bonus));
     }
 
     private static void addBackstabPropertiesIfEnabled(ItemStack stack, List<Component> tooltip) {
@@ -385,11 +364,9 @@ public class ThrowableItemTooltip {
                 TraitsConfig.DISABLING_SHOT_SHURIKEN_PROJECTILE_COOLDOWN.get());
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.disabling_shot",
                 ChatFormatting.YELLOW);
-        if (chance > 0.0)
-            ModTooltips.addStat(stack, tooltip, "disabling_shot_chance",
-                    ModTooltips.roundToTwoDecimals(chance * 100.0));
-        if (cd > 0)
-            ModTooltips.addStat(stack, tooltip, "disabling_shot_cooldown", ModTooltips.roundToTwoDecimals(cd / 20.0));
+        ModTooltips.addStat(stack, tooltip, "disabling_shot_chance",
+                ModTooltips.roundToTwoDecimals(chance * 100.0));
+        ModTooltips.addStat(stack, tooltip, "disabling_shot_cooldown", ModTooltips.roundToTwoDecimals(cd / 20.0));
     }
 
     private static void addSweepingShotPropertiesIfEnabled(ItemStack stack, List<Component> tooltip) {
@@ -401,10 +378,8 @@ public class ThrowableItemTooltip {
                 TraitsConfig.SWEEPING_SHOT_GIANT_SHURIKEN_PROJECTILE_DAMAGE_FACTOR.get().doubleValue());
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.sweeping_shot",
                 ChatFormatting.YELLOW);
-        if (factor > 0.0)
-            ModTooltips.addStat(stack, tooltip, "sweeping_shot_damage_factor", ModTooltips.roundToTwoDecimals(factor));
-        if (radius > 0.0)
-            ModTooltips.addStat(stack, tooltip, "sweeping_shot_radius", ModTooltips.roundToTwoDecimals(radius));
+        ModTooltips.addStat(stack, tooltip, "sweeping_shot_damage_factor", ModTooltips.roundToTwoDecimals(factor));
+        ModTooltips.addStat(stack, tooltip, "sweeping_shot_radius", ModTooltips.roundToTwoDecimals(radius));
     }
 
     private static void addCooldownIfInstant(ItemStack stack, List<Component> tooltip, ModEnums.ThrowMode throwMode,

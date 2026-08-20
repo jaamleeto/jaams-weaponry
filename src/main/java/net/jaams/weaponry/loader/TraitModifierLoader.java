@@ -102,6 +102,15 @@ public class TraitModifierLoader extends SimpleJsonResourceReloadListener {
                 }
             }
         }
+        if (other.disabled_traits != null) {
+            if (base.disabled_traits == null)
+                base.disabled_traits = new ArrayList<>();
+            for (String trait : other.disabled_traits) {
+                if (!base.disabled_traits.contains(trait)) {
+                    base.disabled_traits.add(trait);
+                }
+            }
+        }
         mergeEntryObjects(base.traits, other.traits, TraitModifierData.TraitsEntry.class, base, "traits");
         mergeEntryObjects(base.projectile_traits, other.projectile_traits,
                 TraitModifierData.ProjectileTraitsEntry.class, base, "projectile_traits");

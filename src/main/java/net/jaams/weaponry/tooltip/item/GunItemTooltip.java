@@ -253,73 +253,47 @@ public class GunItemTooltip {
     }
 
     private static void addProjectileCount(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        int count = getFinalInt(stack, "GunProjectileCount", data.shoot != null ? data.shoot.projectile_count : -1, getDefaultProjectileCount(data.gun.gun_type));
-        if (count > 0) {
-            ModTooltips.addStat(stack, tooltip, "projectile_count", count);
-        }
+        ModTooltips.addStat(stack, tooltip, "projectile_count", getFinalInt(stack, "GunProjectileCount", data.shoot != null ? data.shoot.projectile_count : -1, getDefaultProjectileCount(data.gun.gun_type)));
     }
 
     private static void addSpreadAngle(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double spread = getFinalDouble(stack, "GunSpreadAngle", data.shoot != null ? data.shoot.spread_angle : -1.0, getDefaultSpreadAngle(data.gun.gun_type));
-        if (spread > 0) {
-            ModTooltips.addStat(stack, tooltip, "spread_angle", spread);
-        }
+        ModTooltips.addStat(stack, tooltip, "spread_angle", getFinalDouble(stack, "GunSpreadAngle", data.shoot != null ? data.shoot.spread_angle : -1.0, getDefaultSpreadAngle(data.gun.gun_type)));
     }
 
     private static void addInaccuracy(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double inaccuracy = getFinalDouble(stack, "GunProjectileInaccuracy", data.shoot != null ? data.shoot.inaccuracy : -1.0, getDefaultInaccuracy(data.gun.gun_type));
-        if (inaccuracy > 0) {
-            ModTooltips.addStat(stack, tooltip, "inaccuracy", inaccuracy);
-        }
+        ModTooltips.addStat(stack, tooltip, "inaccuracy", getFinalDouble(stack, "GunProjectileInaccuracy", data.shoot != null ? data.shoot.inaccuracy : -1.0, getDefaultInaccuracy(data.gun.gun_type)));
     }
 
     private static void addProjectileSpeed(ItemStack stack, List<Component> tooltip, GunItemData data) {
         double speed = getFinalDouble(stack, "GunProjectileSpeed", data.shoot != null ? data.shoot.projectile_speed : -1.0, getDefaultProjectileSpeed(data.gun.gun_type));
-        if (speed > 0) {
-            speed *= ModGuns.getMuzzleSpeedMultiplier(stack);
-            ModTooltips.addStat(stack, tooltip, "projectile_speed", speed);
-        }
+        ModTooltips.addStat(stack, tooltip, "projectile_speed", speed * ModGuns.getMuzzleSpeedMultiplier(stack));
     }
 
     private static void addCooldown(ItemStack stack, List<Component> tooltip, GunItemData data) {
         double cooldown = getFinalDouble(stack, "GunCooldown", data.shoot != null ? data.shoot.cooldown : -1.0, getDefaultCooldown(data.gun.gun_type));
-        if (cooldown > 0) {
-            double seconds = cooldown / 20.0;
-            ModTooltips.addStat(stack, tooltip, "cooldown", ModTooltips.roundToTwoDecimals(seconds));
-        }
+        ModTooltips.addStat(stack, tooltip, "cooldown", ModTooltips.roundToTwoDecimals(cooldown / 20.0));
     }
 
     private static void addRecoil(ItemStack stack, List<Component> tooltip, GunItemData data) {
         double recoil = getFinalDouble(stack, "GunRecoilDistance", data.shoot != null ? data.shoot.recoil_distance : -1.0, getDefaultRecoil(data.gun.gun_type));
-        if (recoil > 0) {
-            int backblastLevel = stack.getEnchantmentLevel(ModEnchantments.BACKBLAST.get());
-            if (backblastLevel > 0) {
-                recoil += EnchantmentsConfig.BACKBLAST_RECOIL_BONUS_PER_LEVEL.get() * backblastLevel;
-            }
-            ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
+        int backblastLevel = stack.getEnchantmentLevel(ModEnchantments.BACKBLAST.get());
+        if (backblastLevel > 0) {
+            recoil += EnchantmentsConfig.BACKBLAST_RECOIL_BONUS_PER_LEVEL.get() * backblastLevel;
         }
+        ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
     }
 
     private static void addDamageModifier(ItemStack stack, List<Component> tooltip, GunItemData data) {
         double damage = getFinalDouble(stack, "GunProjectileDamageModifier", data.shoot != null ? data.shoot.damage_modifier : -1.0, getDefaultDamageModifier(data.gun.gun_type));
-        if (damage > 0) {
-            damage *= ModGuns.getMuzzleDamageMultiplier(stack);
-            ModTooltips.addStat(stack, tooltip, "damage_modifier", damage);
-        }
+        ModTooltips.addStat(stack, tooltip, "damage_modifier", damage * ModGuns.getMuzzleDamageMultiplier(stack));
     }
 
     private static void addKnockbackModifier(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        double knockback = getFinalDouble(stack, "GunProjectileKnockbackModifier", data.shoot != null ? data.shoot.knockback_modifier : -1.0, getDefaultKnockbackModifier(data.gun.gun_type));
-        if (knockback > 0) {
-            ModTooltips.addStat(stack, tooltip, "knockback_modifier", knockback);
-        }
+        ModTooltips.addStat(stack, tooltip, "knockback_modifier", getFinalDouble(stack, "GunProjectileKnockbackModifier", data.shoot != null ? data.shoot.knockback_modifier : -1.0, getDefaultKnockbackModifier(data.gun.gun_type)));
     }
 
     private static void addPiercingModifier(ItemStack stack, List<Component> tooltip, GunItemData data) {
-        int piercing = getFinalInt(stack, "GunProjectilePiercingModifier", data.shoot != null ? data.shoot.piercing_modifier : -1, getDefaultPiercingModifier(data.gun.gun_type));
-        if (piercing > 0) {
-            ModTooltips.addStat(stack, tooltip, "piercing_modifier", piercing);
-        }
+        ModTooltips.addStat(stack, tooltip, "piercing_modifier", getFinalInt(stack, "GunProjectilePiercingModifier", data.shoot != null ? data.shoot.piercing_modifier : -1, getDefaultPiercingModifier(data.gun.gun_type)));
     }
 
     private static void addGunInventoryDescription(ItemStack stack, List<Component> tooltip) {

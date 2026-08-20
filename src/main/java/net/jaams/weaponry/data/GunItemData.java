@@ -102,14 +102,17 @@ public class GunItemData {
     }
 
     public static GunEntry getGunData(ItemStack stack) {
-        return getData(stack).map(d -> d.gun).orElse(null);
+        GunItemData data = getData(stack).orElse(null);
+        return data != null && data.gun != null ? data.gun : new GunEntry();
     }
 
     public static ShootEntry getShootData(ItemStack stack) {
-        return getData(stack).map(d -> d.shoot).orElse(null);
+        GunItemData data = getData(stack).orElse(null);
+        return data != null && data.shoot != null ? data.shoot : new ShootEntry();
     }
 
     public static ParticleEntry getParticleData(ItemStack stack) {
-        return getData(stack).map(d -> d.particle).orElse(null);
+        GunItemData data = getData(stack).orElse(null);
+        return data != null && data.particle != null ? data.particle : new ParticleEntry();
     }
 }

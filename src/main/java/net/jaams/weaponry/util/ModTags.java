@@ -148,6 +148,14 @@ public class ModTags {
     public static final TagKey<Item> GUNS = create("misc/guns");
     public static final TagKey<Item> PRIORITIZE_SHIELD = create("misc/prioritize_shield");
 
+    // Enchantable tags
+    public static final TagKey<Item> ENCHANTABLE_AFTERMATH = create("enchantable/aftermath");
+    public static final TagKey<Item> ENCHANTABLE_BACKBLAST = create("enchantable/backblast");
+    public static final TagKey<Item> ENCHANTABLE_FRAMEGUARD = create("enchantable/frameguard");
+    public static final TagKey<Item> ENCHANTABLE_GHOST_CLIP = create("enchantable/ghost_clip");
+    public static final TagKey<Item> ENCHANTABLE_OVERDRIVE = create("enchantable/overdrive");
+    public static final TagKey<Item> ENCHANTABLE_SECURE_GRIP = create("enchantable/secure_grip");
+
     private static TagKey<Item> create(String path) {
         return TagKey.create(Registries.ITEM, new ResourceLocation("jaams_weaponry", path));
     }

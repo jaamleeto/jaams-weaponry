@@ -87,7 +87,6 @@
     "client": [
         "access.CameraAccessor",
         "access.MinecraftAccessor",
-        "access.LivingEntityRendererAccessor",
         "access.ModelPartAccessorMixin",
         "client.ItemInHandRendererMixin",
         "client.PlayerModelPoseMixin",
@@ -99,13 +98,10 @@
         "animation.AnimationIllagerModelMixin",
         "animation.AnimationVindicatorRendererMixin",
         "animation.AnimationPlayerMixin",
-        "animation.AnimationPlayerRendererMixin",
         "animation.AnimationItemInHandLayerMixin",
-        "animation.AnimationItemInHandRendererMixin",
         "animation.AnimationLivingEntityRendererMixin",
         "animation.AnimationEntityRenderDispatcherMixin",
         "animation.AnimationEntityCullingMixin",
-        "animation.AnimationLevelRendererMixin",
         "animation.AnimationCameraMixin"
     ],
     "injectors": {

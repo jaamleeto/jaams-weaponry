@@ -36,6 +36,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
@@ -267,7 +268,7 @@ public class DynamiteProjectileEntity extends BaseWeaponProjectileEntity {
                 ProjectileCommonConfig.DYNAMITE_PROJECTILE_DESPAWN_TIME.get());
         if (life >= despawnTime) {
             if (ProjectileCommonConfig.DYNAMITE_PROJECTILE_DESPAWN_AS_ITEM.get()
-                    && this.pickup != AbstractArrow.Pickup.CREATIVE_ONLY) {
+                    && this.pickup != AbstractArrow.Pickup.CREATIVE_ONLY && !hasIgnited()) {
                 ModProjectiles.dropAsItem(this.level(), this.getPickupItem().copy(), this.getX(), this.getY(),
                         this.getZ());
             } else if (!this.level().isClientSide) {
@@ -451,6 +452,23 @@ public class DynamiteProjectileEntity extends BaseWeaponProjectileEntity {
         }
     }
 
+    private boolean hasIgnited() {
+        if (!this.entityData.get(ID_IMPACTED)) {
+            return false;
+        }
+        int ticksOnGround = this.entityData.get(ID_TICKS_ON_GROUND);
+        int fuseTicks = getFuseTicks(this.getWeaponItem());
+        return ticksOnGround >= fuseTicks - 15;
+    }
+
+    @Override
+    public void playerTouch(Player player) {
+        if (hasIgnited()) {
+            return;
+        }
+        super.playerTouch(player);
+    }
+
     private void handleGroundBehavior(ServerLevel serverWorld, boolean isInWater) {
         if (!this.entityData.get(ID_IMPACTED)) {
             return;
@@ -546,7 +564,7 @@ public class DynamiteProjectileEntity extends BaseWeaponProjectileEntity {
     }
 
     private void spawnItemEntity() {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide && !hasIgnited()) {
             ItemStack itemToSpawn = this.getWeaponItem().copy();
             itemToSpawn.setCount(1);
             ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), itemToSpawn);

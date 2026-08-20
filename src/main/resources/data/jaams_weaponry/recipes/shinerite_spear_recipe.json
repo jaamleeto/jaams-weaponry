@@ -9,7 +9,7 @@
   ],
   "key": {
     "a": {
-      "tag": "jaams_weaponry:ingredient/double_shinerite_ingot"
+      "item": "jaams_weaponry:double_shinerite_ingot"
     },
     "b": {
       "item": "jaams_weaponry:long_stick"

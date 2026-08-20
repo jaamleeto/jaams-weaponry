@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -23,6 +24,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.jaams.weaponry.configuration.common.EffectsConfig;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.data.TraitModifierData;
+import net.jaams.weaponry.init.ModEnchantments;
 import net.jaams.weaponry.init.ModMobEffects;
 import net.jaams.weaponry.util.ModUtils;
 
@@ -181,6 +183,9 @@ public class SelfEffectHandler {
 
     public static void handleExhausting(LivingEntity target, LivingEntity attacker, ItemStack stack) {
         if (!TraitsConfig.EXHAUSTING.get()) {
+            return;
+        }
+        if (attacker.hasEffect(MobEffects.DAMAGE_BOOST)) {
             return;
         }
         float exhaustion = getExhaustingExhaustion(stack);
@@ -357,6 +362,9 @@ public class SelfEffectHandler {
         if (!TraitsConfig.OVERSTRAIN.get() || !EffectsConfig.DEPLETION.get()) {
             return;
         }
+        if (attacker.hasEffect(MobEffects.DAMAGE_BOOST)) {
+            return;
+        }
         float chance = getOverstrainChance(stack);
         if (attacker.getRandom().nextFloat() >= chance) {
             return;
@@ -403,6 +411,10 @@ public class SelfEffectHandler {
 
     public static void handleSlippery(LivingEntity target, LivingEntity attacker, ItemStack stack) {
         if (!TraitsConfig.SLIPPERY.get()) {
+            return;
+        }
+        // Secure Grip enchantment prevents the Slippery trait from working
+        if (stack.getEnchantmentLevel(ModEnchantments.SECURE_GRIP.get()) > 0) {
             return;
         }
         InteractionHand hand = getHandHoldingStack(attacker, stack);

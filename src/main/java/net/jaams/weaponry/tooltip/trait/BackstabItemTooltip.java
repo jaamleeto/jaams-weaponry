@@ -27,11 +27,8 @@ public class BackstabItemTooltip {
             return;
         }
         ModTooltips.addExtraInfo(stack, tooltip, "tooltip.jaams_weaponry.properties.backstab", ChatFormatting.GOLD);
-        float multiplierNormal = getMultiplierNormal(stack, tag);
-        if (multiplierNormal > 0) {
-            ModTooltips.addStat(stack, tooltip, "backstab.multiplier_normal",
-                    ModTooltips.roundToTwoDecimals(multiplierNormal));
-        }
+        ModTooltips.addStat(stack, tooltip, "backstab.multiplier_normal",
+                getMultiplierNormal(stack, tag));
     }
 
     private static float getMultiplierNormal(ItemStack stack, CompoundTag tag) {

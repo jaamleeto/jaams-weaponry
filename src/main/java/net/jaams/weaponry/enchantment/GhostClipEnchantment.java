@@ -30,8 +30,13 @@ public class GhostClipEnchantment extends Enchantment {
 	}
 
 	@Override
+	public boolean canEnchant(ItemStack stack) {
+		return EnchantmentsConfig.GHOST_CLIP.get() && stack.is(ModTags.ENCHANTABLE_GHOST_CLIP);
+	}
+
+	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return EnchantmentsConfig.GHOST_CLIP.get() && stack.is(ModTags.GUNS);
+		return EnchantmentsConfig.GHOST_CLIP.get() && stack.is(ModTags.ENCHANTABLE_GHOST_CLIP);
 	}
 
 	@Override

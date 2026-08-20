@@ -74,16 +74,12 @@ public class SmokeBombItemTooltip {
 	}
 
 	private static void addPushForce(ItemStack stack, List<Component> tooltip) {
-		double pushForce = ModUtils.getConfigOrNbtDouble(stack, "SmokeBombPushForce", ItemFeaturesConfig.SMOKE_BOMB_PUSH_FORCE::get);
-		if (pushForce > 0.0) {
-			ModTooltips.addStat(stack, tooltip, "smoke_bomb_push_force", pushForce);
-		}
+		ModTooltips.addStat(stack, tooltip, "smoke_bomb_push_force",
+				ModUtils.getConfigOrNbtDouble(stack, "SmokeBombPushForce", ItemFeaturesConfig.SMOKE_BOMB_PUSH_FORCE::get));
 	}
 
 	private static void addCooldown(ItemStack stack, List<Component> tooltip) {
-		int cooldownTicks = ModUtils.getConfigOrNbtInt(stack, "SmokeBombCooldown", ItemFeaturesConfig.SMOKE_BOMB_COOLDOWN::get);
-		if (cooldownTicks > 0) {
-			ModTooltips.addStat(stack, tooltip, "cooldown", cooldownTicks / 20.0);
-		}
+		ModTooltips.addStat(stack, tooltip, "cooldown",
+				ModUtils.getConfigOrNbtInt(stack, "SmokeBombCooldown", ItemFeaturesConfig.SMOKE_BOMB_COOLDOWN::get) / 20.0);
 	}
 }

@@ -5,7 +5,7 @@
   "experience": 1,
   "cookingtime": 40,
   "ingredient": {
-    "tag": "jaams_weaponry:bullets"
+    "tag": "jaams_weaponry:misc/bullets"
   },
   "result": "minecraft:gold_nugget"
 }

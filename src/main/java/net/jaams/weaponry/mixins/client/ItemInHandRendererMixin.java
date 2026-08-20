@@ -139,7 +139,7 @@ public abstract class ItemInHandRendererMixin {
             return;
         }
 
-        
+
         if (jaams$applyWhirlingStrikeFirstPersonTransform(entity, itemStack, isMainHand, horizontal, poseStack)) {
             return;
         }
@@ -413,6 +413,10 @@ public abstract class ItemInHandRendererMixin {
         }
 
         else if (isItemInHand && itemStack.is(ModTags.KUNAIS) && !isUsingItem) {
+            poseStack.translate(0.0, -0.44, 0.0);
+        }
+
+        else if (isItemInHand && itemStack.is(ModTags.PRONGED_KUNAIS) && !isUsingItem) {
             poseStack.translate(0.0, -0.44, 0.0);
         }
 

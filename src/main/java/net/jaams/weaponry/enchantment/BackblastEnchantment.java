@@ -30,8 +30,13 @@ public class BackblastEnchantment extends Enchantment {
 	}
 
 	@Override
+	public boolean canEnchant(ItemStack stack) {
+		return EnchantmentsConfig.BACKBLAST.get() && stack.is(ModTags.ENCHANTABLE_BACKBLAST);
+	}
+
+	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return EnchantmentsConfig.BACKBLAST.get() && stack.is(ModTags.GUNS);
+		return EnchantmentsConfig.BACKBLAST.get() && stack.is(ModTags.ENCHANTABLE_BACKBLAST);
 	}
 
 	@Override

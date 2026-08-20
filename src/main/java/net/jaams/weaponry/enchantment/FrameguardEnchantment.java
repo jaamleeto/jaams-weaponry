@@ -30,8 +30,13 @@ public class FrameguardEnchantment extends Enchantment {
 	}
 
 	@Override
+	public boolean canEnchant(ItemStack stack) {
+		return EnchantmentsConfig.FRAMEGUARD.get() && stack.is(ModTags.ENCHANTABLE_FRAMEGUARD);
+	}
+
+	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return EnchantmentsConfig.FRAMEGUARD.get() && stack.is(ModTags.GUNS);
+		return EnchantmentsConfig.FRAMEGUARD.get() && stack.is(ModTags.ENCHANTABLE_FRAMEGUARD);
 	}
 
 	@Override

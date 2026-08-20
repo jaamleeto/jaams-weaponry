@@ -97,18 +97,22 @@ public class RangedItemData {
     }
 
     public static RangedEntry getRangedData(ItemStack stack) {
-        return getData(stack).map(d -> d.ranged).orElse(null);
+        RangedItemData data = getData(stack).orElse(null);
+        return data != null && data.ranged != null ? data.ranged : new RangedEntry();
     }
 
     public static AmmoEntry getAmmoData(ItemStack stack) {
-        return getData(stack).map(d -> d.ammo).orElse(null);
+        RangedItemData data = getData(stack).orElse(null);
+        return data != null && data.ammo != null ? data.ammo : new AmmoEntry();
     }
 
     public static EnchantEntry getEnchantData(ItemStack stack) {
-        return getData(stack).map(d -> d.enchant).orElse(null);
+        RangedItemData data = getData(stack).orElse(null);
+        return data != null && data.enchant != null ? data.enchant : new EnchantEntry();
     }
 
     public static ProjectileEntry getProjectileData(ItemStack stack) {
-        return getData(stack).map(d -> d.projectile).orElse(null);
+        RangedItemData data = getData(stack).orElse(null);
+        return data != null && data.projectile != null ? data.projectile : new ProjectileEntry();
     }
 }

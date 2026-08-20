@@ -5,19 +5,34 @@
     "priority": 10,
     "condition_mode": "and",
     "conditions": [],
-    "modifiers": {
-        "slots": [
-            "mainhand",
-            "offhand"
-        ],
-        "attributes": [
-            {
-                "attribute": "minecraft:generic.movement_speed",
-                "name": "Movement Penalty",
-                "amount": -0.03,
-                "operation": "addition",
-                "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-            }
-        ]
-    }
+    "modifiers_list": [
+        {
+            "slots": [
+                "mainhand"
+            ],
+            "attributes": [
+                {
+                    "attribute": "minecraft:generic.movement_speed",
+                    "name": "Movement Penalty",
+                    "amount": -0.03,
+                    "operation": "addition",
+                    "uuid": "e7f8a9b0-c1d2-3456-7890-abcdef123456"
+                }
+            ]
+        },
+        {
+            "slots": [
+                "offhand"
+            ],
+            "attributes": [
+                {
+                    "attribute": "minecraft:generic.movement_speed",
+                    "name": "Movement Penalty",
+                    "amount": -0.03,
+                    "operation": "addition",
+                    "uuid": "e8f9a0b1-c2d3-4567-8901-bcdef1234567"
+                }
+            ]
+        }
+    ]
 }

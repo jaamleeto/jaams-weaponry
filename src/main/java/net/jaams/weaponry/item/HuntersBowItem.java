@@ -28,6 +28,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.stats.Stats;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 
 import net.jaams.weaponry.util.ModTooltips;
@@ -216,5 +217,38 @@ public class HuntersBowItem extends BowItem {
 
     public int getDefaultProjectileRange() {
         return DEFAULT_RANGE;
+    }
+
+    public void performMobRangedAttack(Level level, LivingEntity shooter, LivingEntity target, float power) {
+        if (level.isClientSide) return;
+        ItemStack bowStack = shooter.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack arrowStack = shooter.getProjectile(bowStack);
+        if (arrowStack.isEmpty()) return;
+        AbstractArrow abstractarrow = ((ArrowItem) (arrowStack.getItem() instanceof ArrowItem
+                ? arrowStack.getItem() : Items.ARROW)).createArrow(level, arrowStack, shooter);
+        abstractarrow.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot(), 0.0F,
+                power * MAX_VELOCITY, 1.0F);
+        if (power >= 0.9F) {
+            abstractarrow.setCritArrow(true);
+        }
+        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + BASE_DAMAGE);
+        int powerLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, bowStack);
+        if (powerLevel > 0) {
+            abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (double) powerLevel * 0.4D + 0.4D);
+        }
+        int punchLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PUNCH_ARROWS, bowStack);
+        if (punchLevel > 0) {
+            abstractarrow.setKnockback(punchLevel);
+        }
+        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FLAMING_ARROWS, bowStack) > 0) {
+            abstractarrow.setSecondsOnFire(160);
+        }
+        level.addFreshEntity(abstractarrow);
+        bowStack.hurtAndBreak(1, shooter, (entity) -> {
+            entity.broadcastBreakEvent(shooter.getUsedItemHand());
+        });
+        level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.ARROW_SHOOT,
+                SoundSource.HOSTILE, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + 0.5F);
+        arrowStack.shrink(1);
     }
 }

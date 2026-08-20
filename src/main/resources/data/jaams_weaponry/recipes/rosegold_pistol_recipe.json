@@ -26,20 +26,5 @@
   "result": {
     "item": "jaams_weaponry:rosegold_pistol",
     "count": 1
-  },
-  "conditions": [
-    {
-      "type": "forge:or",
-      "values": [
-        {
-          "type": "forge:mod_loaded",
-          "modid": "oooh_pinky"
-        },
-        {
-          "type": "forge:mod_loaded",
-          "modid": "justrosegold"
-        }
-      ]
-    }
-  ]
+  }
 }

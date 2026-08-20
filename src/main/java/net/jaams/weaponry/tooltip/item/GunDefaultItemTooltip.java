@@ -157,40 +157,25 @@ public class GunDefaultItemTooltip {
     }
 
     private static void addProjectileCount(ItemStack stack, List<Component> tooltip) {
-        int count = getFinalInt(stack, "GunProjectileCount", 1);
-        if (count > 0) {
-            ModTooltips.addStat(stack, tooltip, "projectile_count", count);
-        }
+        ModTooltips.addStat(stack, tooltip, "projectile_count", getFinalInt(stack, "GunProjectileCount", 1));
     }
 
     private static void addSpreadAngle(ItemStack stack, List<Component> tooltip) {
-        double value = getFinalDouble(stack, "GunSpreadAngle", 0.0);
-        if (value > 0) {
-            ModTooltips.addStat(stack, tooltip, "spread_angle", value);
-        }
+        ModTooltips.addStat(stack, tooltip, "spread_angle", getFinalDouble(stack, "GunSpreadAngle", 0.0));
     }
 
     private static void addInaccuracy(ItemStack stack, List<Component> tooltip) {
-        double value = getFinalDouble(stack, "GunProjectileInaccuracy", 0.0);
-        if (value > 0) {
-            ModTooltips.addStat(stack, tooltip, "inaccuracy", value);
-        }
+        ModTooltips.addStat(stack, tooltip, "inaccuracy", getFinalDouble(stack, "GunProjectileInaccuracy", 0.0));
     }
 
     private static void addProjectileSpeed(ItemStack stack, List<Component> tooltip) {
         double value = getFinalDouble(stack, "GunProjectileSpeed", 4.5);
-        if (value > 0) {
-            value *= ModGuns.getMuzzleSpeedMultiplier(stack);
-            ModTooltips.addStat(stack, tooltip, "projectile_speed", value);
-        }
+        ModTooltips.addStat(stack, tooltip, "projectile_speed", value * ModGuns.getMuzzleSpeedMultiplier(stack));
     }
 
     private static void addCooldown(ItemStack stack, List<Component> tooltip) {
-        double cooldown = getFinalDouble(stack, "GunCooldown", 20.0);
-        if (cooldown > 0) {
-            double seconds = cooldown / 20.0;
-            ModTooltips.addStat(stack, tooltip, "cooldown", ModTooltips.roundToTwoDecimals(seconds));
-        }
+        ModTooltips.addStat(stack, tooltip, "cooldown",
+                ModTooltips.roundToTwoDecimals(getFinalDouble(stack, "GunCooldown", 20.0) / 20.0));
     }
 
     private static void addRecoil(ItemStack stack, List<Component> tooltip) {
@@ -199,31 +184,22 @@ public class GunDefaultItemTooltip {
         if (backblastLevel > 0) {
             recoil += EnchantmentsConfig.BACKBLAST_RECOIL_BONUS_PER_LEVEL.get() * backblastLevel;
         }
-        if (recoil > 0) {
-            ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
-        }
+        ModTooltips.addStat(stack, tooltip, "recoil", ModTooltips.roundToTwoDecimals(recoil));
     }
 
     private static void addDamageModifier(ItemStack stack, List<Component> tooltip) {
         double value = getFinalDouble(stack, "GunProjectileDamageModifier", 0.0);
-        if (value > 0) {
-            value *= ModGuns.getMuzzleDamageMultiplier(stack);
-            ModTooltips.addStat(stack, tooltip, "damage_modifier", value);
-        }
+        ModTooltips.addStat(stack, tooltip, "damage_modifier", value * ModGuns.getMuzzleDamageMultiplier(stack));
     }
 
     private static void addKnockbackModifier(ItemStack stack, List<Component> tooltip) {
-        double value = getFinalDouble(stack, "GunProjectileKnockbackModifier", 0.0);
-        if (value > 0) {
-            ModTooltips.addStat(stack, tooltip, "knockback_modifier", value);
-        }
+        ModTooltips.addStat(stack, tooltip, "knockback_modifier",
+                getFinalDouble(stack, "GunProjectileKnockbackModifier", 0.0));
     }
 
     private static void addPiercingModifier(ItemStack stack, List<Component> tooltip) {
-        int value = getFinalInt(stack, "GunProjectilePiercingModifier", 0);
-        if (value > 0) {
-            ModTooltips.addStat(stack, tooltip, "piercing_modifier", value);
-        }
+        ModTooltips.addStat(stack, tooltip, "piercing_modifier",
+                getFinalInt(stack, "GunProjectilePiercingModifier", 0));
     }
 
     private static void addGunInventoryDescription(ItemStack stack, List<Component> tooltip) {

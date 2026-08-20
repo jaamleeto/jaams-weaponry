@@ -15,7 +15,28 @@ public class ItemModifierData {
     public String condition_mode = "and";
     public List<Condition> conditions = new ArrayList<>();
     public ModifierEntry modifiers = new ModifierEntry();
+    public List<ModifierEntry> modifiers_list = new ArrayList<>();
     public List<NbtEntry> nbt = new ArrayList<>();
+
+    public List<ModifierEntry> getAllModifierEntries() {
+        List<ModifierEntry> all = new ArrayList<>();
+        if (modifiers != null && !modifiers.attributes.isEmpty()) {
+            all.add(modifiers);
+        }
+        if (modifiers_list != null) {
+            all.addAll(modifiers_list);
+        }
+        return all;
+    }
+
+    public boolean appliesToSlot(EquipmentSlot slot) {
+        for (ModifierEntry entry : getAllModifierEntries()) {
+            if (entry.slots.isEmpty() || entry.slots.contains(slot.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static class Condition {
         public String type;
@@ -54,9 +75,4 @@ public class ItemModifierData {
         public boolean replace = false;
     }
 
-    public boolean appliesToSlot(EquipmentSlot slot) {
-        if (modifiers.slots.isEmpty())
-            return true;
-        return modifiers.slots.contains(slot.getName());
-    }
 }

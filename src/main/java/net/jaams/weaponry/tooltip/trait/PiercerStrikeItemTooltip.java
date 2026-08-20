@@ -33,11 +33,7 @@ public class PiercerStrikeItemTooltip {
     }
 
     private static void addDamageBonusLine(ItemStack stack, CompoundTag tag, List<Component> tooltip) {
-        float bonusDamage = getBonusDamage(stack, tag);
-        if (bonusDamage > 0.0F) {
-            double roundedDamage = ModTooltips.roundToTwoDecimals(bonusDamage);
-            ModTooltips.addStat(stack, tooltip, "piercer_strike.bonus_damage", roundedDamage);
-        }
+        ModTooltips.addStat(stack, tooltip, "piercer_strike.bonus_damage", getBonusDamage(stack, tag));
     }
 
     private static void addMinArmorLine(ItemStack stack, CompoundTag tag, List<Component> tooltip) {

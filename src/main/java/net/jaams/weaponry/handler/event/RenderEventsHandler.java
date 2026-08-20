@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.client.Minecraft;
 
 @Mod.EventBusSubscriber(modid = "jaams_weaponry", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-public class RenderEvents {
+public class RenderEventsHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void renderArm(RenderArmEvent event) {

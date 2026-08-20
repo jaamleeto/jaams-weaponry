@@ -34,11 +34,8 @@ public class BusterStrikeItemTooltip {
     private static void addPropertiesLines(ItemStack stack, CompoundTag tag, List<Component> tooltip) {
         int requiredHits = getRequiredHits(stack, tag);
         ModTooltips.addStatInt(stack, tooltip, "buster_strike.required_hits", requiredHits);
-        float bonusMultiplier = getBonusMultiplier(stack, tag);
-        if (bonusMultiplier > 0.0F) {
-            double roundedMultiplier = ModTooltips.roundToTwoDecimals(bonusMultiplier * 100.0F);
-            ModTooltips.addStat(stack, tooltip, "buster_strike.bonus_multiplier", roundedMultiplier);
-        }
+        ModTooltips.addStat(stack, tooltip, "buster_strike.bonus_multiplier",
+                ModTooltips.roundToTwoDecimals(getBonusMultiplier(stack, tag) * 100.0F));
     }
 
     private static int getRequiredHits(ItemStack stack, CompoundTag tag) {

@@ -30,21 +30,9 @@ public class ReachAdvantageItemTooltip {
     }
 
     private static void addDamageBonusLine(ItemStack stack, CompoundTag tag, List<Component> tooltip) {
-        float bonusDamage = getBonusDamage(stack, tag);
-        if (bonusDamage > 0.0F) {
-            double roundedDamage = ModTooltips.roundToTwoDecimals(bonusDamage);
-            ModTooltips.addStat(stack, tooltip, "reach_advantage.bonus_damage", roundedDamage);
-        }
-        float minDistance = getMinDistance(stack, tag);
-        if (minDistance > 0.0F) {
-            double roundedMin = ModTooltips.roundToTwoDecimals(minDistance);
-            ModTooltips.addStat(stack, tooltip, "reach_advantage.min_distance", roundedMin);
-        }
-        float maxDistance = getMaxDistance(stack, tag);
-        if (maxDistance > 0.0F) {
-            double roundedMax = ModTooltips.roundToTwoDecimals(maxDistance);
-            ModTooltips.addStat(stack, tooltip, "reach_advantage.max_distance", roundedMax);
-        }
+        ModTooltips.addStat(stack, tooltip, "reach_advantage.bonus_damage", getBonusDamage(stack, tag));
+        ModTooltips.addStat(stack, tooltip, "reach_advantage.min_distance", getMinDistance(stack, tag));
+        ModTooltips.addStat(stack, tooltip, "reach_advantage.max_distance", getMaxDistance(stack, tag));
     }
 
     private static float getBonusDamage(ItemStack stack, CompoundTag tag) {
