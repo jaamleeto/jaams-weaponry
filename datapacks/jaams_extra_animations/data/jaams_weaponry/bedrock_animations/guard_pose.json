@@ -1,0 +1,24 @@
+{
+    "animations": {
+        "guard_pose": {
+            "loop": true,
+            "animation_length": 1.0,
+            "cancel_on_player_animator": true,
+            "is_pose": true,
+            "blend_in": 2,
+            "blend_speed": 2.0,
+            "bones": {
+                "right_arm": {
+                    "rotation": {
+                        "0.0": [-40, -20, 25]
+                    }
+                },
+                "left_arm": {
+                    "rotation": {
+                        "0.0": [-50, 20, -25]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -7,6 +7,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -31,6 +32,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.biome.Biome;
 
+import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.data.EquipmentData;
 import net.jaams.weaponry.data.EquipmentData.ItemEntry;
 import net.jaams.weaponry.data.EquipmentData.EquipEntry;
@@ -39,6 +41,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.Locale;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
@@ -47,12 +50,13 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
+@Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener implements NetworkSyncable {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final EquipmentModifierLoader INSTANCE = new EquipmentModifierLoader();
     private volatile Map<ResourceLocation, EquipmentData> modifiers = new ConcurrentHashMap<>();
     private volatile Map<ResourceLocation, List<EquipmentData>> entityCache = new ConcurrentHashMap<>();
+    private volatile Map<String, String> sources = new ConcurrentHashMap<>();
     private static final Logger LOGGER = LogManager.getLogger(EquipmentModifierLoader.class);
 
     private EquipmentModifierLoader() {
@@ -64,13 +68,27 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> resources, ResourceManager rm, ProfilerFiller prof) {
         if (resources == null) { LOGGER.warn("EquipmentModifierLoader apply called with null resources"); return; }
-        Map<ResourceLocation, EquipmentData> map = new ConcurrentHashMap<>();
-        int count = 0, errors = 0;
+        Map<String, String> srcs = new ConcurrentHashMap<>();
         for (var entry : resources.entrySet()) {
             if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
-            ResourceLocation id = entry.getKey();
             try {
-                EquipmentData data = GSON.fromJson(entry.getValue(), EquipmentData.class);
+                srcs.put(entry.getKey().toString(), GSON.toJson(entry.getValue()));
+            } catch (Exception ignored) {
+            }
+        }
+        rebuild(srcs);
+    }
+
+    private void rebuild(Map<String, String> srcs) {
+        Map<ResourceLocation, EquipmentData> map = new ConcurrentHashMap<>();
+        int count = 0, errors = 0;
+        for (var entry : srcs.entrySet()) {
+            String id = entry.getKey();
+            if (!JaamsWeaponryMod.isOwnNamespace(id)) {
+                continue;
+            }
+            try {
+                EquipmentData data = GSON.fromJson(com.google.gson.JsonParser.parseString(entry.getValue()), EquipmentData.class);
                 if (data == null) { LOGGER.warn("Equipment modifier {} returned null", id); errors++; continue; }
                 if (data.entity == null || data.entity.isEmpty()) { LOGGER.warn("Equipment modifier {} has no 'entity'", id); errors++; continue; }
                 if (data.items == null || data.items.isEmpty()) { LOGGER.warn("Equipment modifier {} has no 'items'", id); errors++; continue; }
@@ -80,13 +98,35 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener {
                     if (ie.item == null || ie.item.isEmpty()) { LOGGER.warn("Equipment modifier {} has item entry with no 'item'", id); bad = true; break; }
                 }
                 if (bad) { errors++; continue; }
-                map.put(id, data);
+                map.put(new ResourceLocation(id), data);
                 count++;
             } catch (Exception e) { errors++; LOGGER.error("Failed to load equipment modifier: {}", id, e); }
         }
         this.modifiers = map;
         this.entityCache = new ConcurrentHashMap<>();
+        this.sources = new ConcurrentHashMap<>(srcs);
         LOGGER.info("Loaded {} equipment modifiers ({} errors)", count, errors);
+    }
+
+    @Override
+    public String getSyncId() {
+        return "equipment_modifier";
+    }
+
+    @Override
+    public Map<String, String> getSourcesSnapshot() {
+        return new HashMap<>(sources);
+    }
+
+    @Override
+    public void applyNetworkSync(Map<String, String> srcs) {
+        if (srcs == null) return;
+        rebuild(srcs);
+    }
+
+    @SubscribeEvent
+    public static void onTagsUpdated(TagsUpdatedEvent event) {
+        INSTANCE.entityCache.clear();
     }
 
     

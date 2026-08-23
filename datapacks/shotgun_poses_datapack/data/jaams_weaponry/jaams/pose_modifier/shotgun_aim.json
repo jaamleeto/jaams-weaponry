@@ -8,7 +8,7 @@
     "animation": "attack_overhead",
     "animation_speed": 0.9,
     "hand": "mainhand",
-    "entity": "minecraft:player",
+    "entity": ["minecraft:player", "minecraft:husk", "minecraft:zombie", "minecraft:skeleton"],
     "first_person": true,
     "condition_mode": "and",
     "conditions": [

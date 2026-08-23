@@ -20,6 +20,7 @@ import net.jaams.weaponry.init.ModSounds;
 import net.jaams.weaponry.init.ModTabs;
 import net.jaams.weaponry.network.PlayAnimationMessage;
 import net.jaams.weaponry.network.PlayMobAnimationMessage;
+import net.jaams.weaponry.network.SyncModDataMessage;
 import net.jaams.weaponry.packet.AberrationPacket;
 import net.jaams.weaponry.packet.AmountPacket;
 import net.jaams.weaponry.packet.GunInventoryPacket;
@@ -63,6 +64,13 @@ public class JaamsWeaponryMod {
 
     public static final Logger LOGGER = LogManager.getLogger(JaamsWeaponryMod.class);
     public static final String MODID = "jaams_weaponry";
+    public static final com.google.gson.Gson GSON = new com.google.gson.GsonBuilder().disableHtmlEscaping().create();
+
+    public static boolean isOwnNamespace(String location) {
+        int i = location.indexOf(':');
+        String ns = i >= 0 ? location.substring(0, i) : "";
+        return MODID.equals(ns);
+    }
 
     public JaamsWeaponryMod() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -86,7 +94,7 @@ public class JaamsWeaponryMod {
         GoldenItems.REGISTRY.register(bus);
         DiamondItems.REGISTRY.register(bus);
         NetheriteItems.REGISTRY.register(bus);
-        if (ModList.get().isLoaded("leafscopperbackport") || ModList.get().isLoaded("copperagebackport")) {
+        if (ModList.get().isLoaded("copperagebackport")) {
             CopperItems.REGISTRY.register(bus);
         }
         if (ModList.get().isLoaded("cavesanddepths")) {
@@ -128,6 +136,8 @@ public class JaamsWeaponryMod {
         addNetworkMessage(PlayMobAnimationMessage.class, PlayMobAnimationMessage::encode,
                 PlayMobAnimationMessage::decode,
                 PlayMobAnimationMessage::handle);
+        addNetworkMessage(SyncModDataMessage.class, SyncModDataMessage::encode, SyncModDataMessage::decode,
+                SyncModDataMessage::handle);
     }
 
     private static final String PROTOCOL_VERSION = "1";

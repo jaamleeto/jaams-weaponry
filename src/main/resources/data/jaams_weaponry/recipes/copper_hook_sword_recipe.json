@@ -1,4 +1,10 @@
-{
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "hook_sword",
     "category": "equipment",
@@ -22,4 +28,5 @@
         "item": "jaams_weaponry:copper_hook_sword",
         "count": 1
     }
+
 }

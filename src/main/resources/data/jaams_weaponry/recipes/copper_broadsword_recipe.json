@@ -1,4 +1,10 @@
-{
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "broadsword",
     "category": "equipment",
@@ -22,4 +28,5 @@
         "item": "jaams_weaponry:copper_broadsword",
         "count": 1
     }
+
 }

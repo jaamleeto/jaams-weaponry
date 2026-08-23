@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -16,27 +16,36 @@ import net.jaams.weaponry.util.ModGuns;
 
 import javax.annotation.Nullable;
 
-public class GunInventoryCapability implements ICapabilitySerializable<CompoundTag> {
+public class GunInventoryCapability implements ICapabilityProvider {
 	private final ModGuns.GunType gunType;
 	private final ItemStack gunStack;
-	private ItemStackHandler inventoryHandler;
-	private final LazyOptional<ItemStackHandler> inventory = LazyOptional.of(this::getOrCreateHandler);
+	private final ItemStackHandler inventoryHandler;
+	private final LazyOptional<ItemStackHandler> inventory;
 
 	public GunInventoryCapability(ModGuns.GunType type, ItemStack gunStack) {
 		this.gunType = type;
 		this.gunStack = gunStack;
+		this.inventoryHandler = createItemHandler();
+		loadFromItemTag();
+		this.inventory = LazyOptional.of(() -> inventoryHandler);
 	}
 
-	private ItemStackHandler getOrCreateHandler() {
-		if (inventoryHandler == null) {
-			inventoryHandler = createItemHandler();
+	private void loadFromItemTag() {
+		if (gunStack.isEmpty() || !gunStack.hasTag()) {
+			return;
 		}
-		return inventoryHandler;
+		CompoundTag root = gunStack.getTag();
+		if (root.contains("Inventory", CompoundTag.TAG_COMPOUND)) {
+			try {
+				inventoryHandler.deserializeNBT(root.getCompound("Inventory"));
+			} catch (Exception ignored) {
+			}
+		}
 	}
 
-	    private ItemStackHandler createItemHandler() {
-	        int slotCount = ModGuns.getGunSlotCount(gunType);
-	        return new ItemStackHandler(slotCount) {
+	private ItemStackHandler createItemHandler() {
+		int slotCount = ModGuns.getGunSlotCount(gunType);
+		return new ItemStackHandler(slotCount) {
 			@Override
 			public int getSlotLimit(int slot) {
 				return ModGuns.getSlotStackLimit(gunType, slot, gunStack);
@@ -58,20 +67,8 @@ public class GunInventoryCapability implements ICapabilitySerializable<CompoundT
 		return LazyOptional.empty();
 	}
 
-	@Override
-	public CompoundTag serializeNBT() {
-		return getOrCreateHandler().serializeNBT();
-	}
-
-	@Override
-	public void deserializeNBT(CompoundTag nbt) {
-		if (nbt != null) {
-			getOrCreateHandler().deserializeNBT(nbt);
-		}
-	}
-
 	public ItemStackHandler getItemHandler() {
-		return getOrCreateHandler();
+		return inventoryHandler;
 	}
 
 	public ModGuns.GunType getGunType() {

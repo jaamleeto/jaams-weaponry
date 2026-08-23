@@ -54,7 +54,7 @@ public abstract class AnimationPlayerMixin<T extends LivingEntity> extends Human
             float headPitch, CallbackInfo ci) {
         if (ageInTicks <= 0)
             return;
-        if (!master.equals("jaams_weaponry")) {
+        if (master == null || !master.equals("jaams_weaponry")) {
             if (!AnimationAPI.animations.isEmpty())
                 AnimationAPI.animations.clear();
             return;

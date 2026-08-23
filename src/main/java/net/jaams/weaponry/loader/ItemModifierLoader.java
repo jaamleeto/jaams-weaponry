@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
@@ -18,23 +19,26 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.data.ItemModifierData;
 
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class ItemModifierLoader extends SimpleJsonResourceReloadListener {
+@Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class ItemModifierLoader extends SimpleJsonResourceReloadListener implements NetworkSyncable {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final ItemModifierLoader INSTANCE = new ItemModifierLoader();
     private volatile Map<ResourceLocation, ItemModifierData> modifiers = new ConcurrentHashMap<>();
     private volatile Map<ResourceLocation, List<ItemModifierData>> itemCache = new ConcurrentHashMap<>();
+    private volatile Map<String, String> sources = new ConcurrentHashMap<>();
     private static final Logger LOGGER = LogManager.getLogger(ItemModifierLoader.class);
 
     private ItemModifierLoader() {
@@ -48,14 +52,30 @@ public class ItemModifierLoader extends SimpleJsonResourceReloadListener {
             LOGGER.warn("ItemModifierLoader apply called with null resources");
             return;
         }
+        Map<String, String> srcs = new ConcurrentHashMap<>();
+        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
+            if (entry == null || entry.getKey() == null || entry.getValue() == null)
+                continue;
+            try {
+                srcs.put(entry.getKey().toString(), GSON.toJson(entry.getValue()));
+            } catch (Exception ignored) {
+            }
+        }
+        rebuild(srcs);
+    }
+
+    private void rebuild(Map<String, String> srcs) {
         Map<ResourceLocation, ItemModifierData> newModifiers = new ConcurrentHashMap<>();
         int count = 0;
         int errors = 0;
-        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
-            if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
-            ResourceLocation fileId = entry.getKey();
+        for (Map.Entry<String, String> entry : srcs.entrySet()) {
+            String fileId = entry.getKey();
+            if (!JaamsWeaponryMod.isOwnNamespace(fileId)) {
+                continue;
+            }
             try {
-                ItemModifierData data = GSON.fromJson(entry.getValue(), ItemModifierData.class);
+                ItemModifierData data = GSON.fromJson(com.google.gson.JsonParser.parseString(entry.getValue()),
+                        ItemModifierData.class);
                 if (data == null) {
                     LOGGER.warn("Item modifier file {} returned null data", fileId);
                     errors++;
@@ -70,7 +90,7 @@ public class ItemModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
-                newModifiers.put(fileId, data);
+                newModifiers.put(new ResourceLocation(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;
@@ -79,7 +99,30 @@ public class ItemModifierLoader extends SimpleJsonResourceReloadListener {
         }
         this.modifiers = newModifiers;
         this.itemCache = new ConcurrentHashMap<>();
+        this.sources = new ConcurrentHashMap<>(srcs);
         LOGGER.info("Loaded {} item modifiers ({} errors)", count, errors);
+    }
+
+    @Override
+    public String getSyncId() {
+        return "item_modifier";
+    }
+
+    @Override
+    public Map<String, String> getSourcesSnapshot() {
+        return new HashMap<>(sources);
+    }
+
+    @Override
+    public void applyNetworkSync(Map<String, String> srcs) {
+        if (srcs == null)
+            return;
+        rebuild(srcs);
+    }
+
+    @SubscribeEvent
+    public static void onTagsUpdated(TagsUpdatedEvent event) {
+        INSTANCE.itemCache.clear();
     }
 
     public List<ItemModifierData> getForItem(Item item) {

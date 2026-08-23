@@ -9,6 +9,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,6 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
+import net.jaams.weaponry.animation.AnimationHelper;
 import net.jaams.weaponry.data.HeldPoseData;
 import net.jaams.weaponry.loader.HeldPoseModifierLoader;
 import net.jaams.weaponry.util.ModAnimations;
@@ -46,35 +49,66 @@ public class HeldPoseHandler {
 
 
         for (Player player : mc.level.players()) {
-            updatePoseForPlayer(player);
+            updatePoseForEntity(player);
+        }
+
+        if (mc.level != null) {
+            for (Entity entity : mc.level.entitiesForRendering()) {
+                if (entity instanceof LivingEntity living && !(entity instanceof Player)) {
+                    updatePoseForEntity(living);
+                }
+            }
         }
     }
 
-    private static void updatePoseForPlayer(Player player) {
-        UUID uuid = player.getUUID();
+    private static void updatePoseForEntity(LivingEntity entity) {
+        UUID uuid = entity.getUUID();
         String currentPose = lastApplied.get(uuid);
 
-        HeldPoseData bestMatch = findBestMatch(player);
+        HeldPoseData bestMatch = findBestMatch(entity);
 
         if (bestMatch != null) {
             String newPose = bestMatch.pose;
 
             if (!newPose.equals(currentPose)) {
-                ModAnimations.clearAnimationState(player);
-                ModAnimations.setPose(player, newPose);
-                ModAnimations.setFirstPersonAnimation(player, bestMatch.first_person);
+                if (entity instanceof Player player) {
+                    ModAnimations.clearAnimationState(player);
+                    ModAnimations.setPose(player, newPose);
+                    ModAnimations.setFirstPersonAnimation(player, bestMatch.first_person);
+                } else {
+                    applyMobPose(entity, bestMatch);
+                }
                 lastApplied.put(uuid, newPose);
             }
 
-            playHoldAnimationIfNew(player, bestMatch, uuid);
+            if (entity instanceof Player player) {
+                playHoldAnimationIfNew(player, bestMatch, uuid);
+            }
         } else {
             if (currentPose != null && !currentPose.isEmpty()) {
-                ModAnimations.finishAnimation(player);
-                ModAnimations.removePose(player);
-                ModAnimations.setFirstPersonAnimation(player, false);
+                if (entity instanceof Player player) {
+                    ModAnimations.finishAnimation(player);
+                    ModAnimations.removePose(player);
+                    ModAnimations.setFirstPersonAnimation(player, false);
+                } else {
+                    AnimationHelper.stopAnimation(entity);
+                }
                 lastApplied.remove(uuid);
             }
             lastHoldFingerprint.remove(uuid);
+        }
+    }
+
+    private static void applyMobPose(LivingEntity mob, HeldPoseData data) {
+        AnimationHelper.stopAnimation(mob);
+        String pose = data.pose;
+        if (pose != null && !pose.isEmpty() && ModAnimations.getAnimation(pose) != null) {
+            AnimationHelper.startAnimation(mob, pose, false, 1.0f, 0);
+            return;
+        }
+        String anim = data.animation;
+        if (anim != null && !anim.isEmpty() && ModAnimations.getAnimation(anim) != null) {
+            AnimationHelper.startAnimation(mob, anim, false, data.animation_speed, 0);
         }
     }
 
@@ -118,24 +152,33 @@ public class HeldPoseHandler {
     
     
 
-    private static HeldPoseData findBestMatch(Player player) {
-        String entityType = ForgeRegistries.ENTITY_TYPES.getKey(player.getType()).toString();
+    private static HeldPoseData findBestMatch(LivingEntity entity) {
+        String entityType = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).toString();
+        boolean isPlayer = entity instanceof Player;
 
-        ItemStack mainhand = player.getMainHandItem();
-        ItemStack offhand = player.getOffhandItem();
+        ItemStack mainhand = entity.getMainHandItem();
+        ItemStack offhand = entity.getOffhandItem();
 
         for (HeldPoseData data : HeldPoseModifierLoader.INSTANCE.getAll()) {
             if (!data.appliesToEntity(entityType))
                 continue;
 
             if (!mainhand.isEmpty() && matchesItem(data, mainhand) && data.appliesToHand("mainhand")) {
-                if (HeldPoseModifierLoader.INSTANCE.evaluateConditions(data, mainhand, player))
+                if (isPlayer) {
+                    if (HeldPoseModifierLoader.INSTANCE.evaluateConditions(data, mainhand, (Player) entity))
+                        return data;
+                } else {
                     return data;
+                }
             }
 
             if (!offhand.isEmpty() && matchesItem(data, offhand) && data.appliesToHand("offhand")) {
-                if (HeldPoseModifierLoader.INSTANCE.evaluateConditions(data, offhand, player))
+                if (isPlayer) {
+                    if (HeldPoseModifierLoader.INSTANCE.evaluateConditions(data, offhand, (Player) entity))
+                        return data;
+                } else {
                     return data;
+                }
             }
         }
 

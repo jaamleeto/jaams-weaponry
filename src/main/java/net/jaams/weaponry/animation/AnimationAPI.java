@@ -1,11 +1,13 @@
 package net.jaams.weaponry.animation;
 
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.ModList;
-
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.AddReloadListenerEvent;
+
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.resources.ResourceLocation;
 
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +19,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.util.Mth;
 import net.minecraft.client.Minecraft;
 
-import java.util.stream.Stream;
 import java.util.Map;
 import java.util.List;
 import java.util.Set;
@@ -26,23 +27,27 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Random;
 
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.charset.StandardCharsets;
-
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import com.google.gson.Gson;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
 
 public class AnimationAPI {
     public static final Map<String, PlayerAnimation> animations = new Object2ObjectOpenHashMap<>();
     public static final Map<Player, PlayerAnimation> active_animations = new Object2ObjectOpenHashMap<>();
+
+    
+    public static final Map<String, JsonObject> animationSources = new HashMap<>();
+    public static final Map<String, JsonObject> randomGroupSources = new HashMap<>();
 
     
     public static final Map<Player, Float> playerSwingBlend = new WeakHashMap<>();
@@ -64,6 +69,8 @@ public class AnimationAPI {
 
     
     public static final Map<String, RandomAnimationGroup> randomGroups = new HashMap<>();
+
+    private static final Logger LOGGER = LogManager.getLogger(AnimationAPI.class);
 
     public static class MobAnimationState {
         public String animationName;
@@ -105,9 +112,60 @@ public class AnimationAPI {
         for (int i = 0; i < animationsObject.size(); i++) {
             String animationName = animationsObject.keySet().stream().toList().get(i);
             JsonObject animationObject = animationsObject.get(animationName).getAsJsonObject();
-            PlayerAnimation animation = new PlayerAnimation(animationObject);
-            animations.put(animationName, animation);
+            if (animationObject.has("type") && "random_group".equals(animationObject.get("type").getAsString())) {
+                RandomAnimationGroup group = RandomAnimationGroup.fromJson(animationObject);
+                randomGroups.put(animationName, group);
+                randomGroupSources.put(animationName, animationObject);
+            } else {
+                PlayerAnimation animation = new PlayerAnimation(animationObject);
+                animations.put(animationName, animation);
+                animationSources.put(animationName, animationObject);
+            }
         }
+    }
+
+    
+    public static void applyAnimationSync(Map<String, String> animationJsons) {
+        if (animationJsons == null)
+            return;
+        animations.clear();
+        animationSources.clear();
+        int count = 0;
+        int errors = 0;
+        for (Map.Entry<String, String> entry : animationJsons.entrySet()) {
+            try {
+                JsonObject obj = JsonParser.parseString(entry.getValue()).getAsJsonObject();
+                animationSources.put(entry.getKey(), obj);
+                animations.put(entry.getKey(), new PlayerAnimation(obj));
+                count++;
+            } catch (Exception e) {
+                errors++;
+                LOGGER.error("Failed to parse synced animation '{}'", entry.getKey(), e);
+            }
+        }
+        LOGGER.info("Applied {} synced bedrock animations ({} errors)", count, errors);
+    }
+
+    
+    public static void applyRandomGroupSync(Map<String, String> groupJsons) {
+        if (groupJsons == null)
+            return;
+        randomGroups.clear();
+        randomGroupSources.clear();
+        int count = 0;
+        int errors = 0;
+        for (Map.Entry<String, String> entry : groupJsons.entrySet()) {
+            try {
+                JsonObject obj = JsonParser.parseString(entry.getValue()).getAsJsonObject();
+                randomGroupSources.put(entry.getKey(), obj);
+                randomGroups.put(entry.getKey(), RandomAnimationGroup.fromJson(obj));
+                count++;
+            } catch (Exception e) {
+                errors++;
+                LOGGER.error("Failed to parse synced animation group '{}'", entry.getKey(), e);
+            }
+        }
+        LOGGER.info("Applied {} synced random animation groups ({} errors)", count, errors);
     }
 
     public static class PlayerAnimation {
@@ -890,69 +948,65 @@ public class AnimationAPI {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class AnimationLoader {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            event.enqueueWork(() -> {
-                loadClientSideAnimations();
-            });
+    @Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public static class AnimationLoader extends SimpleJsonResourceReloadListener {
+        private static final Gson GSON = new Gson();
+
+        public static final AnimationLoader INSTANCE = new AnimationLoader();
+
+        private AnimationLoader() {
+            super(GSON, "bedrock_animations");
         }
 
-        private static void loadClientSideAnimations() {
-            List<JsonObject> jsons = new ArrayList<>();
-            List<String> namespaces = new ArrayList<>();
-            ModList.get().getModFiles().forEach(modFileInfo -> {
-                String modId = modFileInfo.getMods().get(0).getModId();
-                Path rootPath = modFileInfo.getFile().findResource("data");
-                if (rootPath == null || !Files.exists(rootPath)) {
-                    return;
+        @Override
+        protected void apply(Map<ResourceLocation, JsonElement> resources, ResourceManager resourceManager,
+                ProfilerFiller profiler) {
+            if (resources == null) {
+                LOGGER.warn("AnimationLoader apply called with null resources");
+                return;
+            }
+            AnimationAPI.animations.clear();
+            AnimationAPI.randomGroups.clear();
+            AnimationAPI.animationSources.clear();
+            AnimationAPI.randomGroupSources.clear();
+            int count = 0;
+            int errors = 0;
+            for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
+                if (entry == null || entry.getKey() == null || entry.getValue() == null)
+                    continue;
+                ResourceLocation fileId = entry.getKey();
+                if (!fileId.getNamespace().equals(JaamsWeaponryMod.MODID)) {
+                    continue;
                 }
                 try {
-                    Path animationsPath = rootPath.resolve(modId).resolve("bedrock_animations");
-                    if (Files.exists(animationsPath) && Files.isDirectory(animationsPath)) {
-                        try (Stream<Path> paths = Files.walk(animationsPath)) {
-                            paths.filter(Files::isRegularFile).filter(path -> path.toString().endsWith(".json"))
-                                    .forEach(animationFile -> {
-                                        try {
-                                            String content = Files.readString(animationFile, StandardCharsets.UTF_8);
-                                            JsonObject jsonObject = new Gson().fromJson(content, JsonObject.class);
-                                            jsons.add(jsonObject);
-                                            namespaces.add(modId);
-                                        } catch (Exception e) {
-                                            System.err.println(
-                                                    "Failed to load animation file: " + animationFile + " - "
-                                                            + e.getMessage());
-                                        }
-                                    });
+                    JsonObject animationJson = entry.getValue().getAsJsonObject();
+                    JsonObject sourceAnimations = animationJson.getAsJsonObject("animations");
+                    if (sourceAnimations != null) {
+                        for (Map.Entry<String, JsonElement> animEntry : sourceAnimations.entrySet()) {
+                            String animationName = animEntry.getKey();
+                            JsonObject animObj = animEntry.getValue().getAsJsonObject();
+                            if (animObj.has("type") && "random_group".equals(animObj.get("type").getAsString())) {
+                                RandomAnimationGroup group = RandomAnimationGroup.fromJson(animObj);
+                                AnimationAPI.randomGroups.put(animationName, group);
+                                AnimationAPI.randomGroupSources.put(animationName, animObj);
+                            } else {
+                                AnimationAPI.animations.put(animationName, new PlayerAnimation(animObj));
+                                AnimationAPI.animationSources.put(animationName, animObj);
+                            }
+                            count++;
                         }
                     }
                 } catch (Exception e) {
-                    System.err.println("Failed to process animations for mod: " + modId + " - " + e.getMessage());
+                    errors++;
+                    LOGGER.error("Failed to load animation file: {}", fileId, e);
                 }
-            });
-            if (!jsons.isEmpty()) {
-                loadAnimations(jsons, namespaces);
             }
+            LOGGER.info("Loaded {} bedrock animations ({} errors)", count, errors);
         }
 
-        private static void loadAnimations(List<JsonObject> jsons, List<String> namespaces) {
-            for (JsonObject animationJson : jsons) {
-                JsonObject sourceAnimations = animationJson.getAsJsonObject("animations");
-                if (sourceAnimations != null) {
-                    for (Map.Entry<String, JsonElement> entry : sourceAnimations.entrySet()) {
-                        String animationName = entry.getKey();
-                        JsonObject animObj = entry.getValue().getAsJsonObject();
-                        
-                        if (animObj.has("type") && "random_group".equals(animObj.get("type").getAsString())) {
-                            RandomAnimationGroup group = RandomAnimationGroup.fromJson(animObj);
-                            AnimationAPI.randomGroups.put(animationName, group);
-                        } else {
-                            AnimationAPI.animations.put(animationName, new PlayerAnimation(animObj));
-                        }
-                    }
-                }
-            }
+        @SubscribeEvent
+        public static void onAddReloadListener(AddReloadListenerEvent event) {
+            event.addListener(INSTANCE);
         }
     }
 }

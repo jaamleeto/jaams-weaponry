@@ -698,6 +698,7 @@ public final class ModGuns {
                         if (!extracted.isEmpty()) {
                             playExtractSound(player, gunStack, extracted);
                             slot.safeInsert(extracted);
+                            markGunDirty(player, gunStack);
                             return true;
                         }
                     } else {
@@ -707,6 +708,7 @@ public final class ModGuns {
                             if (inserted > 0) {
                                 playInsertSound(player, gunStack, cursor.copyWithCount(inserted));
                                 cursor.shrink(inserted);
+                                markGunDirty(player, gunStack);
                                 return true;
                             }
                         }
@@ -733,6 +735,7 @@ public final class ModGuns {
                         if (!extracted.isEmpty()) {
                             playExtractSound(player, gunStack, extracted);
                             access.set(extracted);
+                            markGunDirty(player, gunStack);
                             return true;
                         }
                     } else {
@@ -742,6 +745,7 @@ public final class ModGuns {
                             if (inserted > 0) {
                                 playInsertSound(player, gunStack, cursorStack.copyWithCount(inserted));
                                 cursorStack.shrink(inserted);
+                                markGunDirty(player, gunStack);
                                 return true;
                             }
                         }
@@ -749,6 +753,12 @@ public final class ModGuns {
                     return false;
                 })
                 .orElse(false);
+    }
+
+    public static void markGunDirty(Player player, ItemStack gunStack) {
+        if (player == null || gunStack == null || gunStack.isEmpty())
+            return;
+        player.getInventory().setChanged();
     }
 
     public static InteractionResultHolder<ItemStack> useGun(ItemStack stack, Level world, Player entity,

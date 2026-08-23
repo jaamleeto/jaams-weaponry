@@ -1,4 +1,10 @@
-{
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "claw",
     "category": "equipment",
@@ -19,4 +25,5 @@
         "item": "jaams_weaponry:copper_claw",
         "count": 1
     }
+
 }

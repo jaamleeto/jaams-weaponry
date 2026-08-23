@@ -1,4 +1,10 @@
-{
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "katar",
     "category": "equipment",
@@ -21,4 +27,5 @@
         "item": "jaams_weaponry:copper_katar",
         "count": 1
     }
+
 }

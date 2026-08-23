@@ -1,4 +1,10 @@
-{
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
     "group": "double_ingot",
     "category": "misc",
@@ -17,4 +23,5 @@
         "item": "jaams_weaponry:double_copper_ingot",
         "count": 1
     }
+
 }

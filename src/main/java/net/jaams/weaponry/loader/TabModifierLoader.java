@@ -13,22 +13,26 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.resources.ResourceLocation;
 
+import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.data.CreativeTabData;
 
 import java.util.Map;
 import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class TabModifierLoader extends SimpleJsonResourceReloadListener {
+@Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class TabModifierLoader extends SimpleJsonResourceReloadListener implements NetworkSyncable {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	public static final TabModifierLoader INSTANCE = new TabModifierLoader();
 	    private volatile List<CreativeTabData.Entry> allEntries = List.of();
+	private volatile Map<String, String> sources = new ConcurrentHashMap<>();
 	private static final Logger LOGGER = LogManager.getLogger(TabModifierLoader.class);
 
 	private TabModifierLoader() {
@@ -41,14 +45,28 @@ public class TabModifierLoader extends SimpleJsonResourceReloadListener {
 			LOGGER.warn("TabModifierLoader apply called with null resources");
 			return;
 		}
+		Map<String, String> srcs = new ConcurrentHashMap<>();
+		for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
+		    if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
+		    try {
+		        srcs.put(entry.getKey().toString(), GSON.toJson(entry.getValue()));
+		    } catch (Exception ignored) {
+		    }
+		}
+		rebuild(srcs);
+	}
+
+	private void rebuild(Map<String, String> srcs) {
 		List<CreativeTabData.Entry> newEntries = new ArrayList<>();
 		int filesLoaded = 0;
 		int errors = 0;
-		for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
-		    if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
-		    ResourceLocation fileId = entry.getKey();
+		for (Map.Entry<String, String> entry : srcs.entrySet()) {
+		    String fileId = entry.getKey();
+            if (!JaamsWeaponryMod.isOwnNamespace(fileId)) {
+                continue;
+            }
 		            try {
-		                CreativeTabData data = GSON.fromJson(entry.getValue(), CreativeTabData.class);
+		                CreativeTabData data = GSON.fromJson(com.google.gson.JsonParser.parseString(entry.getValue()), CreativeTabData.class);
 		                if (data != null && data.entries != null && !data.entries.isEmpty()) {
 		                    if (data.enabled != null && !data.enabled) {
 		                        LOGGER.info("Tab modifier file {} is disabled, skipping", fileId);
@@ -64,7 +82,24 @@ public class TabModifierLoader extends SimpleJsonResourceReloadListener {
 		        }
 		        newEntries.sort((a, b) -> Integer.compare(b.weight, a.weight));
 		        this.allEntries = List.copyOf(newEntries);
+		        this.sources = new ConcurrentHashMap<>(srcs);
 		        LOGGER.info("Loaded {} creative tab files with {} entries ({} errors)", filesLoaded, allEntries.size(), errors);
+	}
+
+	@Override
+	public String getSyncId() {
+		return "tab_modifier";
+	}
+
+	@Override
+	public Map<String, String> getSourcesSnapshot() {
+		return new HashMap<>(sources);
+	}
+
+	@Override
+	public void applyNetworkSync(Map<String, String> srcs) {
+		if (srcs == null) return;
+		rebuild(srcs);
 	}
 
 	public List<CreativeTabData.Entry> getAllEntries() {

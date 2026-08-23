@@ -1,4 +1,10 @@
-{
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
   "type": "minecraft:crafting_shaped",
   "group": "attachment",
   "category": "misc",
@@ -19,4 +25,5 @@
     "item": "jaams_weaponry:copper_quick_draw_magazine",
     "count": 1
   }
+
 }

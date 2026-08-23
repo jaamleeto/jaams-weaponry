@@ -1,0 +1,18 @@
+{
+    "animations": {
+        "point": {
+            "loop": false,
+            "animation_length": 1.0,
+            "cancel_on_player_animator": true,
+            "bones": {
+                "left_arm": {
+                    "rotation": {
+                        "0.0": [0, 0, 0],
+                        "0.3": [-160, 0, 35],
+                        "1.0": [-160, 0, 35]
+                    }
+                }
+            }
+        }
+    }
+}

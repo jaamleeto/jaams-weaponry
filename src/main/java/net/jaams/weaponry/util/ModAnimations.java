@@ -11,6 +11,11 @@ import org.jetbrains.annotations.Nullable;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.animation.AnimationAPI;
+import net.jaams.weaponry.client.ClientAnimationSoundPlayer;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
+
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
 import net.jaams.weaponry.network.PlayAnimationMessage;
 import net.jaams.weaponry.network.PlayMobAnimationMessage;
@@ -495,13 +500,9 @@ public class ModAnimations {
                         final float st = soundTime;
                         BuiltInRegistries.SOUND_EVENT
                                 .getOptional(new ResourceLocation(soundId))
-                                .ifPresent(soundEvent -> {
-                                    Minecraft.getInstance().getSoundManager().play(
-                                            new net.jaams.weaponry.animation.AnimationSound(
-                                                    soundEvent,
-                                                    SoundSource.NEUTRAL, 1.0F, 1.0F,
-                                                    player));
-                                });
+                                .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
+                                        () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.NEUTRAL,
+                                                1.0F, 1.0F, player)));
                         playedSounds.add(FloatTag.valueOf(soundTime));
                         soundPlayed = true;
                     }
@@ -1566,13 +1567,9 @@ public class ModAnimations {
                 if (shouldPlay && player.level() instanceof ClientLevel) {
                     BuiltInRegistries.SOUND_EVENT
                             .getOptional(new ResourceLocation(soundId))
-                            .ifPresent(soundEvent -> {
-                                Minecraft.getInstance().getSoundManager().play(
-                                        new net.jaams.weaponry.animation.AnimationSound(
-                                                soundEvent,
-                                                SoundSource.NEUTRAL, 1.0F, 1.0F,
-                                                player));
-                            });
+                            .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
+                                    () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.NEUTRAL,
+                                            1.0F, 1.0F, player)));
                     playedSounds.add(FloatTag.valueOf(soundTime));
                 }
             }
@@ -1738,8 +1735,30 @@ public class ModAnimations {
                     break;
                 }
                 case "camera_shake": {
+                    if (!(entity instanceof net.minecraft.world.entity.player.Player))
+                        break;
 
-                    if (entity instanceof net.minecraft.world.entity.player.Player) {
+                    String target = event.getString("target", "self").toLowerCase();
+                    float radius = event.getFloat("radius", 16.0f);
+                    Player localPlayer = Minecraft.getInstance().player;
+                    if (localPlayer == null)
+                        break;
+
+                    boolean apply;
+                    switch (target) {
+                        case "all":
+                            apply = true;
+                            break;
+                        case "nearby":
+                            apply = entity.distanceTo(localPlayer) <= radius;
+                            break;
+                        case "self":
+                        default:
+                            apply = entity == localPlayer;
+                            break;
+                    }
+
+                    if (apply) {
                         cameraShakeIntensity = Math.max(cameraShakeIntensity, event.getFloat("intensity", 0.3f));
                         cameraShakeDuration = Math.max(cameraShakeDuration, event.getInt("duration", 5));
                     }
@@ -1752,13 +1771,10 @@ public class ModAnimations {
                         float pitch = event.getFloat("pitch", 1.0f);
                         BuiltInRegistries.SOUND_EVENT
                                 .getOptional(new ResourceLocation(soundId))
-                                .ifPresent(soundEvent -> {
-                                    Minecraft.getInstance().getSoundManager().play(
-                                            new net.jaams.weaponry.animation.AnimationSound(
-                                                    soundEvent,
-                                                    SoundSource.NEUTRAL, volume, pitch,
-                                                    entity));
-                                });
+                                .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
+                                        () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.NEUTRAL,
+                                                volume, pitch, entity)));
+
                     }
                     break;
                 }

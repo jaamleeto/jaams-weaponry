@@ -7,9 +7,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
@@ -18,26 +17,31 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.registries.Registries;
 
+import net.jaams.weaponry.JaamsWeaponryMod;
+import net.jaams.weaponry.condition.ConditionEvaluator;
 import net.jaams.weaponry.data.GunItemData;
+import net.jaams.weaponry.util.ModGuns;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class GunModifierLoader extends SimpleJsonResourceReloadListener {
+@Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class GunModifierLoader extends SimpleJsonResourceReloadListener implements NetworkSyncable {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final GunModifierLoader INSTANCE = new GunModifierLoader();
     private volatile Map<ResourceLocation, GunItemData> guns = new ConcurrentHashMap<>();
     private volatile Map<ResourceLocation, List<GunItemData>> itemCache = new ConcurrentHashMap<>();
+    private volatile Map<String, String> sources = new ConcurrentHashMap<>();
     private static final Logger LOGGER = LogManager.getLogger(GunModifierLoader.class);
 
     private GunModifierLoader() {
@@ -51,14 +55,30 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
             LOGGER.warn("GunModifierLoader apply called with null resources");
             return;
         }
+        Map<String, String> srcs = new ConcurrentHashMap<>();
+        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
+            if (entry == null || entry.getKey() == null || entry.getValue() == null)
+                continue;
+            try {
+                srcs.put(entry.getKey().toString(), GSON.toJson(entry.getValue()));
+            } catch (Exception ignored) {
+            }
+        }
+        rebuild(srcs);
+    }
+
+    private void rebuild(Map<String, String> srcs) {
         Map<ResourceLocation, GunItemData> newGuns = new ConcurrentHashMap<>();
         int count = 0;
         int errors = 0;
-        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
-            if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
-            ResourceLocation fileId = entry.getKey();
+        for (Map.Entry<String, String> entry : srcs.entrySet()) {
+            String fileId = entry.getKey();
+            if (!JaamsWeaponryMod.isOwnNamespace(fileId)) {
+                continue;
+            }
             try {
-                GunItemData data = GSON.fromJson(entry.getValue(), GunItemData.class);
+                GunItemData data = GSON.fromJson(com.google.gson.JsonParser.parseString(entry.getValue()),
+                        GunItemData.class);
                 if (data == null) {
                     LOGGER.warn("Gun modifier file {} returned null data", fileId);
                     errors++;
@@ -78,7 +98,18 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Gun modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
-                newGuns.put(fileId, data);
+                try {
+                    ModGuns.GunType.valueOf(data.gun.gun_type.toUpperCase(Locale.ROOT));
+                } catch (IllegalArgumentException e) {
+                    LOGGER.warn("Gun modifier file {}: invalid gun_type '{}'", fileId, data.gun.gun_type);
+                    errors++;
+                }
+                for (String warning : ConditionEvaluator.validateConditions(data.conditions)) {
+                    LOGGER.warn("Gun modifier file {}: {}", fileId, warning);
+                    errors++;
+                }
+                data.id = fileId;
+                newGuns.put(new ResourceLocation(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;
@@ -87,7 +118,30 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
         }
         this.guns = newGuns;
         this.itemCache = new ConcurrentHashMap<>();
+        this.sources = new ConcurrentHashMap<>(srcs);
         LOGGER.info("Loaded {} gun modifiers ({} errors)", count, errors);
+    }
+
+    @Override
+    public String getSyncId() {
+        return "gun_modifier";
+    }
+
+    @Override
+    public Map<String, String> getSourcesSnapshot() {
+        return new HashMap<>(sources);
+    }
+
+    @Override
+    public void applyNetworkSync(Map<String, String> srcs) {
+        if (srcs == null)
+            return;
+        rebuild(srcs);
+    }
+
+    @SubscribeEvent
+    public static void onTagsUpdated(TagsUpdatedEvent event) {
+        INSTANCE.itemCache.clear();
     }
 
     public List<GunItemData> getForItem(Item item) {
@@ -113,95 +167,19 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener {
                 result.add(data);
             }
         }
-        result.sort((a, b) -> Integer.compare(b.priority, a.priority));
+        result.sort((a, b) -> {
+            int byPriority = Integer.compare(b.priority, a.priority);
+            if (byPriority != 0)
+                return byPriority;
+            return String.valueOf(a.id).compareTo(String.valueOf(b.id));
+        });
         return result;
     }
 
     public boolean evaluateConditions(GunItemData data, ItemStack stack) {
-        if (data == null || stack == null) return false;
-        if (data.conditions == null || data.conditions.isEmpty()) {
-            return true;
-        }
-        boolean isAndMode = "and".equalsIgnoreCase(data.condition_mode);
-        for (GunItemData.Condition cond : data.conditions) {
-            boolean conditionMet = evaluateSingleCondition(cond, stack);
-            if (isAndMode && !conditionMet)
-                return false;
-            if (!isAndMode && conditionMet)
-                return true;
-        }
-        return isAndMode;
-    }
-
-    private boolean evaluateSingleCondition(GunItemData.Condition cond, ItemStack stack) {
-        if (cond == null || cond.type == null)
+        if (data == null || stack == null)
             return false;
-        return switch (cond.type.toLowerCase()) {
-            case "enchantment" -> checkEnchantment(cond, stack);
-            case "nbt" -> checkNBT(cond, stack);
-            case "tag" -> checkTag(cond, stack);
-            case "item" -> checkItem(cond, stack);
-            case "mod" -> checkMod(cond, stack);
-            case "rarity" -> checkRarity(cond, stack);
-            default -> false;
-        };
-    }
-
-    private boolean checkEnchantment(GunItemData.Condition cond, ItemStack stack) {
-        if (stack == null || cond.enchantment == null)
-            return false;
-        ResourceLocation enchId = ResourceLocation.tryParse(cond.enchantment);
-        if (enchId == null)
-            return false;
-        Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(enchId);
-        if (enchantment == null)
-            return false;
-        int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
-        return level >= cond.level;
-    }
-
-    private boolean checkNBT(GunItemData.Condition cond, ItemStack stack) {
-        if (stack == null || !stack.hasTag() || cond.key == null)
-            return false;
-        CompoundTag tag = stack.getTag();
-        return switch (cond.nbt_key != null ? cond.nbt_key.toLowerCase() : "") {
-            case "boolean" -> tag.getBoolean(cond.key) == cond.nbt_boolean_value;
-            case "int" -> tag.getInt(cond.key) == cond.nbt_int_value;
-            case "string" -> cond.nbt_string_value != null && cond.nbt_string_value.equals(tag.getString(cond.key));
-            default -> false;
-        };
-    }
-
-    private boolean checkTag(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.tag == null || stack == null)
-            return false;
-        ResourceLocation tagId = ResourceLocation.tryParse(cond.tag);
-        if (tagId == null)
-            return false;
-        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, tagId);
-        return stack.is(tagKey);
-    }
-
-    private boolean checkItem(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.item == null || stack == null)
-            return false;
-        ResourceLocation itemId = ResourceLocation.tryParse(cond.item);
-        if (itemId == null || stack == null) return false;
-        ResourceLocation stackId = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return stackId != null && stackId.equals(itemId);
-    }
-
-    private boolean checkMod(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.mod_id == null || stack == null)
-            return false;
-        ResourceLocation stackId = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return stackId != null && cond.mod_id.equals(stackId.getNamespace());
-    }
-
-    private boolean checkRarity(GunItemData.Condition cond, ItemStack stack) {
-        if (cond.rarity == null || stack == null)
-            return false;
-        return stack.getRarity().name().equalsIgnoreCase(cond.rarity);
+        return ConditionEvaluator.evaluateAll(data.conditions, data.condition_mode, stack);
     }
 
     private boolean matchesTarget(List<String> targets, ResourceLocation itemId) {

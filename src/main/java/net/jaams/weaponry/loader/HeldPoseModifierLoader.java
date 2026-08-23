@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.data.HeldPoseData;
 import net.jaams.weaponry.data.GunItemData;
 import net.jaams.weaponry.gun.helper.GunShootHelper;
@@ -28,22 +29,29 @@ import net.jaams.weaponry.configuration.common.GunSystemCommonConfig;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
+@Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener implements NetworkSyncable {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final HeldPoseModifierLoader INSTANCE = new HeldPoseModifierLoader();
     private volatile Map<ResourceLocation, HeldPoseData> poses = new ConcurrentHashMap<>();
     private volatile List<HeldPoseData> sortedCache = List.of();
+    private volatile Map<String, String> poseSources = new ConcurrentHashMap<>();
     private static final Logger LOGGER = LogManager.getLogger(HeldPoseModifierLoader.class);
 
     private HeldPoseModifierLoader() {
         super(GSON, "jaams/pose_modifier");
+    }
+
+    @Override
+    public String getSyncId() {
+        return "held_pose";
     }
 
     @Override
@@ -53,14 +61,41 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
             LOGGER.warn("HeldPoseModifierLoader apply called with null resources");
             return;
         }
+        Map<String, String> sources = new ConcurrentHashMap<>();
+        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
+            if (entry == null || entry.getKey() == null || entry.getValue() == null)
+                continue;
+            try {
+                sources.put(entry.getKey().toString(), GSON.toJson(entry.getValue()));
+            } catch (Exception ignored) {
+            }
+        }
+        rebuild(sources);
+    }
+
+    
+    public void applyNetworkSync(Map<String, String> sources) {
+        if (sources == null)
+            return;
+        rebuild(sources);
+    }
+
+    public Map<String, String> getSourcesSnapshot() {
+        return new HashMap<>(poseSources);
+    }
+
+    private void rebuild(Map<String, String> sources) {
         Map<ResourceLocation, HeldPoseData> newPoses = new ConcurrentHashMap<>();
         int count = 0;
         int errors = 0;
-        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
-            if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
-            ResourceLocation fileId = entry.getKey();
+        for (Map.Entry<String, String> entry : sources.entrySet()) {
+            String fileId = entry.getKey();
+            if (!JaamsWeaponryMod.isOwnNamespace(fileId)) {
+                continue;
+            }
             try {
-                HeldPoseData data = GSON.fromJson(entry.getValue(), HeldPoseData.class);
+                JsonElement element = com.google.gson.JsonParser.parseString(entry.getValue());
+                HeldPoseData data = GSON.fromJson(element, HeldPoseData.class);
                 if (data == null) {
                     LOGGER.warn("Held pose file {} returned null data", fileId);
                     errors++;
@@ -80,7 +115,7 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Held pose file {} is disabled, skipping", fileId);
                     continue;
                 }
-                newPoses.put(fileId, data);
+                newPoses.put(new ResourceLocation(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;
@@ -92,6 +127,7 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener {
         sorted.sort((a, b) -> Integer.compare(b.priority, a.priority));
         this.poses = newPoses;
         this.sortedCache = sorted;
+        this.poseSources = new ConcurrentHashMap<>(sources);
         LOGGER.info("Loaded {} held pose entries ({} errors)", count, errors);
     }
 

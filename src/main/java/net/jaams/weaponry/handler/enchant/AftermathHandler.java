@@ -99,57 +99,58 @@ public class AftermathHandler {
     public static void onAftermathEntityJoinLevel(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Projectile projectile
                 && projectile.getOwner() instanceof LivingEntity entity) {
+            int aftermathLevel = 0;
             if (entity instanceof Player player) {
                 AftermathData data = aftermathPlayers.get(player);
                 if (data != null && data.level > 0) {
-                    projectile.getPersistentData().putInt(AFTERMATH_NBT_KEY, data.level);
-                }
-            } else {
-                int aftermathLevel = 0;
-
-                
-                
-                
-                if (projectile instanceof BaseWeaponProjectileEntity weaponProj) {
-                    ItemStack weaponItem = weaponProj.getWeaponItem();
-                    if (!weaponItem.isEmpty()) {
-                        aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(),
-                                weaponItem);
-                    }
-                }
-                if (aftermathLevel <= 0 && projectile instanceof BaseItemProjectileEntity itemProj) {
-                    ItemStack sourceItem = itemProj.getSourceItem();
-                    if (!sourceItem.isEmpty()) {
-                        aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(),
-                                sourceItem);
-                    }
-                }
-                if (aftermathLevel <= 0 && projectile instanceof BaseBulletProjectileEntity bulletProj) {
-                    ItemStack gunItem = bulletProj.getGunItem();
-                    if (!gunItem.isEmpty()) {
-                        aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(),
-                                gunItem);
-                    }
-                }
-
-                
-                if (aftermathLevel <= 0) {
-                    aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(),
-                            entity.getMainHandItem());
-                }
-                if (aftermathLevel <= 0) {
-                    aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(),
-                            entity.getOffhandItem());
-                }
-
-                if (aftermathLevel > 0) {
-                    aftermathItems.put(entity, new AftermathData(aftermathLevel, entity.level().getGameTime()));
-                    projectile.getPersistentData().putInt(AFTERMATH_NBT_KEY, aftermathLevel);
-                } else {
-                    aftermathItems.remove(entity);
+                    aftermathLevel = data.level;
                 }
             }
+            if (aftermathLevel <= 0) {
+                aftermathLevel = getAftermathLevelFromSources(projectile, entity);
+            }
+            if (aftermathLevel > 0) {
+                if (entity instanceof Player player) {
+                    aftermathPlayers.put(player, new AftermathData(aftermathLevel, entity.level().getGameTime()));
+                } else {
+                    aftermathItems.put(entity, new AftermathData(aftermathLevel, entity.level().getGameTime()));
+                }
+                projectile.getPersistentData().putInt(AFTERMATH_NBT_KEY, aftermathLevel);
+            } else if (!(entity instanceof Player)) {
+                aftermathItems.remove(entity);
+            }
         }
+    }
+
+    private static int getAftermathLevelFromSources(Projectile projectile, LivingEntity entity) {
+        int aftermathLevel = 0;
+        if (projectile instanceof BaseWeaponProjectileEntity weaponProj) {
+            ItemStack weaponItem = weaponProj.getWeaponItem();
+            if (!weaponItem.isEmpty()) {
+                aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(), weaponItem);
+            }
+        }
+        if (aftermathLevel <= 0 && projectile instanceof BaseItemProjectileEntity itemProj) {
+            ItemStack sourceItem = itemProj.getSourceItem();
+            if (!sourceItem.isEmpty()) {
+                aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(), sourceItem);
+            }
+        }
+        if (aftermathLevel <= 0 && projectile instanceof BaseBulletProjectileEntity bulletProj) {
+            ItemStack gunItem = bulletProj.getGunItem();
+            if (!gunItem.isEmpty()) {
+                aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(), gunItem);
+            }
+        }
+        if (aftermathLevel <= 0) {
+            aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(),
+                    entity.getMainHandItem());
+        }
+        if (aftermathLevel <= 0) {
+            aftermathLevel = EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.AFTERMATH.get(),
+                    entity.getOffhandItem());
+        }
+        return aftermathLevel;
     }
 
     @SubscribeEvent

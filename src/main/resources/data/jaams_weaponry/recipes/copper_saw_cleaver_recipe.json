@@ -1,4 +1,10 @@
-{
+﻿{
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "copperagebackport"
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "group": "saw_cleaver",
     "category": "equipment",
@@ -25,4 +31,5 @@
         "item": "jaams_weaponry:copper_saw_cleaver",
         "count": 1
     }
+
 }

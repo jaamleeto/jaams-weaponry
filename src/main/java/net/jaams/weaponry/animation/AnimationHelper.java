@@ -10,7 +10,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
 import net.jaams.weaponry.animation.AnimationAPI.MobAnimationState;
+import net.jaams.weaponry.client.ClientAnimationSoundPlayer;
 import net.jaams.weaponry.util.ModAnimations;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
+
 
 
 public class AnimationHelper {
@@ -262,13 +267,9 @@ public class AnimationHelper {
                 if (shouldPlay) {
                     BuiltInRegistries.SOUND_EVENT
                             .getOptional(new ResourceLocation(soundId))
-                            .ifPresent(soundEvent -> {
-                                Minecraft.getInstance().getSoundManager().play(
-                                        new AnimationSound(
-                                                soundEvent,
-                                                SoundSource.HOSTILE, 1.0F, 1.0F,
-                                                entity));
-                            });
+                            .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
+                                    () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.HOSTILE,
+                                            1.0F, 1.0F, entity)));
                     state.playedSounds.add(soundTime);
                 }
             }

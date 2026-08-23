@@ -17,22 +17,25 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.Difficulty;
 
+import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.data.LootModifierData;
 
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class LootModifierLoader extends SimpleJsonResourceReloadListener {
+@Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class LootModifierLoader extends SimpleJsonResourceReloadListener implements NetworkSyncable {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static final LootModifierLoader INSTANCE = new LootModifierLoader();
     private volatile Map<ResourceLocation, LootModifierData> modifiers = new ConcurrentHashMap<>();
+    private volatile Map<String, String> sources = new ConcurrentHashMap<>();
     private static final Logger LOGGER = LogManager.getLogger(LootModifierLoader.class);
 
     private LootModifierLoader() {
@@ -46,14 +49,29 @@ public class LootModifierLoader extends SimpleJsonResourceReloadListener {
             LOGGER.warn("LootModifierLoader apply called with null resources");
             return;
         }
+        Map<String, String> srcs = new ConcurrentHashMap<>();
+        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
+            if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
+            try {
+                srcs.put(entry.getKey().toString(), GSON.toJson(entry.getValue()));
+            } catch (Exception ignored) {
+            }
+        }
+        rebuild(srcs);
+    }
+
+    private void rebuild(Map<String, String> srcs) {
         Map<ResourceLocation, LootModifierData> newModifiers = new ConcurrentHashMap<>();
         int count = 0;
         int errors = 0;
-        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
-            if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
-            ResourceLocation fileId = entry.getKey();
+        for (Map.Entry<String, String> entry : srcs.entrySet()) {
+            String fileId = entry.getKey();
+            if (!JaamsWeaponryMod.isOwnNamespace(fileId)) {
+                continue;
+            }
             try {
-                LootModifierData data = GSON.fromJson(entry.getValue(), LootModifierData.class);
+                LootModifierData data = GSON.fromJson(com.google.gson.JsonParser.parseString(entry.getValue()),
+                        LootModifierData.class);
                 if (data == null) {
                     LOGGER.warn("Loot modifier file {} returned null data", fileId);
                     errors++;
@@ -68,7 +86,7 @@ public class LootModifierLoader extends SimpleJsonResourceReloadListener {
                     LOGGER.info("Loot modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
-                newModifiers.put(fileId, data);
+                newModifiers.put(new ResourceLocation(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;
@@ -76,7 +94,25 @@ public class LootModifierLoader extends SimpleJsonResourceReloadListener {
             }
         }
         this.modifiers = newModifiers;
+        this.sources = new ConcurrentHashMap<>(srcs);
         LOGGER.info("Loaded {} loot modifiers ({} errors)", count, errors);
+    }
+
+    @Override
+    public String getSyncId() {
+        return "loot_modifier";
+    }
+
+    @Override
+    public Map<String, String> getSourcesSnapshot() {
+        return new HashMap<>(sources);
+    }
+
+    @Override
+    public void applyNetworkSync(Map<String, String> srcs) {
+        if (srcs == null)
+            return;
+        rebuild(srcs);
     }
 
     

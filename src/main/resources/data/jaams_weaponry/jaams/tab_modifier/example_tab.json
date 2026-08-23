@@ -1,19 +1,20 @@
 {
-    "tab_id": "weaponry",
-    "enabled": true,
-    "priority": 0,
-    "entries": [
-        {
-            "item": "jaams_weaponry:example_item",
-            "nbt": "",
-            "remove": false,
-            "clear_defaults": false,
-            "weight": 0,
-            "after": "",
-            "before": "",
-            "section": "",
-            "condition_mode": "and",
-            "conditions": []
-        }
-    ]
+  "tab_id": "weaponry",
+  "enabled": true,
+  "priority": 0,
+  "entries": [
+    {
+      "item": "minecraft:emerald_block",
+      "nbt": "",
+      "remove": false,
+      "clear_defaults": false,
+      "weight": 0,
+      "after": "jaams_weaponry:golden_dagger",
+      "before": "",
+      "section": "",
+      "condition_mode": "and",
+      "conditions": [
+      ]
+    }
+  ]
 }

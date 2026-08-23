@@ -1,0 +1,21 @@
+{
+    "animations": {
+        "wave": {
+            "loop": false,
+            "animation_length": 2.0,
+            "cancel_on_player_animator": true,
+            "bones": {
+                "right_arm": {
+                    "rotation": {
+                        "0.0": [0, 0, 0],
+                        "0.4": [-150, 0, -20],
+                        "0.8": [-150, 0, -20],
+                        "1.2": [-175, 0, -15],
+                        "1.6": [-150, 0, -20],
+                        "2.0": [0, 0, 0]
+                    }
+                }
+            }
+        }
+    }
+}

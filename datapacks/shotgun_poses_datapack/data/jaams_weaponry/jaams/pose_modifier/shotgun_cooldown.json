@@ -8,7 +8,7 @@
     "animation": "",
     "animation_speed": 1.0,
     "hand": "mainhand",
-    "entity": "minecraft:player",
+    "entity": ["minecraft:player", "minecraft:husk", "minecraft:zombie", "minecraft:skeleton"],
     "first_person": false,
     "condition_mode": "and",
     "conditions": [

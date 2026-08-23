@@ -176,11 +176,20 @@ public class WeaponryCommand {
                 JaamsWeaponryMod.PACKET_HANDLER.send(
                         PacketDistributor.PLAYER.with(() -> target),
                         new PlayAnimationMessage(target.getId(), "", false, false));
+                JaamsWeaponryMod.PACKET_HANDLER.send(
+                        PacketDistributor.TRACKING_ENTITY.with(() -> target),
+                        new PlayAnimationMessage(target.getId(), "", false, false));
             } else {
+                PlayAnimationMessage message = new PlayAnimationMessage(target.getId(), animation, override,
+                        firstPerson, hideArms, duration, speed);
                 JaamsWeaponryMod.PACKET_HANDLER.send(
                         PacketDistributor.PLAYER.with(() -> target),
-                        new PlayAnimationMessage(target.getId(), animation, override, firstPerson, hideArms,
-                                duration, speed));
+                        message);
+                if (!firstPerson) {
+                    JaamsWeaponryMod.PACKET_HANDLER.send(
+                            PacketDistributor.TRACKING_ENTITY.with(() -> target),
+                            message);
+                }
             }
         }
 

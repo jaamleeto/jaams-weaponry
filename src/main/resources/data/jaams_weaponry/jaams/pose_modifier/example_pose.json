@@ -5,7 +5,7 @@
         "animation": "One-shot bedrock animation (loop:false). Plays once when entry first matches.",
         "animation_speed": "Playback speed for the one-shot animation.",
         "hand": "\"mainhand\", \"offhand\", or \"either\" (default).",
-        "entity": "Entity type filter. Empty = player only. Supports wildcard and negation.",
+        "entity": "Entity type filter (LIST). Empty = player only. Each entry supports wildcard (*) and negation (!), and #tag.",
         "first_person": "Show animation in first person.",
         "condition_mode": "\"and\" (all must match) or \"or\" (any match).",
         "conditions": [
@@ -26,7 +26,7 @@
     "animation": "cheer",
     "animation_speed": 1.0,
     "hand": "mainhand",
-    "entity": "minecraft:player",
+    "entity": ["minecraft:player"],
     "first_person": true,
     "condition_mode": "and",
     "conditions": [

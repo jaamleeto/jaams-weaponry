@@ -3,14 +3,18 @@ package net.jaams.weaponry.data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import net.jaams.weaponry.condition.ConditionSource;
 import net.jaams.weaponry.loader.TraitModifierLoader;
 import net.minecraft.world.item.ItemStack;
+
+import com.google.gson.JsonElement;
 
 public class TraitModifierData {
 
     public List<String> target = new ArrayList<>();
     public Boolean enabled = true;
     public int priority = 0;
+    public transient String id;
     public String condition_mode = "and";
     public List<Condition> conditions = new ArrayList<>();
     public List<String> active_traits = new ArrayList<>();
@@ -32,13 +36,14 @@ public class TraitModifierData {
         return disabled_traits.stream().anyMatch((t) -> t.equalsIgnoreCase(traitName));
     }
 
-    public static class Condition {
+    public static class Condition implements ConditionSource {
 
         public String type;
         public String mod_id;
         public String enchantment;
         public int level = 0;
         public String key;
+        public String nbt_type;
         public String nbt_key;
         public String item;
         public String tag;
@@ -48,6 +53,56 @@ public class TraitModifierData {
         public short nbt_short_value;
         public long nbt_long_value;
         public String nbt_string_value;
+        public String component;
+        public JsonElement component_value;
+
+        @Override
+        public String type() { return type; }
+
+        @Override
+        public String modId() { return mod_id; }
+
+        @Override
+        public String enchantment() { return enchantment; }
+
+        @Override
+        public int level() { return level; }
+
+        @Override
+        public String key() { return key; }
+
+        @Override
+        public String nbtType() { return nbt_type != null ? nbt_type : nbt_key; }
+
+        @Override
+        public String item() { return item; }
+
+        @Override
+        public String tag() { return tag; }
+
+        @Override
+        public String rarity() { return rarity; }
+
+        @Override
+        public int nbtIntValue() { return nbt_int_value; }
+
+        @Override
+        public boolean nbtBooleanValue() { return nbt_boolean_value; }
+
+        @Override
+        public short nbtShortValue() { return nbt_short_value; }
+
+        @Override
+        public long nbtLongValue() { return nbt_long_value; }
+
+        @Override
+        public String nbtStringValue() { return nbt_string_value; }
+
+        @Override
+        public String component() { return component; }
+
+        @Override
+        public JsonElement componentValue() { return component_value; }
     }
 
     public static class TraitsEntry {

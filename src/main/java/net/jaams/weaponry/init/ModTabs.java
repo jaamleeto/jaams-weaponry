@@ -311,7 +311,7 @@ public class ModTabs {
         safeAddItem(list, ModItems.STONE_SLINGSHOT);
         safeAddItem(list, ModItems.HEAVY_COMPRESSED_STONE);
         safeAddItem(list, ModItems.DOUBLE_COMPRESSED_STONE);
-        if (ModList.get().isLoaded("leafscopperbackport") || ModList.get().isLoaded("copperagebackport")) {
+        if (ModList.get().isLoaded("copperagebackport")) {
             safeAddItem(list, ModItems.COPPER_DAGGER);
             safeAddItem(list, ModItems.COPPER_KNUCKLE);
             safeAddItem(list, ModItems.COPPER_CLEAVER);

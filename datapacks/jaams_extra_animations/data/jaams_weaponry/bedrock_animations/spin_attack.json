@@ -1,0 +1,25 @@
+{
+    "animations": {
+        "spin_attack": {
+            "loop": true,
+            "animation_length": 1.0,
+            "cancel_on_player_animator": true,
+            "bones": {
+                "right_arm": {
+                    "rotation": {
+                        "0.0": [0, 0, 0],
+                        "0.5": [0, 0, 180],
+                        "1.0": [0, 0, 360]
+                    }
+                },
+                "left_arm": {
+                    "rotation": {
+                        "0.0": [0, 0, 0],
+                        "0.5": [0, 0, -180],
+                        "1.0": [0, 0, -360]
+                    }
+                }
+            }
+        }
+    }
+}
