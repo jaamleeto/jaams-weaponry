@@ -25,37 +25,37 @@ public class StoneItems {
 
     public static final RegistryObject<Item> STONE_DAGGER = REGISTRY.register("stone_dagger",
             () -> TieredWeapons.sword(121, 12f, -2f, 1, 22,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -1.8f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -1.8f));
     public static final RegistryObject<Item> STONE_DAGGER_REVERSE = REGISTRY.register("stone_dagger_reverse",
             () -> TieredWeapons.sword(121, 4f, -2.5f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -1.4f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -1.4f));
     public static final RegistryObject<Item> STONE_KNUCKLE = REGISTRY.register("stone_knuckle",
             () -> TieredWeapons.sword(121, 4f, -1.5f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -1.6f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -1.6f));
     public static final RegistryObject<Item> STONE_CLEAVER = REGISTRY.register("stone_cleaver",
             () -> TieredWeapons.sword(121, 4f, 1f, 1, 22,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -3.2f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -3.2f));
     public static final RegistryObject<Item> STONE_RING = REGISTRY.register("stone_ring",
             () -> TieredWeapons.sword(121, 4f, -1f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -1.8f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -1.8f));
     public static final RegistryObject<Item> STONE_KAMA = REGISTRY.register("stone_kama",
             () -> TieredWeapons.sword(121, 4f, -0.5f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -2.2f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -2.2f));
     public static final RegistryObject<Item> STONE_CLAW = REGISTRY.register("stone_claw",
             () -> TieredWeapons.sword(121, 4f, -1f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -2.0f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -2.0f));
     public static final RegistryObject<Item> STONE_MACHETE = REGISTRY.register("stone_machete",
             () -> TieredWeapons.sword(32, 4f, 1.5f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -2.5f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -2.5f));
     public static final RegistryObject<Item> STONE_KATAR = REGISTRY.register("stone_katar",
             () -> TieredWeapons.sword(131, 3f, 1f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -2.6f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -2.6f));
     public static final RegistryObject<Item> STONE_SICKLE = REGISTRY.register("stone_sickle",
             () -> TieredWeapons.sword(32, 4f, 0f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -2.2f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -2.2f));
     public static final RegistryObject<Item> STONE_SPEAR = REGISTRY.register("stone_spear",
             () -> TieredWeapons.sword(121, 4f, 0f, 1, 5,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:stone_tool_materials"))), 3, -2.6f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:stone_tool_materials"))), 3, -2.6f));
     public static final RegistryObject<Item> STONE_HAMMER = REGISTRY.register("stone_hammer",
             () -> TieredWeapons.pickaxe(181, 4f, 5f, 1, 5,
                     Ingredient.of(new ItemStack(ModItems.DOUBLE_COMPRESSED_STONE.get())), 3, -3.4f));

@@ -86,9 +86,9 @@ public class GunSoundHandler {
         }
         ResourceLocation location;
         if (soundId.contains(":")) {
-            location = new ResourceLocation(soundId);
+            location = ResourceLocation.parse(soundId);
         } else {
-            location = new ResourceLocation("jaams_weaponry", soundId);
+            location = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", soundId);
         }
         return ForgeRegistries.SOUND_EVENTS.getValue(location);
     }

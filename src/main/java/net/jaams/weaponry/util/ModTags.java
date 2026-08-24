@@ -157,10 +157,10 @@ public class ModTags {
     public static final TagKey<Item> ENCHANTABLE_SECURE_GRIP = create("enchantable/secure_grip");
 
     private static TagKey<Item> create(String path) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation("jaams_weaponry", path));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("jaams_weaponry", path));
     }
 
     private static TagKey<EntityType<?>> createEntity(String path) {
-        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("jaams_weaponry", path));
+        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("jaams_weaponry", path));
     }
 }

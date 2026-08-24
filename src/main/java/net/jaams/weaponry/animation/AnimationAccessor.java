@@ -13,9 +13,9 @@ import java.util.NoSuchElementException;
 import net.jaams.weaponry.mixins.access.ModelPartAccessorMixin;
 
 public interface AnimationAccessor {
-    ModelPart get(String boneName);
+    Object get(String boneName);
 
-    void resetPosition(ModelPart part, String boneName);
+    void resetPosition(Object part, String boneName);
 
     final class Humanoid implements AnimationAccessor {
         private final HumanoidModel<LivingEntity> model;
@@ -38,27 +38,30 @@ public interface AnimationAccessor {
         }
 
         @Override
-        public void resetPosition(ModelPart part, String boneName) {
+        public void resetPosition(Object part, String boneName) {
+            if (!(part instanceof ModelPart modelPart)) {
+                return;
+            }
             switch (boneName) {
                 case "torso", "body":
-                    part.x = 0f;
-                    part.y = 0f;
-                    part.z = 0f;
+                    modelPart.x = 0f;
+                    modelPart.y = 0f;
+                    modelPart.z = 0f;
                     break;
                 case "head":
-                    part.setPos(0.0F, 0.0F, 0.0F);
+                    modelPart.setPos(0.0F, 0.0F, 0.0F);
                     break;
                 case "right_arm":
-                    part.setPos(-5.0F, 2.0F, 0.0F);
+                    modelPart.setPos(-5.0F, 2.0F, 0.0F);
                     break;
                 case "left_arm":
-                    part.setPos(5.0F, 2.0F, 0.0F);
+                    modelPart.setPos(5.0F, 2.0F, 0.0F);
                     break;
                 case "right_leg":
-                    part.setPos(-1.9F, 12.0F, 0.1F);
+                    modelPart.setPos(-1.9F, 12.0F, 0.1F);
                     break;
                 case "left_leg":
-                    part.setPos(1.9F, 12.0F, 0.1F);
+                    modelPart.setPos(1.9F, 12.0F, 0.1F);
                     break;
             }
         }
@@ -119,16 +122,19 @@ public interface AnimationAccessor {
         }
 
         @Override
-        public void resetPosition(ModelPart part, String boneName) {
+        public void resetPosition(Object part, String boneName) {
+            if (!(part instanceof ModelPart modelPart)) {
+                return;
+            }
             Vec3 defaultPos = defaultPositions.get(boneName);
             if (defaultPos != null) {
-                part.x = (float) defaultPos.x;
-                part.y = (float) defaultPos.y;
-                part.z = (float) defaultPos.z;
+                modelPart.x = (float) defaultPos.x;
+                modelPart.y = (float) defaultPos.y;
+                modelPart.z = (float) defaultPos.z;
             } else {
-                part.x = 0f;
-                part.y = 0f;
-                part.z = 0f;
+                modelPart.x = 0f;
+                modelPart.y = 0f;
+                modelPart.z = 0f;
             }
         }
     }

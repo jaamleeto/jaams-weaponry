@@ -77,7 +77,7 @@ public class TraitQuickCraftingMixin {
                     .filter(java.util.Objects::nonNull)
                     .orElseGet(() -> TraitsConfig.QUICK_CRAFTING_INGREDIENT.get());
         }
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId));
+        Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(itemId));
         return item != null ? item : ModItems.SHORT_STICK.get();
     }
 
@@ -106,7 +106,7 @@ public class TraitQuickCraftingMixin {
                     .filter(java.util.Objects::nonNull)
                     .orElseGet(() -> TraitsConfig.QUICK_CRAFTING_RESULT.get());
         }
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId));
+        Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(itemId));
         return item != null ? item : ModItems.STAKE.get();
     }
 
@@ -301,7 +301,7 @@ public class TraitQuickCraftingMixin {
         }
         if (!customParticleId.isEmpty()) {
             ParticleType<?> customType = ForgeRegistries.PARTICLE_TYPES
-                    .getValue(new ResourceLocation(customParticleId));
+                    .getValue(ResourceLocation.parse(customParticleId));
             if (customType instanceof SimpleParticleType simpleType) {
                 double px = player.getX() + player.getLookAngle().x * 1.2;
                 double py = player.getY() + player.getEyeHeight() + player.getLookAngle().y * 0.5;
@@ -328,7 +328,7 @@ public class TraitQuickCraftingMixin {
                     .filter(java.util.Objects::nonNull)
                     .orElse("jaams_weaponry:dagger");
         }
-        SoundEvent soundEvent = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(customSoundId));
+        SoundEvent soundEvent = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(customSoundId));
         if (soundEvent != null) {
             serverWorld.playSound(null, pos, soundEvent, SoundSource.PLAYERS, 1.0F,
                     player.isUnderWater() ? 0.8F : 1.0F);

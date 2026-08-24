@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.Minecraft;
 
 import net.jaams.weaponry.animation.AnimationAPI;
+import net.jaams.weaponry.client.ClientAnimationUtils;
 import net.jaams.weaponry.util.ModAnimations;
-import net.jaams.weaponry.util.ModRenderState;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -59,9 +59,9 @@ public abstract class AnimationLivingEntityRendererMixin {
         Player player = null;
 
         if (entity instanceof Player p && mc.options.getCameraType().isFirstPerson()
-                && ModRenderState.worldRenderPass) {
+                && !ClientAnimationUtils.isRenderingInventoryPanel) {
             player = p;
-            if (ModAnimations.isLocalPlayerInFirstPerson(player)) {
+            if (ClientAnimationUtils.isLocalPlayerInFirstPerson(player)) {
                 if (ModAnimations.isFirstPersonAnimation(player)) {
                     needsFiltering = true;
                 } else if (ModAnimations.hasAnimationNullRender(player)) {

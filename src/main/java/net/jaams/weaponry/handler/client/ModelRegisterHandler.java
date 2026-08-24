@@ -17,33 +17,33 @@ public class ModelRegisterHandler {
 		String[] katanaSkins = { "rengoku", "mitsuri", "zenitsu", "inosuke" };
 		for (String skin : katanaSkins) {
 			String base = "skin_" + skin;
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_gui"), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_handheld"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_gui"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_handheld"), "inventory"));
 		}
 
 		String[] broadswordSkins = { "macuahuitl" };
 		for (String skin : broadswordSkins) {
 			String base = "skin_" + skin;
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_gui"), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_handheld"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_gui"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_handheld"), "inventory"));
 		}
 
 		String[] butterflySwordSkins = { "rita" };
 		for (String skin : butterflySwordSkins) {
 			String base = "skin_" + skin;
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_gui"), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_handheld"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_gui"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_handheld"), "inventory"));
 		}
 
 		String[] longswordSkins = { "blood_sword" };
 		for (String skin : longswordSkins) {
 			String base = "skin_" + skin;
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_gui"), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_handheld"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_gui"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_handheld"), "inventory"));
 		}
 
 
@@ -51,12 +51,12 @@ public class ModelRegisterHandler {
 		String[] nunchakuSkins = { "rock_lee", "michaelangelo" };
 		for (String skin : nunchakuSkins) {
 			String base = "skin_" + skin;
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_idle"), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_active"), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_gui"), "inventory"));
-			event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", base + "_handheld"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_idle"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_active"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_gui"), "inventory"));
+			event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", base + "_handheld"), "inventory"));
 		}
 
-		event.register(new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_sokka"), "inventory"));
+		event.register(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_sokka"), "inventory"));
 	}
 }

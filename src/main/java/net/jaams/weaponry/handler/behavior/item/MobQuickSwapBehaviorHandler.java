@@ -138,12 +138,12 @@ public class MobQuickSwapBehaviorHandler {
         for (String suffix : SUFFIXES) {
             if (path.endsWith(suffix)) {
                 String base = path.substring(0, path.length() - suffix.length());
-                Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ns, base));
+                Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(ns, base));
                 if (isValidTarget(item)) return item;
             }
         }
         for (String suffix : SUFFIXES) {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ns, path + suffix));
+            Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(ns, path + suffix));
             if (isValidTarget(item)) return item;
         }
         return null;

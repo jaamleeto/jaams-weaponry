@@ -127,7 +127,7 @@ public class QuickCraftingRecipe extends CustomRecipe {
                 .filter(java.util.Objects::nonNull)
                 .orElseGet(() -> TraitsConfig.QUICK_CRAFTING_INGREDIENT.get());
         }
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId));
+        Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(itemId));
         return item != null ? item : BottomItems.SHORT_STICK.get();
     }
 
@@ -154,7 +154,7 @@ public class QuickCraftingRecipe extends CustomRecipe {
                 .filter(java.util.Objects::nonNull)
                 .orElseGet(() -> TraitsConfig.QUICK_CRAFTING_RESULT.get());
         }
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId));
+        Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(itemId));
         return item != null ? item : TopItems.STAKE.get();
     }
 

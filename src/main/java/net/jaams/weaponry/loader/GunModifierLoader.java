@@ -109,7 +109,7 @@ public class GunModifierLoader extends SimpleJsonResourceReloadListener implemen
                     errors++;
                 }
                 data.id = fileId;
-                newGuns.put(new ResourceLocation(fileId), data);
+                newGuns.put(ResourceLocation.parse(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;

@@ -11,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
 import net.jaams.weaponry.animation.AnimationAPI.MobAnimationState;
 import net.jaams.weaponry.client.ClientAnimationSoundPlayer;
+import net.jaams.weaponry.client.ClientAnimationUtils;
 import net.jaams.weaponry.util.ModAnimations;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -266,7 +267,7 @@ public class AnimationHelper {
 
                 if (shouldPlay) {
                     BuiltInRegistries.SOUND_EVENT
-                            .getOptional(new ResourceLocation(soundId))
+                            .getOptional(ResourceLocation.parse(soundId))
                             .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                                     () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.HOSTILE,
                                             1.0F, 1.0F, entity)));
@@ -292,7 +293,7 @@ public class AnimationHelper {
 
                 if (shouldFire) {
                     for (var event : entry.getValue()) {
-                        ModAnimations.fireAnimationEvent(entity, event);
+                        ClientAnimationUtils.fireAnimationEvent(entity, event);
                     }
                     state.playedEvents.add(eventTime);
                 }

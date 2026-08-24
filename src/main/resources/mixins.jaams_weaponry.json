@@ -93,6 +93,8 @@
         "client.ClientTextTooltipMixin",
         "client.GuiGraphicsMixin",
         "client.ItemModelMixin",
+        "client.InventoryScreenMixin",
+        "client.CreativeModeInventoryScreenMixin",
         "animation.AnimationMobRendererMixin",
         "animation.AnimationZombieModelMixin",
         "animation.AnimationIllagerModelMixin",
@@ -102,7 +104,10 @@
         "animation.AnimationLivingEntityRendererMixin",
         "animation.AnimationEntityRenderDispatcherMixin",
         "animation.AnimationEntityCullingMixin",
-        "animation.AnimationCameraMixin"
+        "animation.AnimationCameraMixin",
+        "animation.AnimationPlayerRendererMixin",
+        "animation.AnimationItemInHandRendererMixin",
+        "animation.AnimationLevelRendererMixin"
     ],
     "injectors": {
         "defaultRequire": 1

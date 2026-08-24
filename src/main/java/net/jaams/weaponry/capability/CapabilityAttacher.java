@@ -16,9 +16,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = "jaams_weaponry", bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CapabilityAttacher {
 
-    public static final ResourceLocation AMOUNT_CAP = new ResourceLocation("jaams_weaponry", "amount");
-    public static final ResourceLocation ABERRATION_CAP = new ResourceLocation("jaams_weaponry", "aberration");
-    public static final ResourceLocation GUN_INVENTORY_CAP = new ResourceLocation("jaams_weaponry", "gun_inventory");
+    public static final ResourceLocation AMOUNT_CAP = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "amount");
+    public static final ResourceLocation ABERRATION_CAP = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "aberration");
+    public static final ResourceLocation GUN_INVENTORY_CAP = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "gun_inventory");
 
     @SubscribeEvent
     public static void onAttachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {

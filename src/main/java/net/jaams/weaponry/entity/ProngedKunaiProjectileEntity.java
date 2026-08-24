@@ -105,7 +105,7 @@ public class ProngedKunaiProjectileEntity extends BaseWeaponProjectileEntity {
                     float finalDamage = (float) (consistentBaseDamage * multiplier);
                     if (this.getOwner() instanceof LivingEntity attacker && finalDamage > 0) {
                         RegistryAccess registryAccess = attacker.level().registryAccess();
-                        ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("jaams_weaponry:backstab"));
+                        ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("jaams_weaponry:backstab"));
                         DamageSource damageSource = attacker instanceof Player player
                             ? new DamageSource(registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey), player)
                             : new DamageSource(registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey), attacker);
@@ -164,7 +164,7 @@ public class ProngedKunaiProjectileEntity extends BaseWeaponProjectileEntity {
 
     @Override
     protected boolean isCustomBreakableBlock(BlockState state) {
-        return ModProjectiles.isCustomBreakableBlock(this.getWeaponItem(), state, new ResourceLocation("minecraft:pointed_dripstone"));
+        return ModProjectiles.isCustomBreakableBlock(this.getWeaponItem(), state, ResourceLocation.parse("minecraft:pointed_dripstone"));
     }
 
     @Override

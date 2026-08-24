@@ -100,7 +100,7 @@ public class TraitModifierLoader extends SimpleJsonResourceReloadListener implem
                     errors++;
                 }
                 data.id = fileId;
-                tempModifiers.put(new ResourceLocation(fileId), data);
+                tempModifiers.put(ResourceLocation.parse(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;

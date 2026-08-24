@@ -113,7 +113,7 @@ public class ThrowableModifierLoader extends SimpleJsonResourceReloadListener im
                     errors++;
                 }
                 data.id = fileId;
-                newThrowables.put(new ResourceLocation(fileId), data);
+                newThrowables.put(ResourceLocation.parse(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;

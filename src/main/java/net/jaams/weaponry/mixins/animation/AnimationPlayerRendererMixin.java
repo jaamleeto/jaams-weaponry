@@ -15,8 +15,8 @@ import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.Minecraft;
 
 import net.jaams.weaponry.animation.AnimationAPI;
+import net.jaams.weaponry.client.ClientAnimationUtils;
 import net.jaams.weaponry.util.ModAnimations;
-import net.jaams.weaponry.util.ModRenderState;
 
 import com.mojang.math.Axis;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -44,9 +44,8 @@ public abstract class AnimationPlayerRendererMixin
         if (!master.equals("jaams_weaponry")) {
             return;
         }
-        
-        
-        if (ModAnimations.shouldRenderInFirstPerson(entity) && ModRenderState.worldRenderPass) {
+
+        if (ClientAnimationUtils.shouldRenderInFirstPerson(entity) && !ClientAnimationUtils.isRenderingInventoryPanel) {
             this.model.head.visible = false;
             this.model.body.visible = false;
             this.model.leftLeg.visible = false;
@@ -80,7 +79,7 @@ public abstract class AnimationPlayerRendererMixin
         if (animation == null)
             return;
         AnimationAPI.PlayerBone bone = animation.bones.get("body");
-        boolean firstPerson = ModAnimations.shouldRenderInFirstPerson(player) && ModRenderState.worldRenderPass;
+        boolean firstPerson = ClientAnimationUtils.shouldRenderInFirstPerson(player);
         if (bone == null && !firstPerson)
             return;
         if (bone != null) {
@@ -108,7 +107,7 @@ public abstract class AnimationPlayerRendererMixin
                     poseStack.translate(0, -0.75f, 0);
             }
         }
-        if (firstPerson && partialTick != 0 && ModRenderState.worldRenderPass) {
+        if (firstPerson && partialTick != 0 && !ClientAnimationUtils.isRenderingInventoryPanel) {
             poseStack.mulPose(Axis.YP.rotationDegrees(bodyYaw - player.getYRot()));
             poseStack.translate(0, 1.5f, 0);
             poseStack.mulPose(Axis.XP.rotationDegrees(-player.getXRot()));

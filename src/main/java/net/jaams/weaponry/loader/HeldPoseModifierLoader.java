@@ -8,15 +8,19 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.AddReloadListenerEvent;
 
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.tags.TagKey;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Holder;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
@@ -115,7 +119,7 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener imp
                     LOGGER.info("Held pose file {} is disabled, skipping", fileId);
                     continue;
                 }
-                newPoses.put(new ResourceLocation(fileId), data);
+                newPoses.put(ResourceLocation.parse(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;
@@ -233,6 +237,36 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener imp
             case "is_on_cooldown" -> checkIsOnCooldown(stack, player);
             case "is_using_item" -> checkIsUsingItem(player);
             case "is_not_using_item" -> !checkIsUsingItem(player);
+            case "is_sleeping" -> player != null && player.isSleeping();
+            case "is_not_sleeping" -> player == null || !player.isSleeping();
+            case "is_riding" -> player != null && player.isPassenger();
+            case "is_not_riding" -> player == null || !player.isPassenger();
+            case "is_sprinting" -> player != null && player.isSprinting();
+            case "is_not_sprinting" -> player == null || !player.isSprinting();
+            case "is_swimming" -> player != null && player.isSwimming();
+            case "is_not_swimming" -> player == null || !player.isSwimming();
+            case "is_crawling" -> player != null && player.getPose() == Pose.SWIMMING && player.isShiftKeyDown();
+            case "is_not_crawling" -> player == null || !(player.getPose() == Pose.SWIMMING && player.isShiftKeyDown());
+            case "is_fall_flying" -> player != null && player.isFallFlying();
+            case "is_not_fall_flying" -> player == null || !player.isFallFlying();
+            case "is_crouching" -> player != null && player.isCrouching();
+            case "is_not_crouching" -> player == null || !player.isCrouching();
+            case "is_spectator" -> player != null && player.isSpectator();
+            case "is_not_spectator" -> player == null || !player.isSpectator();
+            case "is_on_ground" -> player != null && player.onGround();
+            case "is_not_on_ground" -> player == null || !player.onGround();
+            case "is_in_water" -> player != null && player.isInWater();
+            case "is_not_in_water" -> player == null || !player.isInWater();
+            case "is_blocking" -> player != null && player.isBlocking();
+            case "is_not_blocking" -> player == null || !player.isBlocking();
+            case "is_alive" -> player != null && player.isAlive();
+            case "is_not_alive" -> player == null || !player.isAlive();
+            case "has_animation" -> player != null && net.jaams.weaponry.util.ModAnimations.hasActiveAnimationData(player);
+            case "has_not_animation" -> player == null || !net.jaams.weaponry.util.ModAnimations.hasActiveAnimationData(player);
+            case "vanilla_pose" -> checkVanillaPose(cond, player);
+            case "has_effect" -> checkHasEffect(cond, player);
+            case "health_below" -> checkHealthBelow(cond, player);
+            case "health_above" -> checkHealthAbove(cond, player);
             default -> false;
         };
     }
@@ -316,5 +350,39 @@ public class HeldPoseModifierLoader extends SimpleJsonResourceReloadListener imp
         if (player == null)
             return false;
         return player.isUsingItem();
+    }
+
+    private boolean checkVanillaPose(HeldPoseData.Condition cond, Player player) {
+        if (player == null || cond.vanilla_pose == null || cond.vanilla_pose.isEmpty())
+            return false;
+        Pose playerPose = player.getPose();
+        return cond.vanilla_pose.equalsIgnoreCase(playerPose.name());
+    }
+
+    private boolean checkHasEffect(HeldPoseData.Condition cond, Player player) {
+        if (player == null || cond.effect == null || cond.effect.isEmpty())
+            return false;
+        ResourceLocation effectId = ResourceLocation.tryParse(cond.effect);
+        if (effectId == null)
+            return false;
+        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
+        if (effect == null)
+            return false;
+        MobEffectInstance instance = player.getEffect(effect);
+        if (instance == null)
+            return false;
+        return instance.getAmplifier() >= cond.effect_level;
+    }
+
+    private boolean checkHealthBelow(HeldPoseData.Condition cond, Player player) {
+        if (player == null || cond.health_below == null)
+            return false;
+        return player.getHealth() < cond.health_below;
+    }
+
+    private boolean checkHealthAbove(HeldPoseData.Condition cond, Player player) {
+        if (player == null || cond.health_above == null)
+            return false;
+        return player.getHealth() > cond.health_above;
     }
 }

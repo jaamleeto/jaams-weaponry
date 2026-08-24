@@ -716,7 +716,7 @@ public abstract class BaseBulletProjectileEntity extends AbstractArrow implement
 
     protected boolean isCustomBreakableBlock(BlockState state) {
         ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(state.getBlock());
-        return blockId.equals(new ResourceLocation("minecraft:pointed_dripstone"));
+        return blockId.equals(ResourceLocation.parse("minecraft:pointed_dripstone"));
     }
 
     public void setBreakableBlocks(String... rules) {

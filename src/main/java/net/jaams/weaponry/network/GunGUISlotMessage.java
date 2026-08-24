@@ -74,7 +74,7 @@ public class GunGUISlotMessage {
 		if (!world.hasChunkAt(new BlockPos(x, y, z)))
 			return;
 		if (slot == 1 && changeType == 0) {
-			playClientSound(world, x, y, z, new ResourceLocation("jaams_weaponry:gun_system_pistol_bullet"));
+			playClientSound(world, x, y, z, ResourceLocation.parse("jaams_weaponry:gun_system_pistol_bullet"));
 		}
 	}
 

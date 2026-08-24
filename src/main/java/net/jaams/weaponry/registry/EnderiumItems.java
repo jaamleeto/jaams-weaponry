@@ -27,47 +27,47 @@ public class EnderiumItems {
 
     public static final RegistryObject<Item> ENDERIUM_DAGGER = REGISTRY.register("enderium_dagger",
             () -> TieredWeapons.sword(2037, 9f, 3f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -1.8f, true));
     public static final RegistryObject<Item> ENDERIUM_DAGGER_REVERSE = REGISTRY.register("enderium_dagger_reverse",
             () -> TieredWeapons.sword(2037, 9f, 2.5f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -1.4f));
     public static final RegistryObject<Item> ENDERIUM_KNUCKLE = REGISTRY.register("enderium_knuckle",
             () -> TieredWeapons.sword(2037, 9f, 3.5f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -1.6f, true));
     public static final RegistryObject<Item> ENDERIUM_CLEAVER = REGISTRY.register("enderium_cleaver",
             () -> TieredWeapons.sword(2037, 9f, 6f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -3.2f, true));
     public static final RegistryObject<Item> ENDERIUM_RING = REGISTRY.register("enderium_ring",
             () -> TieredWeapons.sword(2037, 9f, 4f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -1.8f, true));
     public static final RegistryObject<Item> ENDERIUM_KAMA = REGISTRY.register("enderium_kama",
             () -> TieredWeapons.sword(2037, 9f, 4.5f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -2.2f, true));
     public static final RegistryObject<Item> ENDERIUM_CLAW = REGISTRY.register("enderium_claw",
             () -> TieredWeapons.sword(1931, 9f, 4f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -2.0f, true));
     public static final RegistryObject<Item> ENDERIUM_MACHETE = REGISTRY.register("enderium_machete",
             () -> TieredWeapons.sword(2137, 9f, 5.5f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -2.5f, true));
     public static final RegistryObject<Item> ENDERIUM_KATAR = REGISTRY.register("enderium_katar",
             () -> TieredWeapons.sword(2137, 9f, 6f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -2.6f, true));
     public static final RegistryObject<Item> ENDERIUM_SICKLE = REGISTRY.register("enderium_sickle",
             () -> TieredWeapons.sword(2037, 9f, 4.5f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -2.2f, true));
     public static final RegistryObject<Item> ENDERIUM_SPEAR = REGISTRY.register("enderium_spear",
             () -> TieredWeapons.sword(1931, 9f, 4.5f, 4, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/enderium_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/enderium_ingot"))), 3,
                     -2.6f, true));
     public static final RegistryObject<Item> ENDERIUM_BATTLE_AXE = REGISTRY.register("enderium_battle_axe",
             () -> TieredWeapons.axe(2137, 9f, 13f, 4, 15,

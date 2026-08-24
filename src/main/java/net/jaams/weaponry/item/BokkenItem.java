@@ -36,7 +36,7 @@ public class BokkenItem extends SwordItem {
 			}
 
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks")));
+				return Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks")));
 			}
 		}, 3, -2.8f, new Item.Properties());
 	}

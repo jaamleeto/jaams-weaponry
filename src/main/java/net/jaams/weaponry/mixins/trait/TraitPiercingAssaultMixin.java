@@ -409,7 +409,7 @@ public class TraitPiercingAssaultMixin {
     @Unique
     private void playDashSound(Level level, Player player) {
         if (!level.isClientSide()) {
-            ResourceLocation dashSoundId = new ResourceLocation("jaams_weaponry:dash");
+            ResourceLocation dashSoundId = ResourceLocation.parse("jaams_weaponry:dash");
             SoundEvent dashSound = ForgeRegistries.SOUND_EVENTS.getValue(dashSoundId);
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                     dashSound != null ? dashSound : SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 1.0F, 1.0F);
@@ -455,7 +455,7 @@ public class TraitPiercingAssaultMixin {
         if (!level.isClientSide()) {
             applyEntityDamage(level, player, itemStack, target);
             SoundEvent hitSound = ForgeRegistries.SOUND_EVENTS
-                    .getValue(new ResourceLocation("jaams_weaponry:rapier_hit"));
+                    .getValue(ResourceLocation.parse("jaams_weaponry:rapier_hit"));
             level.playSound(null, target.blockPosition(),
                     hitSound != null ? hitSound : SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.5F, 1.0F);
 
@@ -517,7 +517,7 @@ public class TraitPiercingAssaultMixin {
             applySpecialEffects(level, target, itemStack);
             if (level instanceof ServerLevel serverLevel) {
                 SoundEvent cutSound = ForgeRegistries.SOUND_EVENTS
-                        .getValue(new ResourceLocation("jaams_weaponry:rapier_hit"));
+                        .getValue(ResourceLocation.parse("jaams_weaponry:rapier_hit"));
                 serverLevel.playSound(null, target.blockPosition(),
                         cutSound != null ? cutSound : SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1.5F, 1.0F);
             }
@@ -607,7 +607,7 @@ public class TraitPiercingAssaultMixin {
     @Unique
     private DamageSource createDamageSource(Level level, Player player) {
         ResourceKey<DamageType> damageTypeKey = ResourceKey.create(Registries.DAMAGE_TYPE,
-                new ResourceLocation("jaams_weaponry:piercing"));
+                ResourceLocation.parse("jaams_weaponry:piercing"));
         Holder<DamageType> damageTypeHolder = level
                 .registryAccess()
                 .registryOrThrow(Registries.DAMAGE_TYPE)

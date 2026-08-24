@@ -142,7 +142,7 @@ public class JaamsWeaponryMod {
 
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(MODID, MODID), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals,
+            ResourceLocation.fromNamespaceAndPath(MODID, MODID), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals);
     private static int messageID = 0;
 

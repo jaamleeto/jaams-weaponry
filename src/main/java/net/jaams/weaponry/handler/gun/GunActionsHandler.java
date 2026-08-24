@@ -151,8 +151,8 @@ public class GunActionsHandler {
 
     private static ParticleOptions getParticleFromString(String particleId, float size) {
         try {
-            ResourceLocation loc = particleId.contains(":") ? new ResourceLocation(particleId)
-                    : new ResourceLocation("jaams_weaponry", particleId);
+            ResourceLocation loc = particleId.contains(":") ? ResourceLocation.parse(particleId)
+                    : ResourceLocation.fromNamespaceAndPath("jaams_weaponry", particleId);
             ParticleType<?> type = ForgeRegistries.PARTICLE_TYPES.getValue(loc);
             if (type instanceof SimpleParticleType) {
                 return (SimpleParticleType) type;

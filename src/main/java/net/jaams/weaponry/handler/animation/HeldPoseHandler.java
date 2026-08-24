@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -38,6 +39,14 @@ public class HeldPoseHandler {
     
     private static final Map<UUID, String> lastHoldFingerprint = new ConcurrentHashMap<>();
 
+    
+    private static final Map<UUID, Boolean> lastUsingItem = new ConcurrentHashMap<>();
+
+    
+    private static final Map<UUID, Long> rightClickCooldown = new ConcurrentHashMap<>();
+
+    private static final int RIGHT_CLICK_COOLDOWN_TICKS = 10;
+
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END)
@@ -64,6 +73,22 @@ public class HeldPoseHandler {
     private static void updatePoseForEntity(LivingEntity entity) {
         UUID uuid = entity.getUUID();
         String currentPose = lastApplied.get(uuid);
+
+        if (entity instanceof Player player) {
+            if (isPlayerInExcludedState(player)) {
+                if (currentPose != null && !currentPose.isEmpty()) {
+                    ModAnimations.finishAnimation(player);
+                    ModAnimations.removePose(player);
+                    ModAnimations.setFirstPersonAnimation(player, false);
+                    lastApplied.remove(uuid);
+                }
+                lastHoldFingerprint.remove(uuid);
+                lastUsingItem.remove(uuid);
+                return;
+            }
+
+            detectRightClickAndPlayAnimation(player, uuid);
+        }
 
         HeldPoseData bestMatch = findBestMatch(entity);
 
@@ -97,6 +122,75 @@ public class HeldPoseHandler {
             }
             lastHoldFingerprint.remove(uuid);
         }
+    }
+
+    
+    private static boolean isPlayerInExcludedState(Player player) {
+        if (player == null)
+            return true;
+        if (!player.isAlive())
+            return true;
+        if (player.isSleeping())
+            return true;
+        if (player.isPassenger())
+            return true;
+        if (player.isFallFlying())
+            return true;
+        if (player.isSpectator())
+            return true;
+        if (player.isSwimming() && player.getPose() == Pose.SWIMMING && player.isShiftKeyDown())
+            return true;
+        return false;
+    }
+
+    
+    private static void detectRightClickAndPlayAnimation(Player player, UUID uuid) {
+        boolean isUsing = player.isUsingItem();
+        Boolean wasUsing = lastUsingItem.get(uuid);
+
+        
+        if (isUsing && (wasUsing == null || !wasUsing)) {
+            ItemStack mainhand = player.getMainHandItem();
+            ItemStack offhand = player.getOffhandItem();
+            HeldPoseData match = findBestMatchWithRightClickAnim(player, mainhand, offhand);
+            if (match != null && !match.right_click_animation.isEmpty()) {
+                long now = System.currentTimeMillis();
+                Long lastFire = rightClickCooldown.get(uuid);
+                if (lastFire == null || (now - lastFire) >= RIGHT_CLICK_COOLDOWN_TICKS * 50L) {
+                    PlayerAnimation anim = ModAnimations.getAnimation(match.right_click_animation);
+                    if (anim != null) {
+                        ModAnimations.setCurrentAnimationName(player, match.right_click_animation);
+                        ModAnimations.setActiveAnimation(player, anim);
+                        ModAnimations.setAnimationSpeed(player, match.right_click_animation_speed);
+                        ModAnimations.setFirstPersonAnimation(player, match.first_person);
+                        rightClickCooldown.put(uuid, now);
+                    }
+                }
+            }
+        }
+        lastUsingItem.put(uuid, isUsing);
+    }
+
+    private static HeldPoseData findBestMatchWithRightClickAnim(Player player, ItemStack mainhand, ItemStack offhand) {
+        String entityType = ForgeRegistries.ENTITY_TYPES.getKey(player.getType()).toString();
+
+        for (HeldPoseData data : HeldPoseModifierLoader.INSTANCE.getAll()) {
+            if (data.right_click_animation == null || data.right_click_animation.isEmpty())
+                continue;
+            if (!data.appliesToEntity(entityType))
+                continue;
+
+            if (!mainhand.isEmpty() && matchesItem(data, mainhand) && data.appliesToHand("mainhand")) {
+                if (HeldPoseModifierLoader.INSTANCE.evaluateConditions(data, mainhand, player))
+                    return data;
+            }
+
+            if (!offhand.isEmpty() && matchesItem(data, offhand) && data.appliesToHand("offhand")) {
+                if (HeldPoseModifierLoader.INSTANCE.evaluateConditions(data, offhand, player))
+                    return data;
+            }
+        }
+        return null;
     }
 
     private static void applyMobPose(LivingEntity mob, HeldPoseData data) {

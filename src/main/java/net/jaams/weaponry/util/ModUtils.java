@@ -430,7 +430,7 @@ public class ModUtils {
             ParticleOptions particle = new ItemParticleOption(ParticleTypes.ITEM, particleStack);
             serverLevel.sendParticles(particle, particleX, particleY, particleZ, particleCount, 0.1d, 0.1d, 0.1d,
                     0.05d);
-            SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundEvent));
+            SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundEvent));
             if (sound != null) {
                 serverLevel.playSound(null, entity.getX(), entity.getY(), entity.getZ(), sound, SoundSource.HOSTILE,
                         1.0F, 1.0F); 
@@ -563,7 +563,7 @@ public class ModUtils {
         if (!(entity.level() instanceof ServerLevel level))
             return;
         BlockPos pos = entity.blockPosition();
-        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundEvent));
+        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundEvent));
         if (sound != null) {
             level.playSound(null, pos, sound, SoundSource.PLAYERS, 1.0f, 1.0f);
         }
@@ -573,7 +573,7 @@ public class ModUtils {
         if (!(entity.level() instanceof ServerLevel level))
             return;
         BlockPos pos = entity.blockPosition();
-        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundEvent));
+        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundEvent));
         if (sound != null) {
             level.playSound(null, pos, sound, source, 1.0f, 1.0f);
         }
@@ -583,7 +583,7 @@ public class ModUtils {
         if (!(entity.level() instanceof ServerLevel level))
             return;
         BlockPos pos = entity.blockPosition();
-        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundEvent));
+        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundEvent));
         if (sound != null) {
             level.playSound(null, pos, sound, source, volume, pitch);
         }
@@ -593,7 +593,7 @@ public class ModUtils {
         if (!(entity.level() instanceof ClientLevel level))
             return;
         BlockPos pos = entity.blockPosition();
-        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundEvent));
+        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundEvent));
         if (sound != null) {
             level.playLocalSound(pos, sound, SoundSource.PLAYERS, 1.0f, 1.0f, false);
         }
@@ -643,7 +643,7 @@ public class ModUtils {
         if (entity.getType() == EntityType.PLAYER) {
             return false;
         }
-        ResourceLocation staminaAttributeId = new ResourceLocation("epicfight", "weight");
+        ResourceLocation staminaAttributeId = ResourceLocation.fromNamespaceAndPath("epicfight", "weight");
         Attribute staminaAttribute = ForgeRegistries.ATTRIBUTES.getValue(staminaAttributeId);
         if (staminaAttribute == null) {
             return false;
@@ -756,7 +756,7 @@ public class ModUtils {
         try {
             RegistryAccess registryAccess = attacker.level().registryAccess();
             ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE,
-                    new ResourceLocation("jaams_weaponry:backstab"));
+                    ResourceLocation.parse("jaams_weaponry:backstab"));
             DamageSource damageSource = new DamageSource(
                     registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey),
                     attacker);
@@ -780,7 +780,7 @@ public class ModUtils {
         try {
             RegistryAccess registryAccess = attacker.level().registryAccess();
             ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE,
-                    new ResourceLocation("jaams_weaponry:breach"));
+                    ResourceLocation.parse("jaams_weaponry:breach"));
             DamageSource damageSource = attacker instanceof Player
                     ? new DamageSource(
                             registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey),
@@ -807,7 +807,7 @@ public class ModUtils {
         try {
             RegistryAccess registryAccess = attacker.level().registryAccess();
             ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE,
-                    new ResourceLocation("jaams_weaponry:smash"));
+                    ResourceLocation.parse("jaams_weaponry:smash"));
             DamageSource damageSource = attacker instanceof Player
                     ? new DamageSource(
                             registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey),
@@ -834,7 +834,7 @@ public class ModUtils {
         try {
             RegistryAccess registryAccess = attacker.level().registryAccess();
             ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE,
-                    new ResourceLocation("jaams_weaponry:piercing"));
+                    ResourceLocation.parse("jaams_weaponry:piercing"));
             DamageSource damageSource = attacker instanceof Player
                     ? new DamageSource(
                             registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey),
@@ -1073,7 +1073,7 @@ public class ModUtils {
             if (entry.startsWith("#")) {
                 try {
                     String tagName = entry.substring(1);
-                    TagKey<Item> tag = TagKey.create(Registries.ITEM, new ResourceLocation(tagName));
+                    TagKey<Item> tag = TagKey.create(Registries.ITEM, ResourceLocation.parse(tagName));
                     if (item.builtInRegistryHolder().is(tag)) {
                         return true;
                     }
@@ -1150,7 +1150,7 @@ public class ModUtils {
                 }
             } else {
                 try {
-                    ResourceLocation resourceLocation = new ResourceLocation(entry);
+                    ResourceLocation resourceLocation = ResourceLocation.parse(entry);
                     if (ForgeRegistries.ITEMS.containsKey(resourceLocation) && itemKey.equals(resourceLocation)) {
                         return true;
                     }

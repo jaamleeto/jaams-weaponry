@@ -146,7 +146,7 @@ public class MobSmokeBombUseBehaviorHandler {
                 () -> "minecraft:blindness");
         int duration = ModUtils.getConfigOrNbtInt(stack, "SmokeBomb" + targetType + "Duration", () -> 40);
         int amplifier = ModUtils.getConfigOrNbtInt(stack, "SmokeBomb" + targetType + "Amplifier", () -> 1);
-        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(effectId));
+        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.parse(effectId));
         if (effect != null) {
             entity.addEffect(new MobEffectInstance(effect, duration, amplifier, false, false, true));
         }
@@ -181,7 +181,7 @@ public class MobSmokeBombUseBehaviorHandler {
         vol = Mth.clamp(vol * (0.85f + level.random.nextFloat() * 0.3f), 0.1f, 2.0f);
         pitch = Mth.clamp(pitch * (0.85f + level.random.nextFloat() * 0.4f), 0.5f, 2.0f);
         ResourceLocation soundLoc = ResourceLocation.tryParse(soundId);
-        if (soundLoc == null) soundLoc = new ResourceLocation("jaams_weaponry", "smoke_bomb");
+        if (soundLoc == null) soundLoc = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "smoke_bomb");
         net.minecraft.sounds.SoundEvent soundEvent = ForgeRegistries.SOUND_EVENTS.getValue(soundLoc);
         if (soundEvent != null) {
             serverLevel.playSound(null, x, y, z, soundEvent, SoundSource.HOSTILE, vol, pitch);
@@ -227,7 +227,7 @@ public class MobSmokeBombUseBehaviorHandler {
             float b = (color & 0xFF) / 255.0f;
             return new DustParticleOptions(new Vector3f(r, g, b), scale);
         }
-        ResourceLocation loc = new ResourceLocation(particleId);
+        ResourceLocation loc = ResourceLocation.parse(particleId);
         ParticleType<?> type = ForgeRegistries.PARTICLE_TYPES.getValue(loc);
         if (type instanceof SimpleParticleType simpleType) return simpleType;
         return ParticleTypes.LARGE_SMOKE;

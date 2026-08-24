@@ -19,6 +19,7 @@ import net.minecraft.util.Mth;
 
 import net.jaams.weaponry.animation.AnimationAPI;
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
+import net.jaams.weaponry.client.ClientAnimationUtils;
 import net.jaams.weaponry.util.ModAnimations;
 import net.jaams.weaponry.util.ModAnimations.AnimationTickResult;
 import net.jaams.weaponry.util.ModRenderState;
@@ -63,7 +64,7 @@ public abstract class AnimationPlayerMixin<T extends LivingEntity> extends Human
         if (!(entityIn instanceof Player player))
             return;
 
-        boolean isFirstPerson = ModAnimations.shouldRenderInFirstPerson(player);
+        boolean isFirstPerson = ClientAnimationUtils.shouldRenderInFirstPerson(player);
 
         
         

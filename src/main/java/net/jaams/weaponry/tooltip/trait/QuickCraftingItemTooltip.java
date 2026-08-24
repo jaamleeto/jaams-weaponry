@@ -37,8 +37,8 @@ public class QuickCraftingItemTooltip {
 		String resultId = getResult(stack, tag);
 		int ingredientCount = getIngredientCount(stack, tag);
 		int resultCount = getResultCount(stack, tag);
-		net.minecraft.world.item.Item ingredientItem = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation(ingredientId));
-		net.minecraft.world.item.Item resultItem = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation(resultId));
+		net.minecraft.world.item.Item ingredientItem = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(ingredientId));
+		net.minecraft.world.item.Item resultItem = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(resultId));
 		Component ingredientBaseName = ingredientItem != null ? Component.translatable(ingredientItem.getDescriptionId()) : Component.literal(ingredientId);
 		Component resultBaseName = resultItem != null ? Component.translatable(resultItem.getDescriptionId()) : Component.literal(resultId);
 		Component ingredientName = Component.empty().append(ingredientBaseName).append(Component.literal(" x" + ingredientCount).withStyle(ChatFormatting.DARK_GRAY));

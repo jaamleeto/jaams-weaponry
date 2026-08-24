@@ -54,7 +54,7 @@ public class ModItemProperties {
     }
 
     private static void makeNunchaku(Item item, String propertyName) {
-        ItemProperties.register(item, new ResourceLocation("jaams_weaponry:" + propertyName),
+        ItemProperties.register(item, ResourceLocation.parse("jaams_weaponry:" + propertyName),
                 (stack, clientLevel, living, k) -> {
                     if (living == null) {
                         return 0.0F;
@@ -131,7 +131,7 @@ public class ModItemProperties {
     }
 
     private static void makeBow(Item item, String propertyName, String propertyPullingName, float maxPull) {
-        ItemProperties.register(item, new ResourceLocation(propertyName), (itemStack, clientWorld, livingEntity, i) -> {
+        ItemProperties.register(item, ResourceLocation.parse(propertyName), (itemStack, clientWorld, livingEntity, i) -> {
             if (livingEntity == null) {
                 return 0.0f;
             } else {
@@ -139,7 +139,7 @@ public class ModItemProperties {
                         : (float) (itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / maxPull;
             }
         });
-        ItemProperties.register(item, new ResourceLocation(propertyPullingName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyPullingName),
                 (itemStack, clientWorld, livingEntity, i) -> {
                     return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack
                             ? 1.0f
@@ -149,7 +149,7 @@ public class ModItemProperties {
 
     private static void makeHuntersCrossbow(Item item, String propertyName, String propertyPullingName,
             String propertyChargedName, String propertyFireworkName) {
-        ItemProperties.register(item, new ResourceLocation(propertyName), (stack, clientLevel, living, k) -> {
+        ItemProperties.register(item, ResourceLocation.parse(propertyName), (stack, clientLevel, living, k) -> {
             if (living == null) {
                 return 0.0F;
             } else {
@@ -158,12 +158,12 @@ public class ModItemProperties {
                                 / (float) HuntersCrossbowItem.getChargeDuration(stack);
             }
         });
-        ItemProperties.register(item, new ResourceLocation(propertyPullingName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyPullingName),
                 (stack, clientLevel, living, k) -> living != null && living.isUsingItem()
                         && living.getUseItem() == stack && !HuntersCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(item, new ResourceLocation(propertyChargedName), (stack, clientLevel, living,
+        ItemProperties.register(item, ResourceLocation.parse(propertyChargedName), (stack, clientLevel, living,
                 k) -> living != null && HuntersCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(item, new ResourceLocation(propertyFireworkName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyFireworkName),
                 (stack, clientLevel, living,
                         k) -> living != null && HuntersCrossbowItem.isCharged(stack)
                                 && HuntersCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F
@@ -172,7 +172,7 @@ public class ModItemProperties {
 
     private static void makeStakeCrossbow(Item item, String propertyName, String propertyPullingName,
             String propertyChargedName) {
-        ItemProperties.register(item, new ResourceLocation(propertyName), (stack, clientLevel, living, k) -> {
+        ItemProperties.register(item, ResourceLocation.parse(propertyName), (stack, clientLevel, living, k) -> {
             if (living == null) {
                 return 0.0F;
             } else {
@@ -181,16 +181,16 @@ public class ModItemProperties {
                                 / (float) StakeCrossbowItem.getChargeDuration(stack);
             }
         });
-        ItemProperties.register(item, new ResourceLocation(propertyPullingName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyPullingName),
                 (stack, clientLevel, living, k) -> living != null && living.isUsingItem()
                         && living.getUseItem() == stack && !StakeCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(item, new ResourceLocation(propertyChargedName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyChargedName),
                 (stack, clientLevel, living, k) -> living != null && StakeCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
     }
 
     private static void makeGreatCrossbow(Item item, String propertyName, String propertyPullingName,
             String propertyChargedName, String propertyFireworkName) {
-        ItemProperties.register(item, new ResourceLocation(propertyName), (stack, clientLevel, living, k) -> {
+        ItemProperties.register(item, ResourceLocation.parse(propertyName), (stack, clientLevel, living, k) -> {
             if (living == null) {
                 return 0.0F;
             } else {
@@ -199,12 +199,12 @@ public class ModItemProperties {
                                 / (float) GreatCrossbowItem.getChargeDuration(stack);
             }
         });
-        ItemProperties.register(item, new ResourceLocation(propertyPullingName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyPullingName),
                 (stack, clientLevel, living, k) -> living != null && living.isUsingItem()
                         && living.getUseItem() == stack && !GreatCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(item, new ResourceLocation(propertyChargedName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyChargedName),
                 (stack, clientLevel, living, k) -> living != null && GreatCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(item, new ResourceLocation(propertyFireworkName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyFireworkName),
                 (stack, clientLevel, living,
                         k) -> living != null && GreatCrossbowItem.isCharged(stack)
                                 && GreatCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F
@@ -213,7 +213,7 @@ public class ModItemProperties {
 
     private static void makeRoyalCrossbow(Item item, String propertyName, String propertyPullingName,
             String propertyChargedName, String propertyFireworkName) {
-        ItemProperties.register(item, new ResourceLocation(propertyName), (stack, clientLevel, living, k) -> {
+        ItemProperties.register(item, ResourceLocation.parse(propertyName), (stack, clientLevel, living, k) -> {
             if (living == null) {
                 return 0.0F;
             } else {
@@ -222,12 +222,12 @@ public class ModItemProperties {
                                 / (float) RoyalCrossbowItem.getChargeDuration(stack);
             }
         });
-        ItemProperties.register(item, new ResourceLocation(propertyPullingName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyPullingName),
                 (stack, clientLevel, living, k) -> living != null && living.isUsingItem()
                         && living.getUseItem() == stack && !RoyalCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(item, new ResourceLocation(propertyChargedName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyChargedName),
                 (stack, clientLevel, living, k) -> living != null && RoyalCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(item, new ResourceLocation(propertyFireworkName),
+        ItemProperties.register(item, ResourceLocation.parse(propertyFireworkName),
                 (stack, clientLevel, living,
                         k) -> living != null && RoyalCrossbowItem.isCharged(stack)
                                 && RoyalCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F

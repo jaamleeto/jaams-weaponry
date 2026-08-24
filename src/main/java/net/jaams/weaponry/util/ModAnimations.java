@@ -12,19 +12,12 @@ import org.jetbrains.annotations.Nullable;
 import net.jaams.weaponry.JaamsWeaponryMod;
 import net.jaams.weaponry.animation.AnimationAPI;
 import net.jaams.weaponry.client.ClientAnimationSoundPlayer;
-
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
 import net.jaams.weaponry.network.PlayAnimationMessage;
 import net.jaams.weaponry.network.PlayMobAnimationMessage;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
+
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.FloatTag;
 import net.minecraft.nbt.ListTag;
@@ -328,7 +321,7 @@ public class ModAnimations {
         return val;
     }
 
-    private static ListTag getCombinableList(Player player) {
+    public static ListTag getCombinableList(Player player) {
         if (player == null)
             return new ListTag();
         CompoundTag data = getData(player);
@@ -337,7 +330,7 @@ public class ModAnimations {
         return new ListTag();
     }
 
-    private static void setCombinableList(Player player, ListTag list) {
+    public static void setCombinableList(Player player, ListTag list) {
         if (player == null)
             return;
         getData(player).put(KEY_COMBINABLE, list);
@@ -410,147 +403,6 @@ public class ModAnimations {
             result.put(name, entry.getFloat("progress"));
         }
         return result;
-    }
-
-    public static void advanceCombinableAnimations(Player player, float ageInTicks) {
-        if (player == null || player.level().isClientSide == false)
-            return;
-        ListTag list = getCombinableList(player);
-        if (list.isEmpty())
-            return;
-
-        boolean changed = false;
-        int i = 0;
-        while (i < list.size()) {
-            CompoundTag entry = list.getCompound(i);
-            String animName = entry.getString("name");
-            if (animName.isEmpty()) {
-                list.remove(i);
-                changed = true;
-                continue;
-            }
-
-            PlayerAnimation anim = getAnimation(animName);
-            if (anim == null) {
-                list.remove(i);
-                changed = true;
-                continue;
-            }
-
-            float lastTick = entry.getFloat("lastTick");
-            float speed = entry.getFloat("speed");
-            if (speed <= 0)
-                speed = 1.0f;
-
-            float deltaTicks = ageInTicks - lastTick;
-            if (deltaTicks <= 0) {
-                i++;
-                continue;
-            }
-
-            entry.putFloat("lastTick", ageInTicks);
-            float deltaTime = deltaTicks / 20.0f * speed;
-            float progress = entry.getFloat("progress") + deltaTime;
-
-            if (progress >= anim.length) {
-                if (!anim.hold_on_last_frame && !anim.loop) {
-
-                    list.remove(i);
-                    changed = true;
-                    continue;
-                } else if (anim.hold_on_last_frame) {
-                    progress = anim.length;
-                } else if (anim.loop) {
-                    progress = progress % anim.length;
-
-                    entry.put("playedSounds", new ListTag());
-                    entry.put("playedEvents", new ListTag());
-                }
-            }
-
-            entry.putFloat("progress", progress);
-
-            if (!anim.soundEffects.isEmpty()) {
-                ListTag playedSounds = entry.getList("playedSounds", Tag.TAG_FLOAT);
-                float effectiveLast = lastTick > 0 ? entry.getFloat("progress") - deltaTime : 0f;
-                boolean soundPlayed = false;
-
-                for (Map.Entry<Float, String> soundEntry : anim.soundEffects.entrySet()) {
-                    float soundTime = soundEntry.getKey();
-                    String soundId = soundEntry.getValue();
-
-                    boolean alreadyPlayed = false;
-                    for (int si = 0; si < playedSounds.size(); si++) {
-                        if (Math.abs(playedSounds.getFloat(si) - soundTime) < 0.001f) {
-                            alreadyPlayed = true;
-                            break;
-                        }
-                    }
-                    if (alreadyPlayed)
-                        continue;
-
-                    boolean shouldPlay;
-                    if (effectiveLast <= progress) {
-                        shouldPlay = effectiveLast <= soundTime && progress >= soundTime;
-                    } else {
-                        shouldPlay = effectiveLast <= soundTime || progress >= soundTime;
-                    }
-
-                    if (shouldPlay && player.level() instanceof ClientLevel) {
-                        final float st = soundTime;
-                        BuiltInRegistries.SOUND_EVENT
-                                .getOptional(new ResourceLocation(soundId))
-                                .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                                        () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.NEUTRAL,
-                                                1.0F, 1.0F, player)));
-                        playedSounds.add(FloatTag.valueOf(soundTime));
-                        soundPlayed = true;
-                    }
-                }
-
-                if (soundPlayed) {
-                    entry.put("playedSounds", playedSounds);
-                }
-            }
-
-            if (!anim.events.isEmpty()) {
-                ListTag playedEvents = entry.contains("playedEvents") ? entry.getList("playedEvents", Tag.TAG_FLOAT)
-                        : new ListTag();
-                Set<Float> playedEventTimes = new HashSet<>();
-                for (int ei = 0; ei < playedEvents.size(); ei++) {
-                    playedEventTimes.add(playedEvents.getFloat(ei));
-                }
-                float effectiveLast = lastTick > 0 ? entry.getFloat("progress") - deltaTime : 0f;
-                boolean eventFired = false;
-                for (Map.Entry<Float, List<AnimationAPI.AnimationEvent>> eventEntry : anim.events.entrySet()) {
-                    float eventTime = eventEntry.getKey();
-                    if (playedEventTimes.contains(eventTime))
-                        continue;
-                    boolean shouldFire;
-                    if (effectiveLast <= progress) {
-                        shouldFire = effectiveLast <= eventTime && progress >= eventTime;
-                    } else {
-                        shouldFire = effectiveLast <= eventTime || progress >= eventTime;
-                    }
-                    if (shouldFire) {
-                        for (AnimationAPI.AnimationEvent event : eventEntry.getValue()) {
-                            fireAnimationEvent(player, event);
-                        }
-                        playedEvents.add(FloatTag.valueOf(eventTime));
-                        eventFired = true;
-                    }
-                }
-                if (eventFired) {
-                    entry.put("playedEvents", playedEvents);
-                }
-            }
-
-            i++;
-        }
-
-        if (changed) {
-            setCombinableList(player, list);
-        }
     }
 
     public static String resolveRandomGroup(String name) {
@@ -1053,34 +905,6 @@ public class ModAnimations {
         return anim != null ? anim.length : 0f;
     }
 
-    public static boolean isLocalPlayerInFirstPerson(Player player) {
-        Minecraft mc = Minecraft.getInstance();
-        if (player != mc.player)
-            return false;
-        if (!mc.options.getCameraType().isFirstPerson())
-            return false;
-        return true;
-    }
-
-    public static boolean shouldRenderInFirstPerson(Player player) {
-        if (ModUtils.isEntityInBattleMode(player))
-            return false;
-        return isFirstPersonAnimation(player) && isLocalPlayerInFirstPerson(player)
-                && isUsingCompatibleModel(player);
-    }
-
-    public static boolean isUsingCompatibleModel(Player player) {
-        try {
-            Minecraft mc = Minecraft.getInstance();
-            EntityRenderer<?> renderer = mc.getEntityRenderDispatcher().getRenderer(player);
-            if (renderer instanceof LivingEntityRenderer livingRenderer) {
-                return livingRenderer.getModel() instanceof HumanoidModel;
-            }
-        } catch (Exception ignored) {
-        }
-        return false;
-    }
-
     public static class AnimationTickResult {
         @Nullable
         public final PlayerAnimation animation;
@@ -1091,6 +915,32 @@ public class ModAnimations {
             this.animation = animation;
             this.progress = progress;
             this.active = active;
+        }
+    }
+
+    private static boolean clientIsUsingCompatibleModel(Player player) {
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+            return net.jaams.weaponry.client.ClientAnimationUtils.isUsingCompatibleModel(player);
+        }
+        return false;
+    }
+
+    private static boolean clientIsPlayerAnimatorActive(Player player) {
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+            return net.jaams.weaponry.client.ClientAnimationUtils.isPlayerAnimatorActive(player);
+        }
+        return false;
+    }
+
+    private static void clientFireAnimationEvent(Player player, AnimationAPI.AnimationEvent event) {
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+            net.jaams.weaponry.client.ClientAnimationUtils.fireAnimationEvent(player, event);
+        }
+    }
+
+    private static void clientAdvanceCombinableAnimations(Player player, float ageInTicks) {
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+            net.jaams.weaponry.client.ClientAnimationUtils.advanceCombinableAnimations(player, ageInTicks);
         }
     }
 
@@ -1109,7 +959,7 @@ public class ModAnimations {
         }
 
         // Remove first-person data if the player's model is not humanoid
-        if (isFirstPersonAnimation(player) && !isUsingCompatibleModel(player)) {
+        if (isFirstPersonAnimation(player) && !clientIsUsingCompatibleModel(player)) {
             setFirstPersonAnimation(player, false);
             removeRestoreFirstPerson(player);
         }
@@ -1153,7 +1003,7 @@ public class ModAnimations {
                     float attackStrength = player.getAttackStrengthScale(0.0F);
                     shouldRestore = attackStrength >= 0.9F;
                 } else if (reason.equals(REASON_PA)) {
-                    shouldRestore = !net.jaams.weaponry.compat.PlayerAnimatorCompat.isPlayerAnimatorActive(player);
+                    shouldRestore = !clientIsPlayerAnimatorActive(player);
                 } else if (reason.equals(REASON_HURT)) {
                     shouldRestore = player.hurtTime <= 0 && player.hurtDuration <= 0;
                 } else if (reason.equals(REASON_SWING)) {
@@ -1263,7 +1113,7 @@ public class ModAnimations {
         }
 
         if (animation.cancelOnPlayerAnimator) {
-            if (net.jaams.weaponry.compat.PlayerAnimatorCompat.isPlayerAnimatorActive(player)) {
+            if (clientIsPlayerAnimatorActive(player)) {
                 String animName = getCurrentAnimationName(player);
                 boolean wasFirstPerson = isFirstPersonAnimation(player);
 
@@ -1564,12 +1414,11 @@ public class ModAnimations {
                     shouldPlay = lastProgress <= soundTime || progress >= soundTime;
                 }
 
-                if (shouldPlay && player.level() instanceof ClientLevel) {
+                if (shouldPlay && player.level().isClientSide()) {
                     BuiltInRegistries.SOUND_EVENT
-                            .getOptional(new ResourceLocation(soundId))
-                            .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                                    () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.NEUTRAL,
-                                            1.0F, 1.0F, player)));
+                            .getOptional(ResourceLocation.parse(soundId))
+                            .ifPresent(soundEvent -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.NEUTRAL,
+                                    1.0F, 1.0F, player));
                     playedSounds.add(FloatTag.valueOf(soundTime));
                 }
             }
@@ -1597,7 +1446,7 @@ public class ModAnimations {
                 }
                 if (shouldFire) {
                     for (AnimationAPI.AnimationEvent event : eventEntry.getValue()) {
-                        fireAnimationEvent(player, event);
+                        clientFireAnimationEvent(player, event);
                     }
                     playedEvents.add(FloatTag.valueOf(eventTime));
                     eventFired = true;
@@ -1608,7 +1457,7 @@ public class ModAnimations {
             }
         }
 
-        advanceCombinableAnimations(player, ageInTicks);
+        clientAdvanceCombinableAnimations(player, ageInTicks);
 
         return new AnimationTickResult(animation, progress, true);
     }
@@ -1679,7 +1528,7 @@ public class ModAnimations {
         }
     }
 
-    private static final Map<String, net.minecraft.core.particles.SimpleParticleType> COMMON_PARTICLES = new HashMap<>();
+    public static final Map<String, net.minecraft.core.particles.SimpleParticleType> COMMON_PARTICLES = new HashMap<>();
     static {
         COMMON_PARTICLES.put("minecraft:crit", net.minecraft.core.particles.ParticleTypes.CRIT);
         COMMON_PARTICLES.put("minecraft:enchant", net.minecraft.core.particles.ParticleTypes.ENCHANT);
@@ -1700,90 +1549,4 @@ public class ModAnimations {
                 net.minecraft.core.particles.ParticleTypes.CAMPFIRE_COSY_SMOKE);
     }
 
-    public static void fireAnimationEvent(LivingEntity entity, AnimationAPI.AnimationEvent event) {
-        if (entity == null || !(entity.level() instanceof ClientLevel))
-            return;
-        try {
-            switch (event.type) {
-                case "particle": {
-                    String particleId = event.getString("particle", "");
-                    if (!particleId.isEmpty()) {
-                        int count = event.getInt("count", 1);
-                        float speed = event.getFloat("speed", 0.0f);
-                        net.minecraft.core.particles.ParticleOptions particle = COMMON_PARTICLES.get(particleId);
-                        if (particle == null) {
-
-                            var opt = BuiltInRegistries.PARTICLE_TYPE
-                                    .getOptional(new ResourceLocation(particleId));
-                            if (opt.isPresent()
-                                    && opt.get() instanceof net.minecraft.core.particles.SimpleParticleType spt) {
-                                particle = spt;
-                            }
-                        }
-                        if (particle != null) {
-                            for (int i = 0; i < count; i++) {
-                                entity.level().addParticle(particle,
-                                        entity.getX() + (Math.random() - 0.5) * 0.5,
-                                        entity.getY() + entity.getBbHeight() * 0.5 + (Math.random() - 0.5) * 0.5,
-                                        entity.getZ() + (Math.random() - 0.5) * 0.5,
-                                        (Math.random() - 0.5) * speed,
-                                        (Math.random() - 0.5) * speed,
-                                        (Math.random() - 0.5) * speed);
-                            }
-                        }
-                    }
-                    break;
-                }
-                case "camera_shake": {
-                    if (!(entity instanceof net.minecraft.world.entity.player.Player))
-                        break;
-
-                    String target = event.getString("target", "self").toLowerCase();
-                    float radius = event.getFloat("radius", 16.0f);
-                    Player localPlayer = Minecraft.getInstance().player;
-                    if (localPlayer == null)
-                        break;
-
-                    boolean apply;
-                    switch (target) {
-                        case "all":
-                            apply = true;
-                            break;
-                        case "nearby":
-                            apply = entity.distanceTo(localPlayer) <= radius;
-                            break;
-                        case "self":
-                        default:
-                            apply = entity == localPlayer;
-                            break;
-                    }
-
-                    if (apply) {
-                        cameraShakeIntensity = Math.max(cameraShakeIntensity, event.getFloat("intensity", 0.3f));
-                        cameraShakeDuration = Math.max(cameraShakeDuration, event.getInt("duration", 5));
-                    }
-                    break;
-                }
-                case "sound": {
-                    String soundId = event.getString("sound", "");
-                    if (!soundId.isEmpty()) {
-                        float volume = event.getFloat("volume", 1.0f);
-                        float pitch = event.getFloat("pitch", 1.0f);
-                        BuiltInRegistries.SOUND_EVENT
-                                .getOptional(new ResourceLocation(soundId))
-                                .ifPresent(soundEvent -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                                        () -> () -> ClientAnimationSoundPlayer.play(soundEvent, SoundSource.NEUTRAL,
-                                                volume, pitch, entity)));
-
-                    }
-                    break;
-                }
-                default:
-
-                    break;
-            }
-        } catch (Exception e) {
-
-        }
-    }
 }

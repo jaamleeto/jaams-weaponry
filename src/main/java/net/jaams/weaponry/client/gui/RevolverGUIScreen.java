@@ -44,7 +44,7 @@ public class RevolverGUIScreen extends AbstractContainerScreen<RevolverGUIMenu> 
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 
-		guiGraphics.blit(new ResourceLocation("jaams_weaponry:textures/screens/revolver_gui.png"), this.leftPos + -16, this.topPos + -11, 0, 0, 208, 192, 208, 192);
+		guiGraphics.blit(ResourceLocation.parse("jaams_weaponry:textures/screens/revolver_gui.png"), this.leftPos + -16, this.topPos + -11, 0, 0, 208, 192, 208, 192);
 
 		RenderSystem.disableBlend();
 	}

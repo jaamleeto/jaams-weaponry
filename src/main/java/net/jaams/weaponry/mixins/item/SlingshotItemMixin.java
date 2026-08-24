@@ -146,7 +146,7 @@ public abstract class SlingshotItemMixin {
 
         List<String> items = jaam$getAmmoItems();
         for (String id : items) {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(id));
+            Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(id));
             if (item != null && item != Items.AIR) {
                 return new ItemStack(item);
             }
@@ -154,7 +154,7 @@ public abstract class SlingshotItemMixin {
 
         String id = ModUtils.getConfigOrNbtString((ItemStack) (Object) this, "SlingshotDefaultCreativeAmmo",
                 () -> "minecraft:cobblestone");
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(id));
+        Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(id));
         if (item != null && item != Items.AIR) {
             return new ItemStack(item);
         }

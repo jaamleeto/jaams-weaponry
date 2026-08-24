@@ -274,7 +274,7 @@ public class ProjectilePlacementHandler {
         if (basePath.equals("bucket") || basePath.isEmpty() || basePath.contains("bucket")) {
             return new ItemStack(Items.BUCKET);
         }
-        ResourceLocation loc = new ResourceLocation(namespace, basePath + "_bucket");
+        ResourceLocation loc = ResourceLocation.fromNamespaceAndPath(namespace, basePath + "_bucket");
         Item item = ForgeRegistries.ITEMS.getValue(loc);
         if (item != null && item != Items.AIR) {
             return new ItemStack(item);

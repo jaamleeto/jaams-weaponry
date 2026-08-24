@@ -1,8 +1,12 @@
 package net.jaams.weaponry.mixins.client;
 
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +20,7 @@ import net.jaams.weaponry.configuration.common.GunSystemCommonConfig;
 import net.jaams.weaponry.data.GunItemData;
 import net.jaams.weaponry.gun.helper.GunShootHelper;
 
+import net.jaams.weaponry.util.ModAnimations;
 import net.jaams.weaponry.util.ModGuns;
 import net.jaams.weaponry.util.ModTraits;
 import net.jaams.weaponry.util.ModUtils;
@@ -36,6 +41,30 @@ public abstract class PlayerModelPoseMixin {
     private static final float WHIRL_SPEED = 0.8F;
     private static final float WHIRL_AMOUNT = 0.5F;
     private static final float WHIRL_BASE_X = -1.0F;
+    private static final float AIM_BLEND_SPEED = 0.25F;
+    private static final float AIM_BLEND_SPEED_SWING = 0.12F;
+    private static final ConcurrentHashMap<UUID, float[]> GUN_AIM_BLEND = new ConcurrentHashMap<>();
+
+    private static float getAimBlend(Player player, boolean isMainHand) {
+        float[] arr = GUN_AIM_BLEND.get(player.getUUID());
+        return arr != null ? (isMainHand ? arr[0] : arr[1]) : 0f;
+    }
+
+    private static void setAimBlend(Player player, boolean isMainHand, float value) {
+        UUID uuid = player.getUUID();
+        float[] arr = GUN_AIM_BLEND.getOrDefault(uuid, new float[]{0f, 0f});
+        if (isMainHand) arr[0] = value; else arr[1] = value;
+        GUN_AIM_BLEND.put(uuid, arr);
+    }
+
+    private static void removeAimBlend(Player player, boolean isMainHand) {
+        UUID uuid = player.getUUID();
+        float[] arr = GUN_AIM_BLEND.get(uuid);
+        if (arr == null) return;
+        if (isMainHand) arr[0] = 0f; else arr[1] = 0f;
+        if (arr[0] <= 0.001f && arr[1] <= 0.001f) GUN_AIM_BLEND.remove(uuid);
+        else GUN_AIM_BLEND.put(uuid, arr);
+    }
 
     @Inject(
             method = {"setupAnim"},
@@ -120,14 +149,60 @@ public abstract class PlayerModelPoseMixin {
         if (player.isUsingItem())
             return;
 
-        this.jaams$applyHandAimingPose(player, model, player.getMainHandItem(),
-                InteractionHand.MAIN_HAND, player.getMainArm());
-        this.jaams$applyHandAimingPose(player, model, player.getOffhandItem(),
-                InteractionHand.OFF_HAND, player.getMainArm().getOpposite());
+        boolean animationOverride = ModAnimations.isAnimationPlaying(player) || ModAnimations.hasPose(player);
+
+        this.jaams$updateAndApplyHandBlend(player, model,
+                player.getMainHandItem(), InteractionHand.MAIN_HAND, player.getMainArm(), true, animationOverride);
+        this.jaams$updateAndApplyHandBlend(player, model,
+                player.getOffhandItem(), InteractionHand.OFF_HAND, player.getMainArm().getOpposite(), false, animationOverride);
+    }
+
+    private void jaams$updateAndApplyHandBlend(Player player, PlayerModel<?> model,
+            ItemStack stack, InteractionHand hand, HumanoidArm arm, boolean isMainHand, boolean animationOverride) {
+        boolean shouldShowAim = !animationOverride
+                && !player.swinging
+                && jaams$canShowAimingPose(player, stack, isMainHand);
+
+        float targetBlend = shouldShowAim ? 1f : 0f;
+        float currentBlend = getAimBlend(player, isMainHand);
+
+        if (currentBlend < targetBlend) {
+            currentBlend = Math.min(targetBlend, currentBlend + AIM_BLEND_SPEED);
+        } else if (currentBlend > targetBlend) {
+            float speed = player.swinging ? AIM_BLEND_SPEED_SWING : AIM_BLEND_SPEED;
+            currentBlend = Math.max(targetBlend, currentBlend - speed);
+        }
+
+        if (currentBlend <= 0.001f) {
+            removeAimBlend(player, isMainHand);
+            return;
+        }
+        setAimBlend(player, isMainHand, currentBlend);
+
+        this.jaams$applyHandAimingPose(player, model, stack, hand, arm, currentBlend);
+    }
+
+    private static boolean jaams$canShowAimingPose(Player player, ItemStack stack, boolean isMainHand) {
+        if (stack.isEmpty())
+            return false;
+        ModGuns.GunType gunType = ModGuns.getGunType(stack);
+        if (gunType == null)
+            return false;
+        if (stack.getItem() instanceof CrossbowItem && CrossbowItem.isCharged(stack))
+            return false;
+        String nbtPose = jaams$getPoseFromNBT(stack);
+        if (nbtPose != null) {
+            if ("NONE".equals(nbtPose.toUpperCase()))
+                return false;
+        } else {
+            if (!jaams$shouldHaveAimingPose(gunType))
+                return false;
+        }
+        return jaams$canDisplayPose(player, stack, gunType, isMainHand, player.isCreative());
     }
 
     private void jaams$applyHandAimingPose(Player player, PlayerModel<?> model,
-            ItemStack stack, InteractionHand hand, HumanoidArm arm) {
+            ItemStack stack, InteractionHand hand, HumanoidArm arm, float aimBlend) {
         if (stack.isEmpty())
             return;
 
@@ -135,15 +210,8 @@ public abstract class PlayerModelPoseMixin {
         if (gunType == null)
             return;
 
-        if (player.isUsingItem())
-            return;
-
-        if (stack.getItem() instanceof CrossbowItem && CrossbowItem.isCharged(stack))
-            return;
-
         boolean isMainHand = hand == InteractionHand.MAIN_HAND;
 
-        
         String nbtPose = jaams$getPoseFromNBT(stack);
         String poseType = null;
         if (nbtPose != null) {
@@ -153,9 +221,7 @@ public abstract class PlayerModelPoseMixin {
         if (poseType != null) {
             if ("NONE".equals(poseType))
                 return;
-            
         } else {
-            
             if (!jaams$shouldHaveAimingPose(gunType))
                 return;
         }
@@ -163,8 +229,10 @@ public abstract class PlayerModelPoseMixin {
         if (jaams$canDisplayPose(player, stack, gunType, isMainHand, player.isCreative())) {
             ModelPart armPart = arm == HumanoidArm.RIGHT ? model.rightArm : model.leftArm;
             float headYRotOffset = isMainHand ? -0.1F : 0.1F;
-            armPart.xRot = AIM_X_ROT + model.head.xRot;
-            armPart.yRot = headYRotOffset + model.head.yRot;
+            float targetXRot = AIM_X_ROT + model.head.xRot;
+            float targetYRot = headYRotOffset + model.head.yRot;
+            armPart.xRot = Mth.lerp(aimBlend, armPart.xRot, targetXRot);
+            armPart.yRot = Mth.lerp(aimBlend, armPart.yRot, targetYRot);
         }
     }
 

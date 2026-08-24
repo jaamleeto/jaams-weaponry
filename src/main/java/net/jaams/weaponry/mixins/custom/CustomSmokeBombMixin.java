@@ -128,7 +128,7 @@ public abstract class CustomSmokeBombMixin {
                 () -> "minecraft:blindness");
         int duration = ModUtils.getConfigOrNbtInt(stack, "SmokeBomb" + targetType + "Duration", () -> 40);
         int amplifier = ModUtils.getConfigOrNbtInt(stack, "SmokeBomb" + targetType + "Amplifier", () -> 1);
-        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(effectId));
+        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.parse(effectId));
         if (effect != null) {
             entity.addEffect(new MobEffectInstance(effect, duration, amplifier, false, false, true));
         }
@@ -185,7 +185,7 @@ public abstract class CustomSmokeBombMixin {
         }
         if (sourceEntity.isUnderWater())
             return ParticleTypes.BUBBLE;
-        ResourceLocation loc = new ResourceLocation(particleId);
+        ResourceLocation loc = ResourceLocation.parse(particleId);
         ParticleType<?> type = ForgeRegistries.PARTICLE_TYPES.getValue(loc);
         if (type instanceof SimpleParticleType simpleType) {
             return simpleType;

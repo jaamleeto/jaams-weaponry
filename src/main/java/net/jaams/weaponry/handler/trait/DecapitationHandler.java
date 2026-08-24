@@ -69,24 +69,24 @@ public class DecapitationHandler {
             }
         } else {
             
-            specificHeadDrops.put(new ResourceLocation("minecraft:zombie"),
+            specificHeadDrops.put(ResourceLocation.parse("minecraft:zombie"),
                     new HeadDropConfig("minecraft:zombie_head", generalChance));
-            specificHeadDrops.put(new ResourceLocation("minecraft:skeleton"),
+            specificHeadDrops.put(ResourceLocation.parse("minecraft:skeleton"),
                     new HeadDropConfig("minecraft:skeleton_skull", generalChance));
-            specificHeadDrops.put(new ResourceLocation("minecraft:wither_skeleton"),
+            specificHeadDrops.put(ResourceLocation.parse("minecraft:wither_skeleton"),
                     new HeadDropConfig("minecraft:wither_skeleton_skull", generalChance));
-            specificHeadDrops.put(new ResourceLocation("minecraft:creeper"),
+            specificHeadDrops.put(ResourceLocation.parse("minecraft:creeper"),
                     new HeadDropConfig("minecraft:creeper_head", generalChance));
-            specificHeadDrops.put(new ResourceLocation("minecraft:piglin"),
+            specificHeadDrops.put(ResourceLocation.parse("minecraft:piglin"),
                     new HeadDropConfig("minecraft:piglin_head", generalChance));
 
             if (ModList.get().isLoaded("supplementaries")) {
-                specificHeadDrops.put(new ResourceLocation("minecraft:enderman"),
+                specificHeadDrops.put(ResourceLocation.parse("minecraft:enderman"),
                         new HeadDropConfig("supplementaries:enderman_head", generalChance));
             }
 
             if (ModList.get().isLoaded("caverns_and_chasms")) {
-                specificHeadDrops.put(new ResourceLocation("caverns_and_chasms:mime"),
+                specificHeadDrops.put(ResourceLocation.parse("caverns_and_chasms:mime"),
                         new HeadDropConfig("caverns_and_chasms:mime_head", generalChance));
             }
         }
@@ -180,7 +180,7 @@ public class DecapitationHandler {
         double effectiveChance = isCritical ? dropChance * criticalMultiplier : dropChance;
         if (Math.random() < effectiveChance) {
             if (world instanceof ServerLevel serverLevel) {
-                ResourceLocation itemId = new ResourceLocation(headItemId);
+                ResourceLocation itemId = ResourceLocation.parse(headItemId);
                 Item item = BuiltInRegistries.ITEM.get(itemId);
                 if (item == Items.AIR) {
                     return;

@@ -163,7 +163,7 @@ public class QuickSwapHandler {
             Entity entity) {
         if (soundEvent == null || soundEvent.isEmpty())
             return;
-        SoundEvent sound = SoundEvent.createVariableRangeEvent(new ResourceLocation(soundEvent));
+        SoundEvent sound = SoundEvent.createVariableRangeEvent(ResourceLocation.parse(soundEvent));
         SoundSource source = entity instanceof Player ? SoundSource.PLAYERS : SoundSource.HOSTILE;
         level.playSound(null, x, y, z, sound, source, 1.0F, 1.0F);
     }

@@ -20,15 +20,15 @@ import net.minecraftforge.fml.common.Mod;
 public class MobBehaviorHandler {
 
     private static final TagKey<EntityType<?>> TAG_QUICK_SWAP =
-            TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("jaams_weaponry", "behavior/quick_swap"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "behavior/quick_swap"));
     private static final TagKey<EntityType<?>> TAG_GUN_SHOOT =
-            TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("jaams_weaponry", "behavior/gun_shoot"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "behavior/gun_shoot"));
     private static final TagKey<EntityType<?>> TAG_THROWABLE =
-            TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("jaams_weaponry", "behavior/throwable"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "behavior/throwable"));
     private static final TagKey<EntityType<?>> TAG_SLINGSHOT =
-            TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("jaams_weaponry", "behavior/slingshot_shoot"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "behavior/slingshot_shoot"));
     private static final TagKey<EntityType<?>> TAG_SMOKE_BOMB =
-            TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("jaams_weaponry", "behavior/smoke_bomb"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "behavior/smoke_bomb"));
 
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {

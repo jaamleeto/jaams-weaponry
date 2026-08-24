@@ -127,7 +127,7 @@ public class QuickSwapItemTooltip {
         for (String suffix : SUFFIXES) {
             if (path.endsWith(suffix)) {
                 String basePath = path.substring(0, path.length() - suffix.length());
-                ResourceLocation baseLoc = new ResourceLocation(namespace, basePath);
+                ResourceLocation baseLoc = ResourceLocation.fromNamespaceAndPath(namespace, basePath);
                 net.minecraft.world.item.Item baseItem = net.minecraftforge.registries.ForgeRegistries.ITEMS
                         .getValue(baseLoc);
                 if (baseItem != null && baseItem != net.minecraft.world.item.Items.AIR) {
@@ -138,7 +138,7 @@ public class QuickSwapItemTooltip {
         
         for (String suffix : SUFFIXES) {
             String candidatePath = path + suffix;
-            ResourceLocation candidateLoc = new ResourceLocation(namespace, candidatePath);
+            ResourceLocation candidateLoc = ResourceLocation.fromNamespaceAndPath(namespace, candidatePath);
             net.minecraft.world.item.Item candidateItem = net.minecraftforge.registries.ForgeRegistries.ITEMS
                     .getValue(candidateLoc);
             if (candidateItem != null && candidateItem != net.minecraft.world.item.Items.AIR) {

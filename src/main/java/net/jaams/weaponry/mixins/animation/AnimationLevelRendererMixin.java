@@ -15,8 +15,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.Camera;
 
 import net.jaams.weaponry.animation.AnimationAPI;
+import net.jaams.weaponry.client.ClientAnimationUtils;
 import net.jaams.weaponry.util.ModAnimations;
-import net.jaams.weaponry.util.ModRenderState;
 import net.jaams.weaponry.mixins.access.CameraAccessor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -27,17 +27,10 @@ public abstract class AnimationLevelRendererMixin {
     private Minecraft mc = Minecraft.getInstance();
 
     @Inject(method = "renderLevel", at = @At("HEAD"))
-    private void beforeRenderLevel(PoseStack poseStack, float partialTick, long finishNanoTime,
+    private void jaams_resetPanelFlag(PoseStack poseStack, float partialTick, long finishNanoTime,
             boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture,
             Matrix4f projectionMatrix, CallbackInfo ci) {
-        ModRenderState.worldRenderPass = true;
-    }
-
-    @Inject(method = "renderLevel", at = @At("RETURN"))
-    private void afterRenderLevel(PoseStack poseStack, float partialTick, long finishNanoTime,
-            boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture,
-            Matrix4f projectionMatrix, CallbackInfo ci) {
-        ModRenderState.worldRenderPass = false;
+        ClientAnimationUtils.isRenderingInventoryPanel = false;
     }
 
     @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;isDetached()Z"))
@@ -54,7 +47,7 @@ public abstract class AnimationLevelRendererMixin {
             return;
         }
         if (camera.getEntity() instanceof Player player
-                && ModAnimations.shouldRenderInFirstPerson(player)) {
+                 && ClientAnimationUtils.shouldRenderInFirstPerson(player)) {
             ((CameraAccessor) camera).setDetached(true);
         }
     }

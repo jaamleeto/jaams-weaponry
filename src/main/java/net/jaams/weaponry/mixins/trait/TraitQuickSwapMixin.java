@@ -63,12 +63,12 @@ public class TraitQuickSwapMixin {
                 
                 
                 String basePath = path.substring(0, path.length() - suffix.length());
-                if (isValidTarget(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ns, basePath)))) {
+                if (isValidTarget(ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(ns, basePath)))) {
                     return true;
                 }
             } else {
                 
-                if (isValidTarget(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ns, path + suffix)))) {
+                if (isValidTarget(ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(ns, path + suffix)))) {
                     return true;
                 }
             }
@@ -387,7 +387,7 @@ public class TraitQuickSwapMixin {
         for (String suffix : SUFFIXES) {
             if (path.endsWith(suffix)) {
                 String basePath = path.substring(0, path.length() - suffix.length());
-                Item baseItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(namespace, basePath));
+                Item baseItem = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(namespace, basePath));
                 if (isValidTarget(baseItem))
                     return baseItem;
             }
@@ -396,7 +396,7 @@ public class TraitQuickSwapMixin {
         
         for (String suffix : SUFFIXES) {
             String candidatePath = path + suffix;
-            Item candidateItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(namespace, candidatePath));
+            Item candidateItem = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(namespace, candidatePath));
             if (isValidTarget(candidateItem))
                 return candidateItem;
         }

@@ -127,7 +127,7 @@ public class RingProjectileEntity extends BaseReturningProjectileEntity {
 
     @Override
     protected boolean isCustomBreakableBlock(BlockState state) {
-        return ModProjectiles.isCustomBreakableBlock(this.getWeaponItem(), state, new ResourceLocation("minecraft:pointed_dripstone"));
+        return ModProjectiles.isCustomBreakableBlock(this.getWeaponItem(), state, ResourceLocation.parse("minecraft:pointed_dripstone"));
     }
 
     @Override

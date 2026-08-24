@@ -135,7 +135,7 @@ public class GuardStanceHandler {
 
     public static boolean isProlongedBlocking(ServerPlayer player) {
         CompoundTag persistentData = player.getPersistentData();
-        ResourceLocation prolongedKey = new ResourceLocation("jaams_weaponry", "prolonged_blocking");
+        ResourceLocation prolongedKey = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "prolonged_blocking");
         return persistentData.getBoolean(prolongedKey.toString());
     }
 
@@ -143,8 +143,8 @@ public class GuardStanceHandler {
     public static void onPlayerBlockingTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END && event.player instanceof ServerPlayer player) {
             CompoundTag persistentData = player.getPersistentData();
-            ResourceLocation blockingTicksKey = new ResourceLocation("jaams_weaponry", "blocking_ticks");
-            ResourceLocation prolongedKey = new ResourceLocation("jaams_weaponry", "prolonged_blocking");
+            ResourceLocation blockingTicksKey = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "blocking_ticks");
+            ResourceLocation prolongedKey = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "prolonged_blocking");
             if (player.isBlocking()) {
                 int blockingTicks = persistentData.getInt(blockingTicksKey.toString());
                 if (blockingTicks < 20) {

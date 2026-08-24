@@ -100,12 +100,12 @@ public class ScattergunGUIMenu extends BaseGunGUIMenu {
 
     @Override
     protected ResourceLocation getOpenSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_scattergun_open");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_scattergun_open");
     }
 
     @Override
     protected ResourceLocation getCloseSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_scattergun_closed");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_scattergun_closed");
     }
 
     @Override

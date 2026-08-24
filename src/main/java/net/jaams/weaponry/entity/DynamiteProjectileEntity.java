@@ -406,12 +406,12 @@ public class DynamiteProjectileEntity extends BaseWeaponProjectileEntity {
         if (weapon != null && weapon.hasTag()
                 && weapon.getTag().contains(NBT_IGNITING_SOUND, net.minecraft.nbt.Tag.TAG_STRING)) {
             String soundId = weapon.getTag().getString(NBT_IGNITING_SOUND);
-            SoundEvent custom = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundId));
+            SoundEvent custom = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundId));
             if (custom != null) {
                 return custom;
             }
         }
-        return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("jaams_weaponry:dynamite_igniting"));
+        return ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse("jaams_weaponry:dynamite_igniting"));
     }
 
     private Level.ExplosionInteraction getExplosionInteraction() {
@@ -546,7 +546,7 @@ public class DynamiteProjectileEntity extends BaseWeaponProjectileEntity {
         }
         ResourceLocation id = ResourceLocation.tryParse(value);
         if (id == null)
-            id = new ResourceLocation("minecraft", value);
+            id = ResourceLocation.fromNamespaceAndPath("minecraft", value);
         ParticleType<?> type = BuiltInRegistries.PARTICLE_TYPE.get(id);
         if (type instanceof SimpleParticleType simpleType)
             return simpleType;

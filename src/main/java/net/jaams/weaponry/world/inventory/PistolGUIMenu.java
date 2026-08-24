@@ -100,12 +100,12 @@ public class PistolGUIMenu extends BaseGunGUIMenu {
 
     @Override
     protected ResourceLocation getOpenSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_pistol_open");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_pistol_open");
     }
 
     @Override
     protected ResourceLocation getCloseSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_pistol_closed");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_pistol_closed");
     }
 
     @Override

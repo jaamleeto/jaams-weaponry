@@ -29,7 +29,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 @OnlyIn(Dist.CLIENT)
 public class TridentProjectileRenderer extends EntityRenderer<TridentProjectileEntity> {
-	public static final ResourceLocation TRIDENT_LOCATION = new ResourceLocation("minecraft", "textures/entity/trident.png");
+	public static final ResourceLocation TRIDENT_LOCATION = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/entity/trident.png");
 	private final TridentModel model;
 
 	public TridentProjectileRenderer(EntityRendererProvider.Context context) {

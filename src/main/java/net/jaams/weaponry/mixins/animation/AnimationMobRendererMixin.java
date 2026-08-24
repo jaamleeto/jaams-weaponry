@@ -24,6 +24,7 @@ import net.jaams.weaponry.animation.AnimationAPI;
 import net.jaams.weaponry.animation.AnimationAPI.PlayerAnimation;
 import net.jaams.weaponry.animation.AnimationAccessor;
 import net.jaams.weaponry.animation.AnimationHelper;
+import net.jaams.weaponry.compat.CitadelCompat;
 
 import java.util.Map;
 
@@ -80,7 +81,7 @@ public abstract class AnimationMobRendererMixin {
     @Unique
     private void resetAnimationBones(PlayerAnimation animation) {
         for (String boneName : animation.bones.keySet()) {
-            ModelPart part = null;
+            Object part = null;
             if (model instanceof HumanoidModel<?> hm) {
                 @SuppressWarnings("unchecked")
                 AnimationAccessor acc = new AnimationAccessor.Humanoid((HumanoidModel<LivingEntity>) (Object) hm);
@@ -88,15 +89,14 @@ public abstract class AnimationMobRendererMixin {
             } else if (model instanceof HierarchicalModel<?> hm) {
                 AnimationAccessor acc = new AnimationAccessor.Hierarchical(hm);
                 part = acc.get(boneName);
+            } else if (CitadelCompat.isBasicEntityModel(model)) {
+                part = CitadelCompat.getBone(model, boneName);
             }
             if (part != null) {
-                var init = part.getInitialPose();
-                part.x = init.x;
-                part.y = init.y;
-                part.z = init.z;
-                part.xScale = 1.0F;
-                part.yScale = 1.0F;
-                part.zScale = 1.0F;
+                CitadelCompat.resetPosition(part);
+                CitadelCompat.setXScale(part, 1.0F);
+                CitadelCompat.setYScale(part, 1.0F);
+                CitadelCompat.setZScale(part, 1.0F);
             }
         }
     }
@@ -112,6 +112,9 @@ public abstract class AnimationMobRendererMixin {
         } else if (model instanceof HierarchicalModel<?> hierarchicalModel) {
             applyBoneTransforms(entity, animation, progress,
                     new AnimationAccessor.Hierarchical(hierarchicalModel), blendFactor, partialTick);
+        } else if (CitadelCompat.isBasicEntityModel(model)) {
+            applyBoneTransforms(entity, animation, progress,
+                    new CitadelAccessor(model), blendFactor, partialTick);
         }
     }
 
@@ -188,8 +191,8 @@ public abstract class AnimationMobRendererMixin {
             String boneName = entry.getKey();
             AnimationAPI.PlayerBone bone = entry.getValue();
 
-            ModelPart modelPart = bones.get(boneName);
-            if (modelPart == null)
+            Object boneObj = bones.get(boneName);
+            if (boneObj == null)
                 continue;
 
             
@@ -201,57 +204,76 @@ public abstract class AnimationMobRendererMixin {
             if (effectiveBlend >= 1.0F && blendFactor <= 0.0F)
                 continue;
 
-            
-            float origXRot = modelPart.xRot;
-            float origYRot = modelPart.yRot;
-            float origZRot = modelPart.zRot;
-            float origX = modelPart.x;
-            float origY = modelPart.y;
-            float origZ = modelPart.z;
-            float origXScale = modelPart.xScale;
-            float origYScale = modelPart.yScale;
-            float origZScale = modelPart.zScale;
+            CitadelCompat.captureInitialPose(boneObj);
+
+            float origXRot = CitadelCompat.getXRot(boneObj);
+            float origYRot = CitadelCompat.getYRot(boneObj);
+            float origZRot = CitadelCompat.getZRot(boneObj);
+            float origX = CitadelCompat.getX(boneObj);
+            float origY = CitadelCompat.getY(boneObj);
+            float origZ = CitadelCompat.getZ(boneObj);
+            float origXScale = CitadelCompat.getXScale(boneObj);
+            float origYScale = CitadelCompat.getYScale(boneObj);
+            float origZScale = CitadelCompat.getZScale(boneObj);
 
             Vec3 rotation = AnimationAPI.PlayerBone.interpolate(bone.rotations, progress, entity);
             if (rotation != null) {
-                modelPart.xRot = (float) Math.toRadians(rotation.x);
-                modelPart.yRot = (float) Math.toRadians(rotation.y);
-                modelPart.zRot = (float) Math.toRadians(rotation.z);
+                CitadelCompat.setXRot(boneObj, (float) Math.toRadians(rotation.x));
+                CitadelCompat.setYRot(boneObj, (float) Math.toRadians(rotation.y));
+                CitadelCompat.setZRot(boneObj, (float) Math.toRadians(rotation.z));
             }
 
             Vec3 position = AnimationAPI.PlayerBone.interpolate(bone.positions, progress, entity);
             if (position != null) {
-                bones.resetPosition(modelPart, boneName);
-                modelPart.x += (float) position.x;
-                modelPart.y -= (float) position.y;
-                modelPart.z += (float) position.z;
+                bones.resetPosition(boneObj, boneName);
+                CitadelCompat.setX(boneObj, CitadelCompat.getX(boneObj) + (float) position.x);
+                CitadelCompat.setY(boneObj, CitadelCompat.getY(boneObj) - (float) position.y);
+                CitadelCompat.setZ(boneObj, CitadelCompat.getZ(boneObj) + (float) position.z);
             }
 
             Vec3 scale = AnimationAPI.PlayerBone.interpolate(bone.scales, progress, entity);
             if (scale != null) {
-                modelPart.xScale = (float) scale.x;
-                modelPart.yScale = (float) scale.y;
-                modelPart.zScale = (float) scale.z;
+                CitadelCompat.setXScale(boneObj, (float) scale.x);
+                CitadelCompat.setYScale(boneObj, (float) scale.y);
+                CitadelCompat.setZScale(boneObj, (float) scale.z);
             }
 
             
             if (effectiveBlend > 0.0F) {
                 if (rotation != null) {
-                    modelPart.xRot = origXRot * effectiveBlend + modelPart.xRot * (1.0F - effectiveBlend);
-                    modelPart.yRot = origYRot * effectiveBlend + modelPart.yRot * (1.0F - effectiveBlend);
-                    modelPart.zRot = origZRot * effectiveBlend + modelPart.zRot * (1.0F - effectiveBlend);
+                    CitadelCompat.setXRot(boneObj, origXRot * effectiveBlend + CitadelCompat.getXRot(boneObj) * (1.0F - effectiveBlend));
+                    CitadelCompat.setYRot(boneObj, origYRot * effectiveBlend + CitadelCompat.getYRot(boneObj) * (1.0F - effectiveBlend));
+                    CitadelCompat.setZRot(boneObj, origZRot * effectiveBlend + CitadelCompat.getZRot(boneObj) * (1.0F - effectiveBlend));
                 }
                 if (position != null) {
-                    modelPart.x = origX * effectiveBlend + modelPart.x * (1.0F - effectiveBlend);
-                    modelPart.y = origY * effectiveBlend + modelPart.y * (1.0F - effectiveBlend);
-                    modelPart.z = origZ * effectiveBlend + modelPart.z * (1.0F - effectiveBlend);
+                    CitadelCompat.setX(boneObj, origX * effectiveBlend + CitadelCompat.getX(boneObj) * (1.0F - effectiveBlend));
+                    CitadelCompat.setY(boneObj, origY * effectiveBlend + CitadelCompat.getY(boneObj) * (1.0F - effectiveBlend));
+                    CitadelCompat.setZ(boneObj, origZ * effectiveBlend + CitadelCompat.getZ(boneObj) * (1.0F - effectiveBlend));
                 }
                 if (scale != null) {
-                    modelPart.xScale = origXScale * effectiveBlend + modelPart.xScale * (1.0F - effectiveBlend);
-                    modelPart.yScale = origYScale * effectiveBlend + modelPart.yScale * (1.0F - effectiveBlend);
-                    modelPart.zScale = origZScale * effectiveBlend + modelPart.zScale * (1.0F - effectiveBlend);
+                    CitadelCompat.setXScale(boneObj, origXScale * effectiveBlend + CitadelCompat.getXScale(boneObj) * (1.0F - effectiveBlend));
+                    CitadelCompat.setYScale(boneObj, origYScale * effectiveBlend + CitadelCompat.getYScale(boneObj) * (1.0F - effectiveBlend));
+                    CitadelCompat.setZScale(boneObj, origZScale * effectiveBlend + CitadelCompat.getZScale(boneObj) * (1.0F - effectiveBlend));
                 }
             }
+        }
+    }
+
+    private static final class CitadelAccessor implements AnimationAccessor {
+        private final Object model;
+
+        CitadelAccessor(Object model) {
+            this.model = model;
+        }
+
+        @Override
+        public Object get(String boneName) {
+            return CitadelCompat.getBone(model, boneName);
+        }
+
+        @Override
+        public void resetPosition(Object part, String boneName) {
+            CitadelCompat.resetPosition(part);
         }
     }
 

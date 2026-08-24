@@ -570,7 +570,7 @@ public class TraitShockImpactMixin {
         DamageSource damageSource = new DamageSource(
                 level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE)
                         .getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE,
-                                new ResourceLocation("jaams_weaponry:smash"))),
+                                ResourceLocation.parse("jaams_weaponry:smash"))),
                 player);
         int fireAspectLevel = itemStack.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
         int knockbackLevel = itemStack.getEnchantmentLevel(Enchantments.KNOCKBACK);
@@ -805,7 +805,7 @@ public class TraitShockImpactMixin {
         level.playSound(null, impactPos, SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS,
                 0.9F, 0.9F + level.random.nextFloat() * 0.2F);
         SoundEvent hammerSlam = net.minecraftforge.registries.ForgeRegistries.SOUND_EVENTS
-                .getValue(new ResourceLocation("jaams_weaponry:hammer_slam"));
+                .getValue(ResourceLocation.parse("jaams_weaponry:hammer_slam"));
         if (hammerSlam != null) {
             level.playSound(null, impactPos, hammerSlam, SoundSource.PLAYERS,
                     0.9F, 0.9F + level.random.nextFloat() * 0.2F);

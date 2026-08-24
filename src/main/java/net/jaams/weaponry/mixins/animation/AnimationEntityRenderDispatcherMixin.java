@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.Minecraft;
 
+import net.jaams.weaponry.client.ClientAnimationUtils;
 import net.jaams.weaponry.util.ModAnimations;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -23,7 +24,7 @@ public abstract class AnimationEntityRenderDispatcherMixin {
     @Inject(method = "renderShadow", at = @At("HEAD"), cancellable = true)
     private static void renderShadow(PoseStack poseStack, MultiBufferSource bufferSource, Entity entity, float opacity,
             float tickDelta, LevelReader world, float radius, CallbackInfo ci) {
-        if (entity instanceof Player player && ModAnimations.shouldRenderInFirstPerson(player)) {
+        if (entity instanceof Player player && ClientAnimationUtils.shouldRenderInFirstPerson(player)) {
             ci.cancel();
         }
     }

@@ -82,14 +82,14 @@ public abstract class ItemModelMixin {
 
 	private static ModelResourceLocation getSkinModel(String skin) {
 		return switch (skin) {
-			case "rengoku" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_rengoku"), "inventory");
-			case "mitsuri" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_mitsuri"), "inventory");
-			case "zenitsu" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_zenitsu"), "inventory");
-			case "inosuke" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_inosuke"), "inventory");
-			case "sokka" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_sokka"), "inventory");
-			case "macuahuitl" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_macuahuitl"), "inventory");
-			case "rita" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_rita"), "inventory");
-			case "blood_sword" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", "skin_blood_sword"), "inventory");
+			case "rengoku" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_rengoku"), "inventory");
+			case "mitsuri" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_mitsuri"), "inventory");
+			case "zenitsu" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_zenitsu"), "inventory");
+			case "inosuke" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_inosuke"), "inventory");
+			case "sokka" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_sokka"), "inventory");
+			case "macuahuitl" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_macuahuitl"), "inventory");
+			case "rita" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_rita"), "inventory");
+			case "blood_sword" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "skin_blood_sword"), "inventory");
 			default -> null;
 		};
 	}
@@ -114,8 +114,8 @@ public abstract class ItemModelMixin {
 	private static ModelResourceLocation getNunchakuSkinModel(String skin, LivingEntity entity, ItemStack stack) {
 		boolean isActive = entity != null && stack != null && isNunchakuActive(entity, stack);
 		return switch (skin) {
-			case "rock_lee" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", isActive ? "skin_rock_lee_active" : "skin_rock_lee_idle"), "inventory");
-			case "michaelangelo" -> new ModelResourceLocation(new ResourceLocation("jaams_weaponry", isActive ? "skin_michaelangelo_active" : "skin_michaelangelo_idle"), "inventory");
+			case "rock_lee" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", isActive ? "skin_rock_lee_active" : "skin_rock_lee_idle"), "inventory");
+			case "michaelangelo" -> new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", isActive ? "skin_michaelangelo_active" : "skin_michaelangelo_idle"), "inventory");
 			default -> null;
 		};
 	}

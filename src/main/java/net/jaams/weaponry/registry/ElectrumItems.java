@@ -25,47 +25,47 @@ public class ElectrumItems {
 
     public static final RegistryObject<Item> ELECTRUM_DAGGER = REGISTRY.register("electrum_dagger",
             () -> TieredWeapons.sword(1820, 10f, 2f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -1.8f));
     public static final RegistryObject<Item> ELECTRUM_DAGGER_REVERSE = REGISTRY.register("electrum_dagger_reverse",
             () -> TieredWeapons.sword(1820, 10f, 1.5f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -1.4f));
     public static final RegistryObject<Item> ELECTRUM_KNUCKLE = REGISTRY.register("electrum_knuckle",
             () -> TieredWeapons.sword(1820, 10f, 2.5f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -1.6f));
     public static final RegistryObject<Item> ELECTRUM_CLEAVER = REGISTRY.register("electrum_cleaver",
             () -> TieredWeapons.sword(1820, 10f, 5f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -3.2f));
     public static final RegistryObject<Item> ELECTRUM_RING = REGISTRY.register("electrum_ring",
             () -> TieredWeapons.sword(1820, 10f, 3f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -1.8f));
     public static final RegistryObject<Item> ELECTRUM_KAMA = REGISTRY.register("electrum_kama",
             () -> TieredWeapons.sword(1820, 10f, 3.5f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -2.2f));
     public static final RegistryObject<Item> ELECTRUM_CLAW = REGISTRY.register("electrum_claw",
             () -> TieredWeapons.sword(1820, 10f, 3f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -2.0f));
     public static final RegistryObject<Item> ELECTRUM_MACHETE = REGISTRY.register("electrum_machete",
             () -> TieredWeapons.sword(1920, 10f, 4.5f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -2.5f));
     public static final RegistryObject<Item> ELECTRUM_KATAR = REGISTRY.register("electrum_katar",
             () -> TieredWeapons.sword(1920, 10f, 5f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -2.6f));
     public static final RegistryObject<Item> ELECTRUM_SICKLE = REGISTRY.register("electrum_sickle",
             () -> TieredWeapons.sword(1920, 10f, 4f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -2.2f));
     public static final RegistryObject<Item> ELECTRUM_SPEAR = REGISTRY.register("electrum_spear",
             () -> TieredWeapons.sword(1820, 10f, 4f, 4, 18,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/electrum_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/electrum_ingot"))), 3,
                     -2.6f));
     public static final RegistryObject<Item> ELECTRUM_BATTLE_AXE = REGISTRY.register("electrum_battle_axe",
             () -> TieredWeapons.axe(1920, 10f, 12f, 4, 18,

@@ -44,7 +44,7 @@ public class PistolGUIScreen extends AbstractContainerScreen<PistolGUIMenu> {
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 
-		guiGraphics.blit(new ResourceLocation("jaams_weaponry:textures/screens/pistol_gui.png"), this.leftPos + -16, this.topPos + 22, 0, 0, 208, 160, 208, 160);
+		guiGraphics.blit(ResourceLocation.parse("jaams_weaponry:textures/screens/pistol_gui.png"), this.leftPos + -16, this.topPos + 22, 0, 0, 208, 160, 208, 160);
 
 		RenderSystem.disableBlend();
 	}

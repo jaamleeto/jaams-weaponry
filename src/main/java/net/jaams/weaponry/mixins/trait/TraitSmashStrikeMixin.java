@@ -153,7 +153,7 @@ public class TraitSmashStrikeMixin {
         DamageSource damageSource = new DamageSource(
                 level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE)
                         .getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE,
-                                new ResourceLocation("jaams_weaponry:smash"))),
+                                ResourceLocation.parse("jaams_weaponry:smash"))),
                 attacker);
 
         level.getEntities(attacker, area, e -> e != target && e.isAlive() && !(e instanceof ItemEntity))

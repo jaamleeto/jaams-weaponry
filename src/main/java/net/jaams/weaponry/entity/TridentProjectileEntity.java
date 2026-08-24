@@ -145,7 +145,7 @@ public class TridentProjectileEntity extends BaseWeaponProjectileEntity {
     @Override
     protected boolean isCustomBreakableBlock(BlockState state) {
         return ModProjectiles.isCustomBreakableBlock(this.getWeaponItem(), state,
-                new ResourceLocation("minecraft:pointed_dripstone"));
+                ResourceLocation.parse("minecraft:pointed_dripstone"));
     }
 
     @Override

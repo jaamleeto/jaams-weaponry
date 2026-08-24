@@ -30,3 +30,7 @@ issueTrackerURL="https://github.com/jaamleeto/jaams-weaponry/issues"
 catalogueItemIcon="jaams_weaponry:iron_buster_sword"
 catalogueBackground="jaams_weaponry_background.png"
 configuredBackground="minecraft:textures/block/spruce_planks.png"
+
+[[mixins]]
+config="mixins.jaams_weaponry.epicfight.json"
+requiredMods=["epicfight"]

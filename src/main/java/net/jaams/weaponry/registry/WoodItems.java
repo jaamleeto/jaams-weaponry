@@ -25,37 +25,37 @@ public class WoodItems {
 
     public static final RegistryObject<Item> WOODEN_DAGGER = REGISTRY.register("wooden_dagger",
             () -> TieredWeapons.sword(49, 12f, -3f, 0, 22,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -1.8f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -1.8f));
     public static final RegistryObject<Item> WOODEN_DAGGER_REVERSE = REGISTRY.register("wooden_dagger_reverse",
             () -> TieredWeapons.sword(49, 2f, -3.5f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -1.4f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -1.4f));
     public static final RegistryObject<Item> WOODEN_KNUCKLE = REGISTRY.register("wooden_knuckle",
             () -> TieredWeapons.sword(49, 2f, -2.5f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -1.6f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -1.6f));
     public static final RegistryObject<Item> WOODEN_CLEAVER = REGISTRY.register("wooden_cleaver",
             () -> TieredWeapons.sword(49, 2f, 0f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -3.2f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -3.2f));
     public static final RegistryObject<Item> WOODEN_RING = REGISTRY.register("wooden_ring",
             () -> TieredWeapons.sword(49, 2f, -2f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -1.8f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -1.8f));
     public static final RegistryObject<Item> WOODEN_KAMA = REGISTRY.register("wooden_kama",
             () -> TieredWeapons.sword(49, 2f, -1.5f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -2.2f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -2.2f));
     public static final RegistryObject<Item> WOODEN_CLAW = REGISTRY.register("wooden_claw",
             () -> TieredWeapons.sword(49, 2f, -2f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -2.0f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -2.0f));
     public static final RegistryObject<Item> WOODEN_MACHETE = REGISTRY.register("wooden_machete",
             () -> TieredWeapons.sword(32, 2f, -1.5f, 0, 22,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -2.5f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -2.5f));
     public static final RegistryObject<Item> WOODEN_KATAR = REGISTRY.register("wooden_katar",
             () -> TieredWeapons.sword(59, 2f, 0f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -2.6f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -2.6f));
     public static final RegistryObject<Item> WOODEN_SICKLE = REGISTRY.register("wooden_sickle",
             () -> TieredWeapons.sword(59, 2f, -1f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -2.2f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -2.2f));
     public static final RegistryObject<Item> WOODEN_SPEAR = REGISTRY.register("wooden_spear",
             () -> TieredWeapons.sword(49, 2f, -1f, 0, 15,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:planks"))), 3, -2.6f));
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("minecraft:planks"))), 3, -2.6f));
     public static final RegistryObject<Item> WOODEN_HAMMER = REGISTRY.register("wooden_hammer",
             () -> TieredWeapons.pickaxe(99, 2f, 4f, 0, 15,
                     Ingredient.of(new ItemStack(ModItems.DOUBLE_COMPRESSED_WOOD.get())), 3, -3.4f));

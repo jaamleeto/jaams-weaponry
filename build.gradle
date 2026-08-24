@@ -49,15 +49,16 @@ minecraft {
 }
 
 repositories {
+    mavenCentral()
+    maven { name = "MinecraftForge"; url = "https://maven.minecraftforge.net/" }
     maven { url 'https://cursemaven.com/' }
-    maven { name = "Progwml6's maven"; url = "https://dvs1.progwml6.com/files/maven/" }
     maven { name = "Jared's maven"; url = "https://maven.blamejared.com/" }
     maven { name = "ModMaven"; url = "https://modmaven.dev" }
-    mavenCentral()
+    maven { name = "Progwml6's maven"; url = "https://dvs1.progwml6.com/files/maven/" }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation fg.deobf("curse.maven:configured-457570:5180900")
@@ -69,12 +70,17 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.3.0.8")
 
     compileOnly fg.deobf("curse.maven:playeranimator-658587:4587214")
+
+    compileOnly fg.deobf("curse.maven:citadel-331936:7476570")
+
+    implementation fg.deobf("curse.maven:epic-fight-mod-405076:7476040")
 }
 
 mixin {
     add sourceSets.main, 'mixins.jaams_weaponry.refmap.json'
 
     config 'mixins.jaams_weaponry.json'
+    config 'mixins.jaams_weaponry.epicfight.json'
 
     debug.verbose = true
     debug.export = true

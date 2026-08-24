@@ -101,7 +101,7 @@ public class ArchersGraceHandler {
             MobEffectInstance effect = player.getEffect(ModMobEffects.ARCHERS_GRACE.get());
             int level = effect != null ? effect.getAmplifier() + 1 : 1;
             float pitch = getArchersGraceShootPitch(level);
-            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvent.createVariableRangeEvent(new ResourceLocation("jaams_weaponry", "archers_grace_shoot")), SoundSource.PLAYERS, 1.0F, pitch);
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "archers_grace_shoot")), SoundSource.PLAYERS, 1.0F, pitch);
         }
     }
 
@@ -138,7 +138,7 @@ public class ArchersGraceHandler {
                 MobEffectInstance effect = entity.getEffect(ModMobEffects.ARCHERS_GRACE.get());
                 int level = effect != null ? effect.getAmplifier() + 1 : 1;
                 float pitch = getArchersGraceShootPitch(level);
-                entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvent.createVariableRangeEvent(new ResourceLocation("jaams_weaponry", "archers_grace_shoot")), SoundSource.PLAYERS, 1.0F, pitch);
+                entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "archers_grace_shoot")), SoundSource.PLAYERS, 1.0F, pitch);
                 arrow.getPersistentData().putBoolean(ARCHERS_GRACE_NBT_KEY, true);
             }
         }

@@ -89,7 +89,7 @@ public class AdvancementsHandler {
 
     private static void checkWeaponryAdvancement(ServerPlayer player) {
         Advancement advancement = player.server.getAdvancements()
-                .getAdvancement(new ResourceLocation("jaams_weaponry", "weaponry_ad"));
+                .getAdvancement(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "weaponry_ad"));
         if (advancement != null && !player.getAdvancements().getOrStartProgress(advancement).isDone()) {
             for (ItemStack stack : player.getInventory().items) {
                 if (!stack.isEmpty()) {
@@ -105,7 +105,7 @@ public class AdvancementsHandler {
 
     private static void checkHunterAdvancement(ServerPlayer player) {
         Advancement advancement = player.server.getAdvancements()
-                .getAdvancement(new ResourceLocation("jaams_weaponry", "the_hunter"));
+                .getAdvancement(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "the_hunter"));
         if (advancement == null) {
             return;
         }
@@ -135,7 +135,7 @@ public class AdvancementsHandler {
     }
 
     public static boolean hasAdvancement(ServerPlayer player, String advancementId) {
-        ResourceLocation id = new ResourceLocation("jaams_weaponry", advancementId);
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", advancementId);
         Advancement advancement = player.getServer().getAdvancements().getAdvancement(id);
         if (advancement != null) {
             return player.getAdvancements().getOrStartProgress(advancement).isDone();
@@ -145,7 +145,7 @@ public class AdvancementsHandler {
 
     public static void grantAdvancement(ServerPlayer player, String advancementId) {
         Advancement advancement = player.server.getAdvancements()
-                .getAdvancement(new ResourceLocation("jaams_weaponry", advancementId));
+                .getAdvancement(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", advancementId));
         if (advancement != null) {
             AdvancementProgress progress = player.getAdvancements().getOrStartProgress(advancement);
             if (!progress.isDone()) {
@@ -159,7 +159,7 @@ public class AdvancementsHandler {
     public static void incrementCounterAndCheckAdvancement(ServerPlayer player, String counterKey, String advancementId,
             int threshold) {
         Advancement advancement = player.server.getAdvancements()
-                .getAdvancement(new ResourceLocation("jaams_weaponry", advancementId));
+                .getAdvancement(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", advancementId));
         if (advancement == null) {
             return;
         }
@@ -167,7 +167,7 @@ public class AdvancementsHandler {
             return;
         }
         CompoundTag persistentData = player.getPersistentData();
-        ResourceLocation key = new ResourceLocation("jaams_weaponry", counterKey);
+        ResourceLocation key = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", counterKey);
         int counter = persistentData.getInt(key.toString());
         counter++;
         persistentData.putInt(key.toString(), counter);
@@ -180,7 +180,7 @@ public class AdvancementsHandler {
     public static void incrementEntityCounterAndCheckAdvancement(ServerPlayer player, LivingEntity entity,
             String counterKey, String advancementId, int threshold) {
         Advancement advancement = player.server.getAdvancements()
-                .getAdvancement(new ResourceLocation("jaams_weaponry", advancementId));
+                .getAdvancement(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", advancementId));
         if (advancement == null) {
             return;
         }
@@ -188,7 +188,7 @@ public class AdvancementsHandler {
             return;
         }
         CompoundTag entityData = entity.getPersistentData();
-        ResourceLocation key = new ResourceLocation("jaams_weaponry", counterKey);
+        ResourceLocation key = ResourceLocation.fromNamespaceAndPath("jaams_weaponry", counterKey);
         int counter = entityData.getInt(key.toString());
         counter++;
         entityData.putInt(key.toString(), counter);

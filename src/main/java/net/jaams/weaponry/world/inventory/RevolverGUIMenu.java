@@ -182,12 +182,12 @@ public class RevolverGUIMenu extends BaseGunGUIMenu {
 
     @Override
     protected ResourceLocation getOpenSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_revolver_open");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_revolver_open");
     }
 
     @Override
     protected ResourceLocation getCloseSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_revolver_closed");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_revolver_closed");
     }
 
     @Override

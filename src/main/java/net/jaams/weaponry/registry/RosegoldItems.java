@@ -25,47 +25,47 @@ public class RosegoldItems {
 
     public static final RegistryObject<Item> ROSEGOLD_DAGGER = REGISTRY.register("rosegold_dagger",
             () -> TieredWeapons.sword(1461, 8, 0f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -1.8f));
     public static final RegistryObject<Item> ROSEGOLD_DAGGER_REVERSE = REGISTRY.register("rosegold_dagger_reverse",
             () -> TieredWeapons.sword(1461, 8, -0.5f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -1.4f));
     public static final RegistryObject<Item> ROSEGOLD_KNUCKLE = REGISTRY.register("rosegold_knuckle",
             () -> TieredWeapons.sword(1461, 8, 0.5f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -1.6f));
     public static final RegistryObject<Item> ROSEGOLD_CLEAVER = REGISTRY.register("rosegold_cleaver",
             () -> TieredWeapons.sword(1461, 8, 3f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -3.2f));
     public static final RegistryObject<Item> ROSEGOLD_RING = REGISTRY.register("rosegold_ring",
             () -> TieredWeapons.sword(1461, 8, 1f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -1.8f));
     public static final RegistryObject<Item> ROSEGOLD_KAMA = REGISTRY.register("rosegold_kama",
             () -> TieredWeapons.sword(1461, 8, 1.5f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -2.2f));
     public static final RegistryObject<Item> ROSEGOLD_CLAW = REGISTRY.register("rosegold_claw",
             () -> TieredWeapons.sword(1461, 8, 1f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -2.0f));
     public static final RegistryObject<Item> ROSEGOLD_MACHETE = REGISTRY.register("rosegold_machete",
             () -> TieredWeapons.sword(1561, 8, 2.5f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -2.5f));
     public static final RegistryObject<Item> ROSEGOLD_KATAR = REGISTRY.register("rosegold_katar",
             () -> TieredWeapons.sword(1561, 8, 3f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -2.6f));
     public static final RegistryObject<Item> ROSEGOLD_SICKLE = REGISTRY.register("rosegold_sickle",
             () -> TieredWeapons.sword(1561, 8, 2f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -2.2f));
     public static final RegistryObject<Item> ROSEGOLD_SPEAR = REGISTRY.register("rosegold_spear",
             () -> TieredWeapons.sword(1461, 8, 2f, 3, 14,
-                    Ingredient.of(ItemTags.create(new ResourceLocation("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
+                    Ingredient.of(ItemTags.create(ResourceLocation.parse("jaams_weaponry:ingredient/rosegold_ingot"))), 3,
                     -2.6f));
     public static final RegistryObject<Item> ROSEGOLD_BATTLE_AXE = REGISTRY.register("rosegold_battle_axe",
             () -> TieredWeapons.axe(1561, 8, 10f, 3, 14,

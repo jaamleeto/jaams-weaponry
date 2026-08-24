@@ -389,7 +389,7 @@ public class ProjectileSpecialHandler {
                         () -> "minecraft:blindness");
                 int duration = ModUtils.getConfigOrNbtInt(stack, "SmokeBombEnemyDuration", () -> 60);
                 int amplifier = ModUtils.getConfigOrNbtInt(stack, "SmokeBombEnemyAmplifier", () -> 0);
-                MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(effectId));
+                MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.parse(effectId));
                 if (effect != null)
                     living.addEffect(new MobEffectInstance(effect, duration, amplifier, false, false, true));
             } else if (living instanceof Mob mob) {
@@ -422,7 +422,7 @@ public class ProjectileSpecialHandler {
             return new DustParticleOptions(new Vector3f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f,
                     (color & 0xFF) / 255.0f), scale);
         }
-        ParticleType<?> type = ForgeRegistries.PARTICLE_TYPES.getValue(new ResourceLocation(particleId));
+        ParticleType<?> type = ForgeRegistries.PARTICLE_TYPES.getValue(ResourceLocation.parse(particleId));
         return type instanceof SimpleParticleType simple ? simple : ParticleTypes.LARGE_SMOKE;
     }
 
@@ -430,7 +430,7 @@ public class ProjectileSpecialHandler {
         String soundId = ModUtils.getConfigOrNbtString(stack, "SmokeBombSound", () -> "jaams_weaponry:smoke_bomb");
         float vol = (float) ModUtils.getConfigOrNbtDouble(stack, "SmokeBombSoundVolume", () -> 1.0);
         float pitch = (float) ModUtils.getConfigOrNbtDouble(stack, "SmokeBombSoundPitch", () -> 1.0);
-        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundId));
+        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundId));
         if (sound != null) {
             level.playSound(null, pos.x, pos.y, pos.z, sound, SoundSource.BLOCKS,
                     Mth.clamp(vol * (0.85f + level.random.nextFloat() * 0.3f), 0.1f, 2.0f),

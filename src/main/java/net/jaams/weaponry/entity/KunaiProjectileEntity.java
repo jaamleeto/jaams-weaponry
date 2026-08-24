@@ -104,7 +104,7 @@ public class KunaiProjectileEntity extends BaseWeaponProjectileEntity {
                     float extraDamage = (float) ModProjectiles.getPiercingShotBonusDamage(this.getWeaponItem(), TraitsConfig.PIERCING_SHOT_KUNAI_PROJECTILE_BONUS_DAMAGE.get().doubleValue());
                     if (this.getOwner() instanceof LivingEntity attacker && extraDamage > 0) {
                         RegistryAccess registryAccess = attacker.level().registryAccess();
-                        ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("jaams_weaponry:piercing"));
+                        ResourceKey<DamageType> damageKey = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("jaams_weaponry:piercing"));
                         DamageSource damageSource = attacker instanceof Player player
                             ? new DamageSource(registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey), player)
                             : new DamageSource(registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageKey), attacker);
@@ -164,7 +164,7 @@ public class KunaiProjectileEntity extends BaseWeaponProjectileEntity {
 
     @Override
     protected boolean isCustomBreakableBlock(BlockState state) {
-        return ModProjectiles.isCustomBreakableBlock(this.getWeaponItem(), state, new ResourceLocation("minecraft:pointed_dripstone"));
+        return ModProjectiles.isCustomBreakableBlock(this.getWeaponItem(), state, ResourceLocation.parse("minecraft:pointed_dripstone"));
     }
 
     @Override

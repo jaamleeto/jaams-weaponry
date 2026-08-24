@@ -90,7 +90,7 @@ public class ItemModifierLoader extends SimpleJsonResourceReloadListener impleme
                     LOGGER.info("Modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
-                newModifiers.put(new ResourceLocation(fileId), data);
+                newModifiers.put(ResourceLocation.parse(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;

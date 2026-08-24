@@ -41,7 +41,7 @@ public class ModTabs {
     public static final RegistryObject<CreativeModeTab> WEAPONRY = REGISTRY.register("weaponry",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("item_group.jaams_weaponry.tab_icon")
-                            .withStyle((style) -> style.withFont(new ResourceLocation("jaams_weaponry", "default"))))
+                            .withStyle((style) -> style.withFont(ResourceLocation.fromNamespaceAndPath("jaams_weaponry", "default"))))
                     .icon(ModTabs::getTabIcon)
                     .withTabsBefore(CreativeModeTabs.SPAWN_EGGS.location())
                     .displayItems(ModTabs::fillTabContents)
@@ -98,7 +98,7 @@ public class ModTabs {
             List<ItemStack> stacksToAdd = new ArrayList<>();
             if (entry.item.startsWith("#")) {
                 String tagId = entry.item.substring(1);
-                ResourceLocation tagLocation = new ResourceLocation(tagId);
+                ResourceLocation tagLocation = ResourceLocation.parse(tagId);
                 TagKey<Item> tagKey = TagKey.create(Registries.ITEM, tagLocation);
                 for (Item item : ForgeRegistries.ITEMS) {
                     ItemStack stack = new ItemStack(item);
@@ -123,7 +123,7 @@ public class ModTabs {
 
     private static ItemStack createSingleItemStack(CreativeTabData.Entry entry) {
         try {
-            ResourceLocation loc = new ResourceLocation(entry.item);
+            ResourceLocation loc = ResourceLocation.parse(entry.item);
             Item item = ForgeRegistries.ITEMS.getValue(loc);
             if (item == null || item == Items.AIR)
                 return null;
@@ -153,7 +153,7 @@ public class ModTabs {
         try {
             if (itemId.startsWith("#")) {
                 String tagId = itemId.substring(1);
-                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(tagId));
+                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(tagId));
                 Set<Item> toRemove = new HashSet<>();
                 for (Item item : ForgeRegistries.ITEMS) {
                     if (new ItemStack(item).is(tagKey)) {
@@ -162,7 +162,7 @@ public class ModTabs {
                 }
                 list.removeIf((s) -> toRemove.contains(s.getItem()));
             } else {
-                ResourceLocation target = new ResourceLocation(itemId);
+                ResourceLocation target = ResourceLocation.parse(itemId);
                 list.removeIf((s) -> ForgeRegistries.ITEMS.getKey(s.getItem()).equals(target));
             }
         } catch (Exception e) {
@@ -172,7 +172,7 @@ public class ModTabs {
 
     private static void insertItemOrdered(List<ItemStack> list, ItemStack stack, CreativeTabData.Entry entry) {
         if (entry.after != null && !entry.after.isEmpty()) {
-            ResourceLocation afterLoc = new ResourceLocation(entry.after);
+            ResourceLocation afterLoc = ResourceLocation.parse(entry.after);
             for (int i = 0; i < list.size(); i++) {
                 if (ForgeRegistries.ITEMS.getKey(list.get(i).getItem()).equals(afterLoc)) {
                     list.add(i + 1, stack);
@@ -181,7 +181,7 @@ public class ModTabs {
             }
         }
         if (entry.before != null && !entry.before.isEmpty()) {
-            ResourceLocation beforeLoc = new ResourceLocation(entry.before);
+            ResourceLocation beforeLoc = ResourceLocation.parse(entry.before);
             for (int i = 0; i < list.size(); i++) {
                 if (ForgeRegistries.ITEMS.getKey(list.get(i).getItem()).equals(beforeLoc)) {
                     list.add(i, stack);
@@ -196,7 +196,7 @@ public class ModTabs {
         try {
             String id = CreativeTabConfig.CREATIVE_TAB_ICON.get();
             if (id != null && !id.isEmpty()) {
-                ResourceLocation loc = new ResourceLocation(id);
+                ResourceLocation loc = ResourceLocation.parse(id);
                 Item item = ForgeRegistries.ITEMS.getValue(loc);
                 if (item != null && item != Items.AIR) {
                     return new ItemStack(item);

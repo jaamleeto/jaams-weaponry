@@ -122,7 +122,7 @@ public class ArchersBottleItem extends Item {
 			} else {
 				player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, duration, amplifier));
 			}
-			world.playSound(null, player.blockPosition(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("jaams_weaponry:bottle_break")), SoundSource.PLAYERS, 1, 1);
+			world.playSound(null, player.blockPosition(), ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse("jaams_weaponry:bottle_break")), SoundSource.PLAYERS, 1, 1);
 		}
 		if (!player.isCreative()) {
 			itemstack.shrink(1);

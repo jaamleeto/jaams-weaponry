@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -24,11 +25,22 @@ public class HeldPoseData {
     public String animation = "";
     public float animation_speed = 1.0f;
 
+    
+    public String right_click_animation = "";
+    public float right_click_animation_speed = 1.0f;
+
     public static class Condition {
         public String type;
         public String enchantment;
         public int level = 0;
         public String tag;
+
+        
+        public String effect;
+        public int effect_level = 0;
+        public String vanilla_pose;
+        public Float health_below = null;
+        public Float health_above = null;
     }
 
     public boolean appliesToHand(String slot) {

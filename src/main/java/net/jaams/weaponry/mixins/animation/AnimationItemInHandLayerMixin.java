@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 
 import net.jaams.weaponry.animation.AnimationAPI;
 import net.jaams.weaponry.util.ModAnimations;
-import net.jaams.weaponry.util.ModRenderState;
 
 import com.mojang.math.Axis;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -37,7 +36,7 @@ public abstract class AnimationItemInHandLayerMixin {
         if (!master.equals("jaams_weaponry")) {
             return;
         }
-        if (livingEntity instanceof Player player && ModRenderState.worldRenderPass) {
+        if (livingEntity instanceof Player player) {
             AnimationAPI.PlayerAnimation animation = AnimationAPI.active_animations.get(player);
             if (animation == null)
                 return;

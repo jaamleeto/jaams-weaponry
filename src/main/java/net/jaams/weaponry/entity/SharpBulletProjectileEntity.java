@@ -200,11 +200,11 @@ public class SharpBulletProjectileEntity extends BaseBulletProjectileEntity {
     protected boolean isCustomBreakableBlock(BlockState state) {
         ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(state.getBlock());
         return (ModProjectiles.isCustomBreakableBlock(this.getGunItem(), state,
-                new ResourceLocation("minecraft:pointed_dripstone")) ||
-                state.is(TagKey.create(Registries.BLOCK, new ResourceLocation("forge:glasses"))) ||
-                state.is(TagKey.create(Registries.BLOCK, new ResourceLocation("forge:glass"))) ||
-                state.is(TagKey.create(Registries.BLOCK, new ResourceLocation("forge:glass_panes"))) ||
-                state.is(TagKey.create(Registries.BLOCK, new ResourceLocation("jaams_weaponry:sharpstone_can_breaks")))
+                ResourceLocation.parse("minecraft:pointed_dripstone")) ||
+                state.is(TagKey.create(Registries.BLOCK, ResourceLocation.parse("forge:glasses"))) ||
+                state.is(TagKey.create(Registries.BLOCK, ResourceLocation.parse("forge:glass"))) ||
+                state.is(TagKey.create(Registries.BLOCK, ResourceLocation.parse("forge:glass_panes"))) ||
+                state.is(TagKey.create(Registries.BLOCK, ResourceLocation.parse("jaams_weaponry:sharpstone_can_breaks")))
                 ||
                 blockId.getPath().contains("glass") ||
                 blockId.getPath().contains("pane"));

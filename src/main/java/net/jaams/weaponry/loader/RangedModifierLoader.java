@@ -114,7 +114,7 @@ public class RangedModifierLoader extends SimpleJsonResourceReloadListener imple
                     errors++;
                 }
                 data.id = fileId;
-                newModifiers.put(new ResourceLocation(fileId), data);
+                newModifiers.put(ResourceLocation.parse(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;

@@ -45,9 +45,6 @@ public class GunShootPacket {
 				if (serverPlayer.getCooldowns().isOnCooldown(itemStack.getItem())) {
 					return;
 				}
-				if (packet.hand == InteractionHand.OFF_HAND && ModUtils.isEntityInBattleMode(serverPlayer)) {
-					return;
-				}
 				ModGuns.shoot(world, serverPlayer, itemStack);
 			} else {
 				ClientPacketHandler.handleGunCooldownPacket(packet.hand, packet.cooldownTicks);

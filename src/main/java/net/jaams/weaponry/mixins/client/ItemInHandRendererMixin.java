@@ -22,6 +22,7 @@ import net.jaams.weaponry.util.ModGuns;
 import net.jaams.weaponry.util.ModTags;
 import net.jaams.weaponry.util.ModTraits;
 import net.jaams.weaponry.util.ModUtils;
+import net.jaams.weaponry.compat.EpicFightCompat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -279,9 +280,10 @@ public abstract class ItemInHandRendererMixin {
         }
 
         if (ModList.get() != null && ModList.get().isLoaded("epicfight")) {
-            if (ModUtils.isEntityInBattleMode(entity) || ModUtils.hasEpicFightAttribute(entity)) {
-                applyEpicFightTransformations(entity, itemStack, item, isInHand, isItemInHand, isUsingItem, poseStack);
-            }
+            if (ModUtils.isEntityInBattleMode(entity) || ModUtils.hasEpicFightAttribute(entity)
+                        || EpicFightCompat.hasEpicFightModel(entity)) {
+                    applyEpicFightTransformations(entity, itemStack, item, isInHand, isItemInHand, isUsingItem, poseStack);
+                }
         }
     }
 

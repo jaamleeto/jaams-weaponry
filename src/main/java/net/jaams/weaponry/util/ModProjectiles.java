@@ -57,7 +57,7 @@ public final class ModProjectiles {
             java.util.function.Function<ThrowableItemData.ProjectileEntry, String> jsonSoundGetter) {
         if (weapon != null && weapon.hasTag() && weapon.getTag().contains(nbtKey, net.minecraft.nbt.Tag.TAG_STRING)) {
             String soundId = weapon.getTag().getString(nbtKey);
-            SoundEvent custom = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundId));
+            SoundEvent custom = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundId));
             if (custom != null)
                 return custom;
         }
@@ -68,7 +68,7 @@ public final class ModProjectiles {
                 if (projConfig != null) {
                     String jsonSoundId = jsonSoundGetter.apply(projConfig);
                     if (jsonSoundId != null && !jsonSoundId.isEmpty()) {
-                        SoundEvent jsonSound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(jsonSoundId));
+                        SoundEvent jsonSound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(jsonSoundId));
                         if (jsonSound != null)
                             return jsonSound;
                     }
@@ -76,7 +76,7 @@ public final class ModProjectiles {
             }
         }
         String soundId = useGenericProjectileSounds(weapon) ? genericId : specificId;
-        SoundEvent modSound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("jaams_weaponry:" + soundId));
+        SoundEvent modSound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse("jaams_weaponry:" + soundId));
         if (modSound != null)
             return modSound;
         return vanillaFallback;
@@ -121,7 +121,7 @@ public final class ModProjectiles {
         ResourceLocation id = ResourceLocation.tryParse(particleName);
         if (id == null) {
             try {
-                id = new ResourceLocation("minecraft", particleName);
+                id = ResourceLocation.fromNamespaceAndPath("minecraft", particleName);
             } catch (Exception e) {
                 return null;
             }
@@ -923,7 +923,7 @@ public final class ModProjectiles {
             CompoundTag tag = gun.getTag();
             if (tag.contains("EchoBulletHomingSound", Tag.TAG_STRING)) {
                 String soundId = tag.getString("EchoBulletHomingSound");
-                SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundId));
+                SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.parse(soundId));
                 if (sound != null) {
                     return sound;
                 }

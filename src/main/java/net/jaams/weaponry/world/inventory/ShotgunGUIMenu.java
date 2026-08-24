@@ -101,12 +101,12 @@ public class ShotgunGUIMenu extends BaseGunGUIMenu {
 
     @Override
     protected ResourceLocation getOpenSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_shotgun_open");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_shotgun_open");
     }
 
     @Override
     protected ResourceLocation getCloseSound() {
-        return new ResourceLocation("jaams_weaponry:gun_system_shotgun_closed");
+        return ResourceLocation.parse("jaams_weaponry:gun_system_shotgun_closed");
     }
 
     @Override

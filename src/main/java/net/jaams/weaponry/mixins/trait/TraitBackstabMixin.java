@@ -453,7 +453,7 @@ public class TraitBackstabMixin {
             damageSource = new DamageSource(
                     level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE)
                             .getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE,
-                                    new ResourceLocation("jaams_weaponry:backstab"))),
+                                    ResourceLocation.parse("jaams_weaponry:backstab"))),
                     attacker);
         } catch (Exception e) {
             damageSource = level.damageSources().mobAttack(attacker);

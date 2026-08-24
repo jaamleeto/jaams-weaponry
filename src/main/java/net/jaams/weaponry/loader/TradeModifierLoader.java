@@ -82,7 +82,7 @@ public class TradeModifierLoader extends SimpleJsonResourceReloadListener implem
                     LOGGER.info("Trade modifier file {} is disabled, skipping", fileId);
                     continue;
                 }
-                newModifiers.put(new ResourceLocation(fileId), data);
+                newModifiers.put(ResourceLocation.parse(fileId), data);
                 count++;
             } catch (Exception e) {
                 errors++;

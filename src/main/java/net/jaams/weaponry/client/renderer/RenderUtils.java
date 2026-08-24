@@ -17,8 +17,8 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 
 public class RenderUtils {
-    public static final ResourceLocation SUN_LOCATION = new ResourceLocation("textures/environment/sun.png");
-    public static final ResourceLocation MOON_LOCATION = new ResourceLocation("textures/environment/moon_phases.png");
+    public static final ResourceLocation SUN_LOCATION = ResourceLocation.parse("textures/environment/sun.png");
+    public static final ResourceLocation MOON_LOCATION = ResourceLocation.parse("textures/environment/moon_phases.png");
 
     
     public static void swapVanillaTexture(ResourceLocation original, ResourceLocation replacement) {

@@ -98,7 +98,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
                     if (ie.item == null || ie.item.isEmpty()) { LOGGER.warn("Equipment modifier {} has item entry with no 'item'", id); bad = true; break; }
                 }
                 if (bad) { errors++; continue; }
-                map.put(new ResourceLocation(id), data);
+                map.put(ResourceLocation.parse(id), data);
                 count++;
             } catch (Exception e) { errors++; LOGGER.error("Failed to load equipment modifier: {}", id, e); }
         }
