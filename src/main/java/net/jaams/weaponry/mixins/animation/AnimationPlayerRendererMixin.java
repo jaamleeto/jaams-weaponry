@@ -45,7 +45,7 @@ public abstract class AnimationPlayerRendererMixin
             return;
         }
 
-        if (ClientAnimationUtils.shouldRenderInFirstPerson(entity) && !ClientAnimationUtils.isRenderingInventoryPanel) {
+        if (ClientAnimationUtils.shouldRenderInFirstPerson(entity) && ClientAnimationUtils.shouldHideFirstPersonModel()) {
             this.model.head.visible = false;
             this.model.body.visible = false;
             this.model.leftLeg.visible = false;
@@ -107,7 +107,7 @@ public abstract class AnimationPlayerRendererMixin
                     poseStack.translate(0, -0.75f, 0);
             }
         }
-        if (firstPerson && partialTick != 0 && !ClientAnimationUtils.isRenderingInventoryPanel) {
+        if (firstPerson && partialTick != 0 && ClientAnimationUtils.shouldApplyFirstPersonCamera()) {
             poseStack.mulPose(Axis.YP.rotationDegrees(bodyYaw - player.getYRot()));
             poseStack.translate(0, 1.5f, 0);
             poseStack.mulPose(Axis.XP.rotationDegrees(-player.getXRot()));

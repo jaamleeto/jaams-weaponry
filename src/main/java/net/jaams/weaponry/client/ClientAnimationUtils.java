@@ -47,7 +47,15 @@ public class ClientAnimationUtils {
         return true;
     }
 
-    public static boolean isRenderingInventoryPanel = false;
+    public static boolean isFirstPersonWorldRender = false;
+
+    public static boolean shouldHideFirstPersonModel() {
+        return isFirstPersonWorldRender;
+    }
+
+    public static boolean shouldApplyFirstPersonCamera() {
+        return isFirstPersonWorldRender;
+    }
 
     public static boolean shouldRenderInFirstPerson(Player player) {
         if (EpicFightCompat.isEpicFightMode(player) && EpicFightCompat.isFirstPersonModelActive())

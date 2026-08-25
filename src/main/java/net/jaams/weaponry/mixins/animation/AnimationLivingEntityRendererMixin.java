@@ -59,7 +59,7 @@ public abstract class AnimationLivingEntityRendererMixin {
         Player player = null;
 
         if (entity instanceof Player p && mc.options.getCameraType().isFirstPerson()
-                && !ClientAnimationUtils.isRenderingInventoryPanel) {
+                && ClientAnimationUtils.shouldHideFirstPersonModel()) {
             player = p;
             if (ClientAnimationUtils.isLocalPlayerInFirstPerson(player)) {
                 if (ModAnimations.isFirstPersonAnimation(player)) {

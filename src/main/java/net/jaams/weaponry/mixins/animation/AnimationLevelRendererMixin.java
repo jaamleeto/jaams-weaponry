@@ -27,10 +27,17 @@ public abstract class AnimationLevelRendererMixin {
     private Minecraft mc = Minecraft.getInstance();
 
     @Inject(method = "renderLevel", at = @At("HEAD"))
-    private void jaams_resetPanelFlag(PoseStack poseStack, float partialTick, long finishNanoTime,
+    private void jaams_markWorldRender(PoseStack poseStack, float partialTick, long finishNanoTime,
             boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture,
             Matrix4f projectionMatrix, CallbackInfo ci) {
-        ClientAnimationUtils.isRenderingInventoryPanel = false;
+        ClientAnimationUtils.isFirstPersonWorldRender = true;
+    }
+
+    @Inject(method = "renderLevel", at = @At("RETURN"))
+    private void jaams_unmarkWorldRender(PoseStack poseStack, float partialTick, long finishNanoTime,
+            boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture,
+            Matrix4f projectionMatrix, CallbackInfo ci) {
+        ClientAnimationUtils.isFirstPersonWorldRender = false;
     }
 
     @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;isDetached()Z"))

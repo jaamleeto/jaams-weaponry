@@ -57,6 +57,9 @@ public final class CitadelCompat {
     // ==================== Rotation (radians) ====================
 
     public static float getXRot(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getXRot(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.xRot;
         }
@@ -67,6 +70,10 @@ public final class CitadelCompat {
     }
 
     public static void setXRot(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setXRot(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.xRot = v;
             return;
@@ -77,6 +84,9 @@ public final class CitadelCompat {
     }
 
     public static float getYRot(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getYRot(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.yRot;
         }
@@ -87,6 +97,10 @@ public final class CitadelCompat {
     }
 
     public static void setYRot(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setYRot(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.yRot = v;
             return;
@@ -97,6 +111,9 @@ public final class CitadelCompat {
     }
 
     public static float getZRot(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getZRot(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.zRot;
         }
@@ -107,6 +124,10 @@ public final class CitadelCompat {
     }
 
     public static void setZRot(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setZRot(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.zRot = v;
             return;
@@ -119,6 +140,9 @@ public final class CitadelCompat {
     // ==================== Position (block units, same as ModelPart) ====================
 
     public static float getX(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getX(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.x;
         }
@@ -129,6 +153,10 @@ public final class CitadelCompat {
     }
 
     public static void setX(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setX(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.x = v;
             return;
@@ -139,6 +167,9 @@ public final class CitadelCompat {
     }
 
     public static float getY(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getY(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.y;
         }
@@ -149,6 +180,10 @@ public final class CitadelCompat {
     }
 
     public static void setY(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setY(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.y = v;
             return;
@@ -159,6 +194,9 @@ public final class CitadelCompat {
     }
 
     public static float getZ(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getZ(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.z;
         }
@@ -169,6 +207,10 @@ public final class CitadelCompat {
     }
 
     public static void setZ(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setZ(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.z = v;
             return;
@@ -178,9 +220,12 @@ public final class CitadelCompat {
         }
     }
 
-    // ==================== Scale (BasicModelPart has no scale support) ====================
+    // ==================== Scale ====================
 
     public static float getXScale(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getXScale(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.xScale;
         }
@@ -191,6 +236,10 @@ public final class CitadelCompat {
     }
 
     public static void setXScale(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setXScale(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.xScale = v;
             return;
@@ -201,6 +250,9 @@ public final class CitadelCompat {
     }
 
     public static float getYScale(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getYScale(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.yScale;
         }
@@ -211,6 +263,10 @@ public final class CitadelCompat {
     }
 
     public static void setYScale(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setYScale(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.yScale = v;
             return;
@@ -221,6 +277,9 @@ public final class CitadelCompat {
     }
 
     public static float getZScale(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            return GeckoLibCompat.getZScale(bone);
+        }
         if (bone instanceof ModelPart mp) {
             return mp.zScale;
         }
@@ -231,6 +290,10 @@ public final class CitadelCompat {
     }
 
     public static void setZScale(Object bone, float v) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.setZScale(bone, v);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             mp.zScale = v;
             return;
@@ -243,6 +306,10 @@ public final class CitadelCompat {
     // ==================== Pose capture / reset ====================
 
     public static void captureInitialPose(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.captureInitialPose(bone);
+            return;
+        }
         if (!loaded || !(bone instanceof BasicModelPart bmp) || initialPoses.containsKey(bone)) {
             return;
         }
@@ -254,6 +321,10 @@ public final class CitadelCompat {
 
     /** Resets only the rotation point (position) to the captured initial value. */
     public static void resetPosition(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.resetPosition(bone);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             var p = mp.getInitialPose();
             mp.x = p.x;
@@ -273,6 +344,10 @@ public final class CitadelCompat {
 
     /** Resets rotation, position and scale to the captured initial value. */
     public static void resetToInitial(Object bone) {
+        if (GeckoLibCompat.isGeoBone(bone)) {
+            GeckoLibCompat.resetToInitial(bone);
+            return;
+        }
         if (bone instanceof ModelPart mp) {
             var p = mp.getInitialPose();
             mp.x = p.x;
@@ -329,6 +404,9 @@ public final class CitadelCompat {
         if (boneName == null) {
             return null;
         }
+        if (GeckoLibCompat.isGeoModel(model)) {
+            return GeckoLibCompat.getBone(model, boneName);
+        }
         String target = normalizeBoneName(boneName);
         if (model instanceof AdvancedEntityModel<?> aem) {
             for (AdvancedModelBox part : aem.getAllParts()) {
@@ -371,17 +449,31 @@ public final class CitadelCompat {
         if (clean.isEmpty()) {
             return "";
         }
-        boolean left = clean.contains("left");
-        boolean right = clean.contains("right");
-        String side = right ? "right" : (left ? "left" : null);
-        String limb = null;
         String[] limbs = { "arm", "leg", "wing", "ear", "foot", "hand", "horn", "antler", "eye", "brow", "paw",
                 "claw", "finger", "thumb", "toe", "shoulder", "flipper", "tentacle", "tail", "snout", "jaw",
                 "muzzle", "beak", "head", "neck", "chest", "body", "torso", "root" };
+        String limb = null;
         for (String l : limbs) {
             if (clean.contains(l)) {
                 limb = l;
                 break;
+            }
+        }
+        String side = null;
+        if (clean.contains("left")) {
+            side = "left";
+        } else if (clean.contains("right")) {
+            side = "right";
+        } else if (limb != null) {
+            // Single-letter prefix convention used by some models (larm / rarm / lleg / rleg).
+            int idx = clean.indexOf(limb);
+            if (idx > 0) {
+                char c = clean.charAt(idx - 1);
+                if (c == 'l') {
+                    side = "left";
+                } else if (c == 'r') {
+                    side = "right";
+                }
             }
         }
         if (side != null && limb != null) {
