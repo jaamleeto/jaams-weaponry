@@ -5,8 +5,8 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraft.network.FriendlyByteBuf;
 
 import net.jaams.weaponry.JaamsWeaponryMod;
-import net.jaams.weaponry.loader.ModLoaderSync;
-import net.jaams.weaponry.loader.NetworkSyncable;
+import net.jaams.weaponry.sync.ModLoaderSync;
+import net.jaams.weaponry.sync.NetworkSyncable;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

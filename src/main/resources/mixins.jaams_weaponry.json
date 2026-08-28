@@ -92,22 +92,7 @@
         "client.PlayerModelPoseMixin",
         "client.ClientTextTooltipMixin",
         "client.GuiGraphicsMixin",
-        "client.ItemModelMixin",
-        "animation.AnimationMobRendererMixin",
-        "animation.GeoEntityRendererAnimationMixin",
-        "animation.GeoReplacedEntityRendererAnimationMixin",
-        "animation.AnimationZombieModelMixin",
-        "animation.AnimationIllagerModelMixin",
-        "animation.AnimationVindicatorRendererMixin",
-        "animation.AnimationPlayerMixin",
-        "animation.AnimationItemInHandLayerMixin",
-        "animation.AnimationLivingEntityRendererMixin",
-        "animation.AnimationEntityRenderDispatcherMixin",
-        "animation.AnimationEntityCullingMixin",
-        "animation.AnimationCameraMixin",
-        "animation.AnimationPlayerRendererMixin",
-        "animation.AnimationItemInHandRendererMixin",
-        "animation.AnimationLevelRendererMixin"
+        "client.ItemModelMixin"
     ],
     "injectors": {
         "defaultRequire": 1

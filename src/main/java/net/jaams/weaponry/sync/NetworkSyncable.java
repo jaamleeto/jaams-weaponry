@@ -1,4 +1,4 @@
-package net.jaams.weaponry.loader;
+package net.jaams.weaponry.sync;
 
 import java.util.Map;
 

@@ -294,7 +294,15 @@ public class TraitQuickSwapMixin {
 
     @Unique
     private void performSwap(Level level, Player player, InteractionHand hand, ItemStack stack, Item targetItem) {
-        
+        if (player == null || level == null || !level.isClientSide() && player.isRemoved()) {
+            return;
+        }
+        if (hand != null) {
+            ItemStack held = player.getItemInHand(hand);
+            if (held.isEmpty() || held.getItem() != stack.getItem()) {
+                return;
+            }
+        }
         if (!isValidTarget(targetItem)) {
             return;
         }
@@ -323,6 +331,8 @@ public class TraitQuickSwapMixin {
         QuickSwapHandler.switchItem(level, player.getX(), player.getY(), player.getZ(), player,
                 stack.getItem(), targetItem, mainHandCooldown, offHandCooldown, soundEvent,
                 noCooldownItems, noCooldownTags, hand);
+
+        player.stopUsingItem();
     }
 
     

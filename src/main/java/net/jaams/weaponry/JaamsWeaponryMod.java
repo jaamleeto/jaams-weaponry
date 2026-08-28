@@ -18,8 +18,6 @@ import net.jaams.weaponry.init.ModParticles;
 import net.jaams.weaponry.init.ModRecipes;
 import net.jaams.weaponry.init.ModSounds;
 import net.jaams.weaponry.init.ModTabs;
-import net.jaams.weaponry.network.PlayAnimationMessage;
-import net.jaams.weaponry.network.PlayMobAnimationMessage;
 import net.jaams.weaponry.network.SyncModDataMessage;
 import net.jaams.weaponry.packet.AberrationPacket;
 import net.jaams.weaponry.packet.AmountPacket;
@@ -131,11 +129,6 @@ public class JaamsWeaponryMod {
         addNetworkMessage(GunShootPacket.class, GunShootPacket::encode, GunShootPacket::decode, GunShootPacket::handle);
         addNetworkMessage(VisualRecoilPacket.class, VisualRecoilPacket::encode, VisualRecoilPacket::decode,
                 VisualRecoilPacket::handle);
-        addNetworkMessage(PlayAnimationMessage.class, PlayAnimationMessage::encode, PlayAnimationMessage::decode,
-                PlayAnimationMessage::handle);
-        addNetworkMessage(PlayMobAnimationMessage.class, PlayMobAnimationMessage::encode,
-                PlayMobAnimationMessage::decode,
-                PlayMobAnimationMessage::handle);
         addNetworkMessage(SyncModDataMessage.class, SyncModDataMessage::encode, SyncModDataMessage::decode,
                 SyncModDataMessage::handle);
     }

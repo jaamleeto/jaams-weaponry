@@ -22,8 +22,14 @@ import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.util.ModTraits;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class QuickSwapHandler {
+
+    private static final long MIN_SWAP_INTERVAL_MS = 120;
+    private static final Map<UUID, Long> LAST_SWAP_TIME = new ConcurrentHashMap<>();
 
     public static void switchItem(LevelAccessor level, double x, double y, double z, Entity entity, Item originalItem,
             Item targetItem, int mainHandCooldown, int offHandCooldown, String soundEvent, List<Item> noCooldownItems,
@@ -35,10 +41,18 @@ public class QuickSwapHandler {
     public static void switchItem(LevelAccessor level, double x, double y, double z, Entity entity, Item originalItem,
             Item targetItem, int mainHandCooldown, int offHandCooldown, String soundEvent, List<Item> noCooldownItems,
             List<ResourceLocation> noCooldownTags, InteractionHand usedHand) {
-        if (level.isClientSide() || entity == null || !(entity instanceof LivingEntity livingEntity)
+        if (level.isClientSide() || entity == null || entity.isRemoved() || !(entity instanceof LivingEntity livingEntity)
                 || originalItem == null || targetItem == null || targetItem == net.minecraft.world.item.Items.AIR) {
             return;
         }
+
+        UUID uuid = livingEntity.getUUID();
+        long now = System.currentTimeMillis();
+        Long last = LAST_SWAP_TIME.get(uuid);
+        if (last != null && (now - last) < MIN_SWAP_INTERVAL_MS) {
+            return;
+        }
+
         ItemStack mainHandItem = livingEntity.getMainHandItem();
         ItemStack offHandItem = livingEntity.getOffhandItem();
         boolean mainHandChanged = false;
@@ -80,6 +94,7 @@ public class QuickSwapHandler {
             }
         }
         if (mainHandChanged || offHandChanged) {
+            LAST_SWAP_TIME.put(uuid, now);
             ItemStack otherHandItem = mainHandChanged ? offHandItem : mainHandItem;
             Item otherItem = otherHandItem.getItem();
             boolean applyCooldownToOther = true;

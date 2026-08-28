@@ -1,5 +1,7 @@
 package net.jaams.weaponry.loader;
 
+import net.jaams.weaponry.sync.NetworkSyncable;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 

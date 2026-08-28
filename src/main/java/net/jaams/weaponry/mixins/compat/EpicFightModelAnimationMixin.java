@@ -7,9 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.jaams.weaponry.compat.EpicFightAnimationPose;
-import net.jaams.weaponry.client.ClientAnimationUtils;
-import net.jaams.weaponry.util.ModAnimations;
+import net.jaams.weaponry.compat.EpicFightCompat;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
@@ -19,16 +17,16 @@ import yesman.epicfight.client.renderer.patched.entity.PatchedEntityRenderer;
 import yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch;
 
 /**
- * Bridges the mod's animation system into Epic Fight's third-person skeleton renderer.
+ * Bridges the mod's Epic Fight compat animation (procedural gun aiming / whirling strike poses)
+ * into Epic Fight's third-person skeleton renderer.
  *
  * <p>Epic Fight replaces the vanilla {@code LivingEntityRenderer}/{@code HumanoidModel}
  * pipeline with its own skinned mesh driven by {@code PatchedEntityRenderer}. Every patched
  * renderer builds a {@link Pose} and hands it to {@link Armature#setPose}. This mixin
- * intercepts that call (before it happens) and pushes the mod's per-bone transforms into the
- * pose, so the mod's bedrock-style animations are visible while Epic Fight is in charge.
+ * intercepts that call and pushes the mod's procedural per-bone transforms into the pose, so the
+ * gun aiming and whirling strike animations are visible while Epic Fight is in charge.
  *
- * <p>The per-bone transform logic lives in {@link EpicFightAnimationPose}, shared with the
- * first-person bridge {@code EpicFightFirstPersonRendererMixin}.
+ * <p>The pose logic lives in {@link EpicFightCompat} (no dependency on the base Animation API).
  */
 @Mixin(value = PatchedEntityRenderer.class, remap = false)
 public abstract class EpicFightModelAnimationMixin {
@@ -61,14 +59,8 @@ public abstract class EpicFightModelAnimationMixin {
         if (entitypatch == null || pose == null)
             return;
         LivingEntity entity = entitypatch.getOriginal();
-        if (entity == null)
-            return;
         if (entity instanceof Player player) {
-            EpicFightAnimationPose.applyPlayerPose(armature, pose, player, partialTicks,
-                    ClientAnimationUtils.shouldRenderInFirstPerson(player));
-            EpicFightAnimationPose.applyProceduralPoses(armature, pose, player, partialTicks);
-        } else {
-            EpicFightAnimationPose.applyMobPose(armature, pose, entity, partialTicks);
+            EpicFightCompat.applyProceduralPoses(armature, pose, player, partialTicks);
         }
     }
 }

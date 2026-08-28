@@ -20,7 +20,6 @@ import net.jaams.weaponry.configuration.common.GunSystemCommonConfig;
 import net.jaams.weaponry.data.GunItemData;
 import net.jaams.weaponry.gun.helper.GunShootHelper;
 
-import net.jaams.weaponry.util.ModAnimations;
 import net.jaams.weaponry.util.ModGuns;
 import net.jaams.weaponry.util.ModTraits;
 import net.jaams.weaponry.util.ModUtils;
@@ -37,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 )
 public abstract class PlayerModelPoseMixin {
 
-    private static final float AIM_X_ROT = -1.4279966F; 
+    private static final float AIM_X_ROT = -1.4279966F;
     private static final float WHIRL_SPEED = 0.8F;
     private static final float WHIRL_AMOUNT = 0.5F;
     private static final float WHIRL_BASE_X = -1.0F;
@@ -78,18 +77,12 @@ public abstract class PlayerModelPoseMixin {
         @SuppressWarnings("unchecked")
         PlayerModel<?> model = (PlayerModel<?>) (Object) this;
 
-        
-        
-        
         this.jaams$applyWhirlingPose(player, model);
         this.jaams$applyGunAimingPose(player, model);
 
-        
         model.leftSleeve.copyFrom(model.leftArm);
         model.rightSleeve.copyFrom(model.rightArm);
     }
-
-    
 
     private void jaams$applyWhirlingPose(Player player, PlayerModel<?> model) {
         if (!AssortedClientConfig.WHIRLING_STRIKE_ARM_ANIMATION.get())
@@ -107,7 +100,6 @@ public abstract class PlayerModelPoseMixin {
         if (!player.isUsingItem())
             return;
 
-        
         if (player.getCooldowns().isOnCooldown(mainHand.getItem())
                 || player.getCooldowns().isOnCooldown(offHand.getItem()))
             return;
@@ -141,15 +133,13 @@ public abstract class PlayerModelPoseMixin {
         }
     }
 
-    
-
     private void jaams$applyGunAimingPose(Player player, PlayerModel<?> model) {
         if (!GunSystemClientConfig.GUN_AIMING_ARM_ANIMATION.get())
             return;
         if (player.isUsingItem())
             return;
 
-        boolean animationOverride = ModAnimations.isAnimationPlaying(player) || ModAnimations.hasPose(player);
+        boolean animationOverride = false;
 
         this.jaams$updateAndApplyHandBlend(player, model,
                 player.getMainHandItem(), InteractionHand.MAIN_HAND, player.getMainArm(), true, animationOverride);
@@ -235,8 +225,6 @@ public abstract class PlayerModelPoseMixin {
             armPart.yRot = Mth.lerp(aimBlend, armPart.yRot, targetYRot);
         }
     }
-
-    
 
     private static boolean jaams$shouldHaveAimingPose(ModGuns.GunType type) {
         boolean allowedByConfig = GunSystemClientConfig.GUN_DEFAULT_AIMING_POSE.get();

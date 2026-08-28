@@ -1,5 +1,7 @@
 package net.jaams.weaponry.loader;
 
+import net.jaams.weaponry.sync.NetworkSyncable;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -30,6 +32,7 @@ import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
@@ -156,41 +159,39 @@ public class TraitModifierLoader extends SimpleJsonResourceReloadListener implem
                 }
             }
         }
-        mergeEntryObjects(base.traits, other.traits, TraitModifierData.TraitsEntry.class, base, "traits");
-        mergeEntryObjects(base.projectile_traits, other.projectile_traits,
-                TraitModifierData.ProjectileTraitsEntry.class, base, "projectile_traits");
+        mergeEntryObjects(base.traits, other.traits, base, "traits");
+        mergeEntryObjects(base.projectile_traits, other.projectile_traits, base, "projectile_traits");
     }
 
-    private void mergeEntryObjects(Object baseParent, Object otherParent, Class<?> clazz, TraitModifierData baseRoot,
-            String fieldName) {
+    private void mergeEntryObjects(Object baseParent, Object otherParent, TraitModifierData baseRoot, String fieldName) {
         if (otherParent == null)
             return;
         try {
-            if (baseParent == null) {
-                baseParent = clazz.getDeclaredConstructor().newInstance();
-                baseRoot.getClass().getField(fieldName).set(baseRoot, baseParent);
-            }
-            for (java.lang.reflect.Field subObjectField : clazz.getDeclaredFields()) {
-                subObjectField.setAccessible(true);
-                Object otherSubEntry = subObjectField.get(otherParent);
-                if (otherSubEntry == null)
-                    continue;
-                Object baseSubEntry = subObjectField.get(baseParent);
-                if (baseSubEntry == null) {
-                    JsonElement clone = GSON.toJsonTree(otherSubEntry);
-                    subObjectField.set(baseParent, GSON.fromJson(clone, subObjectField.getType()));
-                } else {
-                    for (java.lang.reflect.Field dataField : subObjectField.getType().getDeclaredFields()) {
-                        dataField.setAccessible(true);
-                        Object newValue = dataField.get(otherSubEntry);
-                        if (newValue != null) {
-                            dataField.set(baseSubEntry, newValue);
-                        }
-                    }
-                }
+            JsonObject baseJson = GSON.toJsonTree(baseParent).getAsJsonObject();
+            JsonObject otherJson = GSON.toJsonTree(otherParent).getAsJsonObject();
+            mergeJson(baseJson, otherJson);
+            if ("traits".equals(fieldName)) {
+                baseRoot.traits = GSON.fromJson(baseJson, TraitModifierData.TraitsEntry.class);
+            } else if ("projectile_traits".equals(fieldName)) {
+                baseRoot.projectile_traits = GSON.fromJson(baseJson, TraitModifierData.ProjectileTraitsEntry.class);
             }
         } catch (Exception e) {
             LOGGER.error("Error haciendo merge profundo de rasgos", e);
+        }
+    }
+
+    private static void mergeJson(JsonObject base, JsonObject other) {
+        for (java.util.Map.Entry<String, JsonElement> entry : other.entrySet()) {
+            String key = entry.getKey();
+            JsonElement otherValue = entry.getValue();
+            if (otherValue == null || otherValue.isJsonNull()) {
+                continue;
+            }
+            if (!base.has(key) || !base.get(key).isJsonObject() || !otherValue.isJsonObject()) {
+                base.add(key, otherValue);
+            } else {
+                mergeJson(base.getAsJsonObject(key), otherValue.getAsJsonObject());
+            }
         }
     }
 

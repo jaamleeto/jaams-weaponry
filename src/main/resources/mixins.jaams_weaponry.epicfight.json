@@ -9,8 +9,7 @@
         "compat.EpicFightOffhandRenderMixin",
         "compat.EpicFightGuardMotionMixin",
         "compat.EpicFightModelAnimationMixin",
-        "compat.EpicFightFirstPersonRendererMixin",
-        "compat.EpicFightAbstractClientPlayerPatchMixin"
+        "compat.EpicFightFirstPersonRendererMixin"
     ],
     "injectors": {
         "defaultRequire": 1

@@ -1,18 +1,23 @@
-package net.jaams.weaponry.loader;
-
-import net.jaams.weaponry.animation.AnimationSyncables;
+package net.jaams.weaponry.sync;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import net.jaams.weaponry.loader.EquipmentModifierLoader;
+import net.jaams.weaponry.loader.GunModifierLoader;
+import net.jaams.weaponry.loader.ItemModifierLoader;
+import net.jaams.weaponry.loader.LootModifierLoader;
+import net.jaams.weaponry.loader.RangedModifierLoader;
+import net.jaams.weaponry.loader.TabModifierLoader;
+import net.jaams.weaponry.loader.ThrowableModifierLoader;
+import net.jaams.weaponry.loader.TradeModifierLoader;
+import net.jaams.weaponry.loader.TraitModifierLoader;
+
 public final class ModLoaderSync {
     private static final Map<String, NetworkSyncable> SYNCABLES = new LinkedHashMap<>();
 
     static {
-        register(new AnimationSyncables.Animations());
-        register(new AnimationSyncables.RandomGroups());
-        register(HeldPoseModifierLoader.INSTANCE);
         register(ItemModifierLoader.INSTANCE);
         register(GunModifierLoader.INSTANCE);
         register(RangedModifierLoader.INSTANCE);
