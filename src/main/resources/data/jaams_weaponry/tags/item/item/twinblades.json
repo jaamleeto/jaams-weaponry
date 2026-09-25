@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_twinblade",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_twinblade",
+            "required": false
+        }
+    ]
+}

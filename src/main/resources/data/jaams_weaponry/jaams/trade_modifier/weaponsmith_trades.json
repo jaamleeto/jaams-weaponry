@@ -1,0 +1,117 @@
+{
+    "enabled": true,
+    "chance": 1.0,
+    "target": [
+        "minecraft:weaponsmith"
+    ],
+    "trades": [
+        {
+            "sell_item": "jaams_weaponry:iron_cleaver",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 10,
+            "max_uses": 10,
+            "xp": 5,
+            "villager_level": 1
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_claw",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 8,
+            "max_uses": 10,
+            "xp": 5,
+            "villager_level": 1
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_ring",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 7,
+            "max_uses": 12,
+            "xp": 3,
+            "villager_level": 1
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_longsword",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 12,
+            "max_uses": 10,
+            "xp": 8,
+            "villager_level": 2
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_kama",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 9,
+            "max_uses": 10,
+            "xp": 5,
+            "villager_level": 2
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_knuckle",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 8,
+            "max_uses": 10,
+            "xp": 5,
+            "villager_level": 2
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_butterfly_sword",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 12,
+            "max_uses": 8,
+            "xp": 10,
+            "villager_level": 3
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_battle_axe",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 15,
+            "max_uses": 8,
+            "xp": 10,
+            "villager_level": 3
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_sickle",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 9,
+            "max_uses": 10,
+            "xp": 5,
+            "villager_level": 2
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_machete",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 10,
+            "max_uses": 10,
+            "xp": 5,
+            "villager_level": 2
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_katar",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 11,
+            "max_uses": 10,
+            "xp": 8,
+            "villager_level": 3
+        },
+        {
+            "sell_item": "jaams_weaponry:iron_hammer",
+            "sell_count": 1,
+            "cost_item": "minecraft:emerald",
+            "cost_count": 16,
+            "max_uses": 8,
+            "xp": 12,
+            "villager_level": 4
+        }
+    ]
+}

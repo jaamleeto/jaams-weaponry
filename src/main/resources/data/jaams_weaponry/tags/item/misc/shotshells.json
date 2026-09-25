@@ -1,0 +1,29 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:shotshell",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:fire_shotshell",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:heavy_shotshell",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:glowing_shotshell",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:sharp_shotshell",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:echo_shotshell",
+            "required": false
+        }
+    ]
+}

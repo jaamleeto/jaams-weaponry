@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "butterfly_sword",
+  "category": "equipment",
+  "pattern": [
+    "  a",
+    "ab ",
+    "c  "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:copper_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:double_copper_ingot"
+    },
+    "c": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:copper_butterfly_sword"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "leafscopperbackport"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "copperagebackport"
+        }
+      ]
+    }
+  ]
+}

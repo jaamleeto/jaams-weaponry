@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "heavy_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "item": "jaams_weaponry:double_copper_ingot"
+    },
+    {
+      "item": "jaams_weaponry:double_copper_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:heavy_copper_ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "leafscopperbackport"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "copperagebackport"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#jaams_weaponry:item/royal_crossbows",
+    "jaams_weaponry:hunters_crossbow",
+    "jaams_weaponry:great_crossbow",
+    "jaams_weaponry:stake_crossbow"
+  ]
+}

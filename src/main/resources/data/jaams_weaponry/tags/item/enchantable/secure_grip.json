@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:enchantable/weapon",
+    "#minecraft:enchantable/durability",
+    "#minecraft:enchantable/sword",
+    "#minecraft:enchantable/armor",
+    "#minecraft:enchantable/bow",
+    "#minecraft:enchantable/crossbow",
+    "#minecraft:enchantable/equippable"
+  ]
+}

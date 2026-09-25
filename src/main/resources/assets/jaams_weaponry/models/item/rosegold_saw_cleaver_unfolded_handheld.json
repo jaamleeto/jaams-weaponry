@@ -1,0 +1,28 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "jaams_weaponry:item/rosegold_saw_cleaver_unfolded_handheld"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [0, 90, 45],
+      "translation": [0, 9.75, 1.5],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, -90, -45],
+      "translation": [0, 9.75, 1.5],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "firstperson_righthand": {
+      "rotation": [45, 90, 20],
+      "translation": [1.13, 8.2, 0.95],
+      "scale": [1.48, 1.48, 0.68]
+    },
+    "firstperson_lefthand": {
+      "rotation": [45, -90, -20],
+      "translation": [1.13, 8.2, 0.95],
+      "scale": [1.48, 1.48, 0.68]
+    }
+  }
+}

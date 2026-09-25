@@ -1,0 +1,33 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "layer0": "jaams_weaponry:item/hunters_bow"
+  },
+  "base": {
+    "parent": "jaams_weaponry:item/hunters_bow_gui"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "jaams_weaponry:item/hunters_bow_gui"
+    },
+    "ground": {
+      "parent": "jaams_weaponry:item/hunters_bow_gui"
+    },
+    "fixed": {
+      "parent": "jaams_weaponry:item/hunters_bow_gui"
+    },
+    "firstperson_righthand": {
+      "parent": "jaams_weaponry:item/hunters_bow_handheld"
+    },
+    "firstperson_lefthand": {
+      "parent": "jaams_weaponry:item/hunters_bow_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "jaams_weaponry:item/hunters_bow_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "jaams_weaponry:item/hunters_bow_handheld"
+    }
+  }
+}

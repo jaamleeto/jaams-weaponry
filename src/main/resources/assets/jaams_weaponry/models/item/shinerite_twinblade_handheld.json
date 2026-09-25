@@ -1,0 +1,31 @@
+{
+  "parent": "jaams_weaponry:item/presets/twinblade_handheld_2x",
+  "neoforge_data": {
+    "layers": {
+      "0": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  },
+  "loader": "neoforge:item_layers",
+  "render_types": {
+
+  },
+  "textures": {
+    "layer0": "jaams_weaponry:item/shinerite_twinblade_handheld_0",
+    "layer1": "jaams_weaponry:item/shinerite_twinblade_handheld_1"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [2, -90, 53],
+      "translation": [0, 4.0, 1.5],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [2, 90, -53],
+      "translation": [0, 4.0, 1.5],
+      "scale": [1.85, 1.85, 0.85]
+    }
+  }
+}

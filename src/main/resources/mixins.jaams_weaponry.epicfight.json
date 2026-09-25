@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "net.jaams.weaponry.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [],
+  "client": [
+    "compat.EpicFightGuardStanceBlockMixin",
+    "compat.EpicFightOffhandRenderMixin",
+    "compat.EpicFightGuardMotionMixin",
+    "compat.EpicFightModelAnimationMixin",
+    "compat.EpicFightFirstPersonRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

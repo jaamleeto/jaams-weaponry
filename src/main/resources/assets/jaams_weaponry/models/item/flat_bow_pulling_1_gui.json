@@ -1,0 +1,6 @@
+{
+  "parent": "jaams_weaponry:item/flat_bow",
+  "textures": {
+    "layer0": "jaams_weaponry:item/flat_bow_pulling_1"
+  }
+}

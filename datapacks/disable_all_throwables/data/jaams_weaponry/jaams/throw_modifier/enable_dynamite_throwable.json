@@ -1,0 +1,10 @@
+{
+    "target": ["#jaams_weaponry:misc/dynamites"],
+    "priority": 100,
+    "condition_mode": "and",
+    "conditions": [],
+    "throwable": {
+        "throw_enabled": true,
+        "projectile": "DYNAMITE"
+    }
+}

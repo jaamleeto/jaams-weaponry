@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "oreganized:electrum_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "jaams_weaponry:diamond_cleaver"
+  },
+  "addition": {
+    "tag": "jaams_weaponry:ingredient/electrum_ingot"
+  },
+  "result": {
+    "id": "jaams_weaponry:electrum_cleaver"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "oreganized"
+    }
+  ]
+}

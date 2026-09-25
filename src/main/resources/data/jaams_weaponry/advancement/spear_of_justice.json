@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "jaams_weaponry:golden_spear"
+    },
+    "title": {
+      "translate": "advancements.spear_of_justice.title"
+    },
+    "description": {
+      "translate": "advancements.spear_of_justice.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "spear_of_justice_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 300
+  },
+  "parent": "jaams_weaponry:ruder_buster"
+}

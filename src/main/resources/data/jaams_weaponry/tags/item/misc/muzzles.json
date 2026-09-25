@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:copper_muzzle",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_choke",
+            "required": false
+        }
+    ]
+}

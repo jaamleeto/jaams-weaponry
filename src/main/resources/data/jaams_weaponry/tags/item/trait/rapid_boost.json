@@ -1,0 +1,21 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:gauntlet",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:tessen",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/rings",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/butterfly_swords",
+            "required": false
+        }
+    ]
+}

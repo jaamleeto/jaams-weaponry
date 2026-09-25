@@ -1,0 +1,250 @@
+{
+  "credit": "Made with Blockbench",
+  "texture_size": [32, 32],
+  "textures": {
+    "0": "jaams_weaponry:item/broom_handheld",
+    "particle": "jaams_weaponry:item/broom"
+  },
+  "elements": [
+    {
+      "name": "head",
+      "from": [4, 0, 7],
+      "to": [12, 5, 9],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [0, -1, 0]
+      },
+      "faces": {
+        "north": {
+          "uv": [0, 0, 4, 2.5],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [6, 5, 7, 7.5],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [0, 2.5, 4, 5],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [7, 5, 8, 7.5],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [10, 5, 6, 4],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [4, 5, 0, 6],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "name": "layer_1",
+      "from": [4, -0.05859, 6.61328],
+      "to": [12, 2.94141, 6.61428],
+      "rotation": {
+        "angle": 22.5,
+        "axis": "x",
+        "origin": [0, 2, 7]
+      },
+      "faces": {
+        "north": {
+          "uv": [4, 0, 8, 1.5],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [0, 0, 0, 2],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [4, 2, 8, 3.5],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [0, 0, 0, 2],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [4, 0, 0, 0],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [4, 0, 0, 0],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "name": "layer_2",
+      "from": [4, -0.01919, 9.00169],
+      "to": [12, 2.98081, 9.00269],
+      "rotation": {
+        "angle": -22.5,
+        "axis": "x",
+        "origin": [8, 3, 9]
+      },
+      "faces": {
+        "north": {
+          "uv": [8, 2, 12, 3.5],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [0, 0, 0, 2],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [8, 0, 12, 1.5],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [0, 0, 0, 2],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [4, 0, 0, 0],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [4, 0, 0, 0],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "name": "handle",
+      "from": [7.5, 5, 7.5],
+      "to": [8.5, 25, 8.5],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [0, -1, 0]
+      },
+      "faces": {
+        "north": {
+          "uv": [4, 4, 4.5, 14],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [4.5, 4, 5, 14],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [5, 4, 5.5, 14],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [5.5, 4, 6, 14],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [5.5, 14.5, 5, 14],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [6, 14, 5.5, 14.5],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "name": "handle",
+      "from": [7.5, 5, 7.5],
+      "to": [8.5, 25, 8.5],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [0, -1, 0]
+      },
+      "faces": {
+        "north": {
+          "uv": [4, 4, 4.5, 14],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [4.5, 4, 5, 14],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [5, 4, 5.5, 14],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [5.5, 4, 6, 14],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [5.5, 14.5, 5, 14],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [6, 14, 5.5, 14.5],
+          "texture": "#0"
+        }
+      }
+    }
+  ],
+  "gui_light": "front",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [180, 90, 0],
+      "translation": [0, 4.75, 1],
+      "scale": [1.15, 1.15, 1.15]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [180, 90, 0],
+      "translation": [0, 4.75, 1],
+      "scale": [1.15, 1.15, 1.15]
+    },
+    "firstperson_righthand": {
+      "rotation": [136.5, 90, 0],
+      "translation": [0.88, 4.45, 1.63],
+      "scale": [0.88, 0.88, 0.88]
+    },
+    "firstperson_lefthand": {
+      "rotation": [136.5, 90, 0],
+      "translation": [0.88, 4.45, 1.63],
+      "scale": [0.88, 0.88, 0.88]
+    },
+    "ground": {
+      "translation": [0, -0.5, 2],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "gui": {
+      "translation": [0, -2.75, 0],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "head": {
+      "rotation": [90, 0, 0],
+      "translation": [0, 7.25, -10.5],
+      "scale": [1.5, 1.5, 1.5]
+    },
+    "fixed": {
+      "translation": [0, -4.75, -2]
+    }
+  },
+  "groups": [
+    {
+      "name": "broom",
+      "origin": [8, 8, 8],
+      "color": 0,
+      "children": [
+        {
+          "name": "head",
+          "origin": [8, 8, 8],
+          "color": 0,
+          "children": [0, 1, 2]
+        },
+        {
+          "name": "handle",
+          "origin": [8, 8, 8],
+          "color": 0,
+          "children": [3, 4]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "create:framed_glass_door",
+      "required": false
+    },
+    {
+      "id": "create:framed_glass_trapdoor",
+      "required": false
+    },
+    {
+      "id": "create:framed_glass",
+      "required": false
+    },
+    {
+      "id": "create:tiled_glass",
+      "required": false
+    },
+    {
+      "id": "create:horizontal_framed_glass",
+      "required": false
+    },
+    {
+      "id": "create:vertical_framed_glass",
+      "required": false
+    },
+    {
+      "id": "create:tiled_glass_pane",
+      "required": false
+    },
+    {
+      "id": "create:framed_glass_pane",
+      "required": false
+    },
+    {
+      "id": "create:horizontal_framed_glass_pane",
+      "required": false
+    },
+    {
+      "id": "create:vertical_framed_glass_pane",
+      "required": false
+    },
+    {
+      "id": "quark:dirty_glass",
+      "required": false
+    },
+    {
+      "id": "quark:dirty_glass_pane",
+      "required": false
+    },
+    {
+      "id": "infernalexp:glow_glass_pane",
+      "required": false
+    },
+    {
+      "id": "infernalexp:glow_glass",
+      "required": false
+    },
+    {
+      "id": "infernalexp:quartz_glass_pane",
+      "required": false
+    },
+    {
+      "id": "infernalexp:quartz_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:waxed_bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:waxed_bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:dazzling_bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:dazzling_bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:verdant_bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:verdant_bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:poise_bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:poise_bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:ethereal_bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:ethereal_bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:serene_bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:serene_bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:iridescent_bismuth_glass",
+      "required": false
+    },
+    {
+      "id": "enlightened_end:iridescent_bismuth_glass_pane",
+      "required": false
+    },
+    {
+      "id": "naturalist:verdant_froglass",
+      "required": false
+    },
+    {
+      "id": "naturalist:verdant_froglass_pane",
+      "required": false
+    },
+    {
+      "id": "naturalist:crimson_froglass",
+      "required": false
+    },
+    {
+      "id": "naturalist:crimson_froglass_pane",
+      "required": false
+    },
+    {
+      "id": "naturalist:azure_froglass",
+      "required": false
+    },
+    {
+      "id": "naturalist:azure_froglass_pane",
+      "required": false
+    },
+    {
+      "id": "cavesanddepths:glittering_glass",
+      "required": false
+    },
+    {
+      "id": "unusualend:chiseled_glass",
+      "required": false
+    },
+    {
+      "id": "unusualend:chiseled_glass_pane",
+      "required": false
+    },
+    {
+      "id": "alexsmobs:rainbow_glass",
+      "required": false
+    }
+  ]
+}

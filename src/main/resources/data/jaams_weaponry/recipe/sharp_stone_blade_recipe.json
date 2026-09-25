@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sharp_stone_blade",
+  "category": "equipment",
+  "pattern": [
+    " a",
+    "bc"
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:sharp_stone"
+    },
+    "b": {
+      "item": "jaams_weaponry:short_stick"
+    },
+    "c": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:sharp_stone_blade"
+  }
+}

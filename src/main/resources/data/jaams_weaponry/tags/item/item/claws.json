@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_claw",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_claw",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+  "pack": {
+    "pack_format": 34,
+    "description": "Jaam's Weaponry is a themed weapon expansion mod that adds a wide variety of unique weapons, each with distinct mechanics and highly customizable options to tailor your combat style.",
+    "supported_formats": {
+      "min_inclusive": 34,
+      "max_inclusive": 48
+    }
+  }
+}

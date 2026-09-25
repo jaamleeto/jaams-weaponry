@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "shotshell",
+  "category": "misc",
+  "pattern": [
+    "a",
+    "b",
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:gold_ingot"
+    },
+    "b": {
+      "item": "jaams_weaponry:sharp_bullet"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:sharp_shotshell"
+  }
+}

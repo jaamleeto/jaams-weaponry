@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_ring",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_ring",
+            "required": false
+        }
+    ]
+}

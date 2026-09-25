@@ -1,0 +1,22 @@
+{
+    "enabled": true,
+    "chance": 1.0,
+    "replace_all": false,
+    "loot_tables": [
+        "minecraft:chests/simple_dungeon"
+    ],
+    "entries": [
+        {
+            "item": "jaams_weaponry:archers_bottle",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.05
+        },
+        {
+            "item": "jaams_weaponry:warriors_bottle",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.05
+        }
+    ]
+}

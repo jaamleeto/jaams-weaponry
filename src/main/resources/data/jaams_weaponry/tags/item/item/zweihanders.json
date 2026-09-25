@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_zweihander",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_zweihander",
+            "required": false
+        }
+    ]
+}

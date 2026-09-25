@@ -1,0 +1,42 @@
+{
+    "target": [
+        "minecraft:stick"
+    ],
+    "enabled": true,
+    "priority": 0,
+    "condition_mode": "and",
+    "conditions": [],
+    "attachment": {
+        "slot": "muzzle",
+        "compatible_guns": [
+            "jaams_weaponry:pistol"
+        ],
+        "modifiers": [
+            {
+                "key": "GunProjectileDamageModifier",
+                "value": 2.0,
+                "operation": "multiply"
+            },
+            {
+                "key": "GunProjectileSpeed",
+                "value": 1.5,
+                "operation": "multiply"
+            },
+            {
+                "key": "GunRecoilDistance",
+                "value": 0.75,
+                "operation": "multiply"
+            }
+        ],
+        "fire_pattern": "BURST",
+        "sound": {
+            "shoot_sound": "jaams_weaponry:pistol_muzzle_shoot",
+            "sound_volume": 1.2,
+            "sound_pitch": 0.9
+        },
+        "particle": {
+            "shot_particle": "jaams_weaponry:gun_spark",
+            "particle_count": 3
+        }
+    }
+}

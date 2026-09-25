@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "cavesanddepths:rosegoldupgradesmithingtemplate"
+  },
+  "base": {
+    "item": "jaams_weaponry:golden_claw"
+  },
+  "addition": {
+    "tag": "jaams_weaponry:ingredient/rosegold_ingot"
+  },
+  "result": {
+    "id": "jaams_weaponry:rosegold_claw"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "cavesanddepths"
+    }
+  ]
+}

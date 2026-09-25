@@ -1,0 +1,23 @@
+{
+    "target": [
+        "#jaams_weaponry:item/greathammers"
+    ],
+    "priority": 10,
+    "condition_mode": "and",
+    "conditions": [],
+    "modifiers": {
+        "slots": [
+            "mainhand",
+            "offhand"
+        ],
+        "attributes": [
+            {
+                "attribute": "minecraft:generic.movement_speed",
+                "name": "Movement Penalty",
+                "amount": -0.03,
+                "operation": "addition",
+                "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+        ]
+    }
+}

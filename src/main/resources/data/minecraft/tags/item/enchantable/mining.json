@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#jaams_weaponry:item/hammers",
+    "#jaams_weaponry:item/greathammers",
+    "jaams_weaponry:flint_hammer",
+    "#jaams_weaponry:item/mallets"
+  ]
+}

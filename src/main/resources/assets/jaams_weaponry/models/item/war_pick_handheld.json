@@ -1,0 +1,28 @@
+{
+  "parent": "jaams_weaponry:item/presets/spear_handheld_2x",
+  "textures": {
+    "layer0": "jaams_weaponry:item/war_pick_handheld"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [2, -90, 53],
+      "translation": [0, 6.05, 1.0],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [2, 90, -53],
+      "translation": [0, 6.05, 1.0],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, -90, 25],
+      "translation": [1.13, 3.8, 1.8],
+      "scale": [1.36, 1.36, 0.68]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, 90, -25],
+      "translation": [1.13, 3.8, 1.8],
+      "scale": [1.36, 1.36, 0.68]
+    }
+  }
+}

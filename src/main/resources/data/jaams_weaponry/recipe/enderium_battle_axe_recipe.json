@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "majruszsdifficulty:enderium_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "jaams_weaponry:netherite_battle_axe"
+  },
+  "addition": {
+    "item": "jaams_weaponry:double_enderium_ingot"
+  },
+  "result": {
+    "id": "jaams_weaponry:enderium_battle_axe"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "majruszsdifficulty"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "group": "recycle",
+  "category": "misc",
+  "experience": 2,
+  "cookingtime": 60,
+  "ingredient": {
+    "item": "jaams_weaponry:copper_quick_draw_magazine"
+  },
+  "result": {
+    "id": "minecraft:copper_ingot"
+  }
+}

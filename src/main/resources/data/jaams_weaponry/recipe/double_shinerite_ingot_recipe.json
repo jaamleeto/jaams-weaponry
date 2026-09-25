@@ -1,0 +1,26 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shapeless",
+  "group": "double_ingot",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "jaams_weaponry:misc/forging_tool"
+    },
+    {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:double_shinerite_ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

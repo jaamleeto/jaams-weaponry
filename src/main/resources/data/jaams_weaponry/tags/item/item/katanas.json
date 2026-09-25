@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_katana",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_katana",
+            "required": false
+        }
+    ]
+}

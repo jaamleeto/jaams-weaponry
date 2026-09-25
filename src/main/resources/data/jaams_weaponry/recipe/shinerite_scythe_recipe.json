@@ -1,0 +1,34 @@
+{
+  "type": "jaams_shinerite:copy_nbt_shaped",
+  "group": "scythe",
+  "category": "equipment",
+  "pattern": [
+    "aab",
+    " c ",
+    "d  "
+  ],
+  "key": {
+    "a": {
+      "item": "jaams_weaponry:double_shinerite_ingot"
+    },
+    "b": {
+      "tag": "jaams_weaponry:ingredient/shinerite_ingot"
+    },
+    "c": {
+      "item": "jaams_weaponry:long_stick"
+    },
+    "d": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "jaams_weaponry:shinerite_scythe"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jaams_shinerite"
+    }
+  ]
+}

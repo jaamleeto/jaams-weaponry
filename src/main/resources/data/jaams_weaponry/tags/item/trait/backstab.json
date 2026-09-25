@@ -1,0 +1,33 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#jaams_weaponry:item/sharp_stone_blades",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/daggers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/reverse_daggers",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/claws",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/katars",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:item/kamas",
+            "required": false
+        },
+        {
+            "id": "#jaams_weaponry:compat/hoes",
+            "required": false
+        }
+    ]
+}

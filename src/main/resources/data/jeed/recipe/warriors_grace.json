@@ -1,0 +1,15 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "jaams_weaponry:warriors_grace",
+  "providers": [
+    {
+      "item": "jaams_weaponry:warriors_bottle"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jeed"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "parent": "jaams_weaponry:item/presets/broadsword_handheld_2x",
+  "textures": {
+    "layer0": "jaams_weaponry:item/iron_broadsword_handheld"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [2, -90, 53],
+      "translation": [0, 12.75, 0.5],
+      "scale": [1.85, 1.85, 0.85]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [2, 90, -53],
+      "translation": [0, 12.75, 0.5],
+      "scale": [1.85, 1.85, 0.85]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "target": [
+    "#jaams_weaponry:item/war_picks"
+  ],
+  "enabled": false
+}

@@ -1,0 +1,15 @@
+{
+    "enabled": false,
+    "replace_all": false,
+    "loot_tables": [
+        "minecraft:chests/village/village_armorer"
+    ],
+    "entries": [
+        {
+            "item": "jaams_weaponry:stake",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.0
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "item/handheld",
+  "neoforge_data": {
+    "layers": {
+      "0": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  },
+  "loader": "neoforge:item_layers",
+  "render_types": {
+
+  },
+  "textures": {
+    "layer0": "jaams_weaponry:item/shinerite_claw_0",
+    "layer1": "jaams_weaponry:item/shinerite_claw_1"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [290, -90, 25],
+      "translation": [1.13, 3.2, 1.13],
+      "scale": [0.75, 0.75, 0.75]
+    },
+    "firstperson_lefthand": {
+      "rotation": [290, 90, -25],
+      "translation": [1.13, 3.2, 1.13],
+      "scale": [0.75, 0.75, 0.75]
+    }
+  }
+}

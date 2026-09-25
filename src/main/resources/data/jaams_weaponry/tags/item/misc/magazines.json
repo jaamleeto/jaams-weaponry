@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:copper_quick_draw_magazine",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_extended_magazine",
+            "required": false
+        }
+    ]
+}

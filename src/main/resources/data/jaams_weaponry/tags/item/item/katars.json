@@ -1,0 +1,49 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:wooden_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:stone_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:copper_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:iron_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:golden_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:diamond_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:netherite_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:rosegold_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:shinerite_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:electrum_katar",
+            "required": false
+        },
+        {
+            "id": "jaams_weaponry:enderium_katar",
+            "required": false
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "jaams_weaponry:royal_axe",
+            "required": false
+        }
+    ]
+}

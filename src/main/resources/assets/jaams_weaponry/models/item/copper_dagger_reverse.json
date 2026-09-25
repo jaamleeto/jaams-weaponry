@@ -1,0 +1,42 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "jaams_weaponry:item/copper_dagger_reverse"
+    },
+    "display": {
+        "firstperson_righthand": {
+            "rotation": [
+                40,
+                90,
+                203
+            ],
+            "translation": [
+                1.13,
+                2.6,
+                1.13
+            ],
+            "scale": [
+                0.68,
+                0.68,
+                0.68
+            ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [
+                40,
+                -90,
+                -203
+            ],
+            "translation": [
+                1.13,
+                2.6,
+                1.13
+            ],
+            "scale": [
+                0.68,
+                0.68,
+                0.68
+            ]
+        }
+    }
+}

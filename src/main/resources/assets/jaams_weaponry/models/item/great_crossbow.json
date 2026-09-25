@@ -1,0 +1,47 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "jaams_weaponry:item/great_crossbow_standby"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "pulling": 0
+      },
+      "model": "jaams_weaponry:item/great_crossbow_idle"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1
+      },
+      "model": "jaams_weaponry:item/great_crossbow_pulling_0"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.58
+      },
+      "model": "jaams_weaponry:item/great_crossbow_pulling_1"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 1.0
+      },
+      "model": "jaams_weaponry:item/great_crossbow_pulling_2"
+    },
+    {
+      "predicate": {
+        "charged": 1
+      },
+      "model": "jaams_weaponry:item/great_crossbow_arrow"
+    },
+    {
+      "predicate": {
+        "charged": 1,
+        "firework": 1
+      },
+      "model": "jaams_weaponry:item/great_crossbow_firework"
+    }
+  ]
+}

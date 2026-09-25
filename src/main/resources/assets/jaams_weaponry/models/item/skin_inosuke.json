@@ -1,0 +1,21 @@
+{
+    "parent": "item/handheld",
+    "loader": "neoforge:separate_transforms",
+    "textures": {
+        "layer0": "jaams_weaponry:item/skin_inosuke"
+    },
+    "base": {
+        "parent": "jaams_weaponry:item/skin_inosuke_handheld"
+    },
+    "perspectives": {
+        "gui": {
+            "parent": "jaams_weaponry:item/skin_inosuke_gui"
+        },
+        "ground": {
+            "parent": "jaams_weaponry:item/skin_inosuke_gui"
+        },
+        "fixed": {
+            "parent": "jaams_weaponry:item/skin_inosuke_gui"
+        }
+    }
+}

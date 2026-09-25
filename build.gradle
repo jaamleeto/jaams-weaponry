@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+version = '1.1.3'
+group = 'net.jaams'
+
+base {
+    archivesName = 'jaams_weaponry'
+}
+
+project.ext.mcVersion = '1.21.1'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = '21.1.235'
+
+    validateAccessTransformers = true
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+    }
+
+    mods {
+        jaams_weaponry {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { name = 'NeoForged'; url = 'https://maven.neoforged.net/releases' }
+    maven {
+        name = 'CurseMaven'
+        url = 'https://cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+    maven {
+        name = 'CurseForge'
+        url = 'https://maven.curseforge.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+}
+
+dependencies {
+
+    implementation("curse.maven:playeranimator-658587:6024462")
+
+    implementation 'curse.maven:epic-fight-mod-405076:8175609'
+
+    implementation 'curse.maven:catalogue-459701:6926815'
+    implementation 'curse.maven:damagenumbers-1022853:5475556'
+    implementation 'curse.maven:configured-457570:7276577'
+}
+
+jar {
+    archiveFileName = "${base.archivesName.get()}-${project.version}-neoforge-${mcVersion}.jar"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xmaxerrs' << '10000'
+}

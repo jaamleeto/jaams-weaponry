@@ -1,0 +1,6 @@
+{
+  "target": [
+    "#jaams_weaponry:item/saw_cleavers_unfolded"
+  ],
+  "enabled": false
+}

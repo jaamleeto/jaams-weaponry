@@ -1,0 +1,624 @@
+{
+    "format_version": "1.21.6",
+    "credit": "Made with Blockbench",
+    "textures": {
+        "0": "jaams_weaponry:item/copper_pistol_handheld",
+        "particle": "jaams_weaponry:item/copper_pistol"
+    },
+    "elements": [
+        {
+            "name": "body",
+            "from": [
+                6.9,
+                5,
+                2
+            ],
+            "to": [
+                9.1,
+                8,
+                12
+            ],
+            "rotation": {
+                "angle": 0,
+                "axis": "y",
+                "origin": [
+                    7.975,
+                    5.64048,
+                    7.7505
+                ]
+            },
+            "faces": {
+                "north": {
+                    "uv": [
+                        10,
+                        10,
+                        12,
+                        13
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "east": {
+                    "uv": [
+                        0,
+                        0,
+                        10,
+                        3
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "south": {
+                    "uv": [
+                        4,
+                        11,
+                        6,
+                        14
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "west": {
+                    "uv": [
+                        0,
+                        3,
+                        10,
+                        6
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "up": {
+                    "uv": [
+                        2,
+                        16,
+                        0,
+                        6
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "down": {
+                    "uv": [
+                        4,
+                        6,
+                        2,
+                        16
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                }
+            }
+        },
+        {
+            "name": "handle",
+            "from": [
+                6.99,
+                -0.00427,
+                7.67425
+            ],
+            "to": [
+                8.99,
+                4.99573,
+                10.67425
+            ],
+            "rotation": {
+                "angle": -22.5,
+                "axis": "x",
+                "origin": [
+                    7.975,
+                    5.64048,
+                    7.7505
+                ]
+            },
+            "faces": {
+                "north": {
+                    "uv": [
+                        10,
+                        0,
+                        12,
+                        5
+                    ],
+                    "texture": "#0"
+                },
+                "east": {
+                    "uv": [
+                        4,
+                        6,
+                        7,
+                        11
+                    ],
+                    "texture": "#0"
+                },
+                "south": {
+                    "uv": [
+                        10,
+                        5,
+                        12,
+                        10
+                    ],
+                    "texture": "#0"
+                },
+                "west": {
+                    "uv": [
+                        7,
+                        6,
+                        10,
+                        11
+                    ],
+                    "texture": "#0"
+                },
+                "up": {
+                    "uv": [
+                        8,
+                        14,
+                        6,
+                        11
+                    ],
+                    "texture": "#0"
+                },
+                "down": {
+                    "uv": [
+                        10,
+                        11,
+                        8,
+                        14
+                    ],
+                    "texture": "#0"
+                }
+            }
+        },
+        {
+            "name": "trigger",
+            "from": [
+                7.999,
+                3.3,
+                5.65
+            ],
+            "to": [
+                8.001,
+                5.302,
+                8.652
+            ],
+            "rotation": {
+                "angle": 0,
+                "axis": "y",
+                "origin": [
+                    7.975,
+                    5.64048,
+                    7.7505
+                ]
+            },
+            "faces": {
+                "north": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "east": {
+                    "uv": [
+                        12,
+                        0,
+                        15,
+                        2
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "south": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "west": {
+                    "uv": [
+                        12,
+                        2,
+                        15,
+                        4
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "up": {
+                    "uv": [
+                        0,
+                        3,
+                        0,
+                        0
+                    ],
+                    "texture": "#0"
+                },
+                "down": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        3
+                    ],
+                    "texture": "#0"
+                }
+            }
+        },
+        {
+            "name": "trigger",
+            "from": [
+                7.949,
+                8,
+                10.95
+            ],
+            "to": [
+                7.951,
+                9.002,
+                12.952
+            ],
+            "rotation": {
+                "angle": 0,
+                "axis": "y",
+                "origin": [
+                    7.975,
+                    5.64048,
+                    7.7505
+                ]
+            },
+            "faces": {
+                "north": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "east": {
+                    "uv": [
+                        12,
+                        4,
+                        14,
+                        5
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "south": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "west": {
+                    "uv": [
+                        12,
+                        6,
+                        14,
+                        7
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "up": {
+                    "uv": [
+                        0,
+                        2,
+                        0,
+                        0
+                    ],
+                    "texture": "#0"
+                },
+                "down": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                }
+            }
+        },
+        {
+            "name": "trigger",
+            "from": [
+                7.949,
+                6,
+                10.95
+            ],
+            "to": [
+                7.951,
+                7.002,
+                12.952
+            ],
+            "rotation": {
+                "angle": 0,
+                "axis": "y",
+                "origin": [
+                    7.975,
+                    3.64048,
+                    7.7505
+                ]
+            },
+            "faces": {
+                "north": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "east": {
+                    "uv": [
+                        12,
+                        4,
+                        14,
+                        5
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "south": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "west": {
+                    "uv": [
+                        12,
+                        6,
+                        14,
+                        7
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "up": {
+                    "uv": [
+                        0,
+                        2,
+                        0,
+                        0
+                    ],
+                    "texture": "#0"
+                },
+                "down": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                }
+            }
+        },
+        {
+            "name": "trigger",
+            "from": [
+                7.949,
+                6.8,
+                2
+            ],
+            "to": [
+                7.951,
+                8.802,
+                3.002
+            ],
+            "rotation": {
+                "angle": 0,
+                "axis": "y",
+                "origin": [
+                    7.975,
+                    5.64048,
+                    7.7505
+                ]
+            },
+            "faces": {
+                "north": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "east": {
+                    "uv": [
+                        12,
+                        8,
+                        13,
+                        10
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "south": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        2
+                    ],
+                    "texture": "#0"
+                },
+                "west": {
+                    "uv": [
+                        12,
+                        10,
+                        13,
+                        12
+                    ],
+                    "texture": "#0",
+                    "tintindex": 0
+                },
+                "up": {
+                    "uv": [
+                        0,
+                        1,
+                        0,
+                        0
+                    ],
+                    "texture": "#0"
+                },
+                "down": {
+                    "uv": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "texture": "#0"
+                }
+            }
+        }
+    ],
+    "display": {
+        "thirdperson_righthand": {
+            "translation": [
+                0,
+                2.55,
+                0.15
+            ],
+            "scale": [
+                0.85,
+                0.85,
+                0.85
+            ]
+        },
+        "thirdperson_lefthand": {
+            "translation": [
+                0,
+                2.55,
+                0.15
+            ],
+            "scale": [
+                0.85,
+                0.85,
+                0.85
+            ]
+        },
+        "firstperson_righthand": {
+            "rotation": [
+                -5,
+                0,
+                0
+            ],
+            "translation": [
+                -1.75,
+                4.75,
+                2
+            ],
+            "scale": [
+                0.58,
+                0.58,
+                0.58
+            ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [
+                -5,
+                0,
+                0
+            ],
+            "translation": [
+                -1.75,
+                4.75,
+                2
+            ],
+            "scale": [
+                0.58,
+                0.58,
+                0.58
+            ]
+        },
+        "ground": {
+            "translation": [
+                0,
+                1.75,
+                -2.5
+            ],
+            "scale": [
+                0.5,
+                0.5,
+                0.5
+            ]
+        },
+        "gui": {
+            "rotation": [
+                90,
+                -53,
+                90
+            ],
+            "translation": [
+                -1.75,
+                2,
+                0
+            ]
+        },
+        "head": {
+            "translation": [
+                0,
+                10.75,
+                -2.5
+            ],
+            "scale": [
+                1.5,
+                1.5,
+                1.5
+            ]
+        },
+        "fixed": {
+            "rotation": [
+                0,
+                90,
+                0
+            ],
+            "translation": [
+                1.25,
+                5,
+                -1.75
+            ],
+            "scale": [
+                1.5,
+                1.5,
+                1.5
+            ]
+        }
+    },
+    "groups": [
+        {
+            "name": "pistol",
+            "origin": [
+                8,
+                2,
+                12
+            ],
+            "color": 0,
+            "children": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
+        }
+    ]
+}

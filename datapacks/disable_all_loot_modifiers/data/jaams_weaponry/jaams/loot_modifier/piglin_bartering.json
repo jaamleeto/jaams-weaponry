@@ -1,0 +1,15 @@
+{
+    "enabled": false,
+    "replace_all": true,
+    "loot_tables": [
+        "minecraft:gameplay/piglin_bartering"
+    ],
+    "entries": [
+        {
+            "item": "jaams_weaponry:stake",
+            "count_min": 1,
+            "count_max": 1,
+            "chance": 0.0
+        }
+    ]
+}
