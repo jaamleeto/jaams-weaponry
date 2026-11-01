@@ -62,6 +62,9 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
     private static final Logger LOGGER = LogManager.getLogger(EquipmentModifierLoader.class);
     public static final String SPAWN_EQUIPMENT_ROLLED = "jaams_weaponry:spawn_equipment_rolled";
 
+    /** Protocolo de claims compartido con otros mods (p.ej. jaams_shinerite) para no pisarse el equipo entre sistemas. */
+    public static final String EQUIPMENT_CLAIMS_TAG = "jaams_equipment_claims";
+
     private EquipmentModifierLoader() {
         super(GSON, "jaams/equipment_modifier");
     }
@@ -154,12 +157,37 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
 
     public java.util.Optional<ItemStack> resolveItem(ItemEntry entry) {
         if (entry == null || entry.item == null || entry.item.isEmpty()) return java.util.Optional.empty();
-        return resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.count);
+        java.util.Optional<ItemStack> stack = resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.count);
+        stack.ifPresent(s -> applyRandomColor(s, entry.random_color, entry.random_colors));
+        return stack;
     }
 
     public java.util.Optional<ItemStack> resolveEquipItem(EquipEntry entry) {
         if (entry == null || entry.item == null || entry.item.isEmpty()) return java.util.Optional.empty();
-        return resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.count);
+        java.util.Optional<ItemStack> stack = resolveItem(entry.item, entry.enchantments, entry.random_enchantments, entry.nbt, entry.count);
+        stack.ifPresent(s -> applyRandomColor(s, entry.random_color, entry.random_colors));
+        return stack;
+    }
+
+    private void applyRandomColor(ItemStack stack, boolean randomColor, List<String> pool) {
+        if (!randomColor) return;
+        if (!(stack.getItem() instanceof net.jaams.weaponry.dyeable.IDyeableItem)) return;
+        int color;
+        if (pool != null && !pool.isEmpty()) {
+            List<Integer> resolved = new ArrayList<>();
+            for (String name : pool) {
+                if (name == null) continue;
+                try {
+                    resolved.add(net.jaams.weaponry.util.ModUtils.parseColor(name));
+                } catch (IllegalArgumentException ignored) {
+                }
+            }
+            if (resolved.isEmpty()) return;
+            color = resolved.get(net.minecraft.util.RandomSource.create().nextInt(resolved.size()));
+        } else {
+            color = net.jaams.weaponry.util.ModUtils.randomSupportedColor(net.minecraft.util.RandomSource.create());
+        }
+        net.jaams.weaponry.util.ModUtils.applyDyeColor(stack, color);
     }
 
     private java.util.Optional<ItemStack> resolveItem(String itemPattern, Map<String, Integer> enchantments,
@@ -457,6 +485,12 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         List<EquipmentData> mods = getForEntityType(mob.getType());
         if (mods.isEmpty()) return false;
 
+        CompoundTag persistentData = mob.getPersistentData();
+        CompoundTag claims = new CompoundTag();
+        if (persistentData.contains(EQUIPMENT_CLAIMS_TAG, net.minecraft.nbt.Tag.TAG_COMPOUND)) {
+            claims = persistentData.getCompound(EQUIPMENT_CLAIMS_TAG);
+        }
+
         boolean anyApplied = false;
         for (EquipmentData data : mods) {
             try {
@@ -476,10 +510,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
                     if (!evaluateItemConditions(entry.conditions, data.condition_mode, stack)) continue;
 
                     net.minecraft.world.entity.EquipmentSlot slot = entry.getEquipmentSlot();
-                    if (!entry.replace_existing && !mob.getItemBySlot(slot).isEmpty()) continue;
-
-                    mob.setItemSlot(slot, stack);
-                    mob.setDropChance(slot, 0.0F);
+                    if (!tryClaimEquip(mob, data.priority, entry.replace_existing, slot, stack, claims, persistentData)) continue;
                     anyApplied = true;
 
 
@@ -493,10 +524,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
                                 if (!evaluateItemConditions(equip.conditions, data.condition_mode, equipStack)) continue;
 
                                 net.minecraft.world.entity.EquipmentSlot equipSlot = equip.getEquipmentSlot();
-                                if (!equip.replace_existing && !mob.getItemBySlot(equipSlot).isEmpty()) continue;
-
-                                mob.setItemSlot(equipSlot, equipStack);
-                                mob.setDropChance(equipSlot, 0.0F);
+                                tryClaimEquip(mob, data.priority, equip.replace_existing, equipSlot, equipStack, claims, persistentData);
                             } catch (Exception e) {
                                 LOGGER.error("Error applying dual wield equipment to {}", mob.getType().toShortString(), e);
                             }
@@ -522,7 +550,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         List<EquipmentData> mods = getForEntityType(mob.getType());
         if (mods.isEmpty()) return false;
 
-        java.util.Map<net.minecraft.world.entity.EquipmentSlot, ItemStack> virtual = new java.util.EnumMap<>(net.minecraft.world.entity.EquipmentSlot.class);
+        java.util.Map<net.minecraft.world.entity.EquipmentSlot, PendingEquipment> virtual = new java.util.EnumMap<>(net.minecraft.world.entity.EquipmentSlot.class);
 
         for (EquipmentData data : mods) {
             try {
@@ -540,7 +568,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
 
                     net.minecraft.world.entity.EquipmentSlot slot = entry.getEquipmentSlot();
                     if (!entry.replace_existing && virtual.containsKey(slot)) continue;
-                    virtual.put(slot, stack);
+                    virtual.put(slot, new PendingEquipment(entry.replace_existing, data.priority, stack));
 
                     if (entry.equipment != null) {
                         for (var equip : entry.equipment) {
@@ -553,7 +581,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
 
                                 net.minecraft.world.entity.EquipmentSlot equipSlot = equip.getEquipmentSlot();
                                 if (!equip.replace_existing && virtual.containsKey(equipSlot)) continue;
-                                virtual.put(equipSlot, equipStack);
+                                virtual.put(equipSlot, new PendingEquipment(equip.replace_existing, data.priority, equipStack));
                             } catch (Exception e) {
                                 LOGGER.error("Error rolling dual wield equipment for {}", mob.getType().toShortString(), e);
                             }
@@ -565,13 +593,48 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
             }
         }
 
+        // Protocolo de claims compartido con otros mods (p.ej. jaams_shinerite):
+        // se respetan los slots ya reclamados por otros sistemas y se registran los nuestros.
+        net.minecraft.nbt.CompoundTag claims = persist.contains(EQUIPMENT_CLAIMS_TAG, net.minecraft.nbt.Tag.TAG_COMPOUND)
+                ? persist.getCompound(EQUIPMENT_CLAIMS_TAG) : new net.minecraft.nbt.CompoundTag();
+
         for (var winner : virtual.entrySet()) {
-            mob.setItemSlot(winner.getKey(), winner.getValue());
-            mob.setDropChance(winner.getKey(), 0.0F);
+            net.minecraft.world.entity.EquipmentSlot slot = winner.getKey();
+            PendingEquipment pending = winner.getValue();
+            if (claims.contains(slot.getName(), net.minecraft.nbt.Tag.TAG_INT)) {
+                int claimedPriority = claims.getInt(slot.getName());
+                // Otro sistema ya equipo este slot: solo se sobreescribe con prioridad mayor y replace_existing.
+                if (!pending.replaceExisting() || pending.priority() < claimedPriority) continue;
+            }
+            mob.setItemSlot(slot, pending.stack);
+            mob.setDropChance(slot, 0.0F);
+            claims.putInt(slot.getName(), pending.priority);
+        }
+
+        if (!claims.isEmpty()) {
+            persist.put(EQUIPMENT_CLAIMS_TAG, claims);
         }
 
         persist.putBoolean(SPAWN_EQUIPMENT_ROLLED, true);
         return !virtual.isEmpty();
+    }
+
+    /** Entrada pendiente de aplicar, con los datos necesarios para el protocolo de claims compartido. */
+    private record PendingEquipment(boolean replaceExisting, int priority, ItemStack stack) {}
+
+    /** Claim compartido con otros sistemas de equipo (p.ej. jaams_shinerite): prioridad mas alta gana el slot. */
+    private boolean tryClaimEquip(Mob mob, int priority, boolean replaceExisting, net.minecraft.world.entity.EquipmentSlot slot,
+            ItemStack stack, net.minecraft.nbt.CompoundTag claims, net.minecraft.nbt.CompoundTag persistentData) {
+        String slotKey = slot.getName();
+        int stored = claims.contains(slotKey, net.minecraft.nbt.Tag.TAG_INT) ? claims.getInt(slotKey) : Integer.MIN_VALUE;
+        if (stored > priority) return false;
+        if (stored == priority && !replaceExisting) return false;
+
+        mob.setItemSlot(slot, stack);
+        mob.setDropChance(slot, 0.0F);
+        claims.putInt(slotKey, priority);
+        persistentData.put(EQUIPMENT_CLAIMS_TAG, claims);
+        return true;
     }
 
     @SubscribeEvent

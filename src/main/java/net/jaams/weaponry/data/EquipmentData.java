@@ -28,6 +28,12 @@ public class EquipmentData {
     
 
     public static class ItemEntry {
+
+        /** Compatibilidad con jaams_shinerite: tinta el item con un color aleatorio. */
+        public boolean random_color = false;
+
+        /** Paleta de colores (hex "#RRGGBB" o nombres), igual sintaxis que jaams_shinerite. */
+        public List<String> random_colors = new ArrayList<>();
         
         public String item = "";
 
@@ -89,6 +95,12 @@ public class EquipmentData {
     
 
     public static class EquipEntry {
+
+        /** Compatibilidad con jaams_shinerite: tinta el item con un color aleatorio. */
+        public boolean random_color = false;
+
+        /** Paleta de colores (hex "#RRGGBB" o nombres), igual sintaxis que jaams_shinerite. */
+        public List<String> random_colors = new ArrayList<>();
         
         public String item = "";
 
