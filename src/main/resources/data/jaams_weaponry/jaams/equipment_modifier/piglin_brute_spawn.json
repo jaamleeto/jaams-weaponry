@@ -3,6 +3,7 @@
         "minecraft:piglin_brute"
     ],
     "priority": 10,
+    "global_chance": 0.3,
     "condition_mode": "and",
     "conditions": [
         { "type": "is_baby", "negate": true }

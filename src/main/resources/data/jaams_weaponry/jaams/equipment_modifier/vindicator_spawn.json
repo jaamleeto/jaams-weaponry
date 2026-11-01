@@ -3,6 +3,7 @@
         "minecraft:vindicator"
     ],
     "priority": 10,
+    "global_chance": 0.3,
     "condition_mode": "and",
     "conditions": [],
     "items": [

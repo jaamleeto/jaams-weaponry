@@ -12,7 +12,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -146,21 +145,23 @@ public class TraitWhirlingStrikeMixin {
     }
 
     @Inject(method = "onUseTick", at = @At("HEAD"))
-    private void jaams$onWhirlingStrikeUseTick(Level world, LivingEntity entityLiving, int count, CallbackInfo ci) {
+    private void jaams$onWhirlingStrikeUseTick(Level world, LivingEntity user, int count, CallbackInfo ci) {
         ItemStack stack = (ItemStack) (Object) this;
         if (!isWhirlingStrikeEnabled(stack)) {
             return;
         }
-        if (!(entityLiving instanceof Player player) || player.isDeadOrDying() || player.isSpectator()) {
+        if (user == null || user.isDeadOrDying() || user.isSpectator()) {
             return;
         }
-        if (player.getCooldowns().isOnCooldown(stack.getItem())) {
+        // Players release the attack through item cooldowns; mobs (guards etc.)
+        // manage their own cooldown through their goal, so only gate players here.
+        if (user instanceof Player player && player.getCooldowns().isOnCooldown(stack.getItem())) {
             player.stopUsingItem();
             return;
         }
-        HitResult hitResult = calculateWhirlingHitResult(entityLiving);
-        ItemStack mainHandStack = player.getMainHandItem();
-        ItemStack offHandStack = player.getOffhandItem();
+        HitResult hitResult = calculateWhirlingHitResult(user);
+        ItemStack mainHandStack = user.getMainHandItem();
+        ItemStack offHandStack = user.getOffhandItem();
         boolean isMainHandWhirling = ModTraits.isWhirlingStrikeItem(mainHandStack);
         boolean isOffHandWhirling = ModTraits.isWhirlingStrikeItem(offHandStack);
         if (!isMainHandWhirling && !isOffHandWhirling) {
@@ -171,9 +172,9 @@ public class TraitWhirlingStrikeMixin {
             boolean anyNunchaku = (isMainHandWhirling && isNunchakuItem(mainHandStack))
                     || (isOffHandWhirling && isNunchakuItem(offHandStack));
             if (anyNunchaku) {
-                ModUtils.playSound(player, "jaams_weaponry:nunchaku_chain", SoundSource.AMBIENT, volume, 1.0F);
+                ModUtils.playSound(user, "jaams_weaponry:nunchaku_chain", SoundSource.AMBIENT, volume, 1.0F);
             } else {
-                ModUtils.playSound(player, "minecraft:entity.player.attack.weak", SoundSource.AMBIENT, volume, 1.0F);
+                ModUtils.playSound(user, "minecraft:entity.player.attack.weak", SoundSource.AMBIENT, volume, 1.0F);
             }
         }
         if (hitResult instanceof BlockHitResult blockHitResult && !world.isClientSide) {
@@ -184,28 +185,29 @@ public class TraitWhirlingStrikeMixin {
                 spawnWhirlingParticles((ServerLevel) world, blockPos, hitVec, direction);
             }
         }
-        if (count % getItemDamageInterval() == 0 && player instanceof ServerPlayer) {
+        if (count % getItemDamageInterval() == 0 && !world.isClientSide) {
             int itemDamageAmount = getItemDamageAmount();
             if (isMainHandWhirling) {
-                mainHandStack.hurtAndBreak(itemDamageAmount, player,
-                        e -> player.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                mainHandStack.hurtAndBreak(itemDamageAmount, user,
+                        e -> user.broadcastBreakEvent(InteractionHand.MAIN_HAND));
             }
             if (isOffHandWhirling) {
-                offHandStack.hurtAndBreak(itemDamageAmount, player,
-                        e -> player.broadcastBreakEvent(InteractionHand.OFF_HAND));
+                offHandStack.hurtAndBreak(itemDamageAmount, user,
+                        e -> user.broadcastBreakEvent(InteractionHand.OFF_HAND));
             }
         }
         if (count % getAttackInterval() == 0) {
             double range = getBaseAttackRange()
                     * (isMainHandWhirling && isOffHandWhirling ? getDualWieldRangeMultiplier() : 1.0);
-            Vec3 lookDirection = player.getLookAngle();
-            Vec3 start = player.position().add(0, player.getEyeHeight(), 0);
+            Vec3 lookDirection = user.getLookAngle();
+            Vec3 start = user.position().add(0, user.getEyeHeight(), 0);
             Vec3 end = start.add(lookDirection.scale(range));
             AABB areaOfEffect = new AABB(start, end).inflate(0.5, 1.5, 0.5);
-            List<LivingEntity> targets = world.getEntitiesOfClass(LivingEntity.class, areaOfEffect, e -> e != player
-                    && e.isAlive() && player.hasLineOfSight(e) && isWhirlingEntityInFront(player, e, 90.0F));
+            List<LivingEntity> targets = world.getEntitiesOfClass(LivingEntity.class, areaOfEffect, e -> e != user
+                    && e.isAlive() && user.hasLineOfSight(e) && isWhirlingEntityInFront(user, e, 90.0F)
+                    && !ModUtils.isAlliedEntity(user, e));
             for (LivingEntity target : targets) {
-                applyWhirlingEffectsAndDamage(player, target, mainHandStack, offHandStack, isMainHandWhirling,
+                applyWhirlingEffectsAndDamage(user, target, mainHandStack, offHandStack, isMainHandWhirling,
                         isOffHandWhirling);
             }
         }
@@ -247,6 +249,10 @@ public class TraitWhirlingStrikeMixin {
     @Unique
     private void applyWhirlingEffectsAndDamage(LivingEntity attacker, LivingEntity target, ItemStack mainHandStack,
             ItemStack offHandStack, boolean isMainHandWhirling, boolean isOffHandWhirling) {
+        // Guards never whirl their fellow guards, villagers or tamed animals.
+        if (ModUtils.isAlliedEntity(attacker, target)) {
+            return;
+        }
         int fireAspectLevel = Math.max(
                 mainHandStack.getEnchantmentLevel(Enchantments.FIRE_ASPECT),
                 offHandStack.getEnchantmentLevel(Enchantments.FIRE_ASPECT));
@@ -259,9 +265,6 @@ public class TraitWhirlingStrikeMixin {
             double knockbackStrength = knockbackLevel * 0.5;
             double yRotRad = Math.toRadians(attacker.getYRot());
             target.push(-Math.sin(yRotRad) * knockbackStrength, 0.1, Math.cos(yRotRad) * knockbackStrength);
-        }
-        if (attacker instanceof Player player && ModUtils.isAlliedEntity(player, target)) {
-            return;
         }
         float enchantmentBonusMain = isMainHandWhirling
                 ? EnchantmentHelper.getDamageBonus(mainHandStack, target.getMobType())

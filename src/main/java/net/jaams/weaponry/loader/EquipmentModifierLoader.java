@@ -60,12 +60,13 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
     private volatile Map<ResourceLocation, List<EquipmentData>> entityCache = new ConcurrentHashMap<>();
     private volatile Map<String, String> sources = new ConcurrentHashMap<>();
     private static final Logger LOGGER = LogManager.getLogger(EquipmentModifierLoader.class);
+    public static final String SPAWN_EQUIPMENT_ROLLED = "jaams_weaponry:spawn_equipment_rolled";
 
     private EquipmentModifierLoader() {
         super(GSON, "jaams/equipment_modifier");
     }
 
-    
+
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> resources, ResourceManager rm, ProfilerFiller prof) {
@@ -131,7 +132,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         INSTANCE.entityCache.clear();
     }
 
-    
+
 
     public List<EquipmentData> getForEntityType(EntityType<?> type) {
         if (type == null) return List.of();
@@ -149,7 +150,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         return result;
     }
 
-    
+
 
     public java.util.Optional<ItemStack> resolveItem(ItemEntry entry) {
         if (entry == null || entry.item == null || entry.item.isEmpty()) return java.util.Optional.empty();
@@ -168,6 +169,9 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         Item item = ForgeRegistries.ITEMS.getValue(itemId);
         if (item == null || item == Items.AIR) return java.util.Optional.empty();
         ItemStack stack = new ItemStack(item, Math.max(count, 1));
+        if (stack.getMaxStackSize() > 0 && stack.getCount() > stack.getMaxStackSize()) {
+            stack.setCount(stack.getMaxStackSize());
+        }
         applyEnchantments(stack, enchantments, randomEnch);
         applyNbt(stack, nbt);
         return java.util.Optional.of(stack);
@@ -246,7 +250,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         return StringTag.valueOf(String.valueOf(value));
     }
 
-    
+
 
     public boolean matchesEntity(List<String> patterns, ResourceLocation entityId) {
         if (patterns == null || patterns.isEmpty()) return false;
@@ -275,7 +279,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         return loc != null && loc.equals(entityId);
     }
 
-    
+
 
     public boolean evaluateItemConditions(List<EquipmentData.ItemCondition> conditions, String mode, ItemStack stack) {
         if (conditions == null || conditions.isEmpty()) return true;
@@ -339,7 +343,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         return result;
     }
 
-    
+
 
     public boolean evaluateEntityConditions(EquipmentData data, Mob mob) {
         if (data == null || mob == null) return false;
@@ -444,11 +448,11 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
         return min;
     }
 
-    
-    
-    
 
-    
+
+
+
+
     public boolean applySpawnEquipment(Mob mob, net.minecraft.util.RandomSource random) {
         List<EquipmentData> mods = getForEntityType(mob.getType());
         if (mods.isEmpty()) return false;
@@ -458,13 +462,13 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
             try {
                 if (!evaluateEntityConditions(data, mob)) continue;
 
-                
+
                 if (data.global_chance < 1.0 && random.nextDouble() >= data.global_chance) continue;
 
                 for (ItemEntry entry : data.items) {
                     if (entry.chance < 1.0 && random.nextDouble() >= entry.chance) continue;
 
-                    
+
                     java.util.Optional<ItemStack> itemOpt = resolveItem(entry);
                     if (itemOpt.isEmpty()) continue;
 
@@ -478,7 +482,7 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
                     mob.setDropChance(slot, 0.0F);
                     anyApplied = true;
 
-                    
+
                     if (entry.equipment != null) {
                         for (var equip : entry.equipment) {
                             try {
@@ -504,6 +508,70 @@ public class EquipmentModifierLoader extends SimpleJsonResourceReloadListener im
             }
         }
         return anyApplied;
+    }
+
+    public boolean applySpawnEquipmentOnce(Mob mob, net.minecraft.util.RandomSource random) {
+        CompoundTag persist = mob.getPersistentData();
+        if (persist.getBoolean(SPAWN_EQUIPMENT_ROLLED)) return false;
+
+        net.minecraft.world.entity.MobSpawnType spawnType = mob.getSpawnType();
+        if (spawnType == null || spawnType == net.minecraft.world.entity.MobSpawnType.COMMAND) {
+            return false;
+        }
+
+        List<EquipmentData> mods = getForEntityType(mob.getType());
+        if (mods.isEmpty()) return false;
+
+        java.util.Map<net.minecraft.world.entity.EquipmentSlot, ItemStack> virtual = new java.util.EnumMap<>(net.minecraft.world.entity.EquipmentSlot.class);
+
+        for (EquipmentData data : mods) {
+            try {
+                if (!evaluateEntityConditions(data, mob)) continue;
+                if (data.global_chance < 1.0 && random.nextDouble() >= data.global_chance) continue;
+
+                for (ItemEntry entry : data.items) {
+                    if (entry.chance < 1.0 && random.nextDouble() >= entry.chance) continue;
+
+                    java.util.Optional<ItemStack> itemOpt = resolveItem(entry);
+                    if (itemOpt.isEmpty()) continue;
+
+                    ItemStack stack = itemOpt.get();
+                    if (!evaluateItemConditions(entry.conditions, data.condition_mode, stack)) continue;
+
+                    net.minecraft.world.entity.EquipmentSlot slot = entry.getEquipmentSlot();
+                    if (!entry.replace_existing && virtual.containsKey(slot)) continue;
+                    virtual.put(slot, stack);
+
+                    if (entry.equipment != null) {
+                        for (var equip : entry.equipment) {
+                            try {
+                                java.util.Optional<ItemStack> equipOpt = resolveEquipItem(equip);
+                                if (equipOpt.isEmpty()) continue;
+
+                                ItemStack equipStack = equipOpt.get();
+                                if (!evaluateItemConditions(equip.conditions, data.condition_mode, equipStack)) continue;
+
+                                net.minecraft.world.entity.EquipmentSlot equipSlot = equip.getEquipmentSlot();
+                                if (!equip.replace_existing && virtual.containsKey(equipSlot)) continue;
+                                virtual.put(equipSlot, equipStack);
+                            } catch (Exception e) {
+                                LOGGER.error("Error rolling dual wield equipment for {}", mob.getType().toShortString(), e);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.error("Error rolling spawn equipment for {}", mob.getType().toShortString(), e);
+            }
+        }
+
+        for (var winner : virtual.entrySet()) {
+            mob.setItemSlot(winner.getKey(), winner.getValue());
+            mob.setDropChance(winner.getKey(), 0.0F);
+        }
+
+        persist.putBoolean(SPAWN_EQUIPMENT_ROLLED, true);
+        return !virtual.isEmpty();
     }
 
     @SubscribeEvent

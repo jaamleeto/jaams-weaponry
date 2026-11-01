@@ -729,6 +729,63 @@ public class ModUtils {
         return false;
     }
 
+    /**
+     * Generic variant of the player check above so trait mechanics driven by mobs
+     * (guards wielding guard stance / whirling strike weapons for example) respect
+     * the same ally rules and never sweep or whirl friendly entities.
+     */
+    public static boolean isAlliedEntity(LivingEntity user, Entity entity) {
+        if (!(entity instanceof LivingEntity)) {
+            return false;
+        }
+        if (user instanceof Player player) {
+            return isAlliedEntity(player, entity);
+        }
+        if (isMobFriendlyRelation(user, entity)) {
+            return true;
+        }
+        if (entity.getType().is(ModTags.IS_ALLY)) {
+            return true;
+        }
+        if (entity.isAlliedTo(user)) {
+            return true;
+        }
+        if (entity instanceof TamableAnimal tamable && tamable.isTame()) {
+            LivingEntity owner = tamable.getOwner();
+            if (owner == user || (owner != null && owner.isAlliedTo(user))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Mob specific friendliness, mainly so Guard Villagers guards never hit
+     * villagers, other guards, tamed animals or their owner while blocking in
+     * front of them.
+     */
+    private static boolean isMobFriendlyRelation(LivingEntity attacker, Entity entity) {
+        if (isGuardVillager(attacker)) {
+            if (entity.getType() == attacker.getType()) {
+                return true;
+            }
+            if (entity instanceof net.minecraft.world.entity.npc.AbstractVillager) {
+                return true;
+            }
+            if (entity instanceof TamableAnimal tamable && tamable.isTame()) {
+                LivingEntity owner = tamable.getOwner();
+                if (owner == attacker || owner instanceof Player || owner != null && owner.isAlliedTo(attacker)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isGuardVillager(LivingEntity entity) {
+        return "guardvillagers:guard".equals(EntityType.getKey(entity.getType()).toString());
+    }
+
     public static void applyShakeEffect(Entity entity, double shakeAmount, int shakeResetDelay) {
         if (entity == null || !(entity instanceof ServerPlayer player) || player.level().isClientSide) {
             return;

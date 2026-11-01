@@ -10,12 +10,14 @@ import net.jaams.weaponry.JaamsWeaponryMod;
 
 @Mod.EventBusSubscriber(modid = JaamsWeaponryMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class JaamsWeaponryModConfigs {
+	public static final String CONFIG_FOLDER = "jaams/weaponry";
+
 	@SubscribeEvent
 	@SuppressWarnings("removal")
 	public static void register(FMLConstructModEvent event) {
 		event.enqueueWork(() -> {
-			ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, JaamsWeaponryClientConfiguration.SPEC, "jaams/weaponry/jaams_weaponry_client.toml");
-			ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, JaamsWeaponryCommonConfiguration.SPEC, "jaams/weaponry/jaams_weaponry_common.toml");
+			ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, JaamsWeaponryClientConfiguration.SPEC, CONFIG_FOLDER + "/jaams_weaponry_client.toml");
+			ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, JaamsWeaponryCommonConfiguration.SPEC, CONFIG_FOLDER + "/jaams_weaponry_common.toml");
 		});
 	}
 }

@@ -478,7 +478,7 @@ public class TraitsConfig {
         THROWBACK_HUNTERS_BOOMERANG_PROJECTILE_MAX_RANGE = builder.comment("Maximum range (blocks) for throwback").defineInRange("Max Range", 24, 3, 100);
         THROWBACK_HUNTERS_BOOMERANG_PROJECTILE_RETURN_ON_MAX_RANGE = builder.comment("Return to owner when reaching max range").define("Return On Max Range", true);
         THROWBACK_HUNTERS_BOOMERANG_PROJECTILE_RETURN_ON_ENTITY_HIT = builder.comment("Return to owner after hitting an entity").define("Return On Entity Hit", true);
-        THROWBACK_HUNTERS_BOOMERANG_PROJECTILE_RETURN_ON_BLOCK_HIT = builder.comment("Return to owner after hitting a block").define("Return On Block Hit", false);
+        THROWBACK_HUNTERS_BOOMERANG_PROJECTILE_RETURN_ON_BLOCK_HIT = builder.comment("Return to owner after hitting a block").define("Return On Block Hit", true);
         THROWBACK_HUNTERS_BOOMERANG_PROJECTILE_RETURN_SPEED = builder.comment("How fast the projectile returns").defineInRange("Return Speed", 0.85, 0.1, 2.0);
         builder.pop();
         builder.push("Ring Projectile");

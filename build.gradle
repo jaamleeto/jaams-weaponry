@@ -66,6 +66,10 @@ dependencies {
     implementation fg.deobf("curse.maven:catalogue-459701:4766090")
 
     implementation fg.deobf("curse.maven:epic-fight-mod-405076:7476040")
+
+    implementation fg.deobf("curse.maven:it-takes-a-pillage-635843:4981343")
+
+    implementation fg.deobf("curse.maven:guard-villagers-360203:8719057")
 }
 
 mixin {
@@ -73,6 +77,7 @@ mixin {
 
     config 'mixins.jaams_weaponry.json'
     config 'mixins.jaams_weaponry.epicfight.json'
+    config 'mixins.jaams_weaponry.gv.json'
 
     debug.verbose = true
     debug.export = true

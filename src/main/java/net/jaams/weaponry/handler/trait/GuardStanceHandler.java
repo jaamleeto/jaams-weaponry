@@ -47,6 +47,7 @@ import net.jaams.weaponry.util.ModTraits;
 import net.jaams.weaponry.particle.CustomSweepParticleData;
 import net.jaams.weaponry.configuration.common.TraitsConfig;
 import net.jaams.weaponry.data.TraitModifierData;
+import net.jaams.weaponry.compat.GuardVillagersCompat;
 import net.jaams.weaponry.component.projectile.BaseBulletProjectileEntity;
 import net.jaams.weaponry.handler.event.AdvancementsHandler;
 
@@ -165,34 +166,37 @@ public class GuardStanceHandler {
     public static void onBlockingLivingAttack(LivingAttackEvent event) {
         if (!isGuardStanceEnabled())
             return;
-        if (!(event.getEntity() instanceof Player player))
-            return;
-        ItemStack itemStack = player.getUseItem();
+        LivingEntity defender = event.getEntity();
+        ItemStack itemStack = defender.getUseItem();
         if (!ModTraits.isGuardStanceItem(itemStack))
             return;
-        if (!isBlocking(player))
+        if (!isBlocking(defender))
             return;
         BlockingProperties config = getBlockingProperties(itemStack);
         Entity source = event.getSource().getEntity();
         if (source instanceof LivingEntity attacker
-                && canDisableBlocking(attacker.getMainHandItem(), itemStack, player, attacker)) {
-            disableBlockingWeapon(player, itemStack);
+                && canDisableBlocking(attacker.getMainHandItem(), itemStack, defender, attacker)) {
+            if (defender instanceof Player player) {
+                disableBlockingWeapon(player, itemStack);
+            } else {
+                GuardVillagersCompat.disableGuardShield(defender, itemStack);
+            }
             event.setCanceled(true);
             return;
         }
-        if (source != null && isInBlockingArea(player, source)) {
-            player.hurtTime = 0;
-            player.hurtDuration = 0;
-            player.invulnerableTime = 0;
-            player.clearFire();
-            player.refreshDimensions();
+        if (source != null && isInBlockingArea(defender, source)) {
+            defender.hurtTime = 0;
+            defender.hurtDuration = 0;
+            defender.invulnerableTime = 0;
+            defender.clearFire();
+            defender.refreshDimensions();
 
             SoundEvent blockSound = config.blockSound != null ? config.blockSound : SoundEvents.SHIELD_BLOCK;
-            player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
-                    blockSound, player.getSoundSource(), 1.0F, 1.0F);
+            defender.level().playSound(null, defender.getX(), defender.getY(), defender.getZ(),
+                    blockSound, defender.getSoundSource(), 1.0F, 1.0F);
             float originalDamage = event.getAmount();
             int damage = Math.max(0, Math.round(originalDamage * config.damageOnStop));
-            itemStack.hurtAndBreak(damage, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
+            itemStack.hurtAndBreak(damage, defender, p -> p.broadcastBreakEvent(defender.getUsedItemHand()));
             if (config.blockDamageReduction >= 1.0) {
                 event.setCanceled(true);
             }
@@ -205,16 +209,14 @@ public class GuardStanceHandler {
 	    if (!isGuardStanceEnabled())
 	        return;
 	    LivingEntity blocker = event.getEntity();
-	    if (!(blocker instanceof Player player))
-	        return;
-	    ItemStack itemStack = player.getUseItem();
+	    ItemStack itemStack = blocker.getUseItem();
 	    if (!ModTraits.isGuardStanceItem(itemStack))
 	        return;
-	    if (!isBlocking(player))
+	    if (!isBlocking(blocker))
 	        return;
 	    BlockingProperties config = getBlockingProperties(itemStack);
 	    Entity source = event.getDamageSource().getEntity();
-	    if (source != null && isInBlockingArea(player, source)) {
+	    if (source != null && isInBlockingArea(blocker, source)) {
 	        float originalDamage = event.getOriginalBlockedDamage();
 	        float blockedDamage = originalDamage * (float) config.blockDamageReduction;
 	        event.setBlockedDamage(blockedDamage);
@@ -224,16 +226,27 @@ public class GuardStanceHandler {
 
     @SubscribeEvent
     public static void onBlockingStopUsing(LivingEntityUseItemEvent.Stop event) {
+        onGuardStanceStopped(event.getEntity(), event.getItem());
+    }
+
+    /**
+     * Full guard stance release logic (sweep, cooldown, durability, sounds,
+     * particles). Called from the use-item Stop event for players and directly
+     * from the RaiseShieldGoal mixin for guards, since {@code stopUsingItem}
+     * fires no event when mobs drop their blocking stance.
+     */
+    public static void onGuardStanceStopped(LivingEntity user, ItemStack itemStack) {
+        if (user == null)
+            return;
         if (!isGuardStanceEnabled())
             return;
-        if (!(event.getEntity() instanceof Player player))
-            return;
-        ItemStack itemStack = event.getItem();
         if (!ModTraits.isGuardStanceItem(itemStack))
             return;
+        if (!isBlocking(user))
+            return;
         BlockingProperties config = getBlockingProperties(itemStack);
-        Level level = player.level();
-        if (player.isCrouching()) {
+        Level level = user.level();
+        if (user instanceof Player player && player.isCrouching()) {
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_ATTACK_WEAK,
                     player.getSoundSource(), 1.0F, 1.0F);
             return;
@@ -241,24 +254,30 @@ public class GuardStanceHandler {
         boolean applyCooldown = TraitsConfig.GUARD_STANCE_COOLDOWN.get();
         boolean applyAreaDamage = TraitsConfig.GUARD_STANCE_AREA_DAMAGE.get();
         if (applyCooldown) {
-            boolean globalCooldown = TraitsConfig.GUARD_STANCE_GLOBAL_COOLDOWN.get();
-            if (globalCooldown) {
-                for (ItemStack stack : player.getInventory().items) {
-                    if (!stack.isEmpty() && ModTraits.isGuardStanceItem(stack)) {
-                        player.getCooldowns().addCooldown(stack.getItem(), config.cooldownTicks);
+            if (user instanceof Player player) {
+                boolean globalCooldown = TraitsConfig.GUARD_STANCE_GLOBAL_COOLDOWN.get();
+                if (globalCooldown) {
+                    for (ItemStack stack : player.getInventory().items) {
+                        if (!stack.isEmpty() && ModTraits.isGuardStanceItem(stack)) {
+                            player.getCooldowns().addCooldown(stack.getItem(), config.cooldownTicks);
+                        }
                     }
-                }
-                ItemStack offHandStack = player.getOffhandItem();
-                if (!offHandStack.isEmpty() && ModTraits.isGuardStanceItem(offHandStack)) {
-                    player.getCooldowns().addCooldown(offHandStack.getItem(), config.cooldownTicks);
-                }
-                for (ItemStack stack : player.getInventory().armor) {
-                    if (!stack.isEmpty() && ModTraits.isGuardStanceItem(stack)) {
-                        player.getCooldowns().addCooldown(stack.getItem(), config.cooldownTicks);
+                    ItemStack offHandStack = player.getOffhandItem();
+                    if (!offHandStack.isEmpty() && ModTraits.isGuardStanceItem(offHandStack)) {
+                        player.getCooldowns().addCooldown(offHandStack.getItem(), config.cooldownTicks);
                     }
+                    for (ItemStack stack : player.getInventory().armor) {
+                        if (!stack.isEmpty() && ModTraits.isGuardStanceItem(stack)) {
+                            player.getCooldowns().addCooldown(stack.getItem(), config.cooldownTicks);
+                        }
+                    }
+                } else {
+                    player.getCooldowns().addCooldown(itemStack.getItem(), config.cooldownTicks);
                 }
             } else {
-                player.getCooldowns().addCooldown(itemStack.getItem(), config.cooldownTicks);
+                // Guards have no item cooldowns; reuse their shieldCoolDown so
+                // RaiseShieldGoal stays quiet for the configured duration.
+                GuardVillagersCompat.setGuardShieldCooldown(user, config.cooldownTicks);
             }
         }
         if (applyAreaDamage) {
@@ -269,39 +288,43 @@ public class GuardStanceHandler {
                         .mapToDouble(AttributeModifier::getAmount).sum();
             }
             float areaDamage = (float) (weaponDamage * config.areaDamageMultiplier);
-            applyAreaDamage(player, areaDamage, config.knockbackForce, config.areaRange);
+            applyAreaDamage(user, areaDamage, config.knockbackForce, config.areaRange);
         }
-        itemStack.hurtAndBreak(config.damageOnStop, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
+        itemStack.hurtAndBreak(config.damageOnStop, user,
+                p -> p.broadcastBreakEvent(user.getUsedItemHand()));
         SoundEvent sound = applyAreaDamage ? SoundEvents.PLAYER_ATTACK_SWEEP : SoundEvents.PLAYER_ATTACK_WEAK;
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), sound, player.getSoundSource(), 1.0F, 1.0F);
+        level.playSound(null, user.getX(), user.getY(), user.getZ(), sound, user.getSoundSource(), 1.0F, 1.0F);
         if (level instanceof ServerLevel serverLevel) {
-            if (player.isUnderWater()) {
-                spawnBubbleSweep(serverLevel, player, (float) config.areaRange, (float) config.particleSize);
+            if (user.isUnderWater()) {
+                spawnBubbleSweep(serverLevel, user, (float) config.areaRange, (float) config.particleSize);
             }
             if (applyAreaDamage) {
-                spawnParticleInFront(serverLevel, player,
+                spawnParticleInFront(serverLevel, user,
                         new CustomSweepParticleData(1.0F, 1.0F, 1.0F, (float) config.particleSize),
                         (float) config.particleSize, (float) config.particleDistance, itemStack);
             }
         }
     }
 
-    private static void applyAreaDamage(Player player, float areaDamage, double knockbackForce, double areaRange) {
+    private static void applyAreaDamage(LivingEntity user, float areaDamage, double knockbackForce,
+            double areaRange) {
         if (!TraitsConfig.GUARD_STANCE_AREA_DAMAGE.get())
             return;
-        if (!(player.level() instanceof ServerLevel serverLevel))
+        if (!(user.level() instanceof ServerLevel serverLevel))
             return;
-        AABB area = player.getBoundingBox().inflate(areaRange);
-        DamageSource damageSource = player.damageSources().playerAttack(player);
-        ItemStack mainHandItem = player.getMainHandItem();
+        AABB area = user.getBoundingBox().inflate(areaRange);
+        DamageSource damageSource = user instanceof Player player
+                ? user.damageSources().playerAttack(player)
+                : user.damageSources().mobAttack(user);
+        ItemStack mainHandItem = user.getMainHandItem();
         int smiteLevel = mainHandItem.getEnchantmentLevel(Enchantments.SMITE);
         int baneLevel = mainHandItem.getEnchantmentLevel(Enchantments.BANE_OF_ARTHROPODS);
         int fireAspectLevel = mainHandItem.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
         int knockbackLevel = mainHandItem.getEnchantmentLevel(Enchantments.KNOCKBACK);
         List<LivingEntity> targets = serverLevel
                 .getEntitiesOfClass(LivingEntity.class, area,
-                        entity -> !ModUtils.isAlliedEntity(player, entity) && entity.isAlive() && entity != player)
-                .stream().filter(target -> isInBlockingArea(player, target))
+                        entity -> !ModUtils.isAlliedEntity(user, entity) && entity.isAlive() && entity != user)
+                .stream().filter(target -> isInBlockingArea(user, target))
                 .collect(Collectors.toList());
         int targetCount = targets.size();
         float adjustedAreaDamage = targetCount > 1 ? areaDamage / (float) Math.sqrt(targetCount) : areaDamage;
@@ -318,17 +341,17 @@ public class GuardStanceHandler {
             if (fireAspectLevel > 0) {
                 target.setSecondsOnFire(fireAspectLevel * 4);
             }
-            Vec3 knockbackDirection = new Vec3(target.getX() - player.getX(), 0, target.getZ() - player.getZ())
+            Vec3 knockbackDirection = new Vec3(target.getX() - user.getX(), 0, target.getZ() - user.getZ())
                     .normalize().scale(-1);
             double knockbackX = knockbackDirection.x * (1 + knockbackLevel * 0.5);
             double knockbackZ = knockbackDirection.z * (1 + knockbackLevel * 0.5);
             target.knockback(knockbackForce, knockbackX, knockbackZ);
-            if (!player.isCreative() && target instanceof Mob mobTarget) {
-                mobTarget.setTarget(player);
+            if (!ModUtils.isAlliedEntity(user, target) && target instanceof Mob mobTarget) {
+                mobTarget.setTarget(user);
             }
         }
-        serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP,
-                player.getSoundSource(), 1.0F, 0.9F);
+        serverLevel.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP,
+                user.getSoundSource(), 1.0F, 0.9F);
     }
 
     private static void spawnParticleInFront(ServerLevel serverLevel, LivingEntity entity, ParticleOptions particleType,
@@ -372,32 +395,32 @@ public class GuardStanceHandler {
                 1, 0.0, 0.0, 0.0, 0.0);
     }
 
-    private static void spawnBubbleSweep(ServerLevel serverLevel, Player player, float particleDistance,
+    private static void spawnBubbleSweep(ServerLevel serverLevel, LivingEntity user, float particleDistance,
             float particleSize) {
         if (serverLevel.isClientSide())
             return;
         if (!TraitsConfig.GUARD_STANCE_AREA_DAMAGE.get())
             return;
-        double startX = player.getX();
-        double startY = player.getY() + player.getEyeHeight() * 0.8;
-        double startZ = player.getZ();
+        double startX = user.getX();
+        double startY = user.getY() + user.getEyeHeight() * 0.8;
+        double startZ = user.getZ();
         Vec3 startPos = new Vec3(startX, startY, startZ);
         int particleCount = 8;
         float arcAngle = (float) Math.toRadians(60);
         float angleStep = arcAngle / (particleCount - 1);
         RandomSource random = serverLevel.random;
-        float pitch = player.getXRot();
+        float pitch = user.getXRot();
         float clampedPitch = Math.max(-80.0F, Math.min(80.0F, pitch));
-        Vec3 adjustedLookVec = Vec3.directionFromRotation(clampedPitch, player.getYRot()).normalize();
+        Vec3 adjustedLookVec = Vec3.directionFromRotation(clampedPitch, user.getYRot()).normalize();
         for (int i = 0; i < particleCount; i++) {
             float angle = -arcAngle / 2 + i * angleStep;
             Vec3 rightVec = adjustedLookVec.cross(new Vec3(0, 1, 0)).normalize();
             Vec3 rotatedVec = adjustedLookVec.scale(Math.cos(angle)).add(rightVec.scale(Math.sin(angle))).normalize();
             Vec3 endPos = startPos.add(rotatedVec.scale(particleDistance));
             ClipContext clipContext = new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER,
-                    ClipContext.Fluid.NONE, player);
+                    ClipContext.Fluid.NONE, user);
             BlockHitResult blockHit = serverLevel.clip(clipContext);
-            EntityHitResult entityHit = getEntityHitResult(serverLevel, player, startPos, endPos);
+            EntityHitResult entityHit = getEntityHitResult(serverLevel, user, startPos, endPos);
             double adjustedDistance = Math.max(particleDistance - 0.1f, 0.1f);
             if (blockHit.getType() != HitResult.Type.MISS) {
                 adjustedDistance = Math.min(adjustedDistance, startPos.distanceTo(blockHit.getLocation()));
@@ -427,28 +450,27 @@ public class GuardStanceHandler {
         return null;
     }
 
-    private static boolean isInBlockingArea(Player player, Entity source) {
-        Direction playerFront = player.getDirection();
-        Direction attackerFacing = Direction.getNearest(source.getX() - player.getX(), 0,
-                source.getZ() - player.getZ());
+    private static boolean isInBlockingArea(LivingEntity entity, Entity source) {
+        Direction playerFront = entity.getDirection();
+        double defenderX = entity.getX();
+        double defenderZ = entity.getZ();
+        double dx = source.getX() - defenderX;
+        double dz = source.getZ() - defenderZ;
+        Direction attackerFacing = Direction.getNearest(dx, 0, dz);
         Direction leftSide = playerFront.getCounterClockWise();
         Direction rightSide = playerFront.getClockWise();
         return attackerFacing == playerFront || attackerFacing == leftSide || attackerFacing == rightSide;
     }
-
-    public static boolean isBlocking(Player player) {
-        return player.isUsingItem() && player.getUseItem().getUseAnimation() == UseAnim.BLOCK;
+    public static boolean isBlocking(LivingEntity entity) {
+        return entity.isUsingItem() && ModTraits.isGuardStanceItem(entity.getUseItem());
     }
-
-    private static boolean canDisableBlocking(ItemStack attackerStack, ItemStack blockingStack, Player player,
+    private static boolean canDisableBlocking(ItemStack attackerStack, ItemStack blockingStack, LivingEntity blocker,
             LivingEntity attacker) {
         return !attackerStack.isEmpty()
-                && attackerStack.getItem().canDisableShield(attackerStack, blockingStack, player, attacker);
+                && attackerStack.getItem().canDisableShield(attackerStack, blockingStack, blocker, attacker);
     }
-
     private static void disableBlockingWeapon(Player player, ItemStack itemStack) {
         if (!player.getCooldowns().isOnCooldown(itemStack.getItem())) {
-            player.getCooldowns().addCooldown(itemStack.getItem(), 100);
         }
         itemStack.hurtAndBreak(3, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
         player.stopUsingItem();

@@ -102,8 +102,12 @@ public abstract class PlayerModelPoseMixin {
         if (!player.isUsingItem())
             return;
 
-        if (player.getCooldowns().isOnCooldown(mainHand.getItem())
-                || player.getCooldowns().isOnCooldown(offHand.getItem()))
+        // Solo los propios nunchakus en giro se ven afectados por su cooldown.
+        // El cooldown de un item de la otra mano que no sea whirling strike no
+        // debe bloquear la animación.
+        if (isMainWhirling && player.getCooldowns().isOnCooldown(mainHand.getItem()))
+            return;
+        if (isOffWhirling && player.getCooldowns().isOnCooldown(offHand.getItem()))
             return;
 
         float partialTick = Minecraft.getInstance().getFrameTime();

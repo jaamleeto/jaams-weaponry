@@ -19,12 +19,6 @@ issueTrackerURL="https://github.com/jaamleeto/jaams-weaponry/issues"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.jaams_weaponry]]
-    modId="jei"
-    mandatory=false
-    versionRange="[0,)"
-    ordering="NONE"
-    side="BOTH"
 
 [modproperties."jaams_weaponry"]
 catalogueItemIcon="jaams_weaponry:iron_buster_sword"
@@ -34,3 +28,7 @@ configuredBackground="minecraft:textures/block/spruce_planks.png"
 [[mixins]]
 config="mixins.jaams_weaponry.epicfight.json"
 requiredMods=["epicfight"]
+
+[[mixins]]
+config="mixins.jaams_weaponry.gv.json"
+requiredMods=["guardvillagers"]

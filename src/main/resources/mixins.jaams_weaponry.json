@@ -74,15 +74,9 @@
         "trait.TraitWildSweepMixin",
         "trait.TraitGuardStanceMixin",
         "trait.TraitParryGuardMixin",
-        "mob.ZombieMixin",
-        "mob.DrownedMixin",
         "mob.SkeletonMixin",
-        "mob.WitherSkeletonMixin",
         "mob.PillagerMixin",
-        "mob.VindicatorMixin",
-        "mob.VexMixin",
-        "mob.PiglinMixin",
-        "mob.PiglinBruteMixin"
+        "mob.PiglinMixin"
     ],
     "client": [
         "access.CameraAccessor",

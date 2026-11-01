@@ -7,43 +7,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.Mixin;
 
 import net.minecraft.world.entity.monster.Pillager;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.LivingEntity;
 
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.entity.projectile.Arrow;
 
-
-
-import net.jaams.weaponry.loader.EquipmentModifierLoader;
 import net.jaams.weaponry.item.GreatCrossbowItem;
 import net.jaams.weaponry.item.HuntersCrossbowItem;
 
 @Mixin(Pillager.class)
 public abstract class PillagerMixin {
-
-    
-    
-    
-
-    @Inject(method = "populateDefaultEquipmentSlots", at = @At("HEAD"), cancellable = true)
-    private void modifyDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty, CallbackInfo ci) {
-        Mob self = (Mob) (Object) this;
-        if (EquipmentModifierLoader.INSTANCE.applySpawnEquipment(self, random)) {
-            ci.cancel();
-        }
-    }
-
-    
-    
-    
 
     @SuppressWarnings("deprecation")
     @Inject(at = @At("HEAD"), method = "canFireProjectileWeapon(Lnet/minecraft/world/item/ProjectileWeaponItem;)Z", cancellable = true)
@@ -52,10 +30,6 @@ public abstract class PillagerMixin {
             callback.setReturnValue(true);
         }
     }
-
-    
-    
-    
 
     @Inject(at = @At("HEAD"), method = "performRangedAttack(Lnet/minecraft/world/entity/LivingEntity;F)V", cancellable = true)
     public void performRangedAttack(LivingEntity target, float velocity, CallbackInfo callback) {
@@ -71,10 +45,6 @@ public abstract class PillagerMixin {
             callback.cancel();
         }
     }
-
-    
-    
-    
 
     @Inject(at = @At("HEAD"),
             method = "shootCrossbowProjectile(Lnet/minecraft/world/entity/LivingEntity;"
@@ -92,6 +62,5 @@ public abstract class PillagerMixin {
             arrow.setBaseDamage(Math.min(arrow.getBaseDamage(), 2.0));
         }
     }
-
 
 }

@@ -1,0 +1,56 @@
+{
+    "entity": [
+        "takesapillage:archer"
+    ],
+    "priority": 10,
+    "global_chance": 0.6,
+    "condition_mode": "and",
+    "conditions": [],
+    "items": [
+        {
+            "item": "jaams_weaponry:short_bow",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:flat_bow",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.2,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:compound_bow",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:royal_bow",
+            "slot": "mainhand",
+            "chance": 0.006,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        }
+    ]
+}

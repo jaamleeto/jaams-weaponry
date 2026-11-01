@@ -5,11 +5,13 @@ import net.jaams.weaponry.capability.aberration.AberrationProvider;
 import net.jaams.weaponry.capability.amount.AmountProvider;
 import net.jaams.weaponry.packet.AberrationPacket;
 import net.jaams.weaponry.packet.AmountPacket;
+import net.jaams.weaponry.network.SyncModDataMessage;
 import net.jaams.weaponry.util.ModEnums;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -71,6 +73,16 @@ public class CapabilityEvents {
                 });
             }
 
+        }
+    }
+
+    @SubscribeEvent
+    public static void onModDataSync(OnDatapackSyncEvent event) {
+        for (ServerPlayer player : event.getPlayers()) {
+            if (player.level().isClientSide)
+                continue;
+            JaamsWeaponryMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> player),
+                    SyncModDataMessage.fromServerState());
         }
     }
 

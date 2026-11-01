@@ -1,10 +1,7 @@
 package net.jaams.weaponry.mixins.mob;
 
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
@@ -17,7 +14,6 @@ import net.jaams.weaponry.item.FlatBowItem;
 import net.jaams.weaponry.item.HuntersBowItem;
 import net.jaams.weaponry.item.RoyalBowItem;
 import net.jaams.weaponry.item.ShortBowItem;
-import net.jaams.weaponry.loader.EquipmentModifierLoader;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,14 +24,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractSkeleton.class)
 public abstract class SkeletonMixin {
-
-    @Inject(method = "populateDefaultEquipmentSlots", at = @At("HEAD"), cancellable = true)
-    private void modifyDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty, CallbackInfo ci) {
-        Mob self = (Mob) (Object) this;
-        if (EquipmentModifierLoader.INSTANCE.applySpawnEquipment(self, random)) {
-            ci.cancel();
-        }
-    }
 
     @Shadow
     @Final

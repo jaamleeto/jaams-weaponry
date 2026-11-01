@@ -92,6 +92,12 @@ public class AddItemLootModifier extends LootModifier {
 
                 ItemStack stack = new ItemStack(item, count);
 
+                int maxStack = stack.getMaxStackSize();
+                if (maxStack > 0 && count > maxStack) {
+                    stack.setCount(maxStack);
+                    count = maxStack;
+                }
+
                 
                 if (entry.nbt != null && !entry.nbt.isEmpty()) {
                     try {

@@ -61,6 +61,12 @@ public class TradeModifierHandler {
                 }
 
                 ItemStack sellStack = new ItemStack(sellItem, tradeEntry.sell_count);
+                int sellMaxStack = sellStack.getMaxStackSize();
+                if (sellMaxStack > 0 && sellStack.getCount() > sellMaxStack) {
+                    JaamsWeaponryMod.LOGGER.warn("TradeModifier: sell_count {} for '{}' exceeds max stack size {}, clamping",
+                            tradeEntry.sell_count, tradeEntry.sell_item, sellMaxStack);
+                    sellStack.setCount(sellMaxStack);
+                }
 
                 
                 if (tradeEntry.sell_nbt != null && !tradeEntry.sell_nbt.isEmpty()) {
@@ -101,6 +107,12 @@ public class TradeModifierHandler {
                     continue;
                 }
                 ItemStack costStack = new ItemStack(costItem, tradeEntry.cost_count);
+                int costMaxStack = costStack.getMaxStackSize();
+                if (costMaxStack > 0 && costStack.getCount() > costMaxStack) {
+                    JaamsWeaponryMod.LOGGER.warn("TradeModifier: cost_count {} for '{}' exceeds max stack size {}, clamping",
+                            tradeEntry.cost_count, tradeEntry.cost_item, costMaxStack);
+                    costStack.setCount(costMaxStack);
+                }
 
                 
                 VillagerTrades.ItemListing listing = (trader, random) -> {

@@ -19,6 +19,7 @@ import net.jaams.weaponry.init.ModRecipes;
 import net.jaams.weaponry.init.ModSounds;
 import net.jaams.weaponry.init.ModTabs;
 import net.jaams.weaponry.network.SyncModDataMessage;
+import net.jaams.weaponry.network.CommonConfigSyncMessage;
 import net.jaams.weaponry.packet.AberrationPacket;
 import net.jaams.weaponry.packet.AmountPacket;
 import net.jaams.weaponry.packet.GunInventoryPacket;
@@ -131,6 +132,8 @@ public class JaamsWeaponryMod {
                 VisualRecoilPacket::handle);
         addNetworkMessage(SyncModDataMessage.class, SyncModDataMessage::encode, SyncModDataMessage::decode,
                 SyncModDataMessage::handle);
+        addNetworkMessage(CommonConfigSyncMessage.class, CommonConfigSyncMessage::encode, CommonConfigSyncMessage::decode,
+                CommonConfigSyncMessage::handle);
     }
 
     private static final String PROTOCOL_VERSION = "1";

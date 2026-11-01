@@ -3,6 +3,7 @@
         "minecraft:stray"
     ],
     "priority": 10,
+    "global_chance": 0.5,
     "condition_mode": "and",
     "conditions": [],
     "items": [

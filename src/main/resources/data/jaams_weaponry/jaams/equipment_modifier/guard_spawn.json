@@ -1,0 +1,476 @@
+{
+    "entity": [
+        "guardvillagers:guard"
+    ],
+    "priority": 10,
+    "global_chance": 1.0,
+    "condition_mode": "and",
+    "conditions": [],
+    "items": [
+        {
+            "item": "minecraft:iron_sword",
+            "slot": "mainhand",
+            "chance": 0.3,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_longsword",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_broadsword",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_katana",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_machete",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_spear",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_battle_axe",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_dagger",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_cleaver",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:crossbow",
+            "slot": "mainhand",
+            "chance": 0.3,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_crossbow",
+            "slot": "mainhand",
+            "chance": 0.15,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stake_crossbow",
+            "slot": "mainhand",
+            "chance": 0.1,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:great_crossbow",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:iron_scattergun",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:short_bow",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:flat_bow",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_bow",
+            "slot": "mainhand",
+            "chance": 0.08,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:compound_bow",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:stone_slingshot",
+            "slot": "mainhand",
+            "chance": 0.04,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:kunai",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:sharp_stone",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:dynamite",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "count": 8,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:smoke_bomb",
+            "slot": "mainhand",
+            "chance": 0.03,
+            "count": 8,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:giant_shuriken",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:hunters_boomerang",
+            "slot": "mainhand",
+            "chance": 0.06,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:pronged_kunai",
+            "slot": "mainhand",
+            "chance": 0.05,
+            "count": 16,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:royal_sword",
+            "slot": "mainhand",
+            "chance": 0.004,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:royal_crossbow",
+            "slot": "mainhand",
+            "chance": 0.004,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "jaams_weaponry:royal_bow",
+            "slot": "mainhand",
+            "chance": 0.004,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:shield",
+            "slot": "offhand",
+            "chance": 0.5,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:bread",
+            "slot": "offhand",
+            "chance": 0.1,
+            "count": 3,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:leather_helmet",
+            "slot": "head",
+            "chance": 0.037,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:iron_helmet",
+            "slot": "head",
+            "chance": 0.013,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_helmet",
+            "slot": "head",
+            "chance": 0.033,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:chainmail_helmet",
+            "slot": "head",
+            "chance": 0.012,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:diamond_helmet",
+            "slot": "head",
+            "chance": 0.0004,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:leather_chestplate",
+            "slot": "chest",
+            "chance": 0.037,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:iron_chestplate",
+            "slot": "chest",
+            "chance": 0.013,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_chestplate",
+            "slot": "chest",
+            "chance": 0.033,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:chainmail_chestplate",
+            "slot": "chest",
+            "chance": 0.012,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:diamond_chestplate",
+            "slot": "chest",
+            "chance": 0.0004,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:leather_leggings",
+            "slot": "legs",
+            "chance": 0.037,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:iron_leggings",
+            "slot": "legs",
+            "chance": 0.013,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_leggings",
+            "slot": "legs",
+            "chance": 0.033,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:chainmail_leggings",
+            "slot": "legs",
+            "chance": 0.012,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:diamond_leggings",
+            "slot": "legs",
+            "chance": 0.0004,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:leather_boots",
+            "slot": "feet",
+            "chance": 0.037,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:iron_boots",
+            "slot": "feet",
+            "chance": 0.013,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:golden_boots",
+            "slot": "feet",
+            "chance": 0.033,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:chainmail_boots",
+            "slot": "feet",
+            "chance": 0.012,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        },
+        {
+            "item": "minecraft:diamond_boots",
+            "slot": "feet",
+            "chance": 0.0004,
+            "replace_existing": false,
+            "enchantments": {},
+            "nbt": {},
+            "conditions": []
+        }
+    ]
+}
